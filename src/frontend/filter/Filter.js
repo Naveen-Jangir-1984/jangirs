@@ -104,44 +104,90 @@ const Filter = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     state.members[0].children?.map(member => traverseDeadAndUnmarriedFemales(member))
     return deadAndUnmarriedFemales;
   }
+  // count villages for men (works only with 1 wife)
+  const villagesForMales = [];
+  const traverseVillagesForMales = (member) => {
+    member.gender === 'M' && member.wives?.length && member.wives[0].village?.length && villagesForMales.push(member.wives[0].village);
+    member.gender === 'M' && member.children?.map((child) => traverseVillagesForMales(child));
+  };
+  const getVillagesForMales = () => {
+    state.members.forEach(member => traverseVillagesForMales(member));
+    return villagesForMales.filter((item, index, self) => self.indexOf(item) === index).sort();
+  };
+  // count gotras for men
+  const gotrasForMales = [];
+  const traverseGotrasForMales = (member) => {
+    member.gender === 'M' && member.wives?.length && member.wives[0].gotra?.length && gotrasForMales.push(member.wives[0].gotra);
+    member.gender === 'M' && member.children?.map(child => traverseGotrasForMales(child));
+  };
+  const getGotrasForMales = () => {
+    state.members.forEach(member => traverseGotrasForMales(member));
+    return gotrasForMales.filter((item, index, self) => self.indexOf(item) === index).sort();
+  };
+  // count villages for for village dropdown
+  let villagesForMalesCountForDropdown = 0;
+  const traverseForMaleMembersWithVillages = (member, village) => {
+    member.wives?.length && member.wives[0].village === village && villagesForMalesCountForDropdown++;
+    member.gender === 'M' && member.children?.forEach(member => traverseForMaleMembersWithVillages(member, village));
+  };
+  const getMaleMembersWithVillages = (village) => {
+    villagesForMalesCountForDropdown = 0;
+    state.members[0].wives?.length && state.members[0].wives[0].village === village && villagesForMalesCountForDropdown++;
+    state.members[0].gender === 'M' && state.members[0].children?.forEach((member) => traverseForMaleMembersWithVillages(member, village));
+    return villagesForMalesCountForDropdown;
+  };
+  // count gotras for for gotra dropdown
+  let gotraForMalesCountForDropdown = 0;
+  const traverseForMaleMembersWithGotra = (member, gotra) => {
+    member.wives?.length && member.wives[0].gotra === gotra && gotraForMalesCountForDropdown++;
+    member.gender === 'M' && member.children?.forEach(member => traverseForMaleMembersWithGotra(member, gotra));
+  };
+  const getMaleMembersWithGotras = (gotra) => {
+    gotraForMalesCountForDropdown = 0;
+    state.members[0].wives?.length && state.members[0].wives[0].gotra === gotra && gotraForMalesCountForDropdown++;
+    state.members[0].gender === 'M' && state.members[0].children?.forEach(member => traverseForMaleMembersWithGotra(member, gotra));
+    return gotraForMalesCountForDropdown;
+  };
   return (
     <div className='filter'>
       <fieldset className='filter-men'>
         <legend>{state.user.language ? 'Men' : 'पुरुष'}</legend>
         <select name='village' value={men.village} onChange={(e) => setMen({ ...men, [e.target.name]: e.target.value })}>
-          <option value=''>-- {state.user.language ? 'village' : 'ससुराल'} --</option>
+          <option value=''>{state.user.language ? `village (${getVillagesForMales().length})` : `ससुराल (${getHindiNumbers(getVillagesForMales().length.toString())})`}</option>
+          {getVillagesForMales().map((village, i) => <option key={i} value={village}>{state.user.language ? `${village} (${getMaleMembersWithVillages(village)})` : `${getHindiText(village, 'village')} (${getHindiNumbers(getMaleMembersWithVillages(village).toString())})`}</option>)}
         </select>
         <div>
           <span>{state.user.language ? 
-            `Married ( ${getAliveAndMarriedMales()} / ${getDeadAndMarriedMales()} )` : 
-            `विवाहित ( ${getHindiNumbers(getAliveAndMarriedMales().toString())} / ${getHindiNumbers(getDeadAndMarriedMales().toString())} )`
+            `Married (${getAliveAndMarriedMales()} / ${getDeadAndMarriedMales()})` : 
+            `विवाहित (${getHindiNumbers(getAliveAndMarriedMales().toString())} / ${getHindiNumbers(getDeadAndMarriedMales().toString())})`
           }</span>
           <span>{state.user.language ? 
-            `Unmarried ( ${getAliveAndUnmarriedMales()} / ${getDeadAndUnmarriedMales()} )` : 
-            `अविवाहित ( ${getHindiNumbers(getAliveAndUnmarriedMales().toString())} / ${getHindiNumbers(getDeadAndUnmarriedMales().toString())} )`
+            `Unmarried (${getAliveAndUnmarriedMales()} / ${getDeadAndUnmarriedMales()})` : 
+            `अविवाहित (${getHindiNumbers(getAliveAndUnmarriedMales().toString())} / ${getHindiNumbers(getDeadAndUnmarriedMales().toString())})`
           }</span>
         </div>
         <select name='gotra' value={men.gotra} onChange={(e) => setMen({ ...men, [e.target.name]: e.target.value })}>
-          <option value=''>-- {state.user.language ? 'gotra' : 'गोत्र'} --</option>
+          <option value=''>{state.user.language ? `gotra (${getGotrasForMales().length})` : `गोत्र (${getHindiNumbers(getGotrasForMales().length.toString())})`}</option>
+          {getGotrasForMales().map((gotra, i) => <option key={i} value={gotra}>{state.user.language ? `${gotra} (${getMaleMembersWithGotras(gotra)})` : `${getHindiText(gotra, 'gotra')} (${getHindiNumbers(getMaleMembersWithGotras(gotra).toString())})`}</option>)}
         </select>
       </fieldset>
       <fieldset className='filter-women'>
         <legend>{state.user.language ? 'Women' : 'महिलाएं'}</legend>
         <select name='village' value={women.village} onChange={(e) => setWomen({ ...women, [e.target.name]: e.target.value })}>
-          <option value=''>-- {state.user.language ? 'village' : 'ससुराल'} --</option>
+          <option value=''>{state.user.language ? 'village' : 'ससुराल'}</option>
         </select>
         <div>
           <span>{state.user.language ? 
-            `Married ( ${getAliveAndMarriedFemales()} / ${getDeadAndMarriedFemales()} )` : 
-            `विवाहित ( ${getHindiNumbers(getAliveAndMarriedFemales().toString())} / ${getHindiNumbers(getDeadAndMarriedFemales().toString())} )`
+            `Married (${getAliveAndMarriedFemales()} / ${getDeadAndMarriedFemales()})` : 
+            `विवाहित (${getHindiNumbers(getAliveAndMarriedFemales().toString())} / ${getHindiNumbers(getDeadAndMarriedFemales().toString())})`
           }</span>
           <span>{state.user.language ? 
-            `Unmarried ( ${getAliveAndUnmarriedFemales()} / ${getDeadAndUnmarriedFemales()} )` : 
-            `अविवाहित ( ${getHindiNumbers(getAliveAndUnmarriedFemales().toString())} / ${getHindiNumbers(getDeadAndUnmarriedFemales().toString())} )`
+            `Unmarried (${getAliveAndUnmarriedFemales()} / ${getDeadAndUnmarriedFemales()} )` : 
+            `अविवाहित (${getHindiNumbers(getAliveAndUnmarriedFemales().toString())} / ${getHindiNumbers(getDeadAndUnmarriedFemales().toString())})`
           }</span>
         </div>
         <select name='gotra' value={women.gotra} onChange={(e) => setWomen({ ...women, [e.target.name]: e.target.value })}>
-          <option value=''>-- {state.user.language ? 'gotra' : 'गोत्र'} --</option>
+          <option value=''>{state.user.language ? 'gotra' : 'गोत्र'}</option>
         </select>
       </fieldset>
     </div>
