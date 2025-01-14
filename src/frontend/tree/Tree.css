@@ -1,0 +1,38 @@
+.tree {
+  width: 100%;
+  height: 85%;
+  overflow-x: hidden;
+}
+
+.member-card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  margin-bottom: 2px;
+  border: none;
+  border-radius: 5px;
+  column-gap: 7px;
+}
+.member-card:hover {
+  cursor: pointer;
+}
+
+.member-wife-card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.display-pic {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+
+.toggle-icons {
+  width: 10px;
+  height: 10px;  
+}
