@@ -16,12 +16,12 @@ const Filter = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   let aliveAndMarriedMales = 0;
   const traverseAliveAndMarriedMales = (member) => {
     member.gender === 'M' && member.isAlive && member.wives?.length && aliveAndMarriedMales++;
-    member.children?.map(child => traverseAliveAndMarriedMales(child));
+    member.gender === 'M' && member.children?.map(child => traverseAliveAndMarriedMales(child));
   }
   const getAliveAndMarriedMales = () => {
     aliveAndMarriedMales = 0;
     state.members[0].gender === 'M' && state.members[0].isAlive && state.members[0].wives?.length && aliveAndMarriedMales++;
-    state.members[0].children?.map(member => traverseAliveAndMarriedMales(member));
+    state.members[0].gender === 'M' && state.members[0].children?.map(member => traverseAliveAndMarriedMales(member));
     return aliveAndMarriedMales;
   }
   // count dead and married males
@@ -60,6 +60,50 @@ const Filter = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     state.members[0].gender === 'M' && state.members[0].children?.map(member => traverseDeadAndUnmarriedMales(member));
     return deadAndUnmarriedMales;
   }
+  // count alive and married females
+  let aliveAndMarriedFemales = 0;
+  const traverseAliveAndMarriedFemales = (member) => {
+    member.gender === 'F' && member.isAlive && member.village !== undefined && aliveAndMarriedFemales++
+    member.children?.map(m => traverseAliveAndMarriedFemales(m))
+  }
+  const getAliveAndMarriedFemales = () => {
+    aliveAndMarriedFemales = 0;
+    state.members[0].children?.map(member => traverseAliveAndMarriedFemales(member))
+    return aliveAndMarriedFemales;
+  }
+  // count married and dead females
+  let deadAndMarriedFemales = 0;
+  const traverseDeadAndMarriedFemales = (member) => {
+    member.gender === 'F' && !member.isAlive && member.village !== undefined && deadAndMarriedFemales++
+    member.children?.map(m => traverseDeadAndMarriedFemales(m))
+  }
+  const getDeadAndMarriedFemales = () => {
+    deadAndMarriedFemales = 0;
+    state.members[0].children?.map(member => traverseDeadAndMarriedFemales(member))
+    return deadAndMarriedFemales;
+  }
+  // count unmarried and alive females
+  let aliveAndUnmarriedFemales = 0;
+  const traverseAliveAndUnmarriedFemales = (member) => {
+    member.gender === 'F' && member.isAlive && member.village === undefined && aliveAndUnmarriedFemales++
+    member.children?.map(child => traverseAliveAndUnmarriedFemales(child))
+  }
+  const getAliveAndUnmarriedFemales = () => {
+    aliveAndUnmarriedFemales = 0;
+    state.members[0].children?.map(member => traverseAliveAndUnmarriedFemales(member))
+    return aliveAndUnmarriedFemales;
+  }
+  // count unmarried and dead females
+  let deadAndUnmarriedFemales = 0;
+  const traverseDeadAndUnmarriedFemales = (member) => {
+    member.gender === 'F' && !member.isAlive && member.village === undefined && deadAndUnmarriedFemales++
+    member.children?.map(child => traverseDeadAndUnmarriedFemales(child))
+  }
+  const getDeadAndUnmarriedFemales = () => {
+    deadAndUnmarriedFemales = 0;
+    state.members[0].children?.map(member => traverseDeadAndUnmarriedFemales(member))
+    return deadAndUnmarriedFemales;
+  }
   return (
     <div className='filter'>
       <fieldset className='filter-men'>
@@ -86,6 +130,16 @@ const Filter = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
         <select name='village' value={women.village} onChange={(e) => setWomen({ ...women, [e.target.name]: e.target.value })}>
           <option value=''>-- {state.user.language ? 'village' : 'ससुराल'} --</option>
         </select>
+        <div>
+          <span>{state.user.language ? 
+            `Married ( ${getAliveAndMarriedFemales()} / ${getDeadAndMarriedFemales()} )` : 
+            `विवाहित ( ${getHindiNumbers(getAliveAndMarriedFemales().toString())} / ${getHindiNumbers(getDeadAndMarriedFemales().toString())} )`
+          }</span>
+          <span>{state.user.language ? 
+            `Unmarried ( ${getAliveAndUnmarriedFemales()} / ${getDeadAndUnmarriedFemales()} )` : 
+            `अविवाहित ( ${getHindiNumbers(getAliveAndUnmarriedFemales().toString())} / ${getHindiNumbers(getDeadAndUnmarriedFemales().toString())} )`
+          }</span>
+        </div>
         <select name='gotra' value={women.gotra} onChange={(e) => setWomen({ ...women, [e.target.name]: e.target.value })}>
           <option value=''>-- {state.user.language ? 'gotra' : 'गोत्र'} --</option>
         </select>
