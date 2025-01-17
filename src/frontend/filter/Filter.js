@@ -1,17 +1,8 @@
-import { useState } from "react";
 import './Filter.css';
 
-const Filter = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
-  // const [aliveAndMarriedMales, setAliveAndMarriedMales] = useState(0);
-  // const [deadAndMarriedMales, setDeadAndMarriedMales] = useState(0);
-  const [men, setMen] = useState({
-    village: '',
-    gotra: ''
-  })
-  const [women, setWomen] = useState({
-    village: '',
-    gotra: ''
-  })
+const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers }) => {
+  const male = state.filters.male;
+  const female = state.filters.female;
   // count alive and married males
   let aliveAndMarriedMales = 0;
   const traverseAliveAndMarriedMales = (member) => {
@@ -20,8 +11,7 @@ const Filter = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   }
   const getAliveAndMarriedMales = () => {
     aliveAndMarriedMales = 0;
-    state.members[0].gender === 'M' && state.members[0].isAlive && state.members[0].wives?.length && aliveAndMarriedMales++;
-    state.members[0].gender === 'M' && state.members[0].children?.map(member => traverseAliveAndMarriedMales(member));
+    members.forEach(member => traverseAliveAndMarriedMales(member));
     return aliveAndMarriedMales;
   }
   // count dead and married males
@@ -31,9 +21,8 @@ const Filter = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     member.gender === 'M' && member.children?.map(child => traverseDeadAndMarriedMales(child));
   }
   const getDeadAndMarriedMales = () => {
-    aliveAndMarriedMales = 0;
-    state.members[0].gender === 'M' && !state.members[0].isAlive && state.members[0].wives?.length && deadAndMarriedMales++;
-    state.members[0].gender === 'M' && state.members[0].children?.map(member => traverseDeadAndMarriedMales(member));
+    deadAndMarriedMales = 0;
+    members.forEach(member => traverseDeadAndMarriedMales(member));
     return deadAndMarriedMales;
   }
   // count alive and unmarried males
@@ -44,8 +33,7 @@ const Filter = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   }
   const getAliveAndUnmarriedMales = () => {
     aliveAndUnmarriedMales = 0;
-    state.members[0].gender === 'M' && state.members[0].isAlive && state.members[0].wives?.length === 0 && aliveAndUnmarriedMales++;
-    state.members[0].gender === 'M' && state.members[0].children?.map(member => traverseAliveAndUnmarriedMales(member));
+    members.forEach(member => traverseAliveAndUnmarriedMales(member));
     return aliveAndUnmarriedMales;
   }
   // count dead and unmarried males
@@ -56,52 +44,51 @@ const Filter = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   }
   const getDeadAndUnmarriedMales = () => {
     deadAndUnmarriedMales = 0;
-    state.members[0].gender === 'M' && !state.members[0].isAlive && state.members[0].wives?.length === 0 && deadAndUnmarriedMales++;
-    state.members[0].gender === 'M' && state.members[0].children?.map(member => traverseDeadAndUnmarriedMales(member));
+    members.forEach(member => traverseDeadAndUnmarriedMales(member));
     return deadAndUnmarriedMales;
   }
   // count alive and married females
   let aliveAndMarriedFemales = 0;
   const traverseAliveAndMarriedFemales = (member) => {
     member.gender === 'F' && member.isAlive && member.village !== undefined && aliveAndMarriedFemales++
-    member.children?.map(m => traverseAliveAndMarriedFemales(m))
+    member.gender === 'M' && member.children?.map(m => traverseAliveAndMarriedFemales(m))
   }
   const getAliveAndMarriedFemales = () => {
     aliveAndMarriedFemales = 0;
-    state.members[0].children?.map(member => traverseAliveAndMarriedFemales(member))
+    members.forEach(member => traverseAliveAndMarriedFemales(member))
     return aliveAndMarriedFemales;
   }
   // count married and dead females
   let deadAndMarriedFemales = 0;
   const traverseDeadAndMarriedFemales = (member) => {
     member.gender === 'F' && !member.isAlive && member.village !== undefined && deadAndMarriedFemales++
-    member.children?.map(m => traverseDeadAndMarriedFemales(m))
+    member.gender === 'M' && member.children?.map(m => traverseDeadAndMarriedFemales(m))
   }
   const getDeadAndMarriedFemales = () => {
     deadAndMarriedFemales = 0;
-    state.members[0].children?.map(member => traverseDeadAndMarriedFemales(member))
+    members.forEach(member => traverseDeadAndMarriedFemales(member))
     return deadAndMarriedFemales;
   }
   // count unmarried and alive females
   let aliveAndUnmarriedFemales = 0;
   const traverseAliveAndUnmarriedFemales = (member) => {
     member.gender === 'F' && member.isAlive && member.village === undefined && aliveAndUnmarriedFemales++
-    member.children?.map(child => traverseAliveAndUnmarriedFemales(child))
+    member.gender === 'M' && member.children?.map(child => traverseAliveAndUnmarriedFemales(child))
   }
   const getAliveAndUnmarriedFemales = () => {
     aliveAndUnmarriedFemales = 0;
-    state.members[0].children?.map(member => traverseAliveAndUnmarriedFemales(member))
+    members.forEach(member => traverseAliveAndUnmarriedFemales(member))
     return aliveAndUnmarriedFemales;
   }
   // count unmarried and dead females
   let deadAndUnmarriedFemales = 0;
   const traverseDeadAndUnmarriedFemales = (member) => {
     member.gender === 'F' && !member.isAlive && member.village === undefined && deadAndUnmarriedFemales++
-    member.children?.map(child => traverseDeadAndUnmarriedFemales(child))
+    member.gender === 'M' && member.children?.map(child => traverseDeadAndUnmarriedFemales(child))
   }
   const getDeadAndUnmarriedFemales = () => {
     deadAndUnmarriedFemales = 0;
-    state.members[0].children?.map(member => traverseDeadAndUnmarriedFemales(member))
+    members.forEach(member => traverseDeadAndUnmarriedFemales(member))
     return deadAndUnmarriedFemales;
   }
   // count villages for men
@@ -112,7 +99,7 @@ const Filter = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   };
   const getVillagesForMales = () => {
     villagesForMales = [];
-    state.members.forEach(member => traverseVillagesForMales(member));
+    members.forEach(member => traverseVillagesForMales(member));
     return villagesForMales.filter((item, index, self) => self.indexOf(item) === index).sort();
   };
   // count gotras for men
@@ -123,7 +110,7 @@ const Filter = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   };
   const getGotrasForMales = () => {
     gotrasForMales = [];
-    state.members.forEach(member => traverseGotrasForMales(member));
+    members.forEach(member => traverseGotrasForMales(member));
     return gotrasForMales.filter((item, index, self) => self.indexOf(item) === index).sort();
   };
   // count villages for for village dropdown
@@ -134,8 +121,7 @@ const Filter = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   };
   const getMaleMembersWithVillages = (village) => {
     villagesForMalesCountForDropdown = 0;
-    state.members[0].wives?.length && state.members[0].wives[0].village === village && villagesForMalesCountForDropdown++;
-    state.members[0].gender === 'M' && state.members[0].children?.forEach((member) => traverseForMaleMembersWithVillages(member, village));
+    members.forEach((member) => traverseForMaleMembersWithVillages(member, village));
     return villagesForMalesCountForDropdown;
   };
   // count gotras for for gotra dropdown
@@ -146,59 +132,58 @@ const Filter = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   };
   const getMaleMembersWithGotras = (gotra) => {
     gotraForMalesCountForDropdown = 0;
-    state.members[0].wives?.length && state.members[0].wives[0].gotra === gotra && gotraForMalesCountForDropdown++;
-    state.members[0].gender === 'M' && state.members[0].children?.forEach(member => traverseForMaleMembersWithGotra(member, gotra));
+    members.forEach(member => traverseForMaleMembersWithGotra(member, gotra));
     return gotraForMalesCountForDropdown;
   };
   // count villages for women
   let villagesForFemales = [];
   const traverseVillagesForFemales = (member) => {
     member.gender === 'F' && member.village !== undefined && villagesForFemales.push(member.village);
-    member.children?.map(child => traverseVillagesForFemales(child));
+    member.gender === 'M' && member.children?.map(child => traverseVillagesForFemales(child));
   };
   const getVillagesForFemales = () => {
     villagesForFemales = [];
-    state.members.forEach(member => traverseVillagesForFemales(member));
+    members.forEach(member => traverseVillagesForFemales(member));
     return villagesForFemales.filter((item, index, self) => self.indexOf(item) === index).sort();
   };
   // count gotras for women
   let gotrasForFemales = [];
   const traverseGotrasForFemales = (member) => {
     member.gender === 'F' && member.gotra !== undefined && gotrasForFemales.push(member.gotra);
-    member.children?.map(child => traverseGotrasForFemales(child));
+    member.gender === 'M' && member.children?.map(child => traverseGotrasForFemales(child));
   };
   const getGotrasForFemales = () => {
     gotrasForFemales = [];
-    state.members.forEach(member => traverseGotrasForFemales(member));
+    members.forEach(member => traverseGotrasForFemales(member));
     return gotrasForFemales.filter((item, index, self) => self.indexOf(item) === index).sort();
   };
   // count villages for for village dropdown
   let villagesForFemalesCountForDropdown = 0;
   const traverseForFemaleMembersWithVillages = (member, village) => {
     member.gender === 'F' && member.village !== undefined && member.village === village && villagesForFemalesCountForDropdown++;
-    member.children?.forEach(member => traverseForFemaleMembersWithVillages(member, village));
+    member.gender === 'M' && member.children?.forEach(member => traverseForFemaleMembersWithVillages(member, village));
   };
   const getFemaleMembersWithVillages = (village) => {
     villagesForFemalesCountForDropdown = 0;
-    state.members[0].children?.forEach(member => traverseForFemaleMembersWithVillages(member, village));
+    members.forEach(member => traverseForFemaleMembersWithVillages(member, village));
     return villagesForFemalesCountForDropdown;
   };
   // count gotras for for gotra dropdown
   let gotraForFemalesCountForDropdown = 0;
   const traverseForFemaleMembersWithGotra = (member, gotra) => {
     member.gender === 'F' && member.gotra !== undefined && member.gotra === gotra && gotraForFemalesCountForDropdown++;
-    member.children?.forEach(member => traverseForFemaleMembersWithGotra(member, gotra));
+    member.gender === 'M' && member.children?.forEach(member => traverseForFemaleMembersWithGotra(member, gotra));
   };
   const getFemaleMembersWithGotras = (gotra) => {
     gotraForFemalesCountForDropdown = 0;
-    state.members[0].children?.forEach(member => traverseForFemaleMembersWithGotra(member, gotra));
+    members.forEach(member => traverseForFemaleMembersWithGotra(member, gotra));
     return gotraForFemalesCountForDropdown;
   };
   return (
     <div className='filter'>
       <fieldset className='filter-men'>
         <legend>{state.user.language ? 'Men' : 'पुरुष'}</legend>
-        <select name='village' value={men.village} onChange={(e) => setMen({ ...men, [e.target.name]: e.target.value })}>
+        <select name='village' value={male.village} onChange={(e) => dispatch({ type: 'male-selection', village: e.target.value, gotra: '' })}>
           <option value=''>{state.user.language ? `village (${getVillagesForMales().length})` : `ससुराल (${getHindiNumbers(getVillagesForMales().length.toString())})`}</option>
           {getVillagesForMales().map((village, i) => <option key={i} value={village}>{state.user.language ? `${village} (${getMaleMembersWithVillages(village)})` : `${getHindiText(village, 'village')} (${getHindiNumbers(getMaleMembersWithVillages(village).toString())})`}</option>)}
         </select>
@@ -212,14 +197,14 @@ const Filter = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
             `अविवाहित (${getHindiNumbers(getAliveAndUnmarriedMales().toString())} / ${getHindiNumbers(getDeadAndUnmarriedMales().toString())})`
           }</span>
         </div>
-        <select name='gotra' value={men.gotra} onChange={(e) => setMen({ ...men, [e.target.name]: e.target.value })}>
+        <select name='gotra' value={male.gotra} onChange={(e) => dispatch({ type: 'male-selection', village: '', gotra: e.target.value })}>
           <option value=''>{state.user.language ? `gotra (${getGotrasForMales().length})` : `गोत्र (${getHindiNumbers(getGotrasForMales().length.toString())})`}</option>
           {getGotrasForMales().map((gotra, i) => <option key={i} value={gotra}>{state.user.language ? `${gotra} (${getMaleMembersWithGotras(gotra)})` : `${getHindiText(gotra, 'gotra')} (${getHindiNumbers(getMaleMembersWithGotras(gotra).toString())})`}</option>)}
         </select>
       </fieldset>
       <fieldset className='filter-women'>
         <legend>{state.user.language ? 'Women' : 'महिलाएं'}</legend>
-        <select name='village' value={women.village} onChange={(e) => setWomen({ ...women, [e.target.name]: e.target.value })}>
+        <select name='village' value={female.village} onChange={(e) => dispatch({ type: 'female-selection', village: e.target.value, gotra: '' })}>
           <option value=''>{state.user.language ? `village (${getVillagesForFemales().length})` : `ससुराल (${getHindiNumbers(getVillagesForFemales().length.toString())})`}</option>
           {getVillagesForFemales().map((village, i) => <option key={i} value={village}>{state.user.language ? `${village} (${getFemaleMembersWithVillages(village)})` : `${getHindiText(village, 'village')} (${getHindiNumbers(getFemaleMembersWithVillages(village).toString())})`}</option>)}
         </select>
@@ -233,7 +218,7 @@ const Filter = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
             `अविवाहित (${getHindiNumbers(getAliveAndUnmarriedFemales().toString())} / ${getHindiNumbers(getDeadAndUnmarriedFemales().toString())})`
           }</span>
         </div>
-        <select name='gotra' value={women.gotra} onChange={(e) => setWomen({ ...women, [e.target.name]: e.target.value })}>
+        <select name='gotra' value={female.gotra} onChange={(e) => dispatch({ type: 'female-selection', village: '', gotra: e.target.value })}>
           <option value=''>{state.user.language ? `gotra (${getGotrasForFemales().length})` : `गोत्र (${getHindiNumbers(getGotrasForFemales().length.toString())})`}</option>
           {getGotrasForFemales().map((gotra, i) => <option key={i} value={gotra}>{state.user.language ? `${gotra} (${getFemaleMembersWithGotras(gotra)})` : `${getHindiText(gotra, 'gotra')} (${getHindiNumbers(getFemaleMembersWithGotras(gotra).toString())})`}</option>)}
         </select>

@@ -1,4 +1,7 @@
 import { lazy, Suspense, useReducer, useState } from 'react';
+import BGDImage from './images/mata-mandir.jpg';
+import MaleProfileImage from './images/male.png';
+import FemaleProfileImage from './images/female.png';
 import './App.css';
 const SignIn = lazy(() => import("./frontend/signin/SignIn"));
 const Home = lazy(() => import("./frontend/home/Home"));
@@ -338,7 +341,7 @@ function App() {
     { id: 11213, src: require('./images/11213.jpg') },
     { id: 111111320, src: require('./images/111111320.jpg') },
   ]);
-  const [members] = useState([
+  const [dulania] = useState([
     {
       id: 1,
       name: "Chetram",
@@ -347,9 +350,7 @@ function App() {
           id: 10,
           name: "",
           isAlive: false,
-          gender: "F",
-          village: "",
-          gotra: "",
+          gender: "F"
         },
       ],
       children: [
@@ -501,6 +502,7 @@ function App() {
                                       dp: images.find(image => image.id === 111111131),
                                       wives: [],
                                       children: [],
+                                      //village: "dulania",
                                       isAlive: true,
                                       gender: "M",
                                       isCollapsed: true,
@@ -511,11 +513,13 @@ function App() {
                                       dp: images.find(image => image.id === 111111132),
                                       wives: [],
                                       children: [],
+                                      //village: "dulania",
                                       isAlive: true,
                                       gender: "M",
                                       isCollapsed: true,
                                     },
                                   ],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -527,11 +531,13 @@ function App() {
                                   mobile: [8426004501],
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -602,11 +608,13 @@ function App() {
                                       dp: images.find(image => image.id === 111111212),
                                       wives: [],
                                       children: [],
+                                      //village: "dulania",
                                       isAlive: true,
                                       gender: "M",
                                       isCollapsed: true,
                                     },
                                   ],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -627,11 +635,13 @@ function App() {
                                   mobile: [9785853203],
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -674,16 +684,18 @@ function App() {
                                       dp: images.find(image => image.id === 111111320),
                                       isAlive: true,
                                       gender: "F",
-                                      village: "bandiabhas ( sikar )",
-                                      gotra: "badhania",
+                                      village: "Bandiabhas ( Sikar )",
+                                      gotra: "Badhania",
                                     },
                                   ],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -711,6 +723,7 @@ function App() {
                                   mobile: [9680513128],
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -722,11 +735,13 @@ function App() {
                                   mobile: [7374888186],
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -741,6 +756,7 @@ function App() {
                               gotra: "Nangalia",
                             },
                           ],
+                          //village: "dulania",
                           isAlive: false,
                           gender: "M",
                           isCollapsed: true,
@@ -819,11 +835,13 @@ function App() {
                                     },
                                   ],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -884,6 +902,7 @@ function App() {
                                       gender: "F",
                                     },
                                   ],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -907,6 +926,7 @@ function App() {
                                   gender: "F",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -946,6 +966,7 @@ function App() {
                                   dob: "20 july 1998",
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -959,11 +980,13 @@ function App() {
                                   gender: "F",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -1034,11 +1057,13 @@ function App() {
                                   gender: "F",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: false,
                           gender: "M",
                           isCollapsed: true,
@@ -1057,6 +1082,7 @@ function App() {
                             },
                           ],
                           children: [],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -1086,6 +1112,7 @@ function App() {
                               dp: images.find(image => image.id === 1111151),
                               wives: [],
                               children: [],
+                              //village: "dulania",
                               isAlive: false,
                               gender: "M",
                               isCollapsed: true,
@@ -1118,11 +1145,13 @@ function App() {
                                   dob: "10 February 2014",
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -1155,6 +1184,7 @@ function App() {
                                   dob: "30 November 2017",
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -1169,16 +1199,19 @@ function App() {
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
                         },
                       ],
+                      //village: "dulania",
                       isAlive: false,
                       gender: "M",
                       isCollapsed: true,
@@ -1193,10 +1226,10 @@ function App() {
                       gotra: "Ameria"
                     },
                   ],
+                  //village: "dulania",
                   isAlive: false,
                   gender: "M",
                   isCollapsed: true,
-                  village: "Dulania",
                   gotra: "Mayal",
                 },
                 {
@@ -1288,6 +1321,7 @@ function App() {
                                   dp: images.find(image => image.id === 11121111),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -1300,6 +1334,7 @@ function App() {
                                   gender: "F",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -1327,6 +1362,7 @@ function App() {
                                   dp: images.find(image => image.id === 11121121),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -1339,6 +1375,7 @@ function App() {
                                   gender: "F",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -1353,6 +1390,7 @@ function App() {
                               gotra: "Laamdiwal",
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -1433,6 +1471,7 @@ function App() {
                                   dp: images.find(image => image.id === 11121211),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -1443,11 +1482,13 @@ function App() {
                                   dp: images.find(image => image.id === 11121212),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -1475,6 +1516,7 @@ function App() {
                                   dp: images.find(image => image.id === 11121221),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -1487,6 +1529,7 @@ function App() {
                                   gender: "F",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -1523,11 +1566,13 @@ function App() {
                                   gender: "F",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -1601,11 +1646,13 @@ function App() {
                                   gender: "F",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -1657,11 +1704,13 @@ function App() {
                                   dp: images.find(image => image.id === 11121412),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -1689,15 +1738,18 @@ function App() {
                                   dp: images.find(image => image.id === 11121421),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -1712,6 +1764,7 @@ function App() {
                           gotra: "Samdiwaal",
                         },
                       ],
+                      //village: "dulania",
                       isAlive: false,
                       gender: "M",
                       isCollapsed: true,
@@ -1815,11 +1868,13 @@ function App() {
                                   dp: images.find(image => image.id === 11122122),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -1847,16 +1902,19 @@ function App() {
                                   dp: images.find(image => image.id === 11122131),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -1921,6 +1979,7 @@ function App() {
                                   gender: "F",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -1942,11 +2001,13 @@ function App() {
                                 },
                               ],
                               children: [],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -1983,16 +2044,19 @@ function App() {
                               dp: images.find(image => image.id === 1112232),
                               wives: [],
                               children: [],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
                         },
                       ],
+                      //village: "dulania",
                       isAlive: false,
                       gender: "M",
                       isCollapsed: true,
@@ -2069,11 +2133,11 @@ function App() {
                                   dp: images.find(image => image.id === 11123122),
                                   isAlive: true,
                                   gender: "M",
-                                  wives: [],
-                                  children: [],
+                                  //village: "dulania",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -2095,6 +2159,7 @@ function App() {
                               gender: "F",
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -2121,6 +2186,7 @@ function App() {
                               dp: images.find(image => image.id === 1112321),
                               wives: [],
                               children: [],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -2131,11 +2197,13 @@ function App() {
                               dp: images.find(image => image.id === 1112322),
                               wives: [],
                               children: [],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -2171,16 +2239,19 @@ function App() {
                               dp: images.find(image => image.id === 1112341),
                               wives: [],
                               children: [],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
                         },
                       ],
+                      //village: "dulania",
                       isAlive: true,
                       gender: "M",
                       isCollapsed: true,
@@ -2262,6 +2333,7 @@ function App() {
                               mobile: [9462898106],
                               wives: [],
                               children: [],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -2273,11 +2345,13 @@ function App() {
                               mobile: [7690027031],
                               wives: [],
                               children: [],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -2301,11 +2375,13 @@ function App() {
                           gotra: "Siddad",
                         },
                       ],
+                      //village: "dulania",
                       isAlive: true,
                       gender: "M",
                       isCollapsed: true,
                     },
                   ],
+                  //village: "dulania",
                   isAlive: false,
                   gender: "M",
                   isCollapsed: true,
@@ -2344,6 +2420,7 @@ function App() {
                   gotra: "Adichwal"
                 },
               ],
+              //village: "dulania",
               isAlive: false,
               gender: "M",
               isCollapsed: false,
@@ -2493,6 +2570,7 @@ function App() {
                                       dp: images.find(image => image.id === 112111111),
                                       wives: [],
                                       children: [],
+                                      //village: "dulania",
                                       isAlive: true,
                                       gender: "M",
                                       isCollapsed: true,
@@ -2505,6 +2583,7 @@ function App() {
                                       gender: "F",
                                     },
                                   ],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -2534,6 +2613,7 @@ function App() {
                                       gender: "F",
                                     },
                                   ],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -2568,11 +2648,13 @@ function App() {
                                       dp: images.find(image => image.id === 112111132),
                                       wives: [],
                                       children: [],
+                                      //village: "dulania",
                                       isAlive: true,
                                       gender: "M",
                                       isCollapsed: true,
                                     },
                                   ],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -2587,6 +2669,7 @@ function App() {
                                   gotra: "Shiwal"
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -2656,6 +2739,7 @@ function App() {
                                       dp: images.find(image => image.id === 112111241),
                                       wives: [],
                                       children: [],
+                                      //village: "dulania",
                                       isAlive: true,
                                       gender: "M",
                                       isCollapsed: true,
@@ -2666,16 +2750,19 @@ function App() {
                                       dp: images.find(image => image.id === 112111242),
                                       wives: [],
                                       children: [],
+                                      //village: "dulania",
                                       isAlive: true,
                                       gender: "M",
                                       isCollapsed: true,
                                     },
                                   ],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -2745,11 +2832,13 @@ function App() {
                                       dp: images.find(image => image.id === 112111332),
                                       wives: [],
                                       children: [],
+                                      //village: "dulania",
                                       isAlive: true,
                                       gender: "M",
                                       isCollapsed: true,
                                     },
                                   ],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -2777,6 +2866,7 @@ function App() {
                                       dp: images.find(image => image.id === 112111341),
                                       wives: [],
                                       children: [],
+                                      //village: "dulania",
                                       isAlive: true,
                                       gender: "M",
                                       isCollapsed: true,
@@ -2787,16 +2877,19 @@ function App() {
                                       dp: images.find(image => image.id === 112111342),
                                       wives: [],
                                       children: [],
+                                      //village: "dulania",
                                       isAlive: true,
                                       gender: "M",
                                       isCollapsed: true,
                                     },
                                   ],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -2841,11 +2934,13 @@ function App() {
                                   mobile: [9649902004],
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -2886,6 +2981,7 @@ function App() {
                                     },
                                   ],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -2896,11 +2992,13 @@ function App() {
                                   dp: images.find(image => image.id === 11211152),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -2915,11 +3013,13 @@ function App() {
                               gotra: "Beriwaal",
                             },
                           ],
+                          //village: "dulania",
                           isAlive: false,
                           gender: "M",
                           isCollapsed: true,
                         },
                       ],
+                      //village: "dulania",
                       isAlive: false,
                       gender: "M",
                       isCollapsed: true,
@@ -3029,11 +3129,13 @@ function App() {
                                   dp: images.find(image => image.id === 11212113),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -3060,6 +3162,7 @@ function App() {
                                   dp: images.find(image => image.id === 11212121),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -3072,6 +3175,7 @@ function App() {
                                   gender: "F",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -3106,11 +3210,13 @@ function App() {
                                   dp: images.find(image => image.id === 11212132),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -3138,16 +3244,19 @@ function App() {
                                   dp: images.find(image => image.id === 11212141),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: false,
                           gender: "M",
                           isCollapsed: true,
@@ -3200,6 +3309,7 @@ function App() {
                                   dp: images.find(image => image.id === 11212212),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -3211,11 +3321,13 @@ function App() {
                                   mobile: [9414787818],
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -3261,6 +3373,7 @@ function App() {
                                   dp: images.find(image => image.id === 11212221),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -3273,11 +3386,13 @@ function App() {
                                   gender: "F",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -3369,10 +3484,12 @@ function App() {
                                   name: "Khiyansh",
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -3393,11 +3510,13 @@ function App() {
                               mobile: [7732807071],
                               wives: [],
                               children: [],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -3460,6 +3579,7 @@ function App() {
                                   dp: images.find(image => image.id === 11212431),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -3472,6 +3592,7 @@ function App() {
                                   gender: "F",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -3486,6 +3607,7 @@ function App() {
                               gotra: "Mandiwal",
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -3530,6 +3652,7 @@ function App() {
                                   dp: images.find(image => image.id === 11212511),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -3540,6 +3663,7 @@ function App() {
                                   dp: images.find(image => image.id === 11212512),
                                   wives: [],
                                   children: [],
+                                  //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
                                   isCollapsed: true,
@@ -3552,6 +3676,7 @@ function App() {
                                   gender: "F",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -3575,6 +3700,7 @@ function App() {
                               gotra: "Budhwaniya",
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -3598,11 +3724,13 @@ function App() {
                           gotra: "Ashaliya",
                         },
                       ],
+                      //village: "dulania",
                       isAlive: false,
                       gender: "M",
                       isCollapsed: true,
                     },
                   ],
+                  //village: "dulania",
                   isAlive: false,
                   gender: "M",
                   isCollapsed: true,
@@ -3670,6 +3798,7 @@ function App() {
                               dp: images.find(image => image.id === 1122111),
                               wives: [],
                               children: [],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -3690,11 +3819,13 @@ function App() {
                                 },
                               ],
                               children: [],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
@@ -3749,6 +3880,7 @@ function App() {
                                   gender: "F",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
@@ -3777,16 +3909,19 @@ function App() {
                                   gender: "F",
                                 },
                               ],
+                              //village: "dulania",
                               isAlive: true,
                               gender: "M",
                               isCollapsed: true,
                             },
                           ],
+                          //village: "dulania",
                           isAlive: true,
                           gender: "M",
                           isCollapsed: true,
                         },
                       ],
+                      //village: "dulania",
                       isAlive: false,
                       gender: "M",
                       isCollapsed: true,
@@ -3801,6 +3936,7 @@ function App() {
                       gotra: "Barwadiya",
                     },
                   ],
+                  //village: "dulania",
                   isAlive: false,
                   gender: "M",
                   isCollapsed: true,
@@ -3814,6 +3950,7 @@ function App() {
                   gotra: "Jayalwal",
                 },
               ],
+              //village: "dulania",
               isAlive: false,
               gender: "M",
               isCollapsed: false,
@@ -3832,23 +3969,487 @@ function App() {
                 },
               ],
               children: [],
+              //village: "dulania",
               isAlive: false,
               gender: "M",
               isCollapsed: true,
             },
           ],
+          //village: "dulania",
           isAlive: false,
           gender: "M",
           isCollapsed: false,
-        },
+        }
       ],
+      //village: "dulania",
       isAlive: false,
       gender: "M",
       isCollapsed: false,
     },
   ]);
+  const [moruwa] = useState([
+    {
+      id: 1,
+      name: "lt. Jivanram",
+      wives: [
+        {
+          id: 10,
+          name: "Mewa",
+          isAlive: false,
+          gender: "F",
+          isCollapsed: true
+        }        
+      ],
+      children: [
+        {
+          id: 11,
+          name: "lt. Govindram",
+          wives: [
+            {
+              id: 110,
+              name: "Mewa",
+              isAlive: false,
+              gender: "F",   
+            }
+          ],
+          children: [
+            {
+              id: 111,
+              name: "lt. Narpat",
+              wives: [
+                {
+                  id: 1110,
+                  name: "",
+                  isAlive: false,
+                  gender: "F",   
+                }
+              ],
+              children: [
+                {
+                  id: 1111,
+                  name: "lt. Narpat",
+                  wives: [
+                    {
+                      id: 11110,
+                      name: "",
+                      isAlive: false,
+                      gender: "F",   
+                    }
+                  ],
+                  children: [],
+                  isAlive: false,
+                  gender: "M",
+                  isCollapsed: true 
+                },
+                {
+                  id: 1112,
+                  name: "lt. Dungarram",
+                  wives: [
+                    {
+                      id: 11120,
+                      name: "",
+                      isAlive: false,
+                      gender: "F",   
+                    }
+                  ],
+                  children: [
+                    {
+                      id: 11121,
+                      name: "lt. Tejaram",
+                      wives: [
+                        {
+                          id: 111210,
+                          name: "",
+                          isAlive: false,
+                          gender: "F",   
+                        }
+                      ],
+                      children: [
+                        {
+                          id: 111211,
+                          name: "lt. Govindram",
+                          wives: [
+                            {
+                              id: 1112110,
+                              name: "",
+                              isAlive: false,
+                              gender: "F",   
+                            }
+                          ],
+                          children: [
+                            {
+                              id: 1112111,
+                              name: "lt. Dullaram",
+                              wives: [
+                                {
+                                  id: 11121110,
+                                  name: "",
+                                  isAlive: false,
+                                  gender: "F",   
+                                }
+                              ],
+                              children: [
+                                {
+                                  id: 11121111,
+                                  name: "lt. Natharam",
+                                  wives: [
+                                    {
+                                      id: 11121110,
+                                      name: "",
+                                      isAlive: false,
+                                      gender: "F",   
+                                    }
+                                  ],
+                                  children: [
+                                    {
+                                      id: 111211111,
+                                      name: "lt. Tulsaram",
+                                      wives: [
+                                        {
+                                          id: 1112111110,
+                                          name: "",
+                                          isAlive: false,
+                                          gender: "F",   
+                                        }
+                                      ],
+                                      children: [
+                                        {
+                                          id: 1112111111,
+                                          name: "lt. Singaram",
+                                          wives: [
+                                            {
+                                              id: 11121111110,
+                                              name: "",
+                                              isAlive: false,
+                                              gender: "F",   
+                                            }
+                                          ],
+                                          children: [
+                                            {
+                                              id: 11121111111,
+                                              name: "lt. Anuparam",
+                                              wife: [
+                                                {
+                                                  id: 111211111110,
+                                                  name: "",
+                                                  isAlive: false,
+                                                  gender: "F",   
+                                                }
+                                              ],
+                                              children: [],
+                                              gender: "M",
+                                              isAlive: false,
+                                              isCollapsed: true
+                                            },
+                                            {
+                                              id: 11121111112,
+                                              name: "lt. Ruparam",
+                                              wife: [
+                                                {
+                                                  id: 111211111120,
+                                                  name: "",
+                                                  isAlive: false,
+                                                  gender: "F",   
+                                                }
+                                              ],
+                                              children: [],
+                                              gender: "M",
+                                              isAlive: false,
+                                              isCollapsed: true
+                                            },
+                                          ],
+                                          isAlive: false,
+                                          gender: "M",
+                                          isCollapsed: true,
+                                        },
+                                        {
+                                          id: 1112111112,
+                                          name: "lt. Jodhaaram",
+                                          wives: [
+                                            {
+                                              id: 11121111120,
+                                              name: "",
+                                              isAlive: false,
+                                              gender: "F",   
+                                            }
+                                          ],
+                                          children: [],
+                                          isAlive: false,
+                                          gender: "M",
+                                          isCollapsed: true,
+                                        },
+                                        {
+                                          id: 1112111113,
+                                          name: "lt. Mansaram",
+                                          wives: [
+                                            {
+                                              id: 11121111130,
+                                              name: "",
+                                              isAlive: false,
+                                              gender: "F",   
+                                            }
+                                          ],
+                                          children: [],
+                                          isAlive: false,
+                                          gender: "M",
+                                          isCollapsed: true,
+                                        },
+                                        {
+                                          id: 1112111114,
+                                          name: "lt. Sunddaram",
+                                          wives: [
+                                            {
+                                              id: 11121111140,
+                                              name: "",
+                                              isAlive: false,
+                                              gender: "F",   
+                                            }
+                                          ],
+                                          children: [],
+                                          isAlive: false,
+                                          gender: "M",
+                                          isCollapsed: true,
+                                        },
+                                        {
+                                          id: 1112111115,
+                                          name: "lt. Gowardhan",
+                                          wives: [
+                                            {
+                                              id: 11121111150,
+                                              name: "",
+                                              isAlive: false,
+                                              gender: "F",   
+                                            }
+                                          ],
+                                          children: [],
+                                          isAlive: false,
+                                          gender: "M",
+                                          isCollapsed: true,
+                                        },
+                                        {
+                                          id: 1112111116,
+                                          name: "lt. Jiram",
+                                          wives: [
+                                            {
+                                              id: 11121111160,
+                                              name: "",
+                                              isAlive: false,
+                                              gender: "F",   
+                                            }
+                                          ],
+                                          children: [
+                                            {
+                                              id: -81,
+                                              name: "lt. Kaanaram",
+                                              isAlive: false,
+                                              gender: "M",
+                                              isCollapsed: true,
+                                            },        
+                                          ],
+                                          isAlive: false,
+                                          gender: "M",
+                                          isCollapsed: true,
+                                        }
+                                      ],
+                                      isAlive: false,
+                                      gender: "M",
+                                      isCollapsed: true,
+                                    },
+                                    {
+                                      id: 111211112,
+                                      name: "lt. Durgaram",
+                                      wives: [
+                                        {
+                                          id: 1112111120,
+                                          name: "",
+                                          isAlive: false,
+                                          gender: "F",   
+                                        }
+                                      ],
+                                      children: [],
+                                      isAlive: false,
+                                      gender: "M",
+                                      isCollapsed: true,
+                                    },
+                                    {
+                                      id: 111211113,
+                                      name: "lt. Chatri",
+                                      isAlive: false,
+                                      gender: "F",
+                                      isCollapsed: true,
+                                    },
+                                    {
+                                      id: 111211114,
+                                      name: "lt. Dharma",
+                                      isAlive: false,
+                                      gender: "F",
+                                      isCollapsed: true,
+                                    },
+                                    {
+                                      id: 111211115,
+                                      name: "lt. Harwai",
+                                      isAlive: false,
+                                      gender: "F",
+                                      isCollapsed: true,
+                                    },
+                                  ],
+                                  isAlive: false,
+                                  gender: "M",
+                                  isCollapsed: true,
+                                }
+                              ],
+                              isAlive: false,
+                              gender: "M",
+                              isCollapsed: true      
+                            },
+                            {
+                              id: 1112112,
+                              wife: [
+                                {
+                                  id: 11121120,
+                                  name: "",
+                                  isAlive: false,
+                                  gender: "F",   
+                                }
+                              ],
+                              children: [],
+                              name: "lt. Lekhuram",
+                              isAlive: false,
+                              gender: "M",
+                              isCollapsed: true
+                            },
+                            {
+                              id: 1112113,
+                              name: "lt. Hariram",
+                              wife: [
+                                {
+                                  id: 11121123,
+                                  name: "",
+                                  isAlive: false,
+                                  gender: "F",   
+                                }
+                              ],
+                              children: [],
+                              isAlive: false,
+                              gender: "M",
+                              isCollapsed: true
+                            }
+                          ],
+                          isAlive: false,
+                          gender: "M",
+                          isCollapsed: true
+                        },
+                        {
+                          id: 111212,
+                          wife: [
+                            {
+                              id: 1112120,
+                              name: "",
+                              isAlive: false,
+                              gender: "F",   
+                            }
+                          ],
+                          children: [],
+                          name: "lt. Tillaram",
+                          isAlive: false,
+                          gender: "M",
+                          isCollapsed: true      
+                        }
+                      ],
+                      isAlive: false,
+                      gender: "M",
+                      isCollapsed: true
+                    },
+                    {
+                      id: 11122,
+                      name: "lt. Jagmaal",
+                      wives: [
+                        {
+                          id: 111220,
+                          name: "",
+                          isAlive: false,
+                          gender: "F",   
+                        }
+                      ],
+                      children: [],
+                      isAlive: false,
+                      gender: "M",
+                      isCollapsed: true    
+                    },
+                    {
+                      id: 11123,
+                      name: "lt. Bojaram",
+                      wives: [
+                        {
+                          id: 111230,
+                          name: "",
+                          isAlive: false,
+                          gender: "F",   
+                        }
+                      ],
+                      children: [],
+                      isAlive: false,
+                      gender: "M",
+                      isCollapsed: true    
+                    }
+                  ],
+                  isAlive: false,
+                  gender: "M",
+                  isCollapsed: true    
+                },
+                {
+                  id: 1113,
+                  name: "lt. Daipaal",
+                  wife: [
+                    {
+                      id: 11130,
+                      name: "",
+                      isAlive: false,
+                      gender: "F",   
+                    }
+                  ],
+                  children: [],
+                  isAlive: false,
+                  gender: "M",
+                  isCollapsed: true 
+                },
+              ],
+              isAlive: false,
+              gender: "M",
+              isCollapsed: true 
+            },
+            {
+              id: 112,
+              name: "lt. Pannu",
+              wives: [
+                {
+                  id: 1120,
+                  name: "",
+                  isAlive: false,
+                  gender: "F",   
+                }
+              ],
+              children: [],
+              isAlive: false,
+              gender: "M",
+              isCollapsed: true 
+            }
+          ],
+          isAlive: false,
+          gender: "M",
+          isCollapsed: true 
+        }
+      ],
+      isAlive: false,
+      gender: "M",
+      isCollapsed: true     
+    }
+  ]);
+  const [village, setVillage] = useState('dulania');
+  const [members, setMembers] = useState(dulania);
   const englishToHindi = {
     villages: {
+      moruwa: "मोरुवा",
       bangothdi: "बनगोठड़ी",
       ghardana: "घरड़ाना",
       rasoolpur: "रसूलपुर",
@@ -4021,6 +4622,35 @@ function App() {
       badhania: "बढानियाँ",
     },
     names: {
+      singaram: "सिंगाराम",
+      ruparam: "रूपाराम",
+      anuparam: "अनुपाराम",
+      jodhaaram: "जोधाराम",
+      mansaram: "मनसाराम",
+      sunddaram: "सुंडाराम",
+      gowardhan: "गोवर्धन",
+      jiram: "जीराम",
+      kaanaram: "कानाराम",
+      tulsaram: "तुलसाराम",
+      durgaram: "दुर्गाराम",
+      chatri: "छतरी",
+      harwai: "हरवाई",
+      natharam: "नाथाराम",
+      dullaram: "दुल्लाराम",
+      lekhuram: "लेखुराम",
+      hariram: "हरिराम",
+      govindram: "गोविन्दराम",
+      tillaram: "तिलाराम",
+      tejaram: "तेजाराम",
+      jagmaal: "जगमाल",
+      bojaram: "बोजारम",
+      dungarram: "डुंगरराम",
+      daipaal: "दैपाल",
+      narpat: "नरपत",
+      prabhu: "प्रभु",
+      pannu: "पन्नू",
+      jivanram: "जीवनराम",
+      mewa: "मेवा",
       hindi: 'हिंदी',
       baby: "शिशु",
       boy: "लड़का",
@@ -4336,6 +4966,20 @@ function App() {
     users: [],
     images: images,
     members: members,
+    village: village,
+    filters: {
+      search: '',
+      male: {
+        village: '',
+        gotra: ''
+      },
+      female: {
+        village: '',
+        gotra: ''
+      }
+    },
+    view: false,
+    viewData: { src: '', name: '', mobile: '', email: '', dob: '' }
   }
   // traverse members to expand or collapse
   const traverseMemberToExpandOrCollapse = (member, id) => {
@@ -4379,6 +5023,56 @@ function App() {
     }
     return result;
   };
+  // get village members
+  const traverseMaleVillageMembers = (member, village) => {
+    let result = [];
+    if (member.wives?.length && member.wives[0].village === village) {
+      result.push(member);
+    }
+    if (member.gender === 'M' && member.children?.length) {
+      for (const child of member.children) {
+        result = result.concat(traverseMaleVillageMembers(child, village));
+      }
+    }
+    return result;
+  };
+  const traverseFemaleVillageMembers = (member, village) => {
+    let result = [];
+    if (member.gender === 'F' && member.gotra !== undefined && member.village === village) {
+      result.push(member);
+    }
+    if (member.gender === 'M' && member.children?.length) {
+      for (const child of member.children) {
+        result = result.concat(traverseFemaleVillageMembers(child, village));
+      }
+    }
+    return result;
+  };
+  // get gotra members
+  const traverseMaleGotraMembers = (member, gotra) => {
+    let result = [];
+    if (member.wives?.length && member.wives[0].gotra === gotra) {
+      result.push(member);
+    }
+    if (member.gender === 'M' && member.children?.length) {
+      for (const child of member.children) {
+        result = result.concat(traverseMaleGotraMembers(child, gotra));
+      }
+    }
+    return result;
+  };
+  const traverseFemaleGotraMembers = (member, gotra) => {
+    let result = [];
+    if (member.gender === 'F' && member.village !== undefined && member.gotra === gotra) {
+      result.push(member);
+    }
+    if (member.gender === 'M' && member.children?.length) {
+      for (const child of member.children) {
+        result = result.concat(traverseFemaleGotraMembers(child, gotra));
+      }
+    }
+    return result;
+  };
   const reducer = (state, action) => {
     switch (action.type) {
       case 'signin':
@@ -4407,13 +5101,71 @@ function App() {
             ...state.user,
             language: action.flag
           }
+        };
+      case 'village':
+        setVillage(action.village);
+        setMembers(action.village === 'dulania' ? dulania : action.village === 'moruwa' ? moruwa : [])
+        return {
+          ...state,
+          members: action.village === 'dulania' ? dulania : action.village === 'moruwa' ? moruwa : [],
+          village: action.village
+        };
+      case 'male-selection':
+        return {
+          ...state,
+          members: action.village ? traverseMaleVillageMembers(members[0], action.village) : action.gotra ? traverseMaleGotraMembers(members[0], action.gotra) : members,
+          filters: {
+            male: {
+              village: action.village,
+              gotra: action.gotra
+            },
+            female: {
+              village: '',
+              gotra: ''
+            }
+          }
+        };
+      case 'female-selection':
+        return {
+          ...state,
+          members: action.village ? traverseFemaleVillageMembers(members[0], action.village) : action.gotra ? traverseFemaleGotraMembers(members[0], action.gotra) : members,
+          filters: {
+            male: {
+              village: '',
+              gotra: ''
+            },
+            female: {
+              village: action.village,
+              gotra: action.gotra
+            }
+          }
+        };
+      case 'view':
+        document.body.style.zoom = '100%';
+        const m = images.find(image => image.id === action.member.id)
+        return {
+          ...state,
+          view: true,
+          viewData: {
+            src: action.member && m ? m.src : action.member.gender === 'M' ? MaleProfileImage : FemaleProfileImage,
+            name: action.member ? action.member.name : '',
+            mobile: action.member?.mobile?.length ? action.member.mobile : [],
+            email: action.member?.email?.length ? action.member.email : [],
+            dob: action.member?.dob?.length ? action.member.dob : '',
+          }
+        }
+      case 'exitView':
+        return {
+          ...state,
+          view: false,
+          viewData: { src: '', name: '', mobile: '', email: '', dob: '' }
         }
       default:
         return state;
     }
   }
-  const [state, dispatch] = useReducer(reducer, initialState)
-  const pleaseWait = <div>please wait...</div>
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const pleaseWait = <div>please wait...</div>;
   return (
     <div className="App">
       <Suspense fallback={pleaseWait}>
@@ -4422,12 +5174,14 @@ function App() {
           <Home 
             state={state} 
             dispatch={dispatch} 
+            members={members}
             getHindiText={getHindiText} 
             getHindiNumbers={getHindiNumbers}
           /> :
           <SignIn state={state} dispatch={dispatch} />
         }
       </Suspense>
+      <img className="bgd-image" src={BGDImage} alt="mata" />
     </div>
   );
 }
