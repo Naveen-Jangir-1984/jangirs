@@ -187,16 +187,17 @@ const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers }) => 
           <option value=''>{state.user.language ? `village (${getVillagesForMales().length})` : `ससुराल (${getHindiNumbers(getVillagesForMales().length.toString())})`}</option>
           {getVillagesForMales().map((village, i) => <option key={i} value={village}>{state.user.language ? `${village} (${getMaleMembersWithVillages(village)})` : `${getHindiText(village, 'village')} (${getHindiNumbers(getMaleMembersWithVillages(village).toString())})`}</option>)}
         </select>
-        <div>
+        <label>
           <span>{state.user.language ? 
             `Married (${getAliveAndMarriedMales()} / ${getDeadAndMarriedMales()})` : 
             `विवाहित (${getHindiNumbers(getAliveAndMarriedMales().toString())} / ${getHindiNumbers(getDeadAndMarriedMales().toString())})`
           }</span>
+          {' '}
           <span>{state.user.language ? 
             `Unmarried (${getAliveAndUnmarriedMales()} / ${getDeadAndUnmarriedMales()})` : 
             `अविवाहित (${getHindiNumbers(getAliveAndUnmarriedMales().toString())} / ${getHindiNumbers(getDeadAndUnmarriedMales().toString())})`
           }</span>
-        </div>
+        </label>
         <select name='gotra' value={male.gotra} onChange={(e) => dispatch({ type: 'male-selection', village: '', gotra: e.target.value })}>
           <option value=''>{state.user.language ? `gotra (${getGotrasForMales().length})` : `गोत्र (${getHindiNumbers(getGotrasForMales().length.toString())})`}</option>
           {getGotrasForMales().map((gotra, i) => <option key={i} value={gotra}>{state.user.language ? `${gotra} (${getMaleMembersWithGotras(gotra)})` : `${getHindiText(gotra, 'gotra')} (${getHindiNumbers(getMaleMembersWithGotras(gotra).toString())})`}</option>)}
@@ -208,16 +209,17 @@ const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers }) => 
           <option value=''>{state.user.language ? `village (${getVillagesForFemales().length})` : `ससुराल (${getHindiNumbers(getVillagesForFemales().length.toString())})`}</option>
           {getVillagesForFemales().map((village, i) => <option key={i} value={village}>{state.user.language ? `${village} (${getFemaleMembersWithVillages(village)})` : `${getHindiText(village, 'village')} (${getHindiNumbers(getFemaleMembersWithVillages(village).toString())})`}</option>)}
         </select>
-        <div>
+        <label>
           <span>{state.user.language ? 
             `Married (${getAliveAndMarriedFemales()} / ${getDeadAndMarriedFemales()})` : 
             `विवाहित (${getHindiNumbers(getAliveAndMarriedFemales().toString())} / ${getHindiNumbers(getDeadAndMarriedFemales().toString())})`
           }</span>
+          {' '}
           <span>{state.user.language ? 
             `Unmarried (${getAliveAndUnmarriedFemales()} / ${getDeadAndUnmarriedFemales()} )` : 
             `अविवाहित (${getHindiNumbers(getAliveAndUnmarriedFemales().toString())} / ${getHindiNumbers(getDeadAndUnmarriedFemales().toString())})`
           }</span>
-        </div>
+        </label>
         <select name='gotra' value={female.gotra} onChange={(e) => dispatch({ type: 'female-selection', village: '', gotra: e.target.value })}>
           <option value=''>{state.user.language ? `gotra (${getGotrasForFemales().length})` : `गोत्र (${getHindiNumbers(getGotrasForFemales().length.toString())})`}</option>
           {getGotrasForFemales().map((gotra, i) => <option key={i} value={gotra}>{state.user.language ? `${gotra} (${getFemaleMembersWithGotras(gotra)})` : `${getHindiText(gotra, 'gotra')} (${getHindiNumbers(getFemaleMembersWithGotras(gotra).toString())})`}</option>)}
