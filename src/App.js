@@ -4138,7 +4138,7 @@ function App() {
           children: [
             {
               id: 211,
-              name: "lt. Narpat",
+              name: "lt. Prabhu",
               wives: [
                 {
                   id: 2110,
@@ -4257,7 +4257,7 @@ function App() {
                     },
                     {
                       id: 21123,
-                      name: "lt. Bojaram",
+                      name: "lt. Bhojaram",
                       wives: [],
                       children: [],
                       isAlive: false,
@@ -4271,7 +4271,7 @@ function App() {
                 },
                 {
                   id: 2113,
-                  name: "lt. Daipaal",
+                  name: "lt. Dayapaal",
                   wife: [],
                   children: [],
                   isAlive: false,
@@ -4520,9 +4520,9 @@ function App() {
       tellaram: "तेलाराम",
       tejaram: "तेजाराम",
       jagmaal: "जगमाल",
-      bojaram: "बोजारम",
+      bhojaram: "भोजाराम",
       dungarram: "डुंगरराम",
-      daipaal: "दैपाल",
+      dayapaal: "दयापाल",
       narpat: "नरपत",
       prabhu: "प्रभु",
       pannu: "पन्नू",
@@ -4998,9 +4998,14 @@ function App() {
           }
         };
       case 'signout':
+        setVillage(villages[0]);
+        setMembers(dulania);
+        sessionStorage.removeItem('appState');
         return {
           ...state,
           user: undefined,
+          members: dulania,
+          village: villages[0],
           input: {
             username: '',
             password: '',
@@ -5088,22 +5093,22 @@ function App() {
     }
   }
   const [state, dispatch] = useReducer(reducer, initialState, (initial) => {
-    const storedState = localStorage.getItem('appState');
+    const storedState = sessionStorage.getItem('appState');
     return storedState ? JSON.parse(storedState) : initial;
   });
   useEffect(() => {
     if (state.user) {
-      document.title = `home`;
+      document.title = `Home`;
     } else {
-      document.title = 'sign in';
+      document.title = 'Sign In';
     }
   }, [state.user]);
   useEffect(() => {
-    localStorage.setItem('appState', JSON.stringify(state));
+    sessionStorage.setItem('appState', JSON.stringify(state));
   }, [state]);
   const pleaseWait = <div>please wait...</div>;
   return (
-    <div className="App">
+    <div className="app">
       <Suspense fallback={pleaseWait}>
         {
           state.user ?

@@ -92,7 +92,7 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
           </span>
         </div>
         <div style={{display: member.isCollapsed ? 'none' : 'block'}}>
-          {member.gender === 'M' && member.children?.map(child => displayMember(child, depth + 2))}
+          {member.gender === 'M' && member.children?.map(child => displayMember(child, depth + 5))}
         </div>
       </div>
     );
