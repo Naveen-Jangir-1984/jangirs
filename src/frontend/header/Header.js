@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SignOutIcon from '../../images/signout.png'
 import './Header.css';
 
 const Header = ({ state, dispatch, getHindiText }) => {
@@ -13,6 +14,7 @@ const Header = ({ state, dispatch, getHindiText }) => {
         <option value='dulania'>{state.user.language ? 'Dulania' : getHindiText('Dulania', 'village')}</option>
         <option value='moruwa'>{state.user.language ? 'Moruwa' : getHindiText('Moruwa', 'village')}</option>
       </select>
+      <img className='signout' src={SignOutIcon} alt='signout' onClick={() => dispatch({type: 'signout'})} />
       <button onClick={() => dispatch({type: 'language', flag: !state.user.language})}>{state.user.language ? getHindiText('hindi') : 'english'}</button>
     </div>
   );

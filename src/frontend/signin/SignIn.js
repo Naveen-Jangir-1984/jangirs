@@ -1,35 +1,26 @@
-import { useState } from "react";
 import './SignIn.css'
 
 const SignIn = ({ state, dispatch }) => {
-  const [input, setInput] = useState({
-    username: '',
-    password: ''
-  })
+  const input = state.input
   return (
     <div>
       <div className='signin'>
-        {/* <select name='username' value={ input.username } onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}>
+        <select name='username' value={input.username} onChange={(e) => dispatch({type: 'input', attribute: e.target.name, value: e.target.value })}>
           <option value=''>-- name --</option>
-          { state.users.map((user, i) => <option key={i} value={user.username}>{user.firstname}</option>) }
-        </select> */}
-        <input 
-          name='username' 
-          value={ input.username } 
-          placeholder='username' 
-          onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}
-        />
+          { state.users.map((user, i) => <option key={i} value={user.username}>{user.username}</option>) }
+        </select>
         <input 
           name='password' 
           disabled={ input.username === '' }
           value={ input.password } 
           placeholder='password' 
-          onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}
+          onChange={(e) => dispatch({type: 'input', attribute: e.target.name, value: e.target.value })}
         />
         <button 
           disabled={ input.username === '' || input.password === '' }
-          onClick={() => dispatch({ type: 'signin', input: input })}
+          onClick={() => dispatch({ type: 'signin'})}
         >sign in</button>
+        {input.error && <div style={{color: 'red'}}>incorrect username or password !</div>}
       </div>
     </div>
   );

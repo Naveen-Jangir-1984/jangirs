@@ -5,3 +5,9 @@
   justify-content: center;
   align-items: center;
 }
+
+.signin select, .signin input, .signin button {
+  width: 200px;
+  height: 40px;
+  font-size: 12px;
+}

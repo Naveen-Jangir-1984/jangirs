@@ -4,3 +4,10 @@
   align-items: center;
   width: 100%;
 }
+
+.signout {
+  border: none;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}

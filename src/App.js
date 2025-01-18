@@ -4446,7 +4446,25 @@ function App() {
     }
   ]);
   const [village, setVillage] = useState('dulania');
-  const [members, setMembers] = useState(dulania);
+  const [members, setMembers] = useState(dulania);  
+  const [users] = useState([
+    // { username: "jangirs", password: "mayals", isLogged: false },
+    { username: "General", password: "333031", isLogged: false },
+    { username: "0000", password: "0000", isLogged: false },
+    { username: "bsjangir", password: "shell01-312", isLogged: false },
+    { username: "Jaisingh", password: "bimala123", isLogged: false },
+    { username: "Sagar", password: "viko123", isLogged: false },
+    { username: "Rakesh", password: "nanu123", isLogged: false },
+    { username: "Ratan", password: "manoj123", isLogged: false },
+    { username: "vishwakarma", password: "Jangir#101", isLogged: false },
+    { username: "Ashok", password: "rima123", isLogged: false },
+    { username: "manohar", password: "manju123", isLogged: false },
+    { username: "bijendar", password: "niku000", isLogged: false },
+    { username: "vinod", password: "vinod123", isLogged: false },
+    { username: "naresh", password: "jay123", isLogged: false },
+    { username: "mukesh", password: "ram123", isLogged: false },
+    { username: "rahul", password: "mamta123", isLogged: false },
+  ])
   const englishToHindi = {
     villages: {
       moruwa: "मोरुवा",
@@ -4963,7 +4981,7 @@ function App() {
   };
   const initialState = {
     user: undefined,
-    users: [],
+    users: users,
     images: images,
     members: members,
     village: village,
@@ -4979,7 +4997,18 @@ function App() {
       }
     },
     view: false,
-    viewData: { src: '', name: '', mobile: '', email: '', dob: '' }
+    viewData: { 
+      src: '', 
+      name: '', 
+      mobile: '', 
+      email: '', 
+      dob: '' 
+    },
+    input: {
+      username: '',
+      password: '',
+      error: false
+    }
   }
   // traverse members to expand or collapse
   const traverseMemberToExpandOrCollapse = (member, id) => {
@@ -5075,15 +5104,49 @@ function App() {
   };
   const reducer = (state, action) => {
     switch (action.type) {
-      case 'signin':
+      case 'input':
         return {
           ...state,
-          user: {
-            username: action.input.username,
-            password: action.input.password,
-            language: false
+          input: {
+            ...state.input,
+            [action.attribute]: action.value
           }
         };
+      case 'signin':
+        const error = state.users.find(user => user.username === state.input.username && user.password === state.input.password)
+        if(error) {
+          return {
+            ...state,
+            input: {
+              username: '',
+              password: '',
+              error: false
+            },
+            user: {
+              username: state.input.username,
+              password: state.input.password,
+              language: false
+            }
+          };
+        } else {
+          return {
+            ...state,
+            input: {
+              ...state.input,
+              error: true
+            }
+          }
+        };
+      case 'signout':
+        return {
+          ...state,
+          user: undefined,
+          input: {
+            username: '',
+            password: '',
+            error: false
+          }
+        }
       case 'toggle':
         return {
           ...state,
