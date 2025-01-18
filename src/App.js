@@ -834,7 +834,17 @@ function App() {
                                       gotra: "Dhanerwa",
                                     },
                                   ],
-                                  children: [],
+                                  children: [
+                                    {
+                                      id: 111112121,
+                                      name: "Baby Boy",
+                                      wives: [],
+                                      children: [],
+                                      dob: "15 January 2024",
+                                      isAlive: true,
+                                      gender: "M",
+                                    },
+                                  ],
                                   //village: "dulania",
                                   isAlive: true,
                                   gender: "M",
@@ -2129,11 +2139,12 @@ function App() {
                                 },
                                 {
                                   id: 11123122,
-                                  name: "Baby Boy",
+                                  name: "Nikunj",
                                   dp: images.find(image => image.id === 11123122),
                                   isAlive: true,
                                   gender: "M",
-                                  //village: "dulania",
+                                  wife: [],
+                                  children: [],
                                   isCollapsed: true,
                                 },
                               ],
@@ -3977,6 +3988,13 @@ function App() {
       gender: "M",
       isCollapsed: false,
     },
+    {
+      id: 21121111161,
+      name: "lt. Kaanaram",
+      isAlive: false,
+      gender: "M",
+      isCollapsed: true,
+    }, 
   ]);
   const [moruwa] = useState([
     {
@@ -4027,8 +4045,26 @@ function App() {
                 {
                   id: 21121111112,
                   name: "lt. Ruparam",
-                  wife: [],
-                  children: [],
+                  wife: [
+                    {
+                      id: 211211111120,
+                      name: "",
+                      isAlive: false,
+                      gender: "F",   
+                    }                  
+                  ],
+                  children: [
+                    {
+                      id: 211211111121,
+                      name: "lt. Chetram",
+                      wife: [],
+                      children: [],
+                      gender: "M",
+                      village: "Dulania",
+                      isAlive: false,
+                      isCollapsed: true
+                    },
+                  ],
                   gender: "M",
                   isAlive: false,
                   isCollapsed: true
@@ -4091,6 +4127,7 @@ function App() {
                   name: "lt. Kaanaram",
                   isAlive: false,
                   gender: "M",
+                  village: "Settled in Dulania",
                   isCollapsed: true,
                 },        
               ],
@@ -4204,7 +4241,17 @@ function App() {
                                   gender: "F",   
                                 }
                               ],
-                              children: [],
+                              children: [
+                                {
+                                  id: 21121111,
+                                  name: "lt. Natharam",
+                                  wives: [],
+                                  children: [],
+                                  village: "Settled in Moruwa",
+                                  isAlive: false,
+                                  gender: "M",
+                                }
+                              ],
                               isAlive: false,
                               gender: "M",
                               isCollapsed: true      
@@ -4234,7 +4281,7 @@ function App() {
                         },
                         {
                           id: 211212,
-                          name: "lt. Tellaram",
+                          name: "lt. Tillaram",
                           wife: [],
                           children: [],
                           isAlive: false,
@@ -4499,6 +4546,8 @@ function App() {
       badhania: "बढानियाँ",
     },
     names: {
+      "Settled in Dulania": "मोरुवा बस गए",
+      "Settled in Moruwa": "डुलानिया बस गए",
       singaram: "सिंगाराम",
       ruparam: "रूपाराम",
       anuparam: "अनुपाराम",
@@ -4517,7 +4566,7 @@ function App() {
       lekhuram: "लेखुराम",
       hariram: "हरिराम",
       govindram: "गोविन्दराम",
-      tellaram: "तेलाराम",
+      tillaram: "टिल्लाराम",
       tejaram: "तेजाराम",
       jagmaal: "जगमाल",
       bhojaram: "भोजाराम",
@@ -4530,6 +4579,7 @@ function App() {
       mewa: "मेवा",
       hindi: 'हिंदी',
       baby: "शिशु",
+      nikunj: "निकुंज",
       boy: "लड़का",
       shree: "श्री",
       "lt.": "स्व.",

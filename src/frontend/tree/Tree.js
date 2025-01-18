@@ -72,6 +72,7 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
             {/* {wife.gotra && <div style={{marginBottom: '10px'}}>.</div>} */}
             {wife.gotra && <div style={{marginBottom: '5px', fontSize: '7px'}}>{state.user.language ? wife.gotra : getHindiText(wife.gotra, 'gotra')}</div>}
           </div>)}
+          {member.village && <div style={{fontSize: '7px'}}>( {state.user.language ? member.village : getHindiText(member.village, 'village')} )</div>}
           <span className="memberCount" style={{}}>
             {state.user.language ?
               <span>
