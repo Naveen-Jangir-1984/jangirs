@@ -5153,13 +5153,13 @@ function App() {
             email: action.member?.email?.length ? action.member.email : [],
             dob: action.member?.dob?.length ? action.member.dob : '',
           }
-        }
+        };
       case 'exitView':
         return {
           ...state,
           view: false,
           viewData: { src: '', name: '', mobile: '', email: '', dob: '' }
-        }
+        };
       default:
         return state;
     }
