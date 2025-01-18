@@ -3990,7 +3990,7 @@ function App() {
     },
     {
       id: 21121111161,
-      name: "lt. Kaanaram",
+      name: "Kaanaram",
       isAlive: false,
       gender: "M",
       isCollapsed: true,
@@ -3999,7 +3999,7 @@ function App() {
   const [moruwa] = useState([
     {
       id: 21121111,
-      name: "lt. Natharam",
+      name: "Natharam",
       wives: [
         {
           id: 21121110,
@@ -4011,7 +4011,7 @@ function App() {
       children: [
         {
           id: 211211111,
-          name: "lt. Tulsaram",
+          name: "Tulsaram",
           wives: [
             {
               id: 2112111110,
@@ -4023,7 +4023,7 @@ function App() {
           children: [
             {
               id: 2112111111,
-              name: "lt. Singaram",
+              name: "Singaram",
               wives: [
                 {
                   id: 21121111110,
@@ -4035,7 +4035,7 @@ function App() {
               children: [
                 {
                   id: 21121111111,
-                  name: "lt. Anuparam",
+                  name: "Anuparam",
                   wife: [],
                   children: [],
                   gender: "M",
@@ -4044,7 +4044,7 @@ function App() {
                 },
                 {
                   id: 21121111112,
-                  name: "lt. Ruparam",
+                  name: "Ruparam",
                   wife: [
                     {
                       id: 211211111120,
@@ -4056,7 +4056,7 @@ function App() {
                   children: [
                     {
                       id: 211211111121,
-                      name: "lt. Chetram",
+                      name: "Chetram",
                       wife: [],
                       children: [],
                       gender: "M",
@@ -4076,7 +4076,7 @@ function App() {
             },
             {
               id: 2112111112,
-              name: "lt. Jodhaaram",
+              name: "Jodhaaram",
               wives: [],
               children: [],
               isAlive: false,
@@ -4085,7 +4085,7 @@ function App() {
             },
             {
               id: 2112111113,
-              name: "lt. Mansaram",
+              name: "Mansaram",
               wives: [],
               children: [],
               isAlive: false,
@@ -4094,7 +4094,7 @@ function App() {
             },
             {
               id: 2112111114,
-              name: "lt. Sunddaram",
+              name: "Sunddaram",
               wives: [],
               children: [],
               isAlive: false,
@@ -4103,7 +4103,7 @@ function App() {
             },
             {
               id: 2112111115,
-              name: "lt. Gowardhan",
+              name: "Gowardhan",
               wives: [],
               children: [],
               isAlive: false,
@@ -4112,7 +4112,7 @@ function App() {
             },
             {
               id: 2112111116,
-              name: "lt. Jiram",
+              name: "Jiram",
               wives: [
                 {
                   id: 21121111160,
@@ -4124,7 +4124,7 @@ function App() {
               children: [
                 {
                   id: 21121111161,
-                  name: "lt. Kaanaram",
+                  name: "Kaanaram",
                   isAlive: false,
                   gender: "M",
                   village: "Dulania",
@@ -4142,7 +4142,7 @@ function App() {
         },
         {
           id: 211211112,
-          name: "lt. Durgaram",
+          name: "Durgaram",
           wives: [],
           children: [],
           isAlive: false,
@@ -4158,12 +4158,12 @@ function App() {
   const [tatija] = useState([
     {
       id: 2,
-      name: "lt. Jivanram",
+      name: "Jivanram",
       wives: [],
       children: [
         {
           id: 21,
-          name: "lt. Govindram",
+          name: "Govindram",
           wives: [
             {
               id: 210,
@@ -4175,7 +4175,7 @@ function App() {
           children: [
             {
               id: 211,
-              name: "lt. Prabhu",
+              name: "Prabhu",
               wives: [
                 {
                   id: 2110,
@@ -4187,7 +4187,7 @@ function App() {
               children: [
                 {
                   id: 2111,
-                  name: "lt. Narpat",
+                  name: "Narpat",
                   wives: [],
                   children: [],
                   isAlive: false,
@@ -4196,7 +4196,7 @@ function App() {
                 },
                 {
                   id: 2112,
-                  name: "lt. Dungarram",
+                  name: "Dungarram",
                   wives: [
                     {
                       id: 21120,
@@ -4208,7 +4208,7 @@ function App() {
                   children: [
                     {
                       id: 21121,
-                      name: "lt. Tejaram",
+                      name: "Tejaram",
                       wives: [
                         {
                           id: 111210,
@@ -4220,7 +4220,7 @@ function App() {
                       children: [
                         {
                           id: 211211,
-                          name: "lt. Govindram",
+                          name: "Govindram",
                           wives: [
                             {
                               id: 2112110,
@@ -4232,7 +4232,7 @@ function App() {
                           children: [
                             {
                               id: 2112111,
-                              name: "lt. Dullaram",
+                              name: "Dullaram",
                               wives: [
                                 {
                                   id: 21121110,
@@ -4244,7 +4244,7 @@ function App() {
                               children: [
                                 {
                                   id: 21121111,
-                                  name: "lt. Natharam",
+                                  name: "Natharam",
                                   wives: [],
                                   children: [],
                                   village: "Moruwa",
@@ -4258,7 +4258,7 @@ function App() {
                             },
                             {
                               id: 2112112,
-                              name: "lt. Lekhuram",
+                              name: "Lekhuram",
                               wife: [],
                               children: [],
                               isAlive: false,
@@ -4267,7 +4267,7 @@ function App() {
                             },
                             {
                               id: 2112113,
-                              name: "lt. Hariram",
+                              name: "Hariram",
                               wife: [],
                               children: [],
                               isAlive: false,
@@ -4281,7 +4281,7 @@ function App() {
                         },
                         {
                           id: 211212,
-                          name: "lt. Tillaram",
+                          name: "Tillaram",
                           wife: [],
                           children: [],
                           isAlive: false,
@@ -4295,7 +4295,7 @@ function App() {
                     },
                     {
                       id: 21122,
-                      name: "lt. Jagmaal",
+                      name: "Jagmaal",
                       wives: [],
                       children: [],
                       isAlive: false,
@@ -4304,7 +4304,7 @@ function App() {
                     },
                     {
                       id: 21123,
-                      name: "lt. Bhojaram",
+                      name: "Bhojaram",
                       wives: [],
                       children: [],
                       isAlive: false,
@@ -4318,7 +4318,7 @@ function App() {
                 },
                 {
                   id: 2113,
-                  name: "lt. Dayapaal",
+                  name: "Dayapaal",
                   wife: [],
                   children: [],
                   isAlive: false,
@@ -4332,7 +4332,7 @@ function App() {
             },
             {
               id: 212,
-              name: "lt. Pannu",
+              name: "Pannu",
               wives: [],
               children: [],
               isAlive: false,
