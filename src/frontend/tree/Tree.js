@@ -41,9 +41,9 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
           {member.wives?.map(wife => <div className='member-wife-card' key={wife.id}>
             <img className='display-pic' src={wife.dp ? wife.dp?.src : FemaleProfileIcon} alt={wife.id} onClick={(e) => {e.stopPropagation(); dispatch({type: 'view', member: wife});}} />
             {wife.name && <div style={{color: wife.isAlive ? 'black' : 'red'}}>{state.user.language ? wife.name : getHindiText(wife.name)}</div>}
-            {wife.village && <div style={{marginBottom: '10px', fontSize: '10px', color: 'teal'}}>{state.user.language ? wife.village : getHindiText(wife.village, 'village')}</div>}
-            {wife.gotra && <div style={{marginBottom: '10px', fontSize: '10px'}}>.</div>}
-            {wife.gotra && <div style={{marginBottom: '10px', fontSize: '10px', color: 'teal'}}>{state.user.language ? wife.gotra : getHindiText(wife.gotra, 'gotra')}</div>}
+            {wife.village && <div style={{marginBottom: '10px', fontSize: '4px', color: 'teal'}}>{state.user.language ? wife.village : getHindiText(wife.village, 'village')}</div>}
+            {/* {wife.gotra && <div style={{marginBottom: '10px'}}>.</div>} */}
+            {wife.gotra && <div style={{marginBottom: '10px', fontSize: '4px', color: 'teal'}}>{state.user.language ? wife.gotra : getHindiText(wife.gotra, 'gotra')}</div>}
           </div>)}
         </div>
         <div style={{display: member.isCollapsed ? 'none' : 'block'}}>

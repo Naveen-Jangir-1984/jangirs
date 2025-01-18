@@ -8,13 +8,13 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 3px 10px;
+  padding-left: 10px;
   box-sizing: border-box;
   margin-bottom: 2px;
   border: none;
   border-radius: 5px;
-  column-gap: 7px;
-  max-width: 30%;
+  column-gap: 5px;
+  width: 300px;
 }
 .member-card:hover {
   cursor: pointer;
