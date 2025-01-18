@@ -12,12 +12,12 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   const traverseCount = (member, flag) => {
     flag ? member.isAlive && count++ : member.isAlive && member.gender === "M" && count++;
     member.children?.forEach(child => traverseCount(child, false));
-    member.wife?.forEach(child => traverseCount(child, true));
+    member.wives?.forEach(child => traverseCount(child, true));
   };
   const countMembers = (member) => {
     count = 0;
-    member.gender === 'M' && member.children?.forEach(member => traverseCount(member, false));
-    member.wife?.forEach(member => traverseCount(member, true));
+    member.children?.forEach(member => traverseCount(member, false));
+    member.wives?.forEach(member => traverseCount(member, true));
     return member.isAlive ? count + 1 : count;
   };
 
@@ -26,12 +26,12 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   const traverseDeadCount = (member, flag) => {
     flag ? !member.isAlive && countDead++ : !member.isAlive && member.gender === "M" && countDead++;
     member.children?.forEach(child => traverseDeadCount(child, false));
-    member.wife?.forEach(child => traverseDeadCount(child, true));
+    member.wives?.forEach(child => traverseDeadCount(child, true));
   };
   const countDeadMembers = (member) => {
     countDead = 0;
     member.gender === 'M' && member.children?.forEach((member) => traverseDeadCount(member, false));
-    member.wife?.forEach((member) => traverseDeadCount(member, true));
+    member.wives?.forEach((member) => traverseDeadCount(member, true));
     return !member.isAlive ? countDead + 1 : countDead;
   };
   // get all mobils numbers
@@ -68,23 +68,23 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
           {member.wives?.map(wife => <div className='member-wife-card' key={wife.id}>
             <img className='display-pic' src={wife.dp ? wife.dp?.src : FemaleProfileIcon} alt={wife.id} onClick={(e) => {e.stopPropagation(); dispatch({type: 'view', member: wife});}} />
             {wife.name && <div style={{color: wife.isAlive ? 'black' : 'red'}}>{state.user.language ? wife.name : getHindiText(wife.name)}</div>}
-            {wife.village && <div style={{marginBottom: '10px', fontSize: '4px', color: 'teal'}}>{state.user.language ? wife.village : getHindiText(wife.village, 'village')}</div>}
+            {wife.village && <div style={{marginBottom: '5px', fontSize: '7px'}}>{state.user.language ? wife.village : getHindiText(wife.village, 'village')}</div>}
             {/* {wife.gotra && <div style={{marginBottom: '10px'}}>.</div>} */}
-            {wife.gotra && <div style={{marginBottom: '10px', fontSize: '4px', color: 'teal'}}>{state.user.language ? wife.gotra : getHindiText(wife.gotra, 'gotra')}</div>}
+            {wife.gotra && <div style={{marginBottom: '5px', fontSize: '7px'}}>{state.user.language ? wife.gotra : getHindiText(wife.gotra, 'gotra')}</div>}
           </div>)}
           <span className="memberCount" style={{}}>
             {state.user.language ?
               <span>
-                <span style={{ fontSize: "4px" }}>{countMembers(member)}</span>
-                <span style={{ color: "red", fontSize: "2px" }}>
+                <span style={{ fontSize: "8px" }}>{countMembers(member)}</span>
+                <span style={{ color: "red", fontSize: "6px" }}>
                   {"/" + countDeadMembers(member)}
                 </span>
               </span> :
               <span>
-                <span style={{ fontSize: "4px" }}>
+                <span style={{ fontSize: "8px" }}>
                   {getHindiNumbers(countMembers(member).toString())}
                 </span>
-                <span style={{ color: "red", fontSize: "2px" }}>
+                <span style={{ color: "red", fontSize: "6px" }}>
                   {"/" + getHindiNumbers(countDeadMembers(member).toString())}
                 </span>
               </span>

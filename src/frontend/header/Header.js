@@ -9,13 +9,12 @@ const Header = ({ state, dispatch, getHindiText }) => {
       <button onClick={() => {
         setCollapsed(!collapsed)
         dispatch({type: 'toggle-all', flag: collapsed})
-      }}>{collapsed ? (state.user.language ? 'close' : 'बंद करे') : (state.user.language ? 'open' : 'खोलें')}</button>
+      }}>{collapsed ? (state.user.language ? 'close' : 'बंद करे') : (state.user.language ? 'Open' : 'खोलें')}</button>
       <select value={state.village} onChange={(e) => dispatch({type: 'village', village: e.target.value})}>
-        <option value='dulania'>{state.user.language ? 'Dulania' : getHindiText('Dulania', 'village')}</option>
-        <option value='moruwa'>{state.user.language ? 'Moruwa' : getHindiText('Moruwa', 'village')}</option>
+        {state.villages.map((village, i) => <option key={i} value={village}>{state.user.language ? village.replace(village.charAt(0), village.charAt(0).toUpperCase()) : getHindiText(village.replace(village.charAt(0), village.charAt(0).toUpperCase()), 'village')}</option>)}
       </select>
       <img className='signout' src={SignOutIcon} alt='signout' onClick={() => dispatch({type: 'signout'})} />
-      <button onClick={() => dispatch({type: 'language', flag: !state.user.language})}>{state.user.language ? getHindiText('hindi') : 'english'}</button>
+      <button onClick={() => dispatch({type: 'language', flag: !state.user.language})}>{state.user.language ? getHindiText('Hindi') : 'English'}</button>
     </div>
   );
 }

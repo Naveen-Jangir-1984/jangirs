@@ -1,4 +1,4 @@
-import { lazy, Suspense, useReducer, useState } from 'react';
+import { lazy, Suspense, useReducer, useState, useEffect } from 'react';
 import BGDImage from './images/mata-mandir.jpg';
 import MaleProfileImage from './images/male.png';
 import FemaleProfileImage from './images/female.png';
@@ -3958,16 +3958,7 @@ function App() {
             {
               id: 113,
               name: "Shyamlal",
-              wives: [
-                {
-                  id: 1130,
-                  name: "",
-                  isAlive: false,
-                  gender: "F",
-                  village: "",
-                  gotra: "",
-                },
-              ],
+              wives: [],
               children: [],
               //village: "dulania",
               isAlive: false,
@@ -3991,15 +3982,7 @@ function App() {
     {
       id: 1,
       name: "lt. Jivanram",
-      wives: [
-        {
-          id: 10,
-          name: "Mewa",
-          isAlive: false,
-          gender: "F",
-          isCollapsed: true
-        }        
-      ],
+      wives: [],
       children: [
         {
           id: 11,
@@ -4028,14 +4011,7 @@ function App() {
                 {
                   id: 1111,
                   name: "lt. Narpat",
-                  wives: [
-                    {
-                      id: 11110,
-                      name: "",
-                      isAlive: false,
-                      gender: "F",   
-                    }
-                  ],
+                  wives: [],
                   children: [],
                   isAlive: false,
                   gender: "M",
@@ -4128,14 +4104,7 @@ function App() {
                                             {
                                               id: 11121111111,
                                               name: "lt. Anuparam",
-                                              wife: [
-                                                {
-                                                  id: 111211111110,
-                                                  name: "",
-                                                  isAlive: false,
-                                                  gender: "F",   
-                                                }
-                                              ],
+                                              wife: [],
                                               children: [],
                                               gender: "M",
                                               isAlive: false,
@@ -4144,14 +4113,7 @@ function App() {
                                             {
                                               id: 11121111112,
                                               name: "lt. Ruparam",
-                                              wife: [
-                                                {
-                                                  id: 111211111120,
-                                                  name: "",
-                                                  isAlive: false,
-                                                  gender: "F",   
-                                                }
-                                              ],
+                                              wife: [],
                                               children: [],
                                               gender: "M",
                                               isAlive: false,
@@ -4165,14 +4127,7 @@ function App() {
                                         {
                                           id: 1112111112,
                                           name: "lt. Jodhaaram",
-                                          wives: [
-                                            {
-                                              id: 11121111120,
-                                              name: "",
-                                              isAlive: false,
-                                              gender: "F",   
-                                            }
-                                          ],
+                                          wives: [],
                                           children: [],
                                           isAlive: false,
                                           gender: "M",
@@ -4181,14 +4136,7 @@ function App() {
                                         {
                                           id: 1112111113,
                                           name: "lt. Mansaram",
-                                          wives: [
-                                            {
-                                              id: 11121111130,
-                                              name: "",
-                                              isAlive: false,
-                                              gender: "F",   
-                                            }
-                                          ],
+                                          wives: [],
                                           children: [],
                                           isAlive: false,
                                           gender: "M",
@@ -4197,14 +4145,7 @@ function App() {
                                         {
                                           id: 1112111114,
                                           name: "lt. Sunddaram",
-                                          wives: [
-                                            {
-                                              id: 11121111140,
-                                              name: "",
-                                              isAlive: false,
-                                              gender: "F",   
-                                            }
-                                          ],
+                                          wives: [],
                                           children: [],
                                           isAlive: false,
                                           gender: "M",
@@ -4213,14 +4154,7 @@ function App() {
                                         {
                                           id: 1112111115,
                                           name: "lt. Gowardhan",
-                                          wives: [
-                                            {
-                                              id: 11121111150,
-                                              name: "",
-                                              isAlive: false,
-                                              gender: "F",   
-                                            }
-                                          ],
+                                          wives: [],
                                           children: [],
                                           isAlive: false,
                                           gender: "M",
@@ -4258,38 +4192,10 @@ function App() {
                                     {
                                       id: 111211112,
                                       name: "lt. Durgaram",
-                                      wives: [
-                                        {
-                                          id: 1112111120,
-                                          name: "",
-                                          isAlive: false,
-                                          gender: "F",   
-                                        }
-                                      ],
+                                      wives: [],
                                       children: [],
                                       isAlive: false,
                                       gender: "M",
-                                      isCollapsed: true,
-                                    },
-                                    {
-                                      id: 111211113,
-                                      name: "lt. Chatri",
-                                      isAlive: false,
-                                      gender: "F",
-                                      isCollapsed: true,
-                                    },
-                                    {
-                                      id: 111211114,
-                                      name: "lt. Dharma",
-                                      isAlive: false,
-                                      gender: "F",
-                                      isCollapsed: true,
-                                    },
-                                    {
-                                      id: 111211115,
-                                      name: "lt. Harwai",
-                                      isAlive: false,
-                                      gender: "F",
                                       isCollapsed: true,
                                     },
                                   ],
@@ -4304,16 +4210,9 @@ function App() {
                             },
                             {
                               id: 1112112,
-                              wife: [
-                                {
-                                  id: 11121120,
-                                  name: "",
-                                  isAlive: false,
-                                  gender: "F",   
-                                }
-                              ],
-                              children: [],
                               name: "lt. Lekhuram",
+                              wife: [],
+                              children: [],
                               isAlive: false,
                               gender: "M",
                               isCollapsed: true
@@ -4321,14 +4220,7 @@ function App() {
                             {
                               id: 1112113,
                               name: "lt. Hariram",
-                              wife: [
-                                {
-                                  id: 11121123,
-                                  name: "",
-                                  isAlive: false,
-                                  gender: "F",   
-                                }
-                              ],
+                              wife: [],
                               children: [],
                               isAlive: false,
                               gender: "M",
@@ -4341,16 +4233,9 @@ function App() {
                         },
                         {
                           id: 111212,
-                          wife: [
-                            {
-                              id: 1112120,
-                              name: "",
-                              isAlive: false,
-                              gender: "F",   
-                            }
-                          ],
-                          children: [],
                           name: "lt. Tillaram",
+                          wife: [],
+                          children: [],
                           isAlive: false,
                           gender: "M",
                           isCollapsed: true      
@@ -4363,14 +4248,7 @@ function App() {
                     {
                       id: 11122,
                       name: "lt. Jagmaal",
-                      wives: [
-                        {
-                          id: 111220,
-                          name: "",
-                          isAlive: false,
-                          gender: "F",   
-                        }
-                      ],
+                      wives: [],
                       children: [],
                       isAlive: false,
                       gender: "M",
@@ -4379,14 +4257,7 @@ function App() {
                     {
                       id: 11123,
                       name: "lt. Bojaram",
-                      wives: [
-                        {
-                          id: 111230,
-                          name: "",
-                          isAlive: false,
-                          gender: "F",   
-                        }
-                      ],
+                      wives: [],
                       children: [],
                       isAlive: false,
                       gender: "M",
@@ -4400,14 +4271,7 @@ function App() {
                 {
                   id: 1113,
                   name: "lt. Daipaal",
-                  wife: [
-                    {
-                      id: 11130,
-                      name: "",
-                      isAlive: false,
-                      gender: "F",   
-                    }
-                  ],
+                  wife: [],
                   children: [],
                   isAlive: false,
                   gender: "M",
@@ -4421,14 +4285,7 @@ function App() {
             {
               id: 112,
               name: "lt. Pannu",
-              wives: [
-                {
-                  id: 1120,
-                  name: "",
-                  isAlive: false,
-                  gender: "F",   
-                }
-              ],
+              wives: [],
               children: [],
               isAlive: false,
               gender: "M",
@@ -4445,7 +4302,9 @@ function App() {
       isCollapsed: true     
     }
   ]);
-  const [village, setVillage] = useState('dulania');
+  const [tatija] = useState([]);
+  const villages = ['dulania', 'moruwa', 'tatija']
+  const [village, setVillage] = useState(villages[0]);
   const [members, setMembers] = useState(dulania);  
   const [users] = useState([
     // { username: "jangirs", password: "mayals", isLogged: false },
@@ -4467,6 +4326,7 @@ function App() {
   ])
   const englishToHindi = {
     villages: {
+      tatija: "तातिजा",
       moruwa: "मोरुवा",
       bangothdi: "बनगोठड़ी",
       ghardana: "घरड़ाना",
@@ -4984,6 +4844,7 @@ function App() {
     users: users,
     images: images,
     members: members,
+    villages: villages,
     village: village,
     filters: {
       search: '',
@@ -5167,10 +5028,10 @@ function App() {
         };
       case 'village':
         setVillage(action.village);
-        setMembers(action.village === 'dulania' ? dulania : action.village === 'moruwa' ? moruwa : [])
+        setMembers(action.village === 'dulania' ? dulania : action.village === 'moruwa' ? moruwa : action.village === 'tatija' ? tatija : [])
         return {
           ...state,
-          members: action.village === 'dulania' ? dulania : action.village === 'moruwa' ? moruwa : [],
+          members: action.village === 'dulania' ? dulania : action.village === 'moruwa' ? moruwa : action.village === 'tatija' ? tatija : [],
           village: action.village
         };
       case 'male-selection':
@@ -5227,7 +5088,20 @@ function App() {
         return state;
     }
   }
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState, (initial) => {
+    const storedState = localStorage.getItem('appState');
+    return storedState ? JSON.parse(storedState) : initial;
+  });
+  useEffect(() => {
+    if (state.user) {
+      document.title = `home`;
+    } else {
+      document.title = 'sign in';
+    }
+  }, [state.user]);
+  useEffect(() => {
+    localStorage.setItem('appState', JSON.stringify(state));
+  }, [state]);
   const pleaseWait = <div>please wait...</div>;
   return (
     <div className="App">
