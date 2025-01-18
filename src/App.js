@@ -4127,7 +4127,7 @@ function App() {
                   name: "lt. Kaanaram",
                   isAlive: false,
                   gender: "M",
-                  village: "Settled in Dulania",
+                  village: "Dulania",
                   isCollapsed: true,
                 },        
               ],
@@ -4247,7 +4247,7 @@ function App() {
                                   name: "lt. Natharam",
                                   wives: [],
                                   children: [],
-                                  village: "Settled in Moruwa",
+                                  village: "Moruwa",
                                   isAlive: false,
                                   gender: "M",
                                 }
@@ -4543,11 +4543,11 @@ function App() {
       dammu: "दामू",
       lalasi: "लालासी",
       bodalia: "बोदलिया",
-      badhania: "बढानियाँ",
+      badhania: "बढानियाँ"
     },
     names: {
-      "Settled in Dulania": "मोरुवा बस गए",
-      "Settled in Moruwa": "डुलानिया बस गए",
+      settled: "बस गए",
+      in: "में",
       singaram: "सिंगाराम",
       ruparam: "रूपाराम",
       anuparam: "अनुपाराम",
