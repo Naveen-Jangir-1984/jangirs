@@ -7,6 +7,33 @@ import SMSIcon from '../../images/sms.png'
 import './Tree.css'
 
 const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
+  // count alive members
+  let count = 0;
+  const traverseCount = (member, flag) => {
+    flag ? member.isAlive && count++ : member.isAlive && member.gender === "M" && count++;
+    member.children?.forEach(child => traverseCount(child, false));
+    member.wife?.forEach(child => traverseCount(child, true));
+  };
+  const countMembers = (member) => {
+    count = 0;
+    member.gender === 'M' && member.children?.forEach(member => traverseCount(member, false));
+    member.wife?.forEach(member => traverseCount(member, true));
+    return member.isAlive ? count + 1 : count;
+  };
+
+  // count dead members
+  let countDead;
+  const traverseDeadCount = (member, flag) => {
+    flag ? !member.isAlive && countDead++ : !member.isAlive && member.gender === "M" && countDead++;
+    member.children?.forEach(child => traverseDeadCount(child, false));
+    member.wife?.forEach(child => traverseDeadCount(child, true));
+  };
+  const countDeadMembers = (member) => {
+    countDead = 0;
+    member.gender === 'M' && member.children?.forEach((member) => traverseDeadCount(member, false));
+    member.wife?.forEach((member) => traverseDeadCount(member, true));
+    return !member.isAlive ? countDead + 1 : countDead;
+  };
   // get all mobils numbers
   let mobileNumbers = []
   const traverseMembersForMobile = (member) => {
@@ -45,6 +72,24 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
             {/* {wife.gotra && <div style={{marginBottom: '10px'}}>.</div>} */}
             {wife.gotra && <div style={{marginBottom: '10px', fontSize: '4px', color: 'teal'}}>{state.user.language ? wife.gotra : getHindiText(wife.gotra, 'gotra')}</div>}
           </div>)}
+          <span className="memberCount" style={{}}>
+            {state.user.language ?
+              <span>
+                <span style={{ fontSize: "4px" }}>{countMembers(member)}</span>
+                <span style={{ color: "red", fontSize: "2px" }}>
+                  {"/" + countDeadMembers(member)}
+                </span>
+              </span> :
+              <span>
+                <span style={{ fontSize: "4px" }}>
+                  {getHindiNumbers(countMembers(member).toString())}
+                </span>
+                <span style={{ color: "red", fontSize: "2px" }}>
+                  {"/" + getHindiNumbers(countDeadMembers(member).toString())}
+                </span>
+              </span>
+            }
+          </span>
         </div>
         <div style={{display: member.isCollapsed ? 'none' : 'block'}}>
           {member.gender === 'M' && member.children?.map(child => displayMember(child, depth + 2))}

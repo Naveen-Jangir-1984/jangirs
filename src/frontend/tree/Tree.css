@@ -14,7 +14,8 @@
   border: none;
   border-radius: 5px;
   column-gap: 5px;
-  width: 300px;
+  width: 250px;
+  height: 20px;
 }
 .member-card:hover {
   cursor: pointer;
@@ -24,14 +25,14 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  column-gap: 5px;
+  column-gap: 2px;
   box-sizing: border-box;
 }
 
 .display-pic {
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
 }
 
 .toggle-icons, .mobile-icons {
