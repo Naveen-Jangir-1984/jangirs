@@ -3980,28 +3980,35 @@ function App() {
   ]);
   const [moruwa] = useState([
     {
-      id: 1,
-      name: "lt. Jivanram",
-      wives: [],
+      id: 21121111,
+      name: "lt. Natharam",
+      wives: [
+        {
+          id: 21121110,
+          name: "",
+          isAlive: false,
+          gender: "F",   
+        }
+      ],
       children: [
         {
-          id: 11,
-          name: "lt. Govindram",
+          id: 211211111,
+          name: "lt. Tulsaram",
           wives: [
             {
-              id: 110,
-              name: "Mewa",
+              id: 2112111110,
+              name: "",
               isAlive: false,
               gender: "F",   
             }
           ],
           children: [
             {
-              id: 111,
-              name: "lt. Narpat",
+              id: 2112111111,
+              name: "lt. Singaram",
               wives: [
                 {
-                  id: 1110,
+                  id: 21121111110,
                   name: "",
                   isAlive: false,
                   gender: "F",   
@@ -4009,7 +4016,140 @@ function App() {
               ],
               children: [
                 {
-                  id: 1111,
+                  id: 21121111111,
+                  name: "lt. Anuparam",
+                  wife: [],
+                  children: [],
+                  gender: "M",
+                  isAlive: false,
+                  isCollapsed: true
+                },
+                {
+                  id: 21121111112,
+                  name: "lt. Ruparam",
+                  wife: [],
+                  children: [],
+                  gender: "M",
+                  isAlive: false,
+                  isCollapsed: true
+                },
+              ],
+              isAlive: false,
+              gender: "M",
+              isCollapsed: true,
+            },
+            {
+              id: 2112111112,
+              name: "lt. Jodhaaram",
+              wives: [],
+              children: [],
+              isAlive: false,
+              gender: "M",
+              isCollapsed: true,
+            },
+            {
+              id: 2112111113,
+              name: "lt. Mansaram",
+              wives: [],
+              children: [],
+              isAlive: false,
+              gender: "M",
+              isCollapsed: true,
+            },
+            {
+              id: 2112111114,
+              name: "lt. Sunddaram",
+              wives: [],
+              children: [],
+              isAlive: false,
+              gender: "M",
+              isCollapsed: true,
+            },
+            {
+              id: 2112111115,
+              name: "lt. Gowardhan",
+              wives: [],
+              children: [],
+              isAlive: false,
+              gender: "M",
+              isCollapsed: true,
+            },
+            {
+              id: 2112111116,
+              name: "lt. Jiram",
+              wives: [
+                {
+                  id: 21121111160,
+                  name: "",
+                  isAlive: false,
+                  gender: "F",   
+                }
+              ],
+              children: [
+                {
+                  id: 21121111161,
+                  name: "lt. Kaanaram",
+                  isAlive: false,
+                  gender: "M",
+                  isCollapsed: true,
+                },        
+              ],
+              isAlive: false,
+              gender: "M",
+              isCollapsed: true,
+            }
+          ],
+          isAlive: false,
+          gender: "M",
+          isCollapsed: true,
+        },
+        {
+          id: 211211112,
+          name: "lt. Durgaram",
+          wives: [],
+          children: [],
+          isAlive: false,
+          gender: "M",
+          isCollapsed: true,
+        },
+      ],
+      isAlive: false,
+      gender: "M",
+      isCollapsed: true,
+    }
+  ]);
+  const [tatija] = useState([
+    {
+      id: 2,
+      name: "lt. Jivanram",
+      wives: [],
+      children: [
+        {
+          id: 21,
+          name: "lt. Govindram",
+          wives: [
+            {
+              id: 210,
+              name: "Mewa",
+              isAlive: false,
+              gender: "F",   
+            }
+          ],
+          children: [
+            {
+              id: 211,
+              name: "lt. Narpat",
+              wives: [
+                {
+                  id: 2110,
+                  name: "",
+                  isAlive: false,
+                  gender: "F",   
+                }
+              ],
+              children: [
+                {
+                  id: 2111,
                   name: "lt. Narpat",
                   wives: [],
                   children: [],
@@ -4018,11 +4158,11 @@ function App() {
                   isCollapsed: true 
                 },
                 {
-                  id: 1112,
+                  id: 2112,
                   name: "lt. Dungarram",
                   wives: [
                     {
-                      id: 11120,
+                      id: 21120,
                       name: "",
                       isAlive: false,
                       gender: "F",   
@@ -4030,7 +4170,7 @@ function App() {
                   ],
                   children: [
                     {
-                      id: 11121,
+                      id: 21121,
                       name: "lt. Tejaram",
                       wives: [
                         {
@@ -4042,11 +4182,11 @@ function App() {
                       ],
                       children: [
                         {
-                          id: 111211,
+                          id: 211211,
                           name: "lt. Govindram",
                           wives: [
                             {
-                              id: 1112110,
+                              id: 2112110,
                               name: "",
                               isAlive: false,
                               gender: "F",   
@@ -4054,162 +4194,23 @@ function App() {
                           ],
                           children: [
                             {
-                              id: 1112111,
+                              id: 2112111,
                               name: "lt. Dullaram",
                               wives: [
                                 {
-                                  id: 11121110,
+                                  id: 21121110,
                                   name: "",
                                   isAlive: false,
                                   gender: "F",   
                                 }
                               ],
-                              children: [
-                                {
-                                  id: 11121111,
-                                  name: "lt. Natharam",
-                                  wives: [
-                                    {
-                                      id: 11121110,
-                                      name: "",
-                                      isAlive: false,
-                                      gender: "F",   
-                                    }
-                                  ],
-                                  children: [
-                                    {
-                                      id: 111211111,
-                                      name: "lt. Tulsaram",
-                                      wives: [
-                                        {
-                                          id: 1112111110,
-                                          name: "",
-                                          isAlive: false,
-                                          gender: "F",   
-                                        }
-                                      ],
-                                      children: [
-                                        {
-                                          id: 1112111111,
-                                          name: "lt. Singaram",
-                                          wives: [
-                                            {
-                                              id: 11121111110,
-                                              name: "",
-                                              isAlive: false,
-                                              gender: "F",   
-                                            }
-                                          ],
-                                          children: [
-                                            {
-                                              id: 11121111111,
-                                              name: "lt. Anuparam",
-                                              wife: [],
-                                              children: [],
-                                              gender: "M",
-                                              isAlive: false,
-                                              isCollapsed: true
-                                            },
-                                            {
-                                              id: 11121111112,
-                                              name: "lt. Ruparam",
-                                              wife: [],
-                                              children: [],
-                                              gender: "M",
-                                              isAlive: false,
-                                              isCollapsed: true
-                                            },
-                                          ],
-                                          isAlive: false,
-                                          gender: "M",
-                                          isCollapsed: true,
-                                        },
-                                        {
-                                          id: 1112111112,
-                                          name: "lt. Jodhaaram",
-                                          wives: [],
-                                          children: [],
-                                          isAlive: false,
-                                          gender: "M",
-                                          isCollapsed: true,
-                                        },
-                                        {
-                                          id: 1112111113,
-                                          name: "lt. Mansaram",
-                                          wives: [],
-                                          children: [],
-                                          isAlive: false,
-                                          gender: "M",
-                                          isCollapsed: true,
-                                        },
-                                        {
-                                          id: 1112111114,
-                                          name: "lt. Sunddaram",
-                                          wives: [],
-                                          children: [],
-                                          isAlive: false,
-                                          gender: "M",
-                                          isCollapsed: true,
-                                        },
-                                        {
-                                          id: 1112111115,
-                                          name: "lt. Gowardhan",
-                                          wives: [],
-                                          children: [],
-                                          isAlive: false,
-                                          gender: "M",
-                                          isCollapsed: true,
-                                        },
-                                        {
-                                          id: 1112111116,
-                                          name: "lt. Jiram",
-                                          wives: [
-                                            {
-                                              id: 11121111160,
-                                              name: "",
-                                              isAlive: false,
-                                              gender: "F",   
-                                            }
-                                          ],
-                                          children: [
-                                            {
-                                              id: -81,
-                                              name: "lt. Kaanaram",
-                                              isAlive: false,
-                                              gender: "M",
-                                              isCollapsed: true,
-                                            },        
-                                          ],
-                                          isAlive: false,
-                                          gender: "M",
-                                          isCollapsed: true,
-                                        }
-                                      ],
-                                      isAlive: false,
-                                      gender: "M",
-                                      isCollapsed: true,
-                                    },
-                                    {
-                                      id: 111211112,
-                                      name: "lt. Durgaram",
-                                      wives: [],
-                                      children: [],
-                                      isAlive: false,
-                                      gender: "M",
-                                      isCollapsed: true,
-                                    },
-                                  ],
-                                  isAlive: false,
-                                  gender: "M",
-                                  isCollapsed: true,
-                                }
-                              ],
+                              children: [],
                               isAlive: false,
                               gender: "M",
                               isCollapsed: true      
                             },
                             {
-                              id: 1112112,
+                              id: 2112112,
                               name: "lt. Lekhuram",
                               wife: [],
                               children: [],
@@ -4218,7 +4219,7 @@ function App() {
                               isCollapsed: true
                             },
                             {
-                              id: 1112113,
+                              id: 2112113,
                               name: "lt. Hariram",
                               wife: [],
                               children: [],
@@ -4232,8 +4233,8 @@ function App() {
                           isCollapsed: true
                         },
                         {
-                          id: 111212,
-                          name: "lt. Tillaram",
+                          id: 211212,
+                          name: "lt. Tellaram",
                           wife: [],
                           children: [],
                           isAlive: false,
@@ -4246,7 +4247,7 @@ function App() {
                       isCollapsed: true
                     },
                     {
-                      id: 11122,
+                      id: 21122,
                       name: "lt. Jagmaal",
                       wives: [],
                       children: [],
@@ -4255,7 +4256,7 @@ function App() {
                       isCollapsed: true    
                     },
                     {
-                      id: 11123,
+                      id: 21123,
                       name: "lt. Bojaram",
                       wives: [],
                       children: [],
@@ -4269,7 +4270,7 @@ function App() {
                   isCollapsed: true    
                 },
                 {
-                  id: 1113,
+                  id: 2113,
                   name: "lt. Daipaal",
                   wife: [],
                   children: [],
@@ -4283,7 +4284,7 @@ function App() {
               isCollapsed: true 
             },
             {
-              id: 112,
+              id: 212,
               name: "lt. Pannu",
               wives: [],
               children: [],
@@ -4302,12 +4303,10 @@ function App() {
       isCollapsed: true     
     }
   ]);
-  const [tatija] = useState([]);
   const villages = ['dulania', 'moruwa', 'tatija']
   const [village, setVillage] = useState(villages[0]);
   const [members, setMembers] = useState(dulania);  
   const [users] = useState([
-    // { username: "jangirs", password: "mayals", isLogged: false },
     { username: "General", password: "333031", isLogged: false },
     { username: "0000", password: "0000", isLogged: false },
     { username: "bsjangir", password: "shell01-312", isLogged: false },
@@ -4518,7 +4517,7 @@ function App() {
       lekhuram: "लेखुराम",
       hariram: "हरिराम",
       govindram: "गोविन्दराम",
-      tillaram: "तिलाराम",
+      tellaram: "तेलाराम",
       tejaram: "तेजाराम",
       jagmaal: "जगमाल",
       bojaram: "बोजारम",

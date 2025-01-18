@@ -7,17 +7,18 @@ const SignIn = ({ state, dispatch }) => {
       <div className='signin'>
         <select name='username' value={input.username} onChange={(e) => dispatch({type: 'input', attribute: e.target.name, value: e.target.value })}>
           <option value=''>username</option>
-          { state.users.map((user, i) => <option key={i} value={user.username}>{user.username}</option>) }
+          {state.users.map((user, i) => <option key={i} value={user.username}>{user.username}</option>)}
         </select>
         <input 
-          name='password' 
-          disabled={ input.username === '' }
-          value={ input.password } 
+          name='password'
+          type='password'
+          disabled={input.username === ''}
+          value={input.passwor } 
           placeholder='password' 
           onChange={(e) => dispatch({type: 'input', attribute: e.target.name, value: e.target.value })}
         />
         <button 
-          disabled={ input.username === '' || input.password === '' }
+          disabled={input.username === '' || input.password === ''}
           onClick={() => dispatch({ type: 'signin'})}
         >Sign In</button>
         {input.error && <div style={{color: 'red'}}>incorrect username or password !</div>}

@@ -189,13 +189,13 @@ const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers }) => 
         </select>
         <label>
           <span>{state.user.language ? 
-            `Married (${getAliveAndMarriedMales()} / ${getDeadAndMarriedMales()})` : 
-            `विवाहित (${getHindiNumbers(getAliveAndMarriedMales().toString())} / ${getHindiNumbers(getDeadAndMarriedMales().toString())})`
+            <><span>{`Married (${getAliveAndMarriedMales()}`}</span><span style={{fontSize: '8px', color: 'red'}}>{` / ${getDeadAndMarriedMales()})`}</span></> : 
+            <><span>{`विवाहित (${getHindiNumbers(getAliveAndMarriedMales().toString())}`}</span><span style={{fontSize: '8px', color: 'red'}}>{` / ${getHindiNumbers(getDeadAndMarriedMales().toString())})`}</span></>
           }</span>
           {' '}
           <span>{state.user.language ? 
-            `Unmarried (${getAliveAndUnmarriedMales()} / ${getDeadAndUnmarriedMales()})` : 
-            `अविवाहित (${getHindiNumbers(getAliveAndUnmarriedMales().toString())} / ${getHindiNumbers(getDeadAndUnmarriedMales().toString())})`
+            <><span>{`Unmarried (${getAliveAndUnmarriedMales()}`}</span><span style={{fontSize: '8px', color: 'red'}}>{` / ${getDeadAndUnmarriedMales()})`}</span></> : 
+            <><span>{`अविवाहित (${getHindiNumbers(getAliveAndUnmarriedMales().toString())}`}</span><span style={{fontSize: '8px', color: 'red'}}>{` / ${getHindiNumbers(getDeadAndUnmarriedMales().toString())})`}</span></>
           }</span>
         </label>
         <select name='gotra' value={male.gotra} onChange={(e) => dispatch({ type: 'male-selection', village: '', gotra: e.target.value })}>
@@ -211,13 +211,13 @@ const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers }) => 
         </select>
         <label>
           <span>{state.user.language ? 
-            `Married (${getAliveAndMarriedFemales()} / ${getDeadAndMarriedFemales()})` : 
-            `विवाहित (${getHindiNumbers(getAliveAndMarriedFemales().toString())} / ${getHindiNumbers(getDeadAndMarriedFemales().toString())})`
+            <><span>{`Married (${getAliveAndMarriedFemales()}`}</span><span style={{fontSize: '8px', color: 'red'}}>{`/ ${getDeadAndMarriedFemales()})`}</span></> : 
+            <><span>{`विवाहित (${getHindiNumbers(getAliveAndMarriedFemales().toString())}`}</span><span style={{fontSize: '8px', color: 'red'}}>{`/ ${getHindiNumbers(getDeadAndMarriedFemales().toString())})`}</span></>
           }</span>
           {' '}
           <span>{state.user.language ? 
-            `Unmarried (${getAliveAndUnmarriedFemales()} / ${getDeadAndUnmarriedFemales()} )` : 
-            `अविवाहित (${getHindiNumbers(getAliveAndUnmarriedFemales().toString())} / ${getHindiNumbers(getDeadAndUnmarriedFemales().toString())})`
+            <><span>{`Unmarried (${getAliveAndUnmarriedFemales()}`}</span><span style={{fontSize: '8px', color: 'red'}}>{` / ${getDeadAndUnmarriedFemales()} )`}</span></> : 
+            <><span>{`अविवाहित (${getHindiNumbers(getAliveAndUnmarriedFemales().toString())}`}</span><span style={{fontSize: '8px', color: 'red'}}>{`/ ${getHindiNumbers(getDeadAndUnmarriedFemales().toString())})`}</span></>
           }</span>
         </label>
         <select name='gotra' value={female.gotra} onChange={(e) => dispatch({ type: 'female-selection', village: '', gotra: e.target.value })}>
