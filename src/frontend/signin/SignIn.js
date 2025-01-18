@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './SignIn.css'
 
 const SignIn = ({ state, dispatch }) => {
   const [input, setInput] = useState({
@@ -7,7 +8,7 @@ const SignIn = ({ state, dispatch }) => {
   })
   return (
     <div>
-      <div>
+      <div className='signin'>
         {/* <select name='username' value={ input.username } onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}>
           <option value=''>-- name --</option>
           { state.users.map((user, i) => <option key={i} value={user.username}>{user.firstname}</option>) }
