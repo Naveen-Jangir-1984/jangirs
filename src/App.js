@@ -4942,7 +4942,8 @@ function App() {
       password: '',
       error: false
     },
-    isAddUserOpen: false
+    isUserEditOpen: false,
+    isMemberEditOpen: false
   }
   // traverse members to expand or collapse
   const traverseMemberToExpandOrCollapse = (member, id) => {
@@ -5042,7 +5043,6 @@ function App() {
         const db = action.initialState.db;
         setMembers(db.dulania);
         return {
-          ...state,
           user: undefined,
           users: db.users,
           dulania: db.dulania,
@@ -5050,23 +5050,57 @@ function App() {
           tatija: db.tatija,
           members: db.dulania,
           villages: db.villages,
-          village: db.villages[0]
+          village: db.villages[0],
+          images: images,
+          filters: {
+            search: '',
+            male: {
+              village: '',
+              gotra: ''
+            },
+            female: {
+              village: '',
+              gotra: ''
+            }
+          },
+          view: false,
+          viewData: { 
+            src: '', 
+            name: '', 
+            mobile: '', 
+            email: '', 
+            dob: '' 
+          },
+          input: {
+            username: '',
+            password: '',
+            error: false
+          },
+          isUserEditOpen: false,
+          isMemberEditOpen: false
         };
-      case 'openAddUser':
+      case 'openUserEdit':
         return {
           ...state,
-          isAddUserOpen: true
+          isUserEditOpen: true
         };
-      case 'exitAddUser':
+      case 'closeUserEdit':
         return {
           ...state,
-          isAddUserOpen: false
+          isUserEditOpen: false
         };
       case 'addNewUser':
+        console.log(action.newUser)
         return {
           ...state,
           users: [...state.users, action.newUser],
-          isAddUserOpen: false
+          isUserEditOpen: false
+        };
+      case 'deleteUser':
+        return {
+          ...state,
+          users: state.users.filter(user => user.username !== action.username),
+          isUserEditOpen: false
         };
       case 'input':
         return {
@@ -5131,7 +5165,7 @@ function App() {
             password: '',
             error: false
           },
-          isAddUserOpen: false
+          isUserEditOpen: false
         };
       case 'toggle':
         return {
@@ -5212,24 +5246,35 @@ function App() {
         return state;
     }
   }
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://115.117.107.101:27001/getData');
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const result = await response.json();
+      sessionStorage.setItem('appState', JSON.stringify(result));
+      dispatch({ type: 'fetch_success', initialState: result });
+    } catch (error) {
+      dispatch({ type: 'fetch_error', initialState: {} });
+    }
+  };
   const [state, dispatch] = useReducer(reducer, initialState, (initial) => {
     const storedState = sessionStorage.getItem('appState');
     return storedState ? JSON.parse(storedState) : initial;
+    // if(storedData) {
+    //   dispatch({type: 'fetch_success', initialState: JSON.parse(storedData) });
+    // } else {
+    //   fetchData();
+    // }
   });
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:27001/getData');
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const result = await response.json();
-        dispatch({ type: 'fetch_success', initialState: result });
-      } catch (error) {
-        dispatch({ type: 'fetch_error', initialState: {} });
-      }
-    };
-    fetchData();
+    const storedData = sessionStorage.getItem('appState');
+    if(storedData) {
+      dispatch({type: 'fetch_success', initialState: JSON.parse(storedData) });
+    } else {
+      fetchData();
+    }
   }, []);
   useEffect(() => {
     sessionStorage.setItem('appState', JSON.stringify(state));

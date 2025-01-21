@@ -11,3 +11,11 @@
   height: 15px;
   cursor: pointer;
 }
+
+.icons {
+  border: none;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}

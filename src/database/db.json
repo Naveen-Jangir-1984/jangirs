@@ -3594,7 +3594,7 @@
                       "name": "Tejaram",
                       "wives": [
                         {
-                          "id": 111210,
+                          "id": 211210,
                           "name": "",
                           "isAlive": false,
                           "gender": "F"
@@ -3800,10 +3800,6 @@
     {
       "username": "rahul",
       "password": "mamta123"
-    },
-    {
-      "username": "1234",
-      "password": "1234"
     }
   ],
   "villages": [

@@ -1,4 +1,4 @@
-.add {
+.display-users {
 	display: none;
 	position: absolute;
 	top: 50%;
@@ -7,7 +7,6 @@
 	width: 100%;
 	height: 100%;
 	background-color: rgba(250, 250, 250, 0.9);
-	/* background-color: lightblue; */
 	border-radius: 5px;
 	justify-content: center;
 	align-items: center;
@@ -20,12 +19,14 @@
   padding: 2px 5px;
   border-radius: 5px;
   width: 250px;
-  height: 300px;
+  height: auto;
   display: flex;
   flex-direction: column;
   row-gap: 10px;
   justify-content: center;
   align-items: center;
+  overflow-x: hidden;
+  overflow-y: auto;
   z-index: 2;
 }
 
@@ -35,15 +36,32 @@
 	cursor: pointer;
 }
 
-.view input, .view select, .view button {
-	width: 200px;
-	height: 50px;
+.view table {
+	width: 100%;
 }
 
-.user-inputs, .member-inputs {
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-  justify-content: center;
-  align-items: center;	
+.user-inputs {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.view input {
+	width: 48%;
+	height: 30px;
+	background-color: lightgrey;
+}
+
+.view button {
+	width: 100%;
+	height: 30px;
+	background-color: lightskyblue;
+}
+
+.view .icons {
+	border: none;
+	border-radius: 50%;
+	width: 10px;
+	height: 10px;
 }
