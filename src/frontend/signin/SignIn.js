@@ -2,6 +2,7 @@ import './SignIn.css'
 
 const SignIn = ({ state, dispatch }) => {
   const input = state.input
+  
   return (
     <div>
       <div className='signin'>
@@ -13,7 +14,7 @@ const SignIn = ({ state, dispatch }) => {
           name='password'
           type='password'
           disabled={input.username === ''}
-          value={input.passwor } 
+          value={input.password} 
           placeholder='password' 
           onChange={(e) => dispatch({type: 'input', attribute: e.target.name, value: e.target.value })}
         />

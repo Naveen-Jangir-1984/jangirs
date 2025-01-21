@@ -72,7 +72,7 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
             {/* {wife.gotra && <div style={{marginBottom: '10px'}}>.</div>} */}
             {wife.gotra && <div style={{marginBottom: '5px', fontSize: '7px'}}>{state.user.language ? wife.gotra : getHindiText(wife.gotra, 'gotra')}</div>}
           </div>)}
-          {member.gender === "M" && member.village && <div style={{fontSize: '7px'}}>( {state.user.language ? `Settled in ${member.village}` : `${getHindiText(member.village, 'village')} ${getHindiText('in')} ${getHindiText('settled')}`} )</div>}
+          {member.gender === "M" && member.village && <div style={{fontSize: '7px', fontWeight: 'bolder'}}>( {state.user.language ? `Settled in ${member.village}` : `${getHindiText(member.village, 'village')} ${getHindiText('in')} ${getHindiText('settled')}`} )</div>}
           <span className="memberCount" style={{}}>
             {state.user.language ?
               <span>
@@ -91,6 +91,7 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
               </span>
             }
           </span>
+          {state.user.username === 'bsjangir' && state.isAddUserOpen && <img className='edit-member' src={PlusIcon} alt='addMember' />}
         </div>
         <div style={{display: member.isCollapsed ? 'none' : 'block'}}>
           {member.gender === 'M' && member.children?.map(child => displayMember(child, depth + 5))}

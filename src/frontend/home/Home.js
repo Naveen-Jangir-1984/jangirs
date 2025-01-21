@@ -3,6 +3,7 @@ import Filter from "../filter/Filter";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
 import Tree from "../tree/Tree";
+import AddUser from "../user/AddUser";
 import './Home.css';
 
 const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers }) => {
@@ -28,6 +29,12 @@ const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers }) => {
       />
       <Footer state={state} />
       <Details
+        state={state} 
+        dispatch={dispatch}
+        getHindiText={getHindiText}  
+        getHindiNumbers={getHindiNumbers}
+      />
+      <AddUser
         state={state} 
         dispatch={dispatch}
         getHindiText={getHindiText}  

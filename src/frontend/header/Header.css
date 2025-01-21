@@ -5,7 +5,7 @@
   width: 100%;
 }
 
-.signout {
+.signout, .addIcon {
   border: none;
   width: 15px;
   height: 15px;
