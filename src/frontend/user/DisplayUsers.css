@@ -48,13 +48,13 @@
 }
 
 .view input {
-	width: 48%;
+	width: 38%;
 	height: 30px;
 	background-color: lightgrey;
 }
 
 .view button {
-	width: 100%;
+	width: 20%;
 	height: 30px;
 	background-color: lightskyblue;
 }

@@ -15,7 +15,7 @@ app.get('/getData', (req, res) => {
       return;
     }
     db = JSON.parse(data);
-    res.send({ db: db });
+    res.send({ db });
   });
 });
 

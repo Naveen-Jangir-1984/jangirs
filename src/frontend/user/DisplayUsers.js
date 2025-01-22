@@ -4,6 +4,7 @@ import DeleteIcon from '../../images/delete.png';
 import './DisplayUsers.css';
 
 const DisplayUsers = ({state, dispatch}) => {
+	const [displayAddUser, setDisplayAddUser] = useState(false);
 	const [newUser, setNewUser] = useState({
 		username: '',
 		password: '',
@@ -12,6 +13,7 @@ const DisplayUsers = ({state, dispatch}) => {
 	const handleClose = () => {
 		setNewUser({username: '', password: '', error: false}); 
 		dispatch({type: 'closeUserEdit'});
+		setDisplayAddUser(false);
 	}
 	const handleAddUser = async () => {
 		const response = await fetch('http://115.117.107.101:27001/addNewUser', {
@@ -25,6 +27,7 @@ const DisplayUsers = ({state, dispatch}) => {
 		} else if(data.result === 'duplicate') {
 			setNewUser({ ...newUser, error: true });
 		}
+		setDisplayAddUser(false);
 	}
 	const handleDeleteUser = async (username) => {
 		const response = await fetch('http://115.117.107.101:27001/deleteUser', {
@@ -35,16 +38,18 @@ const DisplayUsers = ({state, dispatch}) => {
 		if (data.result === 'success') {
 			dispatch({type: 'deleteUser', username: username});
 		}
+		setDisplayAddUser(false);
 	}
 	return (
 		<div className='display-users' style={{display: state.isUserEditOpen ? 'flex' : 'none'}}>
 			<div className='view'>
 				<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
-				<div className='user-inputs'>
+				<div style={{textDecoration: 'underline'}} onClick={() => setDisplayAddUser(!displayAddUser)}>{`Click to ${displayAddUser ? 'close' : 'open'} Add User`}</div>
+				<div className='user-inputs' style={{display: displayAddUser ? 'flex' : 'none'}}>
 					<input name='username' placeholder='username' type='text' value={newUser.username} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
 					<input disabled={newUser.username === ''} name='password' placeholder='password' type='password' value={newUser.password} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
+					<button disabled={newUser.password === ''} onClick={() => handleAddUser()}>ADD</button>
 				</div>
-				<button disabled={newUser.password === ''} onClick={() => handleAddUser()}>Add User</button>
 				{newUser.error && <div style={{color: 'red'}}>user already exists !</div>}
 				<table>
 					<tbody>

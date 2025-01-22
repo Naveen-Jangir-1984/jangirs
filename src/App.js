@@ -5040,10 +5040,10 @@ function App() {
   const reducer = (state, action) => {
     switch (action.type) {
       case 'fetch_success':
-        const db = action.initialState.db;
+        const db = action.initialState;
         setMembers(db.dulania);
         return {
-          user: undefined,
+          user: action.user,
           users: db.users,
           dulania: db.dulania,
           moruwa: db.moruwa,
@@ -5252,9 +5252,45 @@ function App() {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const result = await response.json();
-      sessionStorage.setItem('appState', JSON.stringify(result));
-      dispatch({ type: 'fetch_success', initialState: result });
+      const data = await response.json();
+      console.log(data.db);
+      sessionStorage.setItem('appState', JSON.stringify({
+        user: undefined,
+        users: data.db.users,
+        dulania: data.db.dulania,
+        moruwa: data.db.moruwa,
+        tatija: data.db.tatija,
+        members: data.db.dulania,
+        villages: data.db.villages,
+        village: data.db.villages[0],
+        filters: {
+          search: '',
+          male: {
+            village: '',
+            gotra: ''
+          },
+          female: {
+            village: '',
+            gotra: ''
+          }
+        },
+        view: false,
+        viewData: { 
+          src: '', 
+          name: '', 
+          mobile: '', 
+          email: '', 
+          dob: '' 
+        },
+        input: {
+          username: '',
+          password: '',
+          error: false
+        },
+        isUserEditOpen: false,
+        isMemberEditOpen: false
+      }));
+      dispatch({ type: 'fetch_success', initialState: data.db, user: undefined });
     } catch (error) {
       dispatch({ type: 'fetch_error', initialState: {} });
     }
@@ -5262,16 +5298,11 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState, (initial) => {
     const storedState = sessionStorage.getItem('appState');
     return storedState ? JSON.parse(storedState) : initial;
-    // if(storedData) {
-    //   dispatch({type: 'fetch_success', initialState: JSON.parse(storedData) });
-    // } else {
-    //   fetchData();
-    // }
   });
   useEffect(() => {
     const storedData = sessionStorage.getItem('appState');
     if(storedData) {
-      dispatch({type: 'fetch_success', initialState: JSON.parse(storedData) });
+      dispatch({type: 'fetch_success', initialState: JSON.parse(storedData), user: JSON.parse(storedData).user});
     } else {
       fetchData();
     }
