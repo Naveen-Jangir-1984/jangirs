@@ -30,36 +30,46 @@ const DisplayUsers = ({state, dispatch}) => {
 		setDisplayAddUser(false);
 	}
 	const handleDeleteUser = async (username) => {
-		const response = await fetch('http://115.117.107.101:27001/deleteUser', {
-		method: 'post',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify({ username: username })})
-		const data = await response.json();
-		if (data.result === 'success') {
-			dispatch({type: 'deleteUser', username: username});
+		const consent = window.confirm('Are you sure you want to delete this user ?');
+		if (consent) {
+			const response = await fetch('http://115.117.107.101:27001/deleteUser', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ username: username })})
+			const data = await response.json();
+			if (data.result === 'success') {
+				dispatch({type: 'deleteUser', username: username});
+			}
+			setDisplayAddUser(false);
 		}
-		setDisplayAddUser(false);
 	}
 	return (
 		<div className='display-users' style={{display: state.isUserEditOpen ? 'flex' : 'none'}}>
+			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
 			<div className='view'>
-				<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
-				<div style={{textDecoration: 'underline'}} onClick={() => setDisplayAddUser(!displayAddUser)}>{`Click to ${displayAddUser ? 'close' : 'open'} Add User`}</div>
+				<table>
+					<thead>
+						<tr>
+							<th style={{textAlign: 'left'}}>Username</th>
+							<th style={{textAlign: 'left'}}>Password</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{state.users.map((user, i) => <tr key={i}>
+							<td>{user.username}</td>
+							<td>{user.password}</td>
+							<td style={{textAlign: 'right'}}><img className="icons" src={DeleteIcon} alt="delete" onClick={() => handleDeleteUser(user.username)} /></td>
+						</tr>)}
+					</tbody>
+				</table>
+				<div style={{textDecoration: 'underline', fontSize: '12px'}} onClick={() => setDisplayAddUser(!displayAddUser)}>{`Click to ${displayAddUser ? 'close' : 'open'} Add User`}</div>
 				<div className='user-inputs' style={{display: displayAddUser ? 'flex' : 'none'}}>
 					<input name='username' placeholder='username' type='text' value={newUser.username} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
 					<input disabled={newUser.username === ''} name='password' placeholder='password' type='password' value={newUser.password} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
 					<button disabled={newUser.password === ''} onClick={() => handleAddUser()}>ADD</button>
 				</div>
 				{newUser.error && <div style={{color: 'red'}}>user already exists !</div>}
-				<table>
-					<tbody>
-						{state.users.map((user, i) => <tr key={i}>
-							<td>{user.username}</td>
-							<td>{user.password}</td>
-							<td><img className="icons" src={DeleteIcon} alt="delete" onClick={() => handleDeleteUser(user.username)} /></td>
-						</tr>)}
-					</tbody>
-				</table>
 			</div>
 		</div>
 	);

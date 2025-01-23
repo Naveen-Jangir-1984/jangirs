@@ -5,7 +5,13 @@ import UserEditIcon from '../../images/user.png'
 import './Header.css';
 
 const Header = ({ state, dispatch, getHindiText }) => {
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(false);
+  const handleSignOut = () => {
+    const consent = window.confirm('Are you sure you want to sign out?');
+    if(consent) {
+      dispatch({type: 'signout'});
+    }
+  }
   return (
     <div className='header'>
       <button onClick={() => {
@@ -17,7 +23,7 @@ const Header = ({ state, dispatch, getHindiText }) => {
       </select>
       {state.user.username === 'bsjangir' && <img className='icons' src={UserEditIcon} alt='editUser' onClick={() => dispatch({type: 'openUserEdit'})} />}
       {/* {state.user.username === 'bsjangir' && <img className='icons' src={MemberEditIcon} alt='editMember' onClick={() => dispatch({type: 'openMemberEdit'})} />} */}
-      <img className='signout' src={SignOutIcon} alt='signout' onClick={() => dispatch({type: 'signout'})} />
+      <img className='signout' src={SignOutIcon} alt='signout' onClick={() => handleSignOut()} />
       <button onClick={() => dispatch({type: 'language', flag: !state.user.language})}>{state.user.language ? getHindiText('Hindi') : 'English'}</button>
     </div>
   );

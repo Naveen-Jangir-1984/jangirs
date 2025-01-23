@@ -1,0 +1,3810 @@
+{
+  "dulania": [
+    {
+      "id": 1,
+      "name": "Chetram",
+      "wives": [
+        {
+          "id": 10,
+          "name": "",
+          "isAlive": false,
+          "gender": "M"
+        }
+      ],
+      "children": [
+        {
+          "id": 11,
+          "name": "Seduram",
+          "wives": [
+            {
+              "id": 110,
+              "name": "",
+              "isAlive": false,
+              "gender": "F",
+              "village": "",
+              "gotra": ""
+            }
+          ],
+          "children": [
+            {
+              "id": 111,
+              "name": "Mukundaram",
+              "wives": [
+                {
+                  "id": 1110,
+                  "name": "",
+                  "isAlive": false,
+                  "gender": "F",
+                  "village": "Chhapda",
+                  "gotra": "Choyal"
+                }
+              ],
+              "children": [
+                {
+                  "id": 1111,
+                  "name": "Hameera Ram",
+                  "wives": [
+                    {
+                      "id": 11110,
+                      "name": "",
+                      "isAlive": false,
+                      "gender": "F",
+                      "village": "Heerwa",
+                      "gotra": "Rajotia"
+                    }
+                  ],
+                  "children": [
+                    {
+                      "id": 11111,
+                      "name": "Maturam",
+                      "wives": [
+                        {
+                          "id": 111110,
+                          "name": "Dadki",
+                          "isAlive": false,
+                          "gender": "F",
+                          "village": "Bhukana",
+                          "gotra": "Khandelwal"
+                        }
+                      ],
+                      "children": [
+                        {
+                          "id": 111116,
+                          "name": "Patasi",
+                          "isAlive": false,
+                          "gender": "F",
+                          "village": "Haripura",
+                          "gotra": "Nangalia"
+                        },
+                        {
+                          "id": 111117,
+                          "name": "Shanti",
+                          "isAlive": false,
+                          "gender": "F",
+                          "village": "Surajgarh",
+                          "gotra": "Ameria"
+                        },
+                        {
+                          "id": 111111,
+                          "name": "Sitaram",
+                          "wives": [
+                            {
+                              "id": 1111110,
+                              "name": "Mali",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Jai-Pahadi",
+                              "gotra": "Jayalwal"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1111111,
+                              "name": "Dharampal",
+                              "mobile": [
+                                7733075421
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11111110,
+                                  "name": "Manju",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Ojtu",
+                                  "gotra": "Saamarwal"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11111111,
+                                  "name": "Mamta",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Babaai",
+                                  "gotra": "Panwar"
+                                },
+                                {
+                                  "id": 11111112,
+                                  "name": "Poonam",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Babaai",
+                                  "gotra": "Panwar"
+                                },
+                                {
+                                  "id": 11111113,
+                                  "name": "Sandeep",
+                                  "wives": [
+                                    {
+                                      "id": 111111130,
+                                      "name": "Sarika",
+                                      "isAlive": true,
+                                      "gender": "F",
+                                      "village": "Bhawathadi",
+                                      "gotra": "Mulethiya"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "id": 111111131,
+                                      "name": "Harsh",
+                                      "wives": [],
+                                      "children": [],
+                                      "isAlive": true,
+                                      "gender": "M",
+                                      "isCollapsed": true
+                                    },
+                                    {
+                                      "id": 111111132,
+                                      "name": "Vihaan",
+                                      "wives": [],
+                                      "children": [],
+                                      "isAlive": true,
+                                      "gender": "M",
+                                      "isCollapsed": true
+                                    }
+                                  ],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11111114,
+                                  "name": "Ravi",
+                                  "mobile": [
+                                    8426004501
+                                  ],
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 11111115,
+                              "name": "Bhagoti",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Baamlan-Ki-Dhani",
+                              "gotra": "Jhuljhulia"
+                            },
+                            {
+                              "id": 11111116,
+                              "name": "Rajbala",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Khudiyan-Ka-Baas",
+                              "gotra": "Nangalia"
+                            },
+                            {
+                              "id": 1111112,
+                              "name": "Sagarmal",
+                              "mobile": [
+                                8769841019
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11111120,
+                                  "name": "Sharda",
+                                  "mobile": [
+                                    9672590510
+                                  ],
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Khedla",
+                                  "gotra": "Baldawa"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11111121,
+                                  "name": "Vikram",
+                                  "mobile": [
+                                    8072018964
+                                  ],
+                                  "wives": [
+                                    {
+                                      "id": 111111210,
+                                      "name": "Poonam",
+                                      "isAlive": true,
+                                      "gender": "F",
+                                      "village": "Ghardana",
+                                      "gotra": "Samdiwaal"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "id": 111111211,
+                                      "name": "Tannu",
+                                      "isAlive": true,
+                                      "gender": "F"
+                                    },
+                                    {
+                                      "id": 111111212,
+                                      "name": "Kunj",
+                                      "wives": [],
+                                      "children": [],
+                                      "isAlive": true,
+                                      "gender": "M",
+                                      "isCollapsed": true
+                                    }
+                                  ],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11111122,
+                                  "name": "Kanta",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Khatiyan-Ki-Dhani",
+                                  "gotra": "Choyal"
+                                },
+                                {
+                                  "id": 11111123,
+                                  "name": "Kuldeep",
+                                  "mobile": [
+                                    9785853203
+                                  ],
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1111113,
+                              "name": "Nagarmal",
+                              "mobile": [
+                                7073420086
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11111130,
+                                  "name": "Sumitra",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Rasoolpur",
+                                  "gotra": "Panwar"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11111131,
+                                  "name": "Priyanka",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Ramgadh",
+                                  "gotra": "Mishan"
+                                },
+                                {
+                                  "id": 11111132,
+                                  "name": "Pradeep",
+                                  "mobile": [
+                                    9887540086
+                                  ],
+                                  "wives": [
+                                    {
+                                      "id": 111111320,
+                                      "name": "Lekha",
+                                      "isAlive": true,
+                                      "gender": "F",
+                                      "village": "Bandiabhas ( Sikar )",
+                                      "gotra": "Badhania"
+                                    }
+                                  ],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1111114,
+                              "name": "Kamlesh",
+                              "wives": [
+                                {
+                                  "id": 11111140,
+                                  "name": "Manoj",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Pichnwa",
+                                  "gotra": "Panwar"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11111141,
+                                  "name": "Pankaj",
+                                  "mobile": [
+                                    9680513128
+                                  ],
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11111142,
+                                  "name": "Shubham",
+                                  "mobile": [
+                                    7374888186
+                                  ],
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 11111117,
+                              "name": "Sampati",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Khudiyan-Ka-Baas",
+                              "gotra": "Nangalia"
+                            }
+                          ],
+                          "isAlive": false,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 111118,
+                          "name": "Chukka",
+                          "isAlive": false,
+                          "gender": "F",
+                          "village": "Haripura",
+                          "gotra": "Nangalia"
+                        },
+                        {
+                          "id": 111112,
+                          "name": "Chhajuram",
+                          "mobile": [
+                            9414742727
+                          ],
+                          "dob": "1 January 1948",
+                          "wives": [
+                            {
+                              "id": 1111120,
+                              "name": "Santosh",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Aduka",
+                              "gotra": "Rosava"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1111121,
+                              "name": "Syopal",
+                              "mobile": [
+                                8890238355
+                              ],
+                              "dob": "15 March 1969",
+                              "wives": [
+                                {
+                                  "id": 11111210,
+                                  "name": "Manju",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Jai-Pahadi",
+                                  "gotra": "Jayalwal"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11111211,
+                                  "name": "Meenu",
+                                  "dob": "14 December 1992",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Nesal",
+                                  "gotra": "Kothkathalia"
+                                },
+                                {
+                                  "id": 11111212,
+                                  "name": "Hariom",
+                                  "mobile": [
+                                    7734912355
+                                  ],
+                                  "dob": "7 May 1995",
+                                  "wives": [
+                                    {
+                                      "id": 111112120,
+                                      "name": "Laxmi",
+                                      "dob": "9 November 1996",
+                                      "isAlive": true,
+                                      "gender": "F",
+                                      "village": "Kisari",
+                                      "gotra": "Dhanerwa"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "id": 111112121,
+                                      "name": "Baby Boy",
+                                      "wives": [],
+                                      "children": [],
+                                      "dob": "15 January 2024",
+                                      "isAlive": true,
+                                      "gender": "M"
+                                    }
+                                  ],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1111122,
+                              "name": "Shimbhudayal",
+                              "mobile": [
+                                9828837755
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11111220,
+                                  "name": "Vinod",
+                                  "dob": "1 January 1974",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Jai-Pahadi",
+                                  "gotra": "Jayalwal"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11111221,
+                                  "name": "Priyanka",
+                                  "dob": "7 July 1992",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Jaipur",
+                                  "gotra": "Dammu"
+                                },
+                                {
+                                  "id": 11111222,
+                                  "name": "Brijkishore",
+                                  "mobile": [
+                                    9599252030
+                                  ],
+                                  "dob": "3 August 1994",
+                                  "wives": [
+                                    {
+                                      "id": 111112220,
+                                      "name": "Pinky",
+                                      "dob": "14 February 1997",
+                                      "isAlive": true,
+                                      "gender": "F",
+                                      "village": "Mandasi",
+                                      "gotra": "Choyal"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "id": 111112221,
+                                      "name": "Vishakha",
+                                      "dob": "31 August 2021",
+                                      "isAlive": true,
+                                      "gender": "F"
+                                    }
+                                  ],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11111223,
+                                  "name": "Bhavna",
+                                  "dob": "9 April 1996",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Nawalgarh",
+                                  "gotra": "Roliwal"
+                                },
+                                {
+                                  "id": 11111224,
+                                  "dob": "25 January 1998",
+                                  "name": "Jyoti",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1111123,
+                              "name": "Ansuiya Devi ",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Solana",
+                              "gotra": "Samdiwaal"
+                            },
+                            {
+                              "id": 1111124,
+                              "name": "Rakesh",
+                              "mobile": [
+                                9829789764
+                              ],
+                              "dob": "15 August 1974",
+                              "wives": [
+                                {
+                                  "id": 11111240,
+                                  "name": "Narbada",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Pilani",
+                                  "gotra": "Khokha"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11111241,
+                                  "name": "Madhusudan",
+                                  "mobile": [
+                                    8233600271
+                                  ],
+                                  "dob": "20 july 1998",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11111242,
+                                  "name": "Tejasvi",
+                                  "dob": "2 January 2000",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 111113,
+                          "name": "Mulchand",
+                          "wives": [
+                            {
+                              "id": 1111130,
+                              "name": "Dharma",
+                              "isAlive": false,
+                              "gender": "F",
+                              "village": "Manjwa-Ki-Dhani",
+                              "gotra": "Roliwal"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1111131,
+                              "name": "Lacchi",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Khudiyan-Ka-Baas",
+                              "gotra": "Nangalia"
+                            },
+                            {
+                              "id": 1111132,
+                              "name": "Sharda",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Khudiyan-Ka-Baas",
+                              "gotra": "Nangalia"
+                            },
+                            {
+                              "id": 1111133,
+                              "name": "Ashok",
+                              "mobile": [
+                                9950384729
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11111330,
+                                  "name": "Parveena",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Aduka",
+                                  "gotra": "Rosava"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11111331,
+                                  "name": "Rima",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                },
+                                {
+                                  "id": 11111332,
+                                  "name": "Khooshbu",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": false,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 111114,
+                          "name": "Fatehchand ( Adopted - Rajvan )",
+                          "mobile": [
+                            6265589330
+                          ],
+                          "wives": [
+                            {
+                              "id": 1111140,
+                              "name": "Bimla",
+                              "isAlive": true,
+                              "gender": "F"
+                            }
+                          ],
+                          "children": [],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 111115,
+                          "name": "Bahadur Singh",
+                          "mobile": [
+                            9784461021,
+                            6375437060
+                          ],
+                          "dob": "1 August 1958",
+                          "email": [
+                            "bsjangir@gmail.com",
+                            "bhaterijangir1960@gmail.com"
+                          ],
+                          "wives": [
+                            {
+                              "id": 1111150,
+                              "name": "Bhateri",
+                              "isAlive": false,
+                              "gender": "F",
+                              "village": "Ghumansar",
+                              "gotra": "Sonania"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1111151,
+                              "name": "Yogendra",
+                              "wives": [],
+                              "children": [],
+                              "isAlive": false,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1111152,
+                              "name": "Ravindra",
+                              "mobile": [
+                                9860950561
+                              ],
+                              "dob": "12 March 1982",
+                              "email": [
+                                "sonuv002@gmail.com"
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11111520,
+                                  "name": "Neetu",
+                                  "mobile": [
+                                    9766940053
+                                  ],
+                                  "dob": "1 January 1986",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Narnaul",
+                                  "gotra": "Mandiwal"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11111521,
+                                  "name": "Kritul",
+                                  "dob": "10 February 2014",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1111153,
+                              "name": "Naveen",
+                              "mobile": [
+                                8412011412
+                              ],
+                              "dob": "3 November 1984",
+                              "email": [
+                                "monu.bits@gmail.com"
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11111530,
+                                  "name": "Anita",
+                                  "mobile": [
+                                    8149950005
+                                  ],
+                                  "dob": "14 January 1986",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Jhunjhunu",
+                                  "gotra": "Jhuljhulia"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11111531,
+                                  "name": "Ayansh",
+                                  "dob": "30 November 2017",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11111532,
+                                  "name": "Anvi",
+                                  "dob": "3 March 2023",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        }
+                      ],
+                      "isAlive": false,
+                      "gender": "M",
+                      "isCollapsed": true
+                    },
+                    {
+                      "id": 11112,
+                      "name": "Rajvan",
+                      "isAlive": false,
+                      "gender": "F",
+                      "village": "Surajgarh",
+                      "gotra": "Ameria"
+                    }
+                  ],
+                  "isAlive": false,
+                  "gender": "M",
+                  "isCollapsed": true,
+                  "gotra": "Mayal"
+                },
+                {
+                  "id": 1112,
+                  "name": "Chandgiram",
+                  "wives": [
+                    {
+                      "id": 11120,
+                      "name": "Maggi",
+                      "isAlive": false,
+                      "gender": "F",
+                      "village": "Devroad",
+                      "gotra": "Roliwal"
+                    }
+                  ],
+                  "children": [
+                    {
+                      "id": 11121,
+                      "name": "Banwarilal",
+                      "wives": [
+                        {
+                          "id": 111210,
+                          "name": "Durgi",
+                          "isAlive": false,
+                          "gender": "F",
+                          "village": "Laalpur",
+                          "gotra": "Rajotia"
+                        }
+                      ],
+                      "children": [
+                        {
+                          "id": 111215,
+                          "name": "Bhateri",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "Jaswantpura",
+                          "gotra": "Daadhiwal"
+                        },
+                        {
+                          "id": 111211,
+                          "name": "Ramkishan",
+                          "mobile": [
+                            9982901470
+                          ],
+                          "wives": [
+                            {
+                              "id": 1112110,
+                              "name": "Jivani",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Paalwas",
+                              "gotra": "Kakodia"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1112113,
+                              "name": "Rajesh",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Rampura",
+                              "gotra": "Siddad"
+                            },
+                            {
+                              "id": 1112111,
+                              "name": "Mukesh",
+                              "mobile": [
+                                7691822422
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11121110,
+                                  "name": "Sunita",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Chanana",
+                                  "gotra": "Panwar"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11121111,
+                                  "name": "Dipesh",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11121112,
+                                  "name": "Ansika",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1112112,
+                              "name": "Shivkumar",
+                              "mobile": [
+                                9461779758
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11121120,
+                                  "name": "Suman",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Chanana",
+                                  "gotra": "Panwar"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11121121,
+                                  "name": "Tarun",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11121122,
+                                  "name": "Nikita",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1112114,
+                              "name": "Sushila",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Gaadli",
+                              "gotra": "Laamdiwal"
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 111216,
+                          "name": "Santosh",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "Tara-Ka-Baas",
+                          "gotra": "Khandelwal"
+                        },
+                        {
+                          "id": 111217,
+                          "name": "Kamla",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "Tara-Ka-Baas",
+                          "gotra": "Khandelwal"
+                        },
+                        {
+                          "id": 111212,
+                          "name": "Jaiprakash",
+                          "mobile": [
+                            9694679244
+                          ],
+                          "wives": [
+                            {
+                              "id": 1112120,
+                              "name": "Ginni",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Paalwas",
+                              "gotra": "Kakodia"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1112124,
+                              "name": "Anita",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Bharinda",
+                              "gotra": "Panwar"
+                            },
+                            {
+                              "id": 1112125,
+                              "name": "Sunita",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Bharinda",
+                              "gotra": "Panwar"
+                            },
+                            {
+                              "id": 1112121,
+                              "name": "Anil",
+                              "mobile": [
+                                9829980763
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11121210,
+                                  "name": "Renu",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Dumoli",
+                                  "gotra": "Khandelwal"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11121211,
+                                  "name": "Hardik",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11121212,
+                                  "name": "Naksh",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1112122,
+                              "name": "Sunil",
+                              "mobile": [
+                                9887952911
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11121220,
+                                  "name": "Kanchan",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Anji-Ki-Dhani",
+                                  "gotra": "Gothdiwal"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11121221,
+                                  "name": "Kartik",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11121222,
+                                  "name": "Bhoomi",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1112123,
+                              "name": "Ravikant",
+                              "mobile": [
+                                9887490814
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11121230,
+                                  "name": "Sunita",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Charawas",
+                                  "gotra": "Panwar"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11121231,
+                                  "name": "Thaanvi",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                },
+                                {
+                                  "id": 11121232,
+                                  "name": "Tisha",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 111213,
+                          "name": "Kailash",
+                          "mobile": [
+                            9314931650
+                          ],
+                          "wives": [
+                            {
+                              "id": 1112130,
+                              "name": "Santosh",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Keharpura",
+                              "gotra": "Chichawa"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1112131,
+                              "name": "Pinky",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Budana",
+                              "gotra": "Ashaliya"
+                            },
+                            {
+                              "id": 1112132,
+                              "name": "Poonam",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Mithadi",
+                              "gotra": "Bhirania"
+                            },
+                            {
+                              "id": 1112133,
+                              "name": "Rekha",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Mukundgarh",
+                              "gotra": "Adichwal"
+                            },
+                            {
+                              "id": 1112134,
+                              "name": "Rahul",
+                              "mobile": [
+                                7023555142
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11121340,
+                                  "name": "Anita",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Jhunjhunu",
+                                  "gotra": "Damu"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11121341,
+                                  "name": "Laavi",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 111214,
+                          "name": "Ratan Singh",
+                          "mobile": [
+                            9314254401
+                          ],
+                          "wives": [
+                            {
+                              "id": 1112140,
+                              "name": "Umed",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Keharpura",
+                              "gotra": "Chichawa"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1112141,
+                              "name": "Manoj",
+                              "mobile": [
+                                7976475757
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11121410,
+                                  "name": "Meena",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Bisanpura",
+                                  "gotra": "Jhuljhulia"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11121411,
+                                  "name": "Bhoomija",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                },
+                                {
+                                  "id": 11121412,
+                                  "name": "Ishan",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1112142,
+                              "name": "Dinesh",
+                              "mobile": [
+                                8385908526
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11121420,
+                                  "name": "Anju",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Saarsar",
+                                  "gotra": "Chuil"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11121421,
+                                  "name": "Manvik",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 111218,
+                          "name": "Rajbala",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "Rampura",
+                          "gotra": "Samdiwaal"
+                        }
+                      ],
+                      "isAlive": false,
+                      "gender": "M",
+                      "isCollapsed": true
+                    },
+                    {
+                      "id": 11125,
+                      "name": "Rukmani",
+                      "isAlive": false,
+                      "gender": "F",
+                      "village": "Saari",
+                      "gotra": "Daman"
+                    },
+                    {
+                      "id": 11126,
+                      "name": "Banarasi",
+                      "isAlive": true,
+                      "gender": "F",
+                      "village": "Chandgothi",
+                      "gotra": "Beriwaal"
+                    },
+                    {
+                      "id": 11122,
+                      "name": "Hanuman Prasad",
+                      "wives": [
+                        {
+                          "id": 111220,
+                          "name": "Parvati",
+                          "isAlive": false,
+                          "gender": "F",
+                          "village": "Laalpur",
+                          "gotra": "Rajotia"
+                        }
+                      ],
+                      "children": [
+                        {
+                          "id": 111224,
+                          "name": "Prem",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "Khatehpura",
+                          "gotra": "Budhwaniya"
+                        },
+                        {
+                          "id": 111221,
+                          "name": "Jai Singh",
+                          "mobile": [
+                            9828753660
+                          ],
+                          "wives": [
+                            {
+                              "id": 1112210,
+                              "name": "Bimla",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Thirpali",
+                              "gotra": "Adichwal"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1112211,
+                              "name": "Mukesh",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Pilani",
+                              "gotra": "Nangalia"
+                            },
+                            {
+                              "id": 1112212,
+                              "name": "Manoj",
+                              "mobile": [
+                                9460230230
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11122120,
+                                  "name": "Mamta",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Keharpura",
+                                  "gotra": "Chichawa"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11122121,
+                                  "name": "Chanchal",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                },
+                                {
+                                  "id": 11122122,
+                                  "name": "Vanshu",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1112213,
+                              "name": "Sanjeev",
+                              "mobile": [
+                                9680230239
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11122130,
+                                  "name": "Pinky",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Bharu",
+                                  "gotra": "Danewa"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11122131,
+                                  "name": "Rishabh",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 111225,
+                          "name": "Sumitra",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "Khatehpura",
+                          "gotra": "Budhwaniya"
+                        },
+                        {
+                          "id": 111222,
+                          "name": "Ramchandar",
+                          "mobile": [
+                            9982419787
+                          ],
+                          "wives": [
+                            {
+                              "id": 1112220,
+                              "name": "Sulochana",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Kashni",
+                              "gotra": "Choyal"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1112221,
+                              "name": "Neetoo",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Surajgarh",
+                              "gotra": "Ameria"
+                            },
+                            {
+                              "id": 1112222,
+                              "name": "Ravikant",
+                              "mobile": [
+                                9785529522
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11122220,
+                                  "name": "Payal",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Nokhla-Ki-Dhani",
+                                  "gotra": "Misan"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11122221,
+                                  "name": "Chaarvi",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1112223,
+                              "name": "Yogesh",
+                              "mobile": [
+                                9785230466
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11122230,
+                                  "name": "Priya",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Paaldi",
+                                  "gotra": "Roliwal"
+                                }
+                              ],
+                              "children": [],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 111223,
+                          "name": "Ramesh",
+                          "mobile": [
+                            8504909871
+                          ],
+                          "wives": [
+                            {
+                              "id": 1112230,
+                              "name": "Suman",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Kashni",
+                              "gotra": "Choyal"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1112231,
+                              "name": "Jyoti",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Bangothdi",
+                              "gotra": "Shiwal"
+                            },
+                            {
+                              "id": 1112232,
+                              "name": "Nikhil",
+                              "wives": [],
+                              "children": [],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        }
+                      ],
+                      "isAlive": false,
+                      "gender": "M",
+                      "isCollapsed": true
+                    },
+                    {
+                      "id": 11123,
+                      "name": "Bajranglal",
+                      "wives": [
+                        {
+                          "id": 111230,
+                          "name": "Sharbati",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "Ghumansar",
+                          "gotra": "Sonania"
+                        }
+                      ],
+                      "children": [
+                        {
+                          "id": 111231,
+                          "name": "Bijendra",
+                          "mobile": [
+                            9950519073
+                          ],
+                          "wives": [
+                            {
+                              "id": 1112310,
+                              "name": "Birma",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Bhukana",
+                              "gotra": "Khandelwal"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1112311,
+                              "name": "Annu",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Laddusar",
+                              "gotra": "Daaima"
+                            },
+                            {
+                              "id": 1112312,
+                              "name": "Satish",
+                              "mobile": [
+                                8118869451
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11123120,
+                                  "name": "Suman",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Kakdeu",
+                                  "gotra": "Charkhiya"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11123121,
+                                  "name": "Inaya",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                },
+                                {
+                                  "id": 11123122,
+                                  "name": "Nikunj",
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "wives": [],
+                                  "children": [],
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1112313,
+                              "name": "Sonu",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Kakraye",
+                              "gotra": "Choyal"
+                            },
+                            {
+                              "id": 1112314,
+                              "name": "Nikita",
+                              "isAlive": true,
+                              "gender": "F"
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 111232,
+                          "name": "Bhalaram",
+                          "wives": [
+                            {
+                              "id": 1112320,
+                              "name": "Munesh",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Bajla",
+                              "gotra": "Choyal"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1112321,
+                              "name": "Gaurav",
+                              "wives": [],
+                              "children": [],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1112322,
+                              "name": "Ankit",
+                              "wives": [],
+                              "children": [],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 111233,
+                          "name": "Seema",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "Dhaana",
+                          "gotra": "Jadiwaal"
+                        },
+                        {
+                          "id": 111234,
+                          "name": "Sanjay",
+                          "wives": [
+                            {
+                              "id": 1112340,
+                              "name": "Neelam",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Bahal",
+                              "gotra": "Daaman"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1112341,
+                              "name": "Vineet",
+                              "wives": [],
+                              "children": [],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        }
+                      ],
+                      "isAlive": true,
+                      "gender": "M",
+                      "isCollapsed": true
+                    },
+                    {
+                      "id": 11124,
+                      "name": "Guljharilal",
+                      "mobile": [
+                        7426902726
+                      ],
+                      "wives": [
+                        {
+                          "id": 111240,
+                          "name": "Sharvan",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "Ghumansar",
+                          "gotra": "Sonania"
+                        }
+                      ],
+                      "children": [
+                        {
+                          "id": 111241,
+                          "name": "Bimla",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "Daabdi",
+                          "gotra": "Panwar"
+                        },
+                        {
+                          "id": 111242,
+                          "name": "Sushila",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "Jeeva-Ka-Baas",
+                          "gotra": "Dhanerwa"
+                        },
+                        {
+                          "id": 111243,
+                          "name": "Samita",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "Jeeva-Ka-Baas",
+                          "gotra": "Dhanerwa"
+                        },
+                        {
+                          "id": 111244,
+                          "name": "Vinod",
+                          "mobile": [
+                            9216279291
+                          ],
+                          "wives": [
+                            {
+                              "id": 1112440,
+                              "name": "Vinod",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Bhutiya-Ka-Baas",
+                              "gotra": "Rajotia"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1112441,
+                              "name": "Monika",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Solana",
+                              "gotra": "Samdiwaal"
+                            },
+                            {
+                              "id": 1112442,
+                              "name": "Naveen",
+                              "mobile": [
+                                9462898106
+                              ],
+                              "wives": [],
+                              "children": [],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1112443,
+                              "name": "Mandeep",
+                              "mobile": [
+                                7690027031
+                              ],
+                              "wives": [],
+                              "children": [],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 111245,
+                          "name": "Pushpa",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "Salaampur",
+                          "gotra": "Siddad"
+                        },
+                        {
+                          "id": 111246,
+                          "name": "Anjana",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "Salaampur",
+                          "gotra": "Siddad"
+                        }
+                      ],
+                      "isAlive": true,
+                      "gender": "M",
+                      "isCollapsed": true
+                    }
+                  ],
+                  "isAlive": false,
+                  "gender": "M",
+                  "isCollapsed": true
+                },
+                {
+                  "id": 1113,
+                  "name": "Maadhi",
+                  "isAlive": false,
+                  "gender": "F",
+                  "village": "Chaavsari",
+                  "gotra": "Siddad"
+                },
+                {
+                  "id": 1114,
+                  "name": "Gora",
+                  "isAlive": false,
+                  "gender": "F",
+                  "village": "Jai-Pahadi",
+                  "gotra": "Jayalwal"
+                },
+                {
+                  "id": 1115,
+                  "name": "Soni",
+                  "isAlive": false,
+                  "gender": "F",
+                  "village": "Jakhoda",
+                  "gotra": "Ashaliya"
+                },
+                {
+                  "id": 1116,
+                  "name": "Moti",
+                  "isAlive": false,
+                  "gender": "F",
+                  "village": "Dobada",
+                  "gotra": "Adichwal"
+                }
+              ],
+              "isAlive": false,
+              "gender": "M",
+              "isCollapsed": false
+            },
+            {
+              "id": 112,
+              "name": "Gyanaram",
+              "wives": [
+                {
+                  "id": 1120,
+                  "name": "",
+                  "isAlive": false,
+                  "gender": "F",
+                  "village": "Nuniya-Gothda",
+                  "gotra": "Bhiraniya"
+                }
+              ],
+              "children": [
+                {
+                  "id": 1121,
+                  "name": "Gopal Ram",
+                  "wives": [
+                    {
+                      "id": 11210,
+                      "name": "Sharti",
+                      "isAlive": false,
+                      "gender": "F",
+                      "village": "Pajju",
+                      "gotra": "Baldawa"
+                    }
+                  ],
+                  "children": [
+                    {
+                      "id": 11213,
+                      "name": "Chandrawali",
+                      "isAlive": false,
+                      "gender": "F",
+                      "village": "Sultana",
+                      "gotra": "Khandelwal"
+                    },
+                    {
+                      "id": 11214,
+                      "name": "Chankori",
+                      "isAlive": false,
+                      "gender": "F",
+                      "village": "Jakhoda",
+                      "gotra": "Ashaliya"
+                    },
+                    {
+                      "id": 11211,
+                      "name": "Bhagwanaram",
+                      "wives": [
+                        {
+                          "id": 112110,
+                          "name": "Laddo",
+                          "isAlive": false,
+                          "gender": "F",
+                          "village": "Ghumansar",
+                          "gotra": "Sonania"
+                        }
+                      ],
+                      "children": [
+                        {
+                          "id": 112112,
+                          "name": "Mohini",
+                          "isAlive": false,
+                          "gender": "F",
+                          "village": "Bhuriwaas",
+                          "gotra": "Shiwal"
+                        },
+                        {
+                          "id": 112113,
+                          "name": "Shanti",
+                          "isAlive": false,
+                          "gender": "F",
+                          "village": "Nesal",
+                          "gotra": "Kothkathalia"
+                        },
+                        {
+                          "id": 112111,
+                          "name": "Chothmal",
+                          "wives": [
+                            {
+                              "id": 1121110,
+                              "name": "Parvati",
+                              "isAlive": false,
+                              "gender": "F",
+                              "village": "Budania",
+                              "gotra": "Kashniwal"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1121116,
+                              "name": "Saraswati",
+                              "isAlive": false,
+                              "gender": "F",
+                              "village": "Jhunjhunu",
+                              "gotra": "Danewa"
+                            },
+                            {
+                              "id": 1121111,
+                              "name": "Niranjanlal",
+                              "mobile": [
+                                9929203503
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11211110,
+                                  "name": "Sumitra",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Ardawata",
+                                  "gotra": "Dhanderwa"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11211111,
+                                  "name": "Manoj",
+                                  "mobile": [
+                                    9829878295
+                                  ],
+                                  "wives": [
+                                    {
+                                      "id": 112111110,
+                                      "name": "Sangeeta",
+                                      "isAlive": true,
+                                      "gender": "F",
+                                      "village": "Peepli-Laxmangarh",
+                                      "gotra": "Kothkathalia"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "id": 112111111,
+                                      "name": "Anshuman",
+                                      "wives": [],
+                                      "children": [],
+                                      "isAlive": true,
+                                      "gender": "M",
+                                      "isCollapsed": true
+                                    },
+                                    {
+                                      "id": 112111112,
+                                      "name": "Pratyusha",
+                                      "isAlive": true,
+                                      "gender": "F"
+                                    }
+                                  ],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11211112,
+                                  "name": "Rahul",
+                                  "mobile": [
+                                    9983000045
+                                  ],
+                                  "wives": [
+                                    {
+                                      "id": 112111120,
+                                      "name": "Mamta",
+                                      "isAlive": true,
+                                      "gender": "F",
+                                      "village": "Chirawa",
+                                      "gotra": "Lamoria"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "id": 112111121,
+                                      "name": "Ghanistha",
+                                      "isAlive": true,
+                                      "gender": "F"
+                                    }
+                                  ],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11211113,
+                                  "name": "Hemant",
+                                  "mobile": [
+                                    9928009109
+                                  ],
+                                  "wives": [
+                                    {
+                                      "id": 112111130,
+                                      "name": "Priyanka",
+                                      "isAlive": true,
+                                      "gender": "F",
+                                      "village": "Sinwali",
+                                      "gotra": "Kidhwaniya"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "id": 112111131,
+                                      "name": "Priyanshi",
+                                      "isAlive": true,
+                                      "gender": "F"
+                                    },
+                                    {
+                                      "id": 112111132,
+                                      "name": "Daksh",
+                                      "wives": [],
+                                      "children": [],
+                                      "isAlive": true,
+                                      "gender": "M",
+                                      "isCollapsed": true
+                                    }
+                                  ],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11211114,
+                                  "name": "Kalpana",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Chirawa",
+                                  "gotra": "Shiwal"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1121112,
+                              "name": "Jankilal",
+                              "mobile": [
+                                9950519151
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11211120,
+                                  "name": "Kaushalya",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Ardawata",
+                                  "gotra": "Dhanderwa"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11211121,
+                                  "name": "Priyanka",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Lalasi",
+                                  "gotra": "Rajotia"
+                                },
+                                {
+                                  "id": 11211122,
+                                  "name": "Anita",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                },
+                                {
+                                  "id": 11211123,
+                                  "name": "Anuradha",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Pilani",
+                                  "gotra": "Baldawa"
+                                },
+                                {
+                                  "id": 11211124,
+                                  "name": "Kapil",
+                                  "mobile": [
+                                    8440000083
+                                  ],
+                                  "wives": [
+                                    {
+                                      "id": 112111240,
+                                      "name": "Kanak Priya",
+                                      "isAlive": true,
+                                      "gender": "F",
+                                      "village": "Delhi",
+                                      "gotra": "Shaahi"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "id": 112111241,
+                                      "name": "Ram",
+                                      "wives": [],
+                                      "children": [],
+                                      "isAlive": true,
+                                      "gender": "M",
+                                      "isCollapsed": true
+                                    },
+                                    {
+                                      "id": 112111242,
+                                      "name": "Lakhan",
+                                      "wives": [],
+                                      "children": [],
+                                      "isAlive": true,
+                                      "gender": "M",
+                                      "isCollapsed": true
+                                    }
+                                  ],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1121113,
+                              "name": "SajjanKumar",
+                              "mobile": [
+                                9672202020
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11211130,
+                                  "name": "Prabhati",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Ardawata",
+                                  "gotra": "Dhanderwa"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11211131,
+                                  "name": "Kanchan",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Lalasi",
+                                  "gotra": "Rajotia"
+                                },
+                                {
+                                  "id": 11211132,
+                                  "name": "Nikku",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Hukma-Ki-Dhani",
+                                  "gotra": "Bodalia"
+                                },
+                                {
+                                  "id": 11211133,
+                                  "name": "Naveen",
+                                  "mobile": [
+                                    7665004005
+                                  ],
+                                  "wives": [
+                                    {
+                                      "id": 112111330,
+                                      "name": "Mona",
+                                      "isAlive": true,
+                                      "gender": "F",
+                                      "village": "Sikar",
+                                      "gotra": "Roliwal"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "id": 112111331,
+                                      "name": "Maahi",
+                                      "isAlive": true,
+                                      "gender": "F"
+                                    },
+                                    {
+                                      "id": 112111332,
+                                      "name": "Chaarvik",
+                                      "wives": [],
+                                      "children": [],
+                                      "isAlive": true,
+                                      "gender": "M",
+                                      "isCollapsed": true
+                                    }
+                                  ],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11211134,
+                                  "name": "Rajnish",
+                                  "mobile": [
+                                    7062919191
+                                  ],
+                                  "wives": [
+                                    {
+                                      "id": 112111340,
+                                      "name": "Rinki",
+                                      "isAlive": true,
+                                      "gender": "F",
+                                      "village": "Peepli-Laxmangarh",
+                                      "gotra": "Kothkathalia"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "id": 112111341,
+                                      "name": "Nishiv",
+                                      "wives": [],
+                                      "children": [],
+                                      "isAlive": true,
+                                      "gender": "M",
+                                      "isCollapsed": true
+                                    },
+                                    {
+                                      "id": 112111342,
+                                      "name": "Shivaay",
+                                      "wives": [],
+                                      "children": [],
+                                      "isAlive": true,
+                                      "gender": "M",
+                                      "isCollapsed": true
+                                    }
+                                  ],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1121114,
+                              "name": "Dilip",
+                              "mobile": [
+                                9001962004
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11211140,
+                                  "name": "Meena",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Mandri",
+                                  "gotra": "Panwar"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11211141,
+                                  "name": "Neha",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Nyaloth",
+                                  "gotra": "Jhuljhulia"
+                                },
+                                {
+                                  "id": 11211142,
+                                  "name": "Divya",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                },
+                                {
+                                  "id": 11211143,
+                                  "name": "Sachin",
+                                  "mobile": [
+                                    9649902004
+                                  ],
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1121115,
+                              "name": "Subhash",
+                              "mobile": [
+                                9998938275
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11211150,
+                                  "name": "Geeta",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Sinwali",
+                                  "gotra": "Kidhwaniya"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11211151,
+                                  "name": "Hariom",
+                                  "mobile": [
+                                    8003338275
+                                  ],
+                                  "wives": [
+                                    {
+                                      "id": 112111510,
+                                      "name": "Maya",
+                                      "isAlive": true,
+                                      "gender": "F",
+                                      "village": "Thirpali",
+                                      "gotra": "Adichwal"
+                                    }
+                                  ],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11211152,
+                                  "name": "Deepak",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1121117,
+                              "name": "Saroj",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Pilani",
+                              "gotra": "Beriwaal"
+                            }
+                          ],
+                          "isAlive": false,
+                          "gender": "M",
+                          "isCollapsed": true
+                        }
+                      ],
+                      "isAlive": false,
+                      "gender": "M",
+                      "isCollapsed": true
+                    },
+                    {
+                      "id": 11212,
+                      "name": "Kurdaram",
+                      "wives": [
+                        {
+                          "id": 112120,
+                          "name": "Laxmi",
+                          "isAlive": false,
+                          "gender": "F",
+                          "village": "Ghumansar",
+                          "gotra": "Sonania"
+                        }
+                      ],
+                      "children": [
+                        {
+                          "id": 112126,
+                          "name": "Champa",
+                          "isAlive": false,
+                          "gender": "F",
+                          "village": "Maakhar",
+                          "gotra": "Kaakhwal"
+                        },
+                        {
+                          "id": 112121,
+                          "name": "Basantlal",
+                          "wives": [
+                            {
+                              "id": 1121210,
+                              "name": "Nirmala",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Khudaniya",
+                              "gotra": "Rajotia"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1121215,
+                              "name": "Sakuntala",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Singhana",
+                              "gotra": "Jayalwal"
+                            },
+                            {
+                              "id": 1121216,
+                              "name": "Suman",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Pilani",
+                              "gotra": "Nangalia"
+                            },
+                            {
+                              "id": 1121217,
+                              "name": "Bhanwari",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Pilani",
+                              "gotra": "Nangalia"
+                            },
+                            {
+                              "id": 1121211,
+                              "name": "Ashok",
+                              "mobile": [
+                                9166949861
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11212110,
+                                  "name": "Manju",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Bajawa",
+                                  "gotra": "Danewa"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11212111,
+                                  "name": "Pooja",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                },
+                                {
+                                  "id": 11212112,
+                                  "name": "Ekta",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                },
+                                {
+                                  "id": 11212113,
+                                  "name": "Vikash",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1121212,
+                              "name": "Sushil",
+                              "wives": [
+                                {
+                                  "id": 11212120,
+                                  "name": "Sunita",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Rajgarh",
+                                  "gotra": "Sanwalodiya"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11212121,
+                                  "name": "Nitesh",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11212122,
+                                  "name": "Khooshbu",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1121213,
+                              "name": "Sunil",
+                              "mobile": [
+                                9649048246
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11212130,
+                                  "name": "Krishna",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Rajgarh",
+                                  "gotra": "Sanwalodiya"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11212131,
+                                  "name": "Annu",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                },
+                                {
+                                  "id": 11212132,
+                                  "name": "Pritam",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1121214,
+                              "name": "Liladhar",
+                              "mobile": [
+                                9928781564
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11212140,
+                                  "name": "Annu",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Bhasawata",
+                                  "gotra": "Samdiwaal"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11212141,
+                                  "name": "Yakshit",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": false,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 112122,
+                          "name": "Maniram",
+                          "wives": [
+                            {
+                              "id": 1121220,
+                              "name": "Kalawati",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Dhakamaandi",
+                              "gotra": "Shiwal"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1121221,
+                              "name": "Shravan",
+                              "mobile": [
+                                9950485285
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11212210,
+                                  "name": "Sunita",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Dingli",
+                                  "gotra": "Khokha"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11212211,
+                                  "name": "Poonam",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Sardarsheher",
+                                  "gotra": "Jala"
+                                },
+                                {
+                                  "id": 11212212,
+                                  "name": "Amit",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11212213,
+                                  "name": "Harish",
+                                  "mobile": [
+                                    9414787818
+                                  ],
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1121223,
+                              "name": "Saroj",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Saakhu",
+                              "gotra": "Jala"
+                            },
+                            {
+                              "id": 1121224,
+                              "name": "Manju",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Saakhu",
+                              "gotra": "Jala"
+                            },
+                            {
+                              "id": 1121222,
+                              "name": "Rajkumar",
+                              "mobile": [
+                                8764497487
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11212220,
+                                  "name": "Poonam",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Devroad",
+                                  "gotra": "Roliwal"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11212221,
+                                  "name": "Jatin",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11212222,
+                                  "name": "Paras",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 112123,
+                          "name": "Bhagirathmal",
+                          "mobile": [
+                            9929124411
+                          ],
+                          "wives": [
+                            {
+                              "id": 1121230,
+                              "name": "Bimla",
+                              "wives": [],
+                              "children": [],
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Dhakamaandi",
+                              "gotra": "Shiwal"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1121231,
+                              "name": "Sunita",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Chirani",
+                              "gotra": "Chichawa"
+                            },
+                            {
+                              "id": 1121232,
+                              "name": "Ratni",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Chirani",
+                              "gotra": "Chichawa"
+                            },
+                            {
+                              "id": 1121233,
+                              "name": "Sushila",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Mandawa",
+                              "gotra": "Ubana"
+                            },
+                            {
+                              "id": 1121234,
+                              "name": "Vidhya",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Mandawa",
+                              "gotra": "Ubana"
+                            },
+                            {
+                              "id": 1121235,
+                              "name": "Kanta",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Baakra",
+                              "gotra": "Samdiwaal"
+                            },
+                            {
+                              "id": 1121236,
+                              "name": "Vipin",
+                              "mobile": [
+                                8890185946
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11212360,
+                                  "name": "Komal",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "isCollapsed": true,
+                                  "village": "Mandri",
+                                  "gotra": "Beriwaal"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11212361,
+                                  "name": "Khiyansh",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1121237,
+                              "name": "Maina",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Baakra",
+                              "gotra": "Samdiwaal"
+                            },
+                            {
+                              "id": 1121238,
+                              "name": "Sudhir",
+                              "mobile": [
+                                7732807071
+                              ],
+                              "wives": [],
+                              "children": [],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 112124,
+                          "name": "Satyanarayan",
+                          "mobile": [
+                            9828764997
+                          ],
+                          "wives": [
+                            {
+                              "id": 1121240,
+                              "name": "Basanti",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Budania",
+                              "gotra": "Kashniwal"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1121241,
+                              "name": "Anita",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Jhunjhunu",
+                              "gotra": "Barnela"
+                            },
+                            {
+                              "id": 1121242,
+                              "name": "Sushila",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Jhunjhunu",
+                              "gotra": "Barnela"
+                            },
+                            {
+                              "id": 1121243,
+                              "name": "Naresh",
+                              "mobile": [
+                                9717401311
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11212430,
+                                  "name": "Suman",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Govind-Singh-Ka-Baas",
+                                  "gotra": "Rajotia"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11212431,
+                                  "name": "Jayant",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11212432,
+                                  "name": "Pragya",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1121244,
+                              "name": "Asha",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Khetri",
+                              "gotra": "Mandiwal"
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 112125,
+                          "name": "Ramdev",
+                          "mobile": [
+                            9929593079
+                          ],
+                          "wives": [
+                            {
+                              "id": 1121250,
+                              "name": "Sharda",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Budania",
+                              "gotra": "Kashniwal"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1121251,
+                              "name": "Manohar",
+                              "mobile": [
+                                7690015993
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11212510,
+                                  "name": "Manju",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Khudana",
+                                  "gotra": "Chichawa"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11212511,
+                                  "name": "Jitendra",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11212512,
+                                  "name": "Dinesh",
+                                  "wives": [],
+                                  "children": [],
+                                  "isAlive": true,
+                                  "gender": "M",
+                                  "isCollapsed": true
+                                },
+                                {
+                                  "id": 11212513,
+                                  "name": "Hemlata",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1121252,
+                              "name": "Krishna",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Kaloth",
+                              "gotra": "Budhwaniya"
+                            },
+                            {
+                              "id": 1121253,
+                              "name": "Suman",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Kaloth",
+                              "gotra": "Budhwaniya"
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 112127,
+                          "name": "Sampati",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "chidsan-Ki-Dhani",
+                          "gotra": "Ashaliya"
+                        },
+                        {
+                          "id": 112128,
+                          "name": "Sumitra",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "chidsan-Ki-Dhani",
+                          "gotra": "Ashaliya"
+                        }
+                      ],
+                      "isAlive": false,
+                      "gender": "M",
+                      "isCollapsed": true
+                    }
+                  ],
+                  "isAlive": false,
+                  "gender": "M",
+                  "isCollapsed": true
+                },
+                {
+                  "id": 1123,
+                  "name": "Nirmala",
+                  "isAlive": false,
+                  "gender": "F",
+                  "village": "Moi",
+                  "gotra": "Choyal"
+                },
+                {
+                  "id": 1122,
+                  "name": "Surjaram",
+                  "wives": [
+                    {
+                      "id": 11220,
+                      "name": "Barji",
+                      "isAlive": false,
+                      "gender": "F",
+                      "village": "Bangothdi",
+                      "gotra": "Kaakhwal"
+                    }
+                  ],
+                  "children": [
+                    {
+                      "id": 11221,
+                      "name": "JugalKishore",
+                      "wives": [
+                        {
+                          "id": 112210,
+                          "name": "Shanti",
+                          "isAlive": false,
+                          "gender": "F",
+                          "village": "Bhapar",
+                          "gotra": "Gothdiwal"
+                        }
+                      ],
+                      "children": [
+                        {
+                          "id": 112211,
+                          "name": "Vishambhardayal",
+                          "mobile": [
+                            9811020569
+                          ],
+                          "wives": [
+                            {
+                              "id": 1122110,
+                              "name": "Meena",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Ghumansar",
+                              "gotra": "Sonania"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1122111,
+                              "name": "Akhil",
+                              "wives": [],
+                              "children": [],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1122112,
+                              "name": "Nikhil",
+                              "wives": [
+                                {
+                                  "id": 11221120,
+                                  "name": "Meghna",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Delhi",
+                                  "gotra": "Musraan"
+                                }
+                              ],
+                              "children": [],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 112213,
+                          "name": "Shashi",
+                          "isAlive": true,
+                          "gender": "F",
+                          "village": "Jhunjhunu",
+                          "gotra": "Barnela"
+                        },
+                        {
+                          "id": 112212,
+                          "name": "Pawan",
+                          "mobile": [
+                            7734861819
+                          ],
+                          "wives": [
+                            {
+                              "id": 1122120,
+                              "name": "Krishna",
+                              "isAlive": true,
+                              "gender": "F",
+                              "village": "Bhagina",
+                              "gotra": "Shiwal"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 1122121,
+                              "name": "Natwar",
+                              "wives": [
+                                {
+                                  "id": 11221210,
+                                  "name": "Jinnu",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Rayla",
+                                  "gotra": "Khokha"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11221211,
+                                  "name": "Khushi",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 1122122,
+                              "name": "Mukesh",
+                              "mobile": [
+                                9785261819
+                              ],
+                              "wives": [
+                                {
+                                  "id": 11221220,
+                                  "name": "Sangeeta",
+                                  "isAlive": true,
+                                  "gender": "F",
+                                  "village": "Ojtu",
+                                  "gotra": "Saamarwal"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 11221221,
+                                  "name": "Takshvi",
+                                  "isAlive": true,
+                                  "gender": "F"
+                                }
+                              ],
+                              "isAlive": true,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": true,
+                          "gender": "M",
+                          "isCollapsed": true
+                        }
+                      ],
+                      "isAlive": false,
+                      "gender": "M",
+                      "isCollapsed": true
+                    },
+                    {
+                      "id": 11222,
+                      "name": "Ginni",
+                      "isAlive": true,
+                      "gender": "F",
+                      "village": "Pilani",
+                      "gotra": "Barwadiya"
+                    }
+                  ],
+                  "isAlive": false,
+                  "gender": "M",
+                  "isCollapsed": true
+                },
+                {
+                  "id": 1124,
+                  "name": "Singaari",
+                  "isAlive": false,
+                  "gender": "F",
+                  "village": "Jai-Pahadi",
+                  "gotra": "Jayalwal"
+                }
+              ],
+              "isAlive": false,
+              "gender": "M",
+              "isCollapsed": false
+            },
+            {
+              "id": 113,
+              "name": "Shyamlal",
+              "wives": [],
+              "children": [],
+              "isAlive": false,
+              "gender": "M",
+              "isCollapsed": true
+            }
+          ],
+          "isAlive": false,
+          "gender": "M",
+          "isCollapsed": false
+        }
+      ],
+      "isAlive": false,
+      "gender": "M",
+      "isCollapsed": false
+    },
+    {
+      "id": 3,
+      "name": "Kaanaram",
+      "isAlive": false,
+      "gender": "M",
+      "isCollapsed": true
+    }
+  ],
+  "moruwa": [
+    {
+      "id": 21121111,
+      "name": "Natharam",
+      "wives": [
+        {
+          "id": 21121110,
+          "name": "",
+          "isAlive": false,
+          "gender": "F"
+        }
+      ],
+      "children": [
+        {
+          "id": 211211111,
+          "name": "Tulsaram",
+          "wives": [
+            {
+              "id": 2112111110,
+              "name": "",
+              "isAlive": false,
+              "gender": "F"
+            }
+          ],
+          "children": [
+            {
+              "id": 2112111111,
+              "name": "Singaram",
+              "wives": [
+                {
+                  "id": 21121111110,
+                  "name": "",
+                  "isAlive": false,
+                  "gender": "F"
+                }
+              ],
+              "children": [
+                {
+                  "id": 21121111111,
+                  "name": "Anuparam",
+                  "wives": [],
+                  "children": [],
+                  "gender": "M",
+                  "isAlive": false,
+                  "isCollapsed": true
+                },
+                {
+                  "id": 21121111112,
+                  "name": "Ruparam",
+                  "wives": [
+                    {
+                      "id": 211211111120,
+                      "name": "",
+                      "isAlive": false,
+                      "gender": "F"
+                    }
+                  ],
+                  "children": [
+                    {
+                      "id": 1,
+                      "name": "Chetram",
+                      "wives": [
+                        {
+                          "id": 10,
+                          "name": "",
+                          "isAlive": false,
+                          "gender": "M"
+                        }
+                      ],
+                      "children": [],
+                      "gender": "M",
+                      "village": "Dulania",
+                      "isAlive": false,
+                      "isCollapsed": true
+                    }
+                  ],
+                  "gender": "M",
+                  "isAlive": false,
+                  "isCollapsed": true
+                }
+              ],
+              "isAlive": false,
+              "gender": "M",
+              "isCollapsed": true
+            },
+            {
+              "id": 2112111112,
+              "name": "Jodhaaram",
+              "wives": [],
+              "children": [],
+              "isAlive": false,
+              "gender": "M",
+              "isCollapsed": true
+            },
+            {
+              "id": 2112111113,
+              "name": "Mansaram",
+              "wives": [],
+              "children": [],
+              "isAlive": false,
+              "gender": "M",
+              "isCollapsed": true
+            },
+            {
+              "id": 2112111114,
+              "name": "Sunddaram",
+              "wives": [],
+              "children": [],
+              "isAlive": false,
+              "gender": "M",
+              "isCollapsed": true
+            },
+            {
+              "id": 2112111115,
+              "name": "Gowardhan",
+              "wives": [],
+              "children": [],
+              "isAlive": false,
+              "gender": "M",
+              "isCollapsed": true
+            },
+            {
+              "id": 2112111116,
+              "name": "Jiram",
+              "wives": [
+                {
+                  "id": 21121111160,
+                  "name": "",
+                  "isAlive": false,
+                  "gender": "F"
+                }
+              ],
+              "children": [
+                {
+                  "id": 3,
+                  "name": "Kaanaram",
+                  "wives": [],
+                  "children": [],
+                  "isAlive": false,
+                  "gender": "M",
+                  "village": "Dulania",
+                  "isCollapsed": true
+                }
+              ],
+              "isAlive": false,
+              "gender": "M",
+              "isCollapsed": true
+            }
+          ],
+          "isAlive": false,
+          "gender": "M",
+          "isCollapsed": true
+        },
+        {
+          "id": 211211112,
+          "name": "Durgaram",
+          "wives": [],
+          "children": [],
+          "isAlive": false,
+          "gender": "M",
+          "isCollapsed": true
+        },
+        {
+          "id": 211211113,
+          "name": "Chatri",
+          "isAlive": false,
+          "gender": "F",
+          "isCollapsed": true
+        },
+        {
+          "id": 211211114,
+          "name": "Dharma",
+          "isAlive": false,
+          "gender": "F",
+          "isCollapsed": true
+        },
+        {
+          "id": 211211115,
+          "name": "Harwai",
+          "isAlive": false,
+          "gender": "F",
+          "isCollapsed": true
+        }
+      ],
+      "isAlive": false,
+      "gender": "M",
+      "isCollapsed": true
+    }
+  ],
+  "tatija": [
+    {
+      "id": 2,
+      "name": "Jivanram",
+      "wives": [],
+      "children": [
+        {
+          "id": 21,
+          "name": "Govindram",
+          "wives": [
+            {
+              "id": 210,
+              "name": "Mewa",
+              "isAlive": false,
+              "gender": "F"
+            }
+          ],
+          "children": [
+            {
+              "id": 211,
+              "name": "Prabhu",
+              "wives": [
+                {
+                  "id": 2110,
+                  "name": "",
+                  "isAlive": false,
+                  "gender": "F"
+                }
+              ],
+              "children": [
+                {
+                  "id": 2111,
+                  "name": "Narpat",
+                  "wives": [],
+                  "children": [],
+                  "isAlive": false,
+                  "gender": "M",
+                  "isCollapsed": true
+                },
+                {
+                  "id": 2112,
+                  "name": "Dungarram",
+                  "wives": [
+                    {
+                      "id": 21120,
+                      "name": "",
+                      "isAlive": false,
+                      "gender": "F"
+                    }
+                  ],
+                  "children": [
+                    {
+                      "id": 21121,
+                      "name": "Tejaram",
+                      "wives": [
+                        {
+                          "id": 211210,
+                          "name": "",
+                          "isAlive": false,
+                          "gender": "F"
+                        }
+                      ],
+                      "children": [
+                        {
+                          "id": 211211,
+                          "name": "Govindram",
+                          "wives": [
+                            {
+                              "id": 2112110,
+                              "name": "",
+                              "isAlive": false,
+                              "gender": "F"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "id": 2112111,
+                              "name": "Dullaram",
+                              "wives": [
+                                {
+                                  "id": 21121110,
+                                  "name": "",
+                                  "isAlive": false,
+                                  "gender": "F"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "id": 21121111,
+                                  "name": "Natharam",
+                                  "wives": [
+                                    {
+                                      "id": 211211110,
+                                      "name": "",
+                                      "isAlive": false,
+                                      "gender": "F"
+                                    }
+                                  ],
+                                  "children": [],
+                                  "village": "Moruwa",
+                                  "isAlive": false,
+                                  "gender": "M"
+                                }
+                              ],
+                              "isAlive": false,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 2112112,
+                              "name": "Lekhuram",
+                              "wives": [],
+                              "children": [],
+                              "isAlive": false,
+                              "gender": "M",
+                              "isCollapsed": true
+                            },
+                            {
+                              "id": 2112113,
+                              "name": "Hariram",
+                              "wives": [],
+                              "children": [],
+                              "isAlive": false,
+                              "gender": "M",
+                              "isCollapsed": true
+                            }
+                          ],
+                          "isAlive": false,
+                          "gender": "M",
+                          "isCollapsed": true
+                        },
+                        {
+                          "id": 211212,
+                          "name": "Tillaram",
+                          "wives": [],
+                          "children": [],
+                          "isAlive": false,
+                          "gender": "M",
+                          "isCollapsed": true
+                        }
+                      ],
+                      "isAlive": false,
+                      "gender": "M",
+                      "isCollapsed": true
+                    },
+                    {
+                      "id": 21122,
+                      "name": "Jagmaal",
+                      "wives": [],
+                      "children": [],
+                      "isAlive": false,
+                      "gender": "M",
+                      "isCollapsed": true
+                    },
+                    {
+                      "id": 21123,
+                      "name": "Bhojaram",
+                      "wives": [],
+                      "children": [],
+                      "isAlive": false,
+                      "gender": "M",
+                      "isCollapsed": true
+                    }
+                  ],
+                  "isAlive": false,
+                  "gender": "M",
+                  "isCollapsed": true
+                },
+                {
+                  "id": 2113,
+                  "name": "Dayapaal",
+                  "wives": [],
+                  "children": [],
+                  "isAlive": false,
+                  "gender": "M",
+                  "isCollapsed": true
+                }
+              ],
+              "isAlive": false,
+              "gender": "M",
+              "isCollapsed": true
+            },
+            {
+              "id": 212,
+              "name": "Pannu",
+              "wives": [],
+              "children": [],
+              "isAlive": false,
+              "gender": "M",
+              "isCollapsed": true
+            }
+          ],
+          "isAlive": false,
+          "gender": "M",
+          "isCollapsed": true
+        }
+      ],
+      "isAlive": false,
+      "gender": "M",
+      "isCollapsed": true
+    }
+  ],
+  "users": [
+    {
+      "username": "General",
+      "password": "333031"
+    },
+    {
+      "username": "0000",
+      "password": "0000"
+    },
+    {
+      "username": "bsjangir",
+      "password": "shell01-312"
+    },
+    {
+      "username": "Jaisingh",
+      "password": "bimala123"
+    },
+    {
+      "username": "Sagar",
+      "password": "viko123"
+    },
+    {
+      "username": "Rakesh",
+      "password": "nanu123"
+    },
+    {
+      "username": "Ratan",
+      "password": "manoj123"
+    },
+    {
+      "username": "vishwakarma",
+      "password": "Jangir#101"
+    },
+    {
+      "username": "Ashok",
+      "password": "rima123"
+    },
+    {
+      "username": "manohar",
+      "password": "manju123"
+    },
+    {
+      "username": "bijendar",
+      "password": "niku000"
+    },
+    {
+      "username": "vinod",
+      "password": "vinod123"
+    },
+    {
+      "username": "naresh",
+      "password": "jay123"
+    },
+    {
+      "username": "mukesh",
+      "password": "ram123"
+    },
+    {
+      "username": "rahul",
+      "password": "mamta123"
+    }
+  ],
+  "villages": [
+    "dulania",
+    "moruwa",
+    "tatija"
+  ]
+}

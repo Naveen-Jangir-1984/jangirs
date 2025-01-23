@@ -2,6 +2,7 @@ import Details from "../details/Details";
 import Filter from "../filter/Filter";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
+import AddMember from "../member/AddMember";
 import Tree from "../tree/Tree";
 import DisplayUsers from "../user/DisplayUsers";
 import './Home.css';
@@ -35,6 +36,12 @@ const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers }) => {
         getHindiNumbers={getHindiNumbers}
       />
       <DisplayUsers
+        state={state} 
+        dispatch={dispatch}
+        getHindiText={getHindiText}  
+        getHindiNumbers={getHindiNumbers}
+      />
+      <AddMember
         state={state} 
         dispatch={dispatch}
         getHindiText={getHindiText}  

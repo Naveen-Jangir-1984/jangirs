@@ -4579,7 +4579,7 @@ function App() {
       kaanaram: "कानाराम",
       tulsaram: "तुलसाराम",
       durgaram: "दुर्गाराम",
-      chatri: "छतरी",
+      chatri: "चतरी",
       harwai: "हरवाई",
       natharam: "नाथाराम",
       dullaram: "दुल्लाराम",
@@ -4931,6 +4931,7 @@ function App() {
     },
     view: false,
     viewData: { 
+      id: '',
       src: '', 
       name: '', 
       mobile: '', 
@@ -4943,8 +4944,44 @@ function App() {
       error: false
     },
     isUserEditOpen: false,
+    member: undefined,
     isMemberEditOpen: false
   }
+  // traverse to add a member
+  const addMember = (tree, id, member, type) => {
+    if (!tree) return null;
+    if (tree.id === id) {
+      if(type === 'child') {
+        if (tree.children) {
+          tree.children.push(member);
+        } else {
+          tree.children = [member];
+        }
+      }
+      if(type === 'wife') {
+        if (tree.wives) {
+          tree.wives.push(member);
+        } else {
+          tree.wives = [member]
+        }
+      }
+    }
+    tree.children?.forEach(child => addMember(child, id, member, type));
+    return tree;
+  }
+  // traverse to delete a member
+  const deleteMemberById = (tree, id) => {
+    if (!tree) return null;
+    if (tree.children) {
+      tree.children = tree.children.filter(child => child.id !== id);
+    }
+    tree.children?.forEach(child => deleteMemberById(child, id));
+    if(tree.wives) {
+      tree.wives = tree.wives.filter(wife => wife.id !== id);      
+    }
+    tree.wives?.forEach((wife) => deleteMemberById(wife, id));
+    return tree;
+  };
   // traverse members to expand or collapse
   const traverseMemberToExpandOrCollapse = (member, id) => {
     if(member.id === id && member.gender === 'M') {
@@ -5048,9 +5085,9 @@ function App() {
           dulania: db.dulania,
           moruwa: db.moruwa,
           tatija: db.tatija,
-          members: db.dulania,
+          members: action.village === 'dulania' ? db.dulania : action.village === 'moruwa' ? db.moruwa : action.village === 'tatija' ? db.tatija : [],
           villages: db.villages,
-          village: db.villages[0],
+          village: action.village,
           images: images,
           filters: {
             search: '',
@@ -5064,7 +5101,8 @@ function App() {
             }
           },
           view: false,
-          viewData: { 
+          viewData: {
+            id: '',
             src: '', 
             name: '', 
             mobile: '', 
@@ -5077,6 +5115,7 @@ function App() {
             error: false
           },
           isUserEditOpen: false,
+          member: undefined,
           isMemberEditOpen: false
         };
       case 'openUserEdit':
@@ -5090,7 +5129,6 @@ function App() {
           isUserEditOpen: false
         };
       case 'addNewUser':
-        console.log(action.newUser)
         return {
           ...state,
           users: [...state.users, action.newUser],
@@ -5101,6 +5139,42 @@ function App() {
           ...state,
           users: state.users.filter(user => user.username !== action.username),
           isUserEditOpen: false
+        };
+      case 'openMemberEdit':
+        return {
+          ...state,
+          member: action.member,
+          isMemberEditOpen: true
+        };
+      case 'closeMemberEdit':
+        return {
+          ...state,
+          member: undefined,
+          isMemberEditOpen: false
+        };
+      case 'addMember':
+        setMembers(state.members.map(member => addMember(member, state.member.id, action.member, action.memberType)));
+        return {
+          ...state,
+          members: state.members.map(member => addMember(member, state.member.id, action.member, action.memberType)),
+          member: undefined,
+          isMemberEditOpen: false
+        }
+      case 'deleteMember':
+        setMembers(state.members.map(member => deleteMemberById(member, action.id)));
+        return {
+          ...state,
+          members: state.members.map(member => deleteMemberById(member, action.id)),
+          view: false,
+          viewData: {
+            id: '',
+            src: '', 
+            name: '', 
+            mobile: '', 
+            email: '', 
+            dob: '' 
+          },
+          isMemberEditOpen: false
         };
       case 'input':
         return {
@@ -5154,6 +5228,7 @@ function App() {
           },
           view: false,
           viewData: { 
+            id: '',
             src: '', 
             name: '', 
             mobile: '', 
@@ -5224,12 +5299,13 @@ function App() {
         };
       case 'view':
         document.body.style.zoom = '100%';
-        const m = images.find(image => image.id === action.member.id)
+        const image = images.find(image => image.id === action.member.id)
         return {
           ...state,
           view: true,
           viewData: {
-            src: action.member && m ? m.src : action.member.gender === 'M' ? MaleProfileImage : FemaleProfileImage,
+            id: action.member.id,
+            src: action.member && image ? image.src : action.member.gender === 'M' ? MaleProfileImage : FemaleProfileImage,
             name: action.member ? action.member.name : '',
             mobile: action.member?.mobile?.length ? action.member.mobile : [],
             email: action.member?.email?.length ? action.member.email : [],
@@ -5240,29 +5316,28 @@ function App() {
         return {
           ...state,
           view: false,
-          viewData: { src: '', name: '', mobile: '', email: '', dob: '' }
+          viewData: { id: '', src: '', name: '', mobile: '', email: '', dob: '' }
         };
       default:
         return state;
     }
   }
-  const fetchData = async () => {
+  const fetchData = async (user, village) => {
     try {
       const response = await fetch('http://115.117.107.101:27001/getData');
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      console.log(data.db);
       sessionStorage.setItem('appState', JSON.stringify({
-        user: undefined,
+        user: user,
         users: data.db.users,
         dulania: data.db.dulania,
         moruwa: data.db.moruwa,
         tatija: data.db.tatija,
         members: data.db.dulania,
         villages: data.db.villages,
-        village: data.db.villages[0],
+        village: village,
         filters: {
           search: '',
           male: {
@@ -5276,6 +5351,7 @@ function App() {
         },
         view: false,
         viewData: { 
+          id: '',
           src: '', 
           name: '', 
           mobile: '', 
@@ -5288,11 +5364,12 @@ function App() {
           error: false
         },
         isUserEditOpen: false,
+        member: undefined,
         isMemberEditOpen: false
       }));
-      dispatch({ type: 'fetch_success', initialState: data.db, user: undefined });
+      dispatch({ type: 'fetch_success', initialState: data.db, user: user, village: village });
     } catch (error) {
-      dispatch({ type: 'fetch_error', initialState: {} });
+      dispatch({ type: 'fetch_error', initialState: {}, user: user });
     }
   };
   const [state, dispatch] = useReducer(reducer, initialState, (initial) => {
@@ -5300,17 +5377,17 @@ function App() {
     return storedState ? JSON.parse(storedState) : initial;
   });
   useEffect(() => {
-    const storedData = sessionStorage.getItem('appState');
-    if(storedData) {
-      dispatch({type: 'fetch_success', initialState: JSON.parse(storedData), user: JSON.parse(storedData).user});
+    const storedState = sessionStorage.getItem('appState');
+    if(storedState) {
+      fetchData(JSON.parse(storedState).user, JSON.parse(storedState).village)
     } else {
-      fetchData();
+      fetchData(undefined, 'dulania');
     }
   }, []);
   useEffect(() => {
     sessionStorage.setItem('appState', JSON.stringify(state));
   }, [state]);
-  const pleaseWait = <div>please wait...</div>;
+  const pleaseWait = <div>Please wait...</div>;
   return (
     <div className="app">
       <Suspense fallback={pleaseWait}>

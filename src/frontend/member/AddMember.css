@@ -1,4 +1,4 @@
-.display-users {
+.add-member {
 	display: none;
 	position: absolute;
 	top: 50%;
@@ -13,7 +13,7 @@
 	z-index: 1;
 }
 
-.display-users .close {
+.add-member .close {
 	position: absolute;
 	top: 10px;
 	right: 10px;
@@ -39,28 +39,14 @@
   z-index: 2;
 }
 
-.view table {
-	width: 100%;
-}
-.view table th, .view table td {
-	font-size: 12px;
-}
-
-.user-inputs {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-}
-
-.view input {
-	width: 38%;
+.add-member .view input, .add-member .view select {
+	width: 80%;
 	height: 50px;
 	background-color: lightgrey;
 }
 
-.view button {
-	width: 20%;
+.add-member .view button {
+	width: 80%;
 	height: 50px;
 	background-color: lightskyblue;
 }
