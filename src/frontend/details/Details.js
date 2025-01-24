@@ -37,7 +37,7 @@ const Details = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
         {state.viewData.dob?.length && !state.user.language ? <div>{`${getHindiNumbers(state.viewData.dob.split(' ')[0])} ${getHindiText(state.viewData.dob.split(' ')[1], 'months')} ${getHindiNumbers(state.viewData.dob.split(' ')[2])}`}</div> : <div>{state.viewData.dob}</div>}
         {state.viewData.mobile.length ? <div className='view-mobile'>{state.viewData.mobile.map((mo, i) => <a key={i} href={`tel: ${mo}`} onClick={(e) => e.stopPropagation()}>{mo}</a>)}</div> : ''}
         {state.viewData.email.length ? <div className='view-email'>{state.viewData.email.map((em, i) => <a key={i} href={`mailto: ${em}`} onClick={(e) => e.stopPropagation()}>{em}</a>)}</div> : ''}
-        {state.user.username === 'bsjangir' && <button onClick={() => handleDeleteMember(state.viewData.id)}>Delete</button>}
+        {state.user.role === 'admin' && <button onClick={() => handleDeleteMember(state.viewData.id)}>Delete</button>}
       </div>
     </div>
   );

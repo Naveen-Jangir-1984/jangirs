@@ -5199,6 +5199,7 @@ function App() {
             user: {
               username: state.input.username,
               password: state.input.password,
+              role: state.users.find(user => user.username === state.input.username).role,
               language: false
             }
           };

@@ -3754,12 +3754,12 @@
     {
       "username": "bsjangir",
       "password": "shell01-312",
-      "role": "user"
+      "role": "admin"
     },
     {
       "username": "Jaisingh",
       "password": "bimala123",
-      "role": "admin"
+      "role": "user"
     },
     {
       "username": "Sagar",

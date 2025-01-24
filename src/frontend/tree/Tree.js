@@ -111,8 +111,8 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
               </span>
             }
           </span>
-          {state.user.username === 'bsjangir' && member.gender === 'M' ? <img className='member-icons' src={PlusIcon} alt='add' onClick={(e) => handleAddMember(e, member)} /> : ''}
-          {/* {state.user.username === 'bsjangir' ? <img className='member-icons' src={DeleteIcon} alt='delete' onClick={(e) => handleDeleteMember(e, member.id)} /> : ''} */}
+          {state.user.role === 'admin' && member.gender === 'M' ? <img className='member-icons' src={PlusIcon} alt='add' onClick={(e) => handleAddMember(e, member)} /> : ''}
+          {/* {state.user.role === 'admin' ? <img className='member-icons' src={DeleteIcon} alt='delete' onClick={(e) => handleDeleteMember(e, member.id)} /> : ''} */}
         </div>
         <div style={{display: member.isCollapsed ? 'none' : 'block'}}>
           {member.gender === 'M' ? member.children?.map(child => displayMember(child, state.village === 'moruwa' ? depth + 7 : depth + 5)) : ''}
