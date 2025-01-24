@@ -69,7 +69,7 @@ const DisplayUsers = ({state, dispatch}) => {
 					</thead>
 					<tbody>
 						{state.users.map((user, i) => <tr key={i}>
-							{user.role === 'admin' ? <td>{`${user.username}**`}</td> : <td>{user.username}</td>}
+							<td style={{color: user.role === 'admin' ? 'red' : 'black' }}>{user.username}</td>
 							<td>{user.password}</td>
 							<td style={{textAlign: 'right'}}>
 								{state.user.username !== user.username && <img className="icons" src={DeleteIcon} alt="delete" onClick={() => handleDeleteUser(user.username)} />}
