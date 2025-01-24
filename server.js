@@ -140,5 +140,5 @@ app.post('/deleteMember', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`listening at http://localhost:${port}`);
+  console.log(`listening at http://115.117.107.101:${port}`);
 });
