@@ -3,6 +3,7 @@ import MinusIcon from '../../images/minus.png'
 import MaleProfileIcon from '../../images/male.png'
 import FemaleProfileIcon from '../../images/female.png'
 import MobileIcon from '../../images/mobile.jpg'
+import AddMemberIcon from '../../images/addMember.png'
 import SMSIcon from '../../images/sms.png'
 // import DeleteIcon from '../../images/delete.png'
 import './Tree.css'
@@ -111,7 +112,7 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
               </span>
             }
           </span>
-          {state.user.role === 'admin' && member.gender === 'M' ? <img className='member-icons' src={PlusIcon} alt='add' onClick={(e) => handleAddMember(e, member)} /> : ''}
+          {state.user.role === 'admin' && member.gender === 'M' ? <img className='member-icons' src={AddMemberIcon} alt='add' onClick={(e) => handleAddMember(e, member)} /> : ''}
           {/* {state.user.role === 'admin' ? <img className='member-icons' src={DeleteIcon} alt='delete' onClick={(e) => handleDeleteMember(e, member.id)} /> : ''} */}
         </div>
         <div style={{display: member.isCollapsed ? 'none' : 'block'}}>

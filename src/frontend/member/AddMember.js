@@ -3,6 +3,7 @@ import CloseIcon from '../../images/close.png';
 import './AddMember.css';
 
 const AddMember = ({state, dispatch}) => {
+  const months = ['Januray', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const [type, setType] = useState('');
   const [newMember, setNewMember] = useState({
     name: '',
@@ -26,7 +27,7 @@ const AddMember = ({state, dispatch}) => {
           children: [],
           wives: [],
           mobile: newMember.mobile,
-          dob: newMember.dob,
+          dob: newMember.dob !== '' ? `${newMember.dob.split('-')[2]} ${months[Number(newMember.dob.split('-')[1]) - 1]} ${newMember.dob.split('-')[0]}` : '',
           isAlive: newMember.isAlive === 'alive' ? true : false,
           gender: 'M',
           village: newMember.village,
@@ -38,7 +39,7 @@ const AddMember = ({state, dispatch}) => {
           id: state.member ? ((state.member.id * 10) + (state.member.children.length + 1)) : 0,
           name: newMember.name,
           mobile: newMember.mobile,
-          dob: newMember.dob,
+          dob: newMember.dob !== '' ? `${newMember.dob.split('-')[2]} ${months[Number(newMember.dob.split('-')[1]) - 1]} ${newMember.dob.split('-')[0]}` : '',
           isAlive: newMember.isAlive === 'alive' ? true : false,
           gender: 'F',
           village: newMember.village,
@@ -59,7 +60,7 @@ const AddMember = ({state, dispatch}) => {
             children: [],
             wives: [],
             mobile: newMember.mobile,
-            dob: newMember.dob,
+            dob: newMember.dob !== '' ? `${newMember.dob.split('-')[2]} ${months[Number(newMember.dob.split('-')[1]) - 1]} ${newMember.dob.split('-')[0]}` : '',
             isAlive: newMember.isAlive === 'alive' ? true : false,
             gender: newMember.gender,
             village: newMember.village,
