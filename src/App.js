@@ -4944,27 +4944,27 @@ function App() {
       error: false
     },
     isUserEditOpen: false,
-    member: undefined,
+    member: '',
     isMemberEditOpen: false
   }
   // traverse to add a member
   const addMember = (tree, id, member, type) => {
     if (!tree) return null;
-    if (tree.id === id) {
-      if(type === 'child') {
-        if (tree.children) {
-          tree.children.push(member);
-        } else {
-          tree.children = [member];
-        }
+    if (tree.id === id && type === 'child') {
+      if (tree.children) {
+        tree.children.push(member);
+      } else {
+        tree.children = [member];
       }
-      if(type === 'wife') {
-        if (tree.wives) {
-          tree.wives.push(member);
-        } else {
-          tree.wives = [member]
-        }
+      return tree;
+    }
+    else if(tree.id === id && type === 'wife') {
+      if (tree.wives) {
+        tree.wives.push(member);
+      } else {
+        tree.wives = [member]
       }
+      return tree;
     }
     tree.children?.forEach(child => addMember(child, id, member, type));
     return tree;
@@ -4979,7 +4979,7 @@ function App() {
     if(tree.wives) {
       tree.wives = tree.wives.filter(wife => wife.id !== id);      
     }
-    tree.wives?.forEach((wife) => deleteMemberById(wife, id));
+    tree.wives?.forEach(wife => deleteMemberById(wife, id));
     return tree;
   };
   // traverse members to expand or collapse
@@ -5115,7 +5115,7 @@ function App() {
             error: false
           },
           isUserEditOpen: false,
-          member: undefined,
+          member: '',
           isMemberEditOpen: false
         };
       case 'openUserEdit':
@@ -5149,22 +5149,24 @@ function App() {
       case 'closeMemberEdit':
         return {
           ...state,
-          member: undefined,
+          member: '',
           isMemberEditOpen: false
         };
       case 'addMember':
-        setMembers(state.members.map(member => addMember(member, state.member.id, action.member, action.memberType)));
+        const updatedMemberspostAddMember = state.members.map(member => addMember(member, state.member.id, action.member, action.memberType))
+        setMembers(updatedMemberspostAddMember);
         return {
           ...state,
-          members: state.members.map(member => addMember(member, state.member.id, action.member, action.memberType)),
-          member: undefined,
+          members: updatedMemberspostAddMember,
+          member: '',
           isMemberEditOpen: false
         }
       case 'deleteMember':
-        setMembers(state.members.map(member => deleteMemberById(member, action.id)));
+        const updatedMemberspostDeleteMember = state.members.map(member => deleteMemberById(member, action.id));
+        setMembers(updatedMemberspostDeleteMember);
         return {
           ...state,
-          members: state.members.map(member => deleteMemberById(member, action.id)),
+          members: updatedMemberspostDeleteMember,
           view: false,
           viewData: {
             id: '',
@@ -5364,7 +5366,7 @@ function App() {
           error: false
         },
         isUserEditOpen: false,
-        member: undefined,
+        member: '',
         isMemberEditOpen: false
       }));
       dispatch({ type: 'fetch_success', initialState: data.db, user: user, village: village });

@@ -8,6 +8,28 @@ const port = 27001;
 app.use(cors());
 app.use(bodyParser.json());
 
+const addMember = (tree, id, member, type) => {
+  if (!tree) return null;
+  if (tree.id === id && type === 'child') {
+    if (tree.children) {
+      tree.children.push(member);
+    } else {
+      tree.children = [member];
+    }
+    return tree;
+  }
+  else if(tree.id === id && type === 'wife') {
+    if (tree.wives) {
+      tree.wives.push(member);
+    } else {
+      tree.wives = [member]
+    }
+    return tree;
+  }
+  tree.children?.forEach(child => addMember(child, id, member, type));
+  return tree;
+}
+
 const deleteMemberById = (tree, id) => {
   if (!tree) return null;
   if (tree.children) {
@@ -69,6 +91,31 @@ app.post('/deleteUser', (req, res) => {
   });
 });
 
+app.post('/addNewMember', (req, res) => {
+  fs.readFile("./src/database/db.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const existingMember = req.body.member;
+    const newMember = req.body.newMember;
+    const type = req.body.type;
+    const village = req.body.village;
+    if(village === 'dulania') {
+      db.dulania = db.dulania.map(member => addMember(member, existingMember.id, newMember, type));
+    } else if(village === 'moruwa') {
+      db.moruwa = db.moruwa.map(member => addMember(member, existingMember.id, newMember, type));
+    } else if(village === 'tatija') { 
+      db.tatija = db.tatija.map(member => addMember(member, existingMember.id, newMember, type));
+    } 
+    fs.writeFile("./src/database/db.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send({ result: 'failed' });
+      res.send({ result: 'success' });
+    });
+  });
+});
+
 app.post('/deleteMember', (req, res) => {
   fs.readFile("./src/database/db.json", (err, data) => {
     if (err) {
@@ -81,7 +128,7 @@ app.post('/deleteMember', (req, res) => {
     if(village === 'dulania') {
       db.dulania = db.dulania.map(member => deleteMemberById(member, id));
     } else if(village === 'moruwa') {
-      db.maruwa = db.maruwa.map(member => deleteMemberById(member, id));
+      db.moruwa = db.moruwa.map(member => deleteMemberById(member, id));
     } else if(village === 'tatija') { 
       db.tatija = db.tatija.map(member => deleteMemberById(member, id));
     } 

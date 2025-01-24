@@ -47,6 +47,13 @@ const DisplayUsers = ({state, dispatch}) => {
 		<div className='display-users' style={{display: state.isUserEditOpen ? 'flex' : 'none'}}>
 			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
 			<div className='view'>
+				<div style={{textDecoration: 'underline', fontSize: '12px'}} onClick={() => setDisplayAddUser(!displayAddUser)}>{`Click to ${displayAddUser ? 'close' : 'open'} Add User`}</div>
+				<div className='user-inputs' style={{display: displayAddUser ? 'flex' : 'none'}}>
+					<input name='username' placeholder='username' type='text' value={newUser.username} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
+					<input disabled={newUser.username === ''} name='password' placeholder='password' type='password' value={newUser.password} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
+					<button disabled={newUser.password === ''} onClick={() => handleAddUser()}>ADD</button>
+				</div>
+				{newUser.error && <div style={{color: 'red'}}>user already exists !</div>}
 				<table>
 					<thead>
 						<tr>
@@ -59,17 +66,12 @@ const DisplayUsers = ({state, dispatch}) => {
 						{state.users.map((user, i) => <tr key={i}>
 							<td>{user.username}</td>
 							<td>{user.password}</td>
-							<td style={{textAlign: 'right'}}><img className="icons" src={DeleteIcon} alt="delete" onClick={() => handleDeleteUser(user.username)} /></td>
+							<td style={{textAlign: 'right'}}>
+								{state.user.username !== user.username && <img className="icons" src={DeleteIcon} alt="delete" onClick={() => handleDeleteUser(user.username)} />}
+							</td>
 						</tr>)}
 					</tbody>
 				</table>
-				<div style={{textDecoration: 'underline', fontSize: '12px'}} onClick={() => setDisplayAddUser(!displayAddUser)}>{`Click to ${displayAddUser ? 'close' : 'open'} Add User`}</div>
-				<div className='user-inputs' style={{display: displayAddUser ? 'flex' : 'none'}}>
-					<input name='username' placeholder='username' type='text' value={newUser.username} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
-					<input disabled={newUser.username === ''} name='password' placeholder='password' type='password' value={newUser.password} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
-					<button disabled={newUser.password === ''} onClick={() => handleAddUser()}>ADD</button>
-				</div>
-				{newUser.error && <div style={{color: 'red'}}>user already exists !</div>}
 			</div>
 		</div>
 	);

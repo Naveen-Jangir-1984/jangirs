@@ -43,24 +43,26 @@
 	width: 100%;
 }
 .view table th, .view table td {
-	font-size: 12px;
+	font-size: 16px;
 }
 
 .user-inputs {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+	justify-content: center;
+	row-gap: 10px;
 	align-items: center;
 	width: 100%;
 }
 
-.view input {
-	width: 38%;
+.display-users .view input {
+	width: 100%;
 	height: 50px;
 	background-color: lightgrey;
 }
 
-.view button {
-	width: 20%;
+.display-users .view button {
+	width: 100%;
 	height: 50px;
 	background-color: lightskyblue;
 }
