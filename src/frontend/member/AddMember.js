@@ -152,7 +152,7 @@ const AddMember = ({state, dispatch}) => {
         <input disabled={type === ''} type='text' name='village' value={newMember.village} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='village' />
         {type === 'wife' ? <input type='text' name='gotra' value={newMember.gotra} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='gotra' /> : ''}
         <input disabled={type === ''} type='email' name='email' value={newMember.email} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='email' />
-        <button onClick={() => handleAddMember()}>Add</button>
+        <button disabled={type === '' || newMember.name === '' || newMember.gender === '' || newMember.isAlive === ''} onClick={() => handleAddMember()}>Add</button>
       </div>
     </div>
   );

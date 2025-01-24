@@ -66,6 +66,10 @@
 	height: 50px;
 	background-color: lightskyblue;
 }
+.display-users .view button:disabled {
+	color: lightgray;
+	background-color: whitesmoke;
+}
 
 .view .icons {
 	border: none;

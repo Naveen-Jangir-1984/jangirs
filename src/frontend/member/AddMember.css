@@ -50,6 +50,11 @@
 	height: 50px;
 	background-color: lightskyblue;
 }
+.add-member .view button:disabled {
+  color: lightgray;
+  background-color: whitesmoke
+  
+}
 
 .view .icons {
 	border: none;
