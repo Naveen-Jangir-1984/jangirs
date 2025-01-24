@@ -18,7 +18,7 @@ const Details = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   const handleDeleteMember = async (id) => {
     const consent = window.confirm('Are you sure you want to delete this member?');
     if (consent) {
-      const response = await fetch('http://localhost:27001/deleteMember', {
+      const response = await fetch('http://115.117.107.101:27001/deleteMember', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: id, village: state.village })})

@@ -4,7 +4,7 @@ import MaleProfileIcon from '../../images/male.png'
 import FemaleProfileIcon from '../../images/female.png'
 import MobileIcon from '../../images/mobile.jpg'
 import SMSIcon from '../../images/sms.png'
-import DeleteIcon from '../../images/delete.png'
+// import DeleteIcon from '../../images/delete.png'
 import './Tree.css'
 
 const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
@@ -56,20 +56,20 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     // or
     // window.location.href = 'mailto:';  // For email on mobile devices
   };
-  const handleDeleteMember = async (e, id) => {
-    e.stopPropagation();
-    const consent = window.confirm('Are you sure you want to delete this member?');
-    if (consent) {
-      const response = await fetch('http://115.117.107.101:27001/deleteMember', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: id, village: state.village })})
-      const data = await response.json();
-      if (data.result === 'success') {
-        dispatch({type: 'deleteMember', id: id});
-      }
-    }
-  }
+  // const handleDeleteMember = async (e, id) => {
+  //   e.stopPropagation();
+  //   const consent = window.confirm('Are you sure you want to delete this member?');
+  //   if (consent) {
+  //     const response = await fetch('http://115.117.107.101:27001/deleteMember', {
+  //     method: 'post',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ id: id, village: state.village })})
+  //     const data = await response.json();
+  //     if (data.result === 'success') {
+  //       dispatch({type: 'deleteMember', id: id});
+  //     }
+  //   }
+  // }
   const handleAddMember = (e, member) => {
     e.stopPropagation();
     dispatch({type: 'openMemberEdit', member: member})
@@ -110,7 +110,7 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
             }
           </span>
           {state.user.username === 'bsjangir' && member.gender === 'M' ? <img className='member-icons' src={PlusIcon} alt='add' onClick={(e) => handleAddMember(e, member)} /> : ''}
-          {state.user.username === 'bsjangir' ? <img className='member-icons' src={DeleteIcon} alt='delete' onClick={(e) => handleDeleteMember(e, member.id)} /> : ''}
+          {/* {state.user.username === 'bsjangir' ? <img className='member-icons' src={DeleteIcon} alt='delete' onClick={(e) => handleDeleteMember(e, member.id)} /> : ''} */}
         </div>
         <div style={{display: member.isCollapsed ? 'none' : 'block'}}>
           {member.gender === 'M' ? member.children?.map(child => displayMember(child, state.village === 'moruwa' ? depth + 7 : depth + 5)) : ''}
