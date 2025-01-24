@@ -52,6 +52,10 @@
   align-items: center;
 }
 
+.details button {
+  background-color: lightpink;
+}
+
 .view sup {
   font-size: 8px;
 }

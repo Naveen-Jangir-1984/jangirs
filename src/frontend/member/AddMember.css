@@ -52,8 +52,7 @@
 }
 .add-member .view button:disabled {
   color: lightgray;
-  background-color: whitesmoke
-  
+  background-color: whitesmoke  
 }
 
 .view .icons {
