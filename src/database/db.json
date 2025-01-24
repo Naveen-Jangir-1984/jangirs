@@ -3344,6 +3344,8 @@
     {
       "id": 3,
       "name": "Kaanaram",
+      "wives": [],
+      "children": [],
       "isAlive": false,
       "gender": "M",
       "isCollapsed": true
