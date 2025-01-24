@@ -8,10 +8,11 @@ const DisplayUsers = ({state, dispatch}) => {
 	const [newUser, setNewUser] = useState({
 		username: '',
 		password: '',
+		role: 'user',
 		error: false
 	});
 	const handleClose = () => {
-		setNewUser({username: '', password: '', error: false}); 
+		setNewUser({username: '', password: '', role: 'user', error: false}); 
 		dispatch({type: 'closeUserEdit'});
 		setDisplayAddUser(false);
 	}
@@ -19,11 +20,11 @@ const DisplayUsers = ({state, dispatch}) => {
 		const response = await fetch('http://115.117.107.101:27001/addNewUser', {
 		method: 'post',
 		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify({ username: newUser.username, password: newUser.password })})
+		body: JSON.stringify({ username: newUser.username, password: newUser.password, role: newUser.role })})
 		const data = await response.json();
 		if (data.result === 'success') {
 			dispatch({type: 'addNewUser', newUser: newUser});
-			setNewUser({ username: '', password: '', error: false });
+			setNewUser({ username: '', password: '', role: 'user', error: false });
 		} else if(data.result === 'duplicate') {
 			setNewUser({ ...newUser, error: true });
 		}
@@ -51,7 +52,11 @@ const DisplayUsers = ({state, dispatch}) => {
 				<div className='user-inputs' style={{display: displayAddUser ? 'flex' : 'none'}}>
 					<input name='username' placeholder='username' type='text' value={newUser.username} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
 					<input disabled={newUser.username === ''} name='password' placeholder='password' type='password' value={newUser.password} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
-					<button disabled={newUser.password === ''} onClick={() => handleAddUser()}>ADD</button>
+					<select disabled={newUser.password === ''} name='role' value={newUser.role} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})}>
+						<option value='user'>User</option>
+						<option value='admin'>Admin</option>
+					</select>
+					<button disabled={newUser.password === '' || newUser.role === ''} onClick={() => handleAddUser()}>ADD</button>
 				</div>
 				{newUser.error && <div style={{color: 'red'}}>user already exists !</div>}
 				<table>
@@ -64,7 +69,7 @@ const DisplayUsers = ({state, dispatch}) => {
 					</thead>
 					<tbody>
 						{state.users.map((user, i) => <tr key={i}>
-							<td>{user.username}</td>
+							{user.role === 'admin' ? <td>{`${user.username}**`}</td> : <td>{user.username}</td>}
 							<td>{user.password}</td>
 							<td style={{textAlign: 'right'}}>
 								{state.user.username !== user.username && <img className="icons" src={DeleteIcon} alt="delete" onClick={() => handleDeleteUser(user.username)} />}

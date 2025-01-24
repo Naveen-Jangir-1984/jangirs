@@ -3743,63 +3743,78 @@
   "users": [
     {
       "username": "General",
-      "password": "333031"
+      "password": "333031",
+      "role": "user"
     },
     {
       "username": "0000",
-      "password": "0000"
+      "password": "0000",
+      "role": "user"
     },
     {
       "username": "bsjangir",
-      "password": "shell01-312"
+      "password": "shell01-312",
+      "role": "user"
     },
     {
       "username": "Jaisingh",
-      "password": "bimala123"
+      "password": "bimala123",
+      "role": "admin"
     },
     {
       "username": "Sagar",
-      "password": "viko123"
+      "password": "viko123",
+      "role": "user"
     },
     {
       "username": "Rakesh",
-      "password": "nanu123"
+      "password": "nanu123",
+      "role": "user"
     },
     {
       "username": "Ratan",
-      "password": "manoj123"
+      "password": "manoj123",
+      "role": "user"
     },
     {
       "username": "vishwakarma",
-      "password": "Jangir#101"
+      "password": "Jangir#101",
+      "role": "user"
     },
     {
       "username": "Ashok",
-      "password": "rima123"
+      "password": "rima123",
+      "role": "user"
     },
     {
       "username": "manohar",
-      "password": "manju123"
+      "password": "manju123",
+      "role": "user"
     },
     {
       "username": "bijendar",
-      "password": "niku000"
+      "password": "niku000",
+      "role": "user"
     },
     {
       "username": "vinod",
-      "password": "vinod123"
+      "password": "vinod123",
+      "role": "user"
     },
     {
       "username": "naresh",
-      "password": "jay123"
+      "password": "jay123",
+      "role": "user"
     },
     {
       "username": "mukesh",
-      "password": "ram123"
+      "password": "ram123",
+      "role": "user"
     },
     {
       "username": "rahul",
-      "password": "mamta123"
+      "password": "mamta123",
+      "role": "user"
     }
   ],
   "villages": [

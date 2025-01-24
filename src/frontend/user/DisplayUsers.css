@@ -55,14 +55,14 @@
 	width: 100%;
 }
 
-.display-users .view input {
-	width: 100%;
+.display-users .view input, .display-users .view select {
+	width: 80%;
 	height: 50px;
 	background-color: lightgrey;
 }
 
 .display-users .view button {
-	width: 100%;
+	width: 80%;
 	height: 50px;
 	background-color: lightskyblue;
 }

@@ -5160,7 +5160,7 @@ function App() {
           members: updatedMemberspostAddMember,
           member: '',
           isMemberEditOpen: false
-        }
+        };
       case 'deleteMember':
         const updatedMemberspostDeleteMember = state.members.map(member => deleteMemberById(member, action.id));
         setMembers(updatedMemberspostDeleteMember);
