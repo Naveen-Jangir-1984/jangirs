@@ -5,7 +5,7 @@ import './AddMember.css';
 const AddMember = ({state, dispatch}) => {
   const dates = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 23, 24, 25, 26, 27,28, 29, 30, 31];
   const months = ['Januray', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  const years = [2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2014, 2013, 3012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000, 1999, 1998, 1997, 1996, 1995, 1994, 1993, 1992, 1991, 1990]
+  const years = [2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000, 1999, 1998, 1997, 1996, 1995, 1994, 1993, 1992, 1991, 1990]
   const [type, setType] = useState('');
   const [newMember, setNewMember] = useState({
     name: '',
@@ -116,12 +116,12 @@ const AddMember = ({state, dispatch}) => {
 			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
       <div className='view'>
         <select value={type} onChange={(e) => setType(e.target.value)}>
-          <option value=''>-- type --</option>
+          <option value=''>user type?</option>
           <option value='child'>Child</option>
           <option value='wife'>Wife</option>
         </select>
-        <input disabled={type === ''} type='text' name='name' value={newMember.name} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='name' />
-        <input disabled={type === ''} type='text' name='mobile' value={newMember.mobile} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='mobile' maxLength='10' />
+        <input disabled={type === ''} type='text' name='name' value={newMember.name} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='name (optional)' />
+        <input disabled={type === ''} type='text' name='mobile' value={newMember.mobile} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='mobile (optional)' maxLength='10' />
         <div className='dob'>
           <select disabled={type === ''} name='date' value={newMember.date} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})}>
             <option value=''>date</option>
@@ -144,10 +144,10 @@ const AddMember = ({state, dispatch}) => {
           <option value='alive'>Alive</option>
           <option value='dead'>Dead</option>
         </select>
-        <input disabled={type === ''} type='text' name='village' value={newMember.village} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='village' />
-        {type === 'wife' ? <input type='text' name='gotra' value={newMember.gotra} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='gotra' /> : ''}
-        <input disabled={type === ''} type='email' name='email' value={newMember.email} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='email' />
-        <button disabled={type === ''} onClick={() => handleAddMember()}>Add</button>
+        <input disabled={type === ''} type='text' name='village' value={newMember.village} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='village (optional)' />
+        {type === 'wife' ? <input type='text' name='gotra' value={newMember.gotra} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='gotra (optional)' /> : ''}
+        <input disabled={type === ''} type='email' name='email' value={newMember.email} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='email (optional)' />
+        <button disabled={type === ''} onClick={() => handleAddMember()}>ADD</button>
       </div>
     </div>
   );

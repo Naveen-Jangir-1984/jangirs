@@ -11,3 +11,10 @@
   height: 50px;
   font-size: 16px;
 }
+.signin button {
+  background-color: lightskyblue;
+}
+.signin button:disabled {
+  color: lightgray;
+  background-color: whitesmoke;
+}

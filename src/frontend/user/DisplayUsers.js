@@ -48,10 +48,10 @@ const DisplayUsers = ({state, dispatch}) => {
 		<div className='display-users' style={{display: state.isUserEditOpen ? 'flex' : 'none'}}>
 			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
 			<div className='view'>
-				<div style={{textDecoration: 'underline', fontSize: '12px'}} onClick={() => setDisplayAddUser(!displayAddUser)}>{`Click to ${displayAddUser ? 'close' : 'open'} Add User`}</div>
+				<div style={{textDecoration: 'underline', fontSize: '14px'}} onClick={() => setDisplayAddUser(!displayAddUser)}>{`Click to ${displayAddUser ? 'close' : 'open'} Add User`}</div>
 				<div className='user-inputs' style={{display: displayAddUser ? 'flex' : 'none'}}>
-					<input name='username' placeholder='username' type='text' value={newUser.username} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
-					<input disabled={newUser.username === ''} name='password' placeholder='password' type='password' value={newUser.password} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
+					<input name='username' placeholder='username (mandatory)' type='text' value={newUser.username} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
+					<input disabled={newUser.username === ''} name='password' placeholder='password (mandatory)' type='password' value={newUser.password} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
 					<select disabled={newUser.password === ''} name='role' value={newUser.role} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})}>
 						<option value='user'>User</option>
 						<option value='admin'>Admin</option>
@@ -69,7 +69,10 @@ const DisplayUsers = ({state, dispatch}) => {
 					</thead>
 					<tbody>
 						{state.users.map((user, i) => <tr key={i}>
-							<td style={{color: user.role === 'admin' ? 'red' : 'black' }}>{user.username}</td>
+							<td style={{
+								color: user.role === 'admin' ? 'red' : 'black',
+								fontWeight: user.role === 'admin' ? 'bold' : 'normal'
+							 }}>{user.username}</td>
 							<td>{user.password}</td>
 							<td style={{textAlign: 'right'}}>
 								{state.user.username !== user.username && <img className="icons" src={DeleteIcon} alt="delete" onClick={() => handleDeleteUser(user.username)} />}

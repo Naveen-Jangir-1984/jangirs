@@ -1,13 +1,11 @@
 import './SignIn.css'
 
 const SignIn = ({ state, dispatch }) => {
-  const input = state.input
-  
+  const input = state.input  
   return (
     <div>
       <div className='signin'>
         <select name='username' value={input.username} onChange={(e) => dispatch({type: 'input', attribute: e.target.name, value: e.target.value })}>
-          <option value=''>username</option>
           {state.users.map((user, i) => <option key={i} value={user.username}>{user.username}</option>)}
         </select>
         <input 
