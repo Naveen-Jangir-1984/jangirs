@@ -46,6 +46,7 @@
 }
 .add-member .view input:disabled, .add-member .view select:disabled {
 	color: grey;
+	background-color: transparent;
 }
 .view input, .view select, .view option {
   font-size: 16px;
@@ -59,7 +60,7 @@
 }
 .add-member .view button:disabled {
   color: lightgray;
-  background-color: whitesmoke  
+  background-color: transparent  
 }
 
 .add-member .view .dob {
