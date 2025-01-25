@@ -61,6 +61,9 @@
   font-size: 16px;
 	background-color: lightgrey;
 }
+.display-users .view input:disabled, .display-users .view select:disabled {
+	color: grey;
+}
 .view option {
 	font-size: 16px;
 }
@@ -77,8 +80,11 @@
 }
 
 .view .icons {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
 	border: none;
 	border-radius: 50%;
-	width: 13px;
-	height: 13px;
+	width: 20px;
+	height: 20px;
 }
