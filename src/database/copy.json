@@ -8,7 +8,7 @@
           "id": 10,
           "name": "",
           "isAlive": false,
-          "gender": "M"
+          "gender": "F"
         }
       ],
       "children": [
@@ -3344,6 +3344,8 @@
     {
       "id": 3,
       "name": "Kaanaram",
+      "wives": [],
+      "children": [],
       "isAlive": false,
       "gender": "M",
       "isCollapsed": true
@@ -3747,74 +3749,9 @@
       "role": "user"
     },
     {
-      "username": "0000",
-      "password": "0000",
-      "role": "user"
-    },
-    {
-      "username": "bsjangir",
+      "username": "JANGIR",
       "password": "shell01-312",
-      "role": "user"
-    },
-    {
-      "username": "Jaisingh",
-      "password": "bimala123",
       "role": "admin"
-    },
-    {
-      "username": "Sagar",
-      "password": "viko123",
-      "role": "user"
-    },
-    {
-      "username": "Rakesh",
-      "password": "nanu123",
-      "role": "user"
-    },
-    {
-      "username": "Ratan",
-      "password": "manoj123",
-      "role": "user"
-    },
-    {
-      "username": "vishwakarma",
-      "password": "Jangir#101",
-      "role": "user"
-    },
-    {
-      "username": "Ashok",
-      "password": "rima123",
-      "role": "user"
-    },
-    {
-      "username": "manohar",
-      "password": "manju123",
-      "role": "user"
-    },
-    {
-      "username": "bijendar",
-      "password": "niku000",
-      "role": "user"
-    },
-    {
-      "username": "vinod",
-      "password": "vinod123",
-      "role": "user"
-    },
-    {
-      "username": "naresh",
-      "password": "jay123",
-      "role": "user"
-    },
-    {
-      "username": "mukesh",
-      "password": "ram123",
-      "role": "user"
-    },
-    {
-      "username": "rahul",
-      "password": "mamta123",
-      "role": "user"
     }
   ],
   "villages": [
