@@ -44,6 +44,9 @@
 	height: 50px;
 	background-color: lightgrey;
 }
+.add-member .view input:disabled, .add-member .view select:disabled {
+	color: grey;
+}
 .view input, .view select, .view option {
   font-size: 16px;
 }
