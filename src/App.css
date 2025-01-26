@@ -50,6 +50,9 @@ select {
 }
 input, select, button {
   background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 input:disabled, select:disabled, button:disabled {
   color: grey;
