@@ -11,12 +11,12 @@
   align-items: center;
   padding-left: 10px;
   box-sizing: border-box;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
   border: none;
   border-radius: 5px;
-  column-gap: 5px;
-  width: 300px;
-  height: 25px;
+  column-gap: 3px;
+  width: 320px;
+  height: 27px;
 }
 .member-card:hover {
   cursor: pointer;
@@ -26,14 +26,14 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  column-gap: 5px;
+  column-gap: 3px;
   box-sizing: border-box;
 }
 
 .display-pic {
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
 }
 
 .toggle-icons, .mobile-icons {
@@ -62,7 +62,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
 }
