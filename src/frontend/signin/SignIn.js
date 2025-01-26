@@ -19,8 +19,8 @@ const SignIn = ({ state, dispatch }) => {
         <button 
           disabled={input.username === '' || input.password === ''}
           onClick={() => dispatch({ type: 'signin'})}
-        >Sign In</button>
-        {input.error && <div style={{color: 'red'}}>incorrect username or password !</div>}
+        >SIGN IN</button>
+        {input.error && <div style={{color: 'red', fontSize: '12px'}}>Incorrect username or password !</div>}
       </div>
     </div>
   );
