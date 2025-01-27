@@ -518,6 +518,7 @@ function App() {
       badhania: "बढानियाँ"
     },
     names: {
+      dakshay: "दक्षय",
       settled: "बस गए",
       in: "में",
       singaram: "सिंगाराम",
