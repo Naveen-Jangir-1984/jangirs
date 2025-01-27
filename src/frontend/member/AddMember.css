@@ -42,7 +42,7 @@
 .add-member .view input, .add-member .view select {
 	width: 80%;
 	height: 50px;
-  box-shadow: 0 0 10px 0 lightgrey;
+  box-shadow: 0 0 0 1px lightgrey;
 }
 .view input, .view select, .view option {
   font-size: 16px;
