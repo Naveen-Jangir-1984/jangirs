@@ -50,8 +50,8 @@ const DisplayUsers = ({state, dispatch}) => {
 			<div className='view'>
 				<div style={{textDecoration: 'underline', fontSize: '14px'}} onClick={() => setDisplayAddUser(!displayAddUser)}>{`Click to ${displayAddUser ? 'close' : 'open'} Add User`}</div>
 				<div className='user-inputs' style={{display: displayAddUser ? 'flex' : 'none'}}>
-					<input name='username' placeholder='username (mandatory)' type='text' value={newUser.username} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
-					<input disabled={newUser.username === ''} name='password' placeholder='password (mandatory)' type='password' value={newUser.password} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
+					<input name='username' placeholder='Username (mandatory)' type='text' value={newUser.username} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
+					<input disabled={newUser.username === ''} name='password' placeholder='Password (mandatory)' type='password' value={newUser.password} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
 					<select disabled={newUser.password === ''} name='role' value={newUser.role} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})}>
 						<option value='user'>User</option>
 						<option value='admin'>Admin</option>

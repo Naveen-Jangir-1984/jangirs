@@ -5,7 +5,11 @@ const SignIn = ({ state, dispatch }) => {
   return (
     <div>
       <div className='signin'>
-        <select name='username' value={input.username} onChange={(e) => dispatch({type: 'input', attribute: e.target.name, value: e.target.value })}>
+        <select 
+        name='username' 
+        value={input.username} 
+        onChange={(e) => dispatch({type: 'input', attribute: e.target.name, value: e.target.value })}
+        >
           {state.users.map((user, i) => <option key={i} value={user.username}>{user.username}</option>)}
         </select>
         <input 
@@ -13,7 +17,7 @@ const SignIn = ({ state, dispatch }) => {
           type='password'
           disabled={input.username === ''}
           value={input.password} 
-          placeholder='password' 
+          placeholder='Password' 
           onChange={(e) => dispatch({type: 'input', attribute: e.target.name, value: e.target.value })}
         />
         <button 
