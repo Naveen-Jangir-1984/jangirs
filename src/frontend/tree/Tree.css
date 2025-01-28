@@ -35,7 +35,7 @@
   width: 27px;
   height: 27px;
   border: 1px solid lightgrey;
-  padding: 2px;
+  padding: 1px;
   box-sizing: border-box;
 }
 
@@ -68,6 +68,10 @@
   column-gap: 5px;
 }
 .member-icons img {
-  width: 20px;
-  height: 20px;
+  width: 23px;
+  height: 23px;
+  border: 1px solid lightgrey;
+  padding: 1px;
+  border-radius: 50%;
+  box-sizing: border-box;
 }
