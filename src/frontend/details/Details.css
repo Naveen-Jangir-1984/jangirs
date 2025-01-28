@@ -59,3 +59,11 @@
 .view sup {
   font-size: 8px;
 }
+
+.view-actions {
+  display: flex;
+  justify-content: center;
+  column-gap: 20px;
+  align-items: center;
+  width: 100%;
+}

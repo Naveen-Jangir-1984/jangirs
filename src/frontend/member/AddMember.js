@@ -3,9 +3,16 @@ import CloseIcon from '../../images/close.png';
 import './AddMember.css';
 
 const AddMember = ({state, dispatch}) => {
-  const dates = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 23, 24, 25, 26, 27,28, 29, 30, 31];
+  const dates = [];
+  for(let i=1; i<=31; i++) {
+    dates.push(i);
+  }
   const months = ['Januray', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  const years = [2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000, 1999, 1998, 1997, 1996, 1995, 1994, 1993, 1992, 1991, 1990]
+  const currentYear = new Date().getFullYear();
+  const years = [];
+  for(let i=currentYear; i>=1900; i--) {
+    years.push(i);
+  }
   const [type, setType] = useState('');
   const [newMember, setNewMember] = useState({
     name: '',
@@ -23,6 +30,11 @@ const AddMember = ({state, dispatch}) => {
   });
   const handleAddMember = async () => {
     if(type === 'child') {
+      const mobileNumbers = [];
+      const mobiles = newMember.mobile !== '' ? newMember.mobile.replaceAll(' ', '').split(',') : [];
+      for(let i=0; i<mobiles.length; i++) {
+        mobileNumbers.push(Number(mobiles[i]));
+      }
       let person = undefined;
       if(newMember.gender === 'M') {
         person = {
@@ -30,24 +42,24 @@ const AddMember = ({state, dispatch}) => {
           name: newMember.name,
           children: [],
           wives: [],
-          mobile: newMember.mobile !== '' ? [newMember.mobile] : [],
+          mobile: mobileNumbers,
+          email: newMember.email !== '' ? newMember.email.replaceAll(' ', '').split(',') : [],
           dob: newMember.date !== '' && newMember.month !== '' && newMember.year !== '' ? newMember.date + ' ' + newMember.month + ' ' + newMember.year : '',
           isAlive: newMember.isAlive === 'alive' ? true : false,
           gender: 'M',
           village: newMember.village,
-          email: newMember.email !== '' ? [newMember.email] : [],
           isCollapsed: false,
         }
       } else {
         person = {
           id: state.member ? ((state.member.id * 10) + (state.member.children.length + 1)) : 0,
           name: newMember.name,
-          mobile: newMember.mobile !== '' ? [newMember.mobile] : [],
+          mobile: mobileNumbers,
+          email: newMember.email !== '' ? newMember.email.replaceAll(' ', '').split(',') : [],
           dob: newMember.date !== '' && newMember.month !== '' && newMember.year !== '' ? newMember.date + ' ' + newMember.month + ' ' + newMember.year : '',
           isAlive: newMember.isAlive === 'alive' ? true : false,
           gender: 'F',
-          village: newMember.village,
-          email: newMember.email !== '' ? [newMember.email] : [],
+          village: newMember.village
         }   
       }
       const response = await fetch('http://115.117.107.101:27001/addNewMember', {
@@ -59,9 +71,16 @@ const AddMember = ({state, dispatch}) => {
         dispatch({type: 'addMember', member: person, memberType: type});
       }
     } else if (type === 'wife') {
+      const mobileNumbers = [];
+      const mobiles = newMember.mobile !== '' ? newMember.mobile.replaceAll(' ', '').split(',') : [];
+      for(let i=0; i<mobiles.length; i++) {
+        mobileNumbers.push(Number(mobiles[i]));
+      }
       const person = {
         id: state.member ? (state.member.id * 10) : 0,
         name: newMember.name,
+        mobile: mobileNumbers,
+        email: newMember.email !== '' ? newMember.email.replaceAll(' ', '').split(',') : [],
         dob: newMember.date !== '' && newMember.month !== '' && newMember.year !== '' ? newMember.date + ' ' + newMember.month + ' ' + newMember.year : '',
         isAlive: newMember.isAlive === 'alive' ? true : false,
         gender: 'F',
@@ -94,12 +113,12 @@ const AddMember = ({state, dispatch}) => {
     });
   }
 	const handleClose = () => {
-		dispatch({type: 'closeMemberEdit'});
+		dispatch({type: 'closeMemberAdd'});
     setType('');
     setNewMember({
       name: '',
-      mobile: [],
-      email: [],
+      mobile: '',
+      email: '',
       children: [],
       wives: [],
       date: '',
@@ -112,7 +131,7 @@ const AddMember = ({state, dispatch}) => {
     });
 	}
   return (
-    <div className="add-member" style={{display: state.isMemberEditOpen ? 'flex' : 'none'}}>
+    <div className="add-member" style={{display: state.isMemberAddOpen ? 'flex' : 'none'}}>
 			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
       <div className='view'>
         <select value={type} onChange={(e) => setType(e.target.value)}>
@@ -121,7 +140,7 @@ const AddMember = ({state, dispatch}) => {
           <option value='wife'>Wife</option>
         </select>
         <input disabled={type === ''} type='text' name='name' value={newMember.name} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='Name (optional)' />
-        <input disabled={type === ''} type='text' name='mobile' value={newMember.mobile} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='Mobile (optional)' maxLength='10' />
+        <input disabled={type === ''} type='text' name='mobile' value={newMember.mobile} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='Mobile (optional)' />
         <div className='dob'>
           <select disabled={type === ''} name='date' value={newMember.date} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})}>
             <option value=''>DD</option>

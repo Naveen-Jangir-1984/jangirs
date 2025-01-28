@@ -896,8 +896,22 @@ function App() {
       password: '',
       error: false
     },
+    editInput: {
+      id: '',
+      name: '',
+      mobile: '',
+      date: '',
+      month: '',
+      year: '',
+      gender: '',
+      village: '',
+      gotra: '',
+      email: '',
+      isAlive: ''
+    },
     isUserEditOpen: false,
     member: '',
+    isMemberAddOpen: false,
     isMemberEditOpen: false
   }
   // traverse to add a member
@@ -922,6 +936,53 @@ function App() {
     tree.children?.forEach(child => addMember(child, id, member, type));
     return tree;
   }
+  // traverse to edit a member
+  const editMemberById = (tree, member) => {
+    if (!tree) return null;
+    if (tree.id === member.id) {
+      tree.name = member.name;
+      tree.gender = member.gender;
+      tree.isAlive = member.isAlive;
+      tree.dob = member.dob;
+      tree.village = member.village;
+      tree.gotra = member.gotra;
+      tree.email = member.email;
+      tree.mobile = member.mobile;
+    }
+    if (tree.children) {
+      tree.children = tree.children.map(child => {
+        if(child.id === member.id) {
+          child.name = member.name;
+          child.gender = member.gender;
+          child.isAlive = member.isAlive;
+          child.dob = member.dob;
+          child.village = member.village;
+          child.gotra = member.gotra;
+          child.email = member.email;
+          child.mobile = member.mobile;
+        }
+        return child;
+      });
+    }
+    tree.children?.forEach(child => editMemberById(child, member));
+    if(tree.wives) {
+      tree.wives = tree.wives.map(wife => {
+        if(wife.id === member.id) {
+          wife.name = member.name;
+          wife.gender = member.gender;
+          wife.isAlive = member.isAlive;
+          wife.dob = member.dob;
+          wife.village = member.village;
+          wife.gotra = member.gotra;
+          wife.email = member.email;
+          wife.mobile = member.mobile;
+        }
+        return wife;
+      });      
+    }
+    tree.wives?.forEach(wife => editMemberById(wife, member));
+    return tree;
+  };
   // traverse to delete a member
   const deleteMemberById = (tree, id) => {
     if (!tree) return null;
@@ -1067,8 +1128,22 @@ function App() {
             password: '',
             error: false
           },
+          editInput: {
+            id: '',
+            name: '',
+            mobile: '',
+            date: '',
+            month: '',
+            year: '',
+            gender: '',
+            village: '',
+            gotra: '',
+            email: '',
+            isAlive: ''
+          },
           isUserEditOpen: false,
           member: '',
+          isMemberAddOpen: false,
           isMemberEditOpen: false
         };
       case 'openUserEdit':
@@ -1093,33 +1168,71 @@ function App() {
           users: state.users.filter(user => user.username !== action.username),
           isUserEditOpen: false
         };
-      case 'openMemberEdit':
+      case 'openMemberAdd':
         return {
           ...state,
           member: action.member,
+          isMemberAddOpen: true
+        };
+      case 'closeMemberAdd':
+        return {
+          ...state,
+          isMemberToBeEdited: '',
+          isMemberAddOpen: false
+        };
+      case 'openMemberEdit':
+        return {
+          ...state,
+          editInput: {
+            id: action.member.id,
+            name: action.member.name ? action.member.name : '',
+            mobile: action.member.mobile && action.member.mobile.length ? action.member.mobile.toString().replaceAll(',', ', ') : '',
+            date: action.member.dob ? action.member.dob.split(' ')[0] : '',
+            month: action.member.dob ? action.member.dob.split(' ')[1] : '',
+            year: action.member.dob ? action.member.dob.split(' ')[2] : '',
+            gender: action.member.gender ? action.member.gender : '',
+            village: action.member.village ? action.member.village : '',
+            gotra: action.member.gotra ? action.member.gotra : '',
+            isAlive: action.member.isAlive ? 'alive' : 'dead',
+            email: action.member.email && action.member.email.length ? action.member.email.toString().replaceAll(',', ', ') : ''
+          },
           isMemberEditOpen: true
         };
       case 'closeMemberEdit':
         return {
           ...state,
+          editInput: {
+            id: '',
+            name: '',
+            mobile: '',
+            date: '',
+            month: '',
+            year: '',
+            gender: '',
+            village: '',
+            gotra: '',
+            email: '',
+            isAlive: ''
+          },
           member: '',
           isMemberEditOpen: false
         };
       case 'addMember':
-        const updatedMemberspostAddMember = state.members.map(member => addMember(member, state.member.id, action.member, action.memberType))
-        setMembers(updatedMemberspostAddMember);
+        const updatedMembersPostAddMember = state.members.map(member => addMember(member, state.member.id, action.member, action.memberType))
+        setMembers(updatedMembersPostAddMember);
         return {
           ...state,
-          members: updatedMemberspostAddMember,
+          members: updatedMembersPostAddMember,
           member: '',
+          isMemberAddOpen: false,
           isMemberEditOpen: false
         };
-      case 'deleteMember':
-        const updatedMemberspostDeleteMember = state.members.map(member => deleteMemberById(member, action.id));
-        setMembers(updatedMemberspostDeleteMember);
+      case 'editMember':
+        const updatedMembersPostEditMember = state.members.map(member => editMemberById(member, action.member));
+        setMembers(updatedMembersPostEditMember);
         return {
           ...state,
-          members: updatedMemberspostDeleteMember,
+          members: updatedMembersPostEditMember,
           view: false,
           viewData: {
             id: '',
@@ -1129,13 +1242,55 @@ function App() {
             email: '', 
             dob: '' 
           },
+          editInput: {
+            id: '',
+            name: '',
+            mobile: '',
+            date: '',
+            month: '',
+            year: '',
+            gender: '',
+            village: '',
+            gotra: '',
+            email: '',
+            isAlive: ''
+          },
+          member: '',
+          isMemberAddOpen: false,
           isMemberEditOpen: false
         };
+      case 'deleteMember':
+      const updatedMembersPostDeleteMember = state.members.map(member => deleteMemberById(member, action.id));
+      setMembers(updatedMembersPostDeleteMember);
+      return {
+        ...state,
+        members: updatedMembersPostDeleteMember,
+        view: false,
+        viewData: {
+          id: '',
+          src: '', 
+          name: '', 
+          mobile: '', 
+          email: '', 
+          dob: '' 
+        },
+        member: '',
+        isMemberAddOpen: false,
+        isMemberEditOpen: false
+      };
       case 'input':
         return {
           ...state,
           input: {
             ...state.input,
+            [action.attribute]: action.value
+          }
+        };
+      case 'editInput':
+        return {
+          ...state,
+          editInput: {
+            ...state.editInput,
             [action.attribute]: action.value
           }
         };
@@ -1196,7 +1351,10 @@ function App() {
             password: '',
             error: false
           },
-          isUserEditOpen: false
+          isUserEditOpen: false,
+          member: '',
+          isMemberAddOpen: false,
+          isMemberEditOpen: false,
         };
       case 'toggle':
         return {
@@ -1254,7 +1412,6 @@ function App() {
           }
         };
       case 'view':
-        document.body.style.zoom = '100%';
         const image = images.find(image => image.id === action.member.id)
         return {
           ...state,
@@ -1266,13 +1423,15 @@ function App() {
             mobile: action.member?.mobile?.length ? action.member.mobile : [],
             email: action.member?.email?.length ? action.member.email : [],
             dob: action.member?.dob?.length ? action.member.dob : '',
-          }
+          },
+          member: action.member
         };
       case 'exitView':
         return {
           ...state,
           view: false,
-          viewData: { id: '', src: '', name: '', mobile: '', email: '', dob: '' }
+          viewData: { id: '', src: '', name: '', mobile: '', email: '', dob: '' },
+          member: ''
         };
       default:
         return state;
@@ -1319,8 +1478,22 @@ function App() {
           password: '',
           error: false
         },
+        editInput: {
+          id: '',
+          name: '',
+          mobile: '',
+          date: '',
+          month: '',
+          year: '',
+          gender: '',
+          village: '',
+          gotra: '',
+          email: '',
+          isAlive: ''
+        },
         isUserEditOpen: false,
         member: '',
+        isMemberAddOpen: false,
         isMemberEditOpen: false
       }));
       dispatch({ type: 'fetch_success', initialState: data.db, user: user, village: village });

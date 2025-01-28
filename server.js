@@ -30,6 +30,53 @@ const addMember = (tree, id, member, type) => {
   return tree;
 }
 
+const editMember = (tree, member) => {
+  if (!tree) return null;
+  if (tree.id === member.id) {
+    tree.name = member.name;
+    tree.gender = member.gender;
+    tree.isAlive = member.isAlive;
+    tree.dob = member.dob;
+    tree.village = member.village;
+    tree.gotra = member.gotra;
+    tree.email = member.email;
+    tree.mobile = member.mobile;
+  }
+  if (tree.children) {
+    tree.children = tree.children.map(child => {
+      if(child.id === member.id) {
+        child.name = member.name;
+        child.gender = member.gender;
+        child.isAlive = member.isAlive;
+        child.dob = member.dob;
+        child.village = member.village;
+        child.gotra = member.gotra;
+        child.email = member.email;
+        child.mobile = member.mobile;
+      }
+      return child;
+    });
+  }
+  tree.children?.forEach(child => editMember(child, member));
+  if(tree.wives) {
+    tree.wives = tree.wives.map(wife => {
+      if(wife.id === member.id) {
+        wife.name = member.name;
+        wife.gender = member.gender;
+        wife.isAlive = member.isAlive;
+        wife.dob = member.dob;
+        wife.village = member.village;
+        wife.gotra = member.gotra;
+        wife.email = member.email;
+        wife.mobile = member.mobile;
+      }
+      return wife;
+    });      
+  }
+  tree.wives?.forEach(wife => editMember(wife, member));
+  return tree;
+};
+
 const deleteMemberById = (tree, id) => {
   if (!tree) return null;
   if (tree.children) {
@@ -108,6 +155,29 @@ app.post('/addNewMember', (req, res) => {
       db.moruwa = db.moruwa.map(member => addMember(member, existingMember.id, newMember, type));
     } else if(village === 'tatija') { 
       db.tatija = db.tatija.map(member => addMember(member, existingMember.id, newMember, type));
+    } 
+    fs.writeFile("./src/database/db.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send({ result: 'failed' });
+      res.send({ result: 'success' });
+    });
+  });
+});
+
+app.post('/editMember', (req, res) => {
+  fs.readFile("./src/database/db.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const existingMember = req.body.member;
+    const village = req.body.village;
+    if(village === 'dulania') {
+      db.dulania = db.dulania.map(member => editMember(member, existingMember));
+    } else if(village === 'moruwa') {
+      db.moruwa = db.moruwa.map(member => editMember(member, existingMember));
+    } else if(village === 'tatija') { 
+      db.tatija = db.tatija.map(member => editMember(member, existingMember));
     } 
     fs.writeFile("./src/database/db.json", JSON.stringify(db, null, 2), (err) => {
       if (err) res.send({ result: 'failed' });

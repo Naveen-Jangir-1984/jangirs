@@ -15,6 +15,9 @@ const Details = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     }
     return age;
   }
+  const handleEditMember = async () => {
+    dispatch({type: 'openMemberEdit', member: state.member});
+  }
   const handleDeleteMember = async (id) => {
     const consent = window.confirm('Are you sure you want to delete this member?');
     if (consent) {
@@ -37,7 +40,10 @@ const Details = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
         {state.viewData.dob?.length && !state.user.language ? <div>{`${getHindiNumbers(state.viewData.dob.split(' ')[0])} ${getHindiText(state.viewData.dob.split(' ')[1], 'months')} ${getHindiNumbers(state.viewData.dob.split(' ')[2])}`}</div> : <div>{state.viewData.dob}</div>}
         {state.viewData.mobile.length ? <div className='view-mobile'>{state.viewData.mobile.map((mo, i) => <a key={i} href={`tel: ${mo}`} onClick={(e) => e.stopPropagation()}>{mo}</a>)}</div> : ''}
         {state.viewData.email.length ? <div className='view-email'>{state.viewData.email.map((em, i) => <a key={i} href={`mailto: ${em}`} onClick={(e) => e.stopPropagation()}>{em}</a>)}</div> : ''}
-        {state.user.role === 'admin' ? <button onClick={() => handleDeleteMember(state.viewData.id)}>Delete</button> : ''}
+        <div className='view-actions'>
+          {state.user.role === 'admin' ? <button onClick={() => handleEditMember()}>UPDATE</button> : ''}
+          {state.user.role === 'admin' ? <button onClick={() => handleDeleteMember(state.viewData.id)}>DELETE</button> : ''}
+        </div>
       </div>
     </div>
   );
