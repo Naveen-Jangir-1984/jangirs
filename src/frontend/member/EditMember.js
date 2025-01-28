@@ -14,7 +14,7 @@ const EditMember = ({state, dispatch}) => {
     years.push(i);
   }
   const handleEditMember = async () => {
-    const consent = window.confirm('Are you sure you want to delete this member?');
+    const consent = window.confirm('Are you sure you want to edit this member?');
     if(consent) {
       const mobileNumbers = [];
       const mobiles = state.editInput.mobile !== '' ? state.editInput.mobile.replaceAll(' ', '').split(',') : [];
