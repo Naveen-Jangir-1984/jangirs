@@ -189,12 +189,12 @@ const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers }) => 
         </select>
         <label>
           <span>{state.user.language ? 
-            <><span>{`Married (${getAliveAndMarriedMales()}`}</span><span style={{fontSize: '8px', color: 'red'}}>{` / ${getDeadAndMarriedMales()}`}</span>{`)`}</> : 
+            <><span>{`Married (${getAliveAndMarriedMales()}`}</span><span style={{fontSize: '8px', color: 'red'}}>{`/${getDeadAndMarriedMales()}`}</span>{`)`}</> : 
             <><span>{`विवाहित (${getHindiNumbers(getAliveAndMarriedMales().toString())}`}</span><span style={{fontSize: '8px', color: 'red'}}>{` / ${getHindiNumbers(getDeadAndMarriedMales().toString())}`}</span>{`)`}</>
           }</span>
           {' '}
           <span>{state.user.language ? 
-            <><span>{`Unmarried (${getAliveAndUnmarriedMales()}`}</span><span style={{fontSize: '8px', color: 'red'}}>{` / ${getDeadAndUnmarriedMales()})`}</span></> : 
+            <><span>{`Unmarried (${getAliveAndUnmarriedMales()}`}</span><span style={{fontSize: '8px', color: 'red'}}>{`/${getDeadAndUnmarriedMales()})`}</span></> : 
             <><span>{`अविवाहित (${getHindiNumbers(getAliveAndUnmarriedMales().toString())}`}</span><span style={{fontSize: '8px', color: 'red'}}>{` / ${getHindiNumbers(getDeadAndUnmarriedMales().toString())}`}</span>{`)`}</>
           }</span>
         </label>
@@ -211,12 +211,12 @@ const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers }) => 
         </select>
         <label>
           <span>{state.user.language ? 
-            <><span>{`Married (${getAliveAndMarriedFemales()}`}</span><span style={{fontSize: '8px', color: 'red'}}>{`/ ${getDeadAndMarriedFemales()})`}</span></> : 
+            <><span>{`Married (${getAliveAndMarriedFemales()}`}</span><span style={{fontSize: '8px', color: 'red'}}>{`/${getDeadAndMarriedFemales()})`}</span></> : 
             <><span>{`विवाहित (${getHindiNumbers(getAliveAndMarriedFemales().toString())}`}</span><span style={{fontSize: '8px', color: 'red'}}>{`/ ${getHindiNumbers(getDeadAndMarriedFemales().toString())}`}</span>{`)`}</>
           }</span>
           {' '}
           <span>{state.user.language ? 
-            <><span>{`Unmarried (${getAliveAndUnmarriedFemales()}`}</span><span style={{fontSize: '8px', color: 'red'}}>{` / ${getDeadAndUnmarriedFemales()} )`}</span></> : 
+            <><span>{`Unmarried (${getAliveAndUnmarriedFemales()}`}</span><span style={{fontSize: '8px', color: 'red'}}>{`/${getDeadAndUnmarriedFemales()} )`}</span></> : 
             <><span>{`अविवाहित (${getHindiNumbers(getAliveAndUnmarriedFemales().toString())}`}</span><span style={{fontSize: '8px', color: 'red'}}>{`/ ${getHindiNumbers(getDeadAndUnmarriedFemales().toString())}`}</span>{`)`}</>
           }</span>
         </label>
