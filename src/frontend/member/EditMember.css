@@ -1,4 +1,4 @@
-.add-member {
+.edit-member {
 	display: none;
 	position: absolute;
 	top: 50%;
@@ -13,7 +13,7 @@
 	z-index: 1;
 }
 
-.add-member .close {
+.edit-member .close {
 	position: absolute;
 	top: 10px;
 	right: 10px;
@@ -39,7 +39,7 @@
   z-index: 2;
 }
 
-.add-member .view input, .add-member .view select {
+.edit-member .view input, .edit-member .view select {
 	width: 80%;
 	height: 50px;
 	background-color: #eee;
@@ -48,27 +48,27 @@
   font-size: 16px;
 }
 
-.add-member .view button {
+.edit-member .view button {
 	font-size: 14px;
 	font-weight: bolder;
 	width: 80%;
 	height: 50px;
 	background-color: lightskyblue;
 }
-.add-member .view input:disabled,
-.add-member .view select:disabled,
-.add-member .view button:disabled {
+.edit-member .view input:disabled,
+.edit-member .view select:disabled,
+.edit-member .view button:disabled {
 	color: grey;
 	background-color: #edd;
 }
 
-.add-member .view .dob {
+.edit-member .view .dob {
 	width: 80%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
-.add-member .view .dob select {
+.edit-member .view .dob select {
 	width: 30%;
 }
 

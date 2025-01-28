@@ -4,6 +4,7 @@ import MaleProfileIcon from '../../images/male.png'
 import FemaleProfileIcon from '../../images/female.png'
 import MobileIcon from '../../images/mobile.jpg'
 import AddMemberIcon from '../../images/addMember.png'
+import EditMemberIcon from '../../images/editMember.png'
 import SMSIcon from '../../images/sms.png'
 // import DeleteIcon from '../../images/delete.png'
 import './Tree.css'
@@ -73,6 +74,10 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   // }
   const handleAddMember = (e, member) => {
     e.stopPropagation();
+    dispatch({type: 'openMemberAdd', member: member})
+  }
+  const handleEditMember = (e, member) => {
+    e.stopPropagation();
     dispatch({type: 'openMemberEdit', member: member})
   }
   const displayMember = (member, depth) => {
@@ -84,16 +89,16 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
           {member.name !== '' ? <div style={{color: member.isAlive ? 'black' : 'red'}}>{state.user.language ? member.name : getHindiText(member.name)}</div> : ''}
           {state.user.role === 'admin' && member.mobile?.length ? <a className="mobile-icons" href={`tel: ${member.mobile[0]}`}><img onClick={(e) => e.stopPropagation()} src={MobileIcon} alt={member.mobile[0]} /></a> : ''}
           {state.user.role === 'admin' && member.mobile?.length ? <img className='mobile-icons' src={SMSIcon} alt={member.id} onClick={(e) => handleSMSClick(e, member)} /> : ''}
-          {member.gender === 'F' && member.village ? <div style={{marginBottom: '5px', fontSize: '7px'}}>{state.user.language ? member.village : getHindiText(member.village, 'village')}</div> : ''}
-          {member.gender === 'F' && member.gotra && <div style={{marginBottom: '5px', fontSize: '7px'}}>{state.user.language ? member.gotra : getHindiText(member.gotra, 'gotra')}</div>}
+          {member.gender === 'F' && member.village ? <div style={{marginBottom: '5px', fontSize: '8px'}}>{state.user.language ? member.village : getHindiText(member.village, 'village')}</div> : ''}
+          {member.gender === 'F' && member.gotra && <div style={{marginBottom: '5px', fontSize: '8px'}}>{state.user.language ? member.gotra : getHindiText(member.gotra, 'gotra')}</div>}
           {member.wives?.length ? member.wives?.map(wife => <div className='member-wife-card' key={wife.id}>
             <img className='display-pic' src={state.images.find(image => image.id === wife.id) ? state.images.find(image => image.id === wife.id).src : FemaleProfileIcon} alt={wife.id} onClick={(e) => {e.stopPropagation(); dispatch({type: 'view', member: wife});}} />
             {wife.name !== '' ? <div style={{color: wife.isAlive ? 'black' : 'red'}}>{state.user.language ? wife.name : getHindiText(wife.name)}</div> : ''}
-            {wife.village !== '' ? <div style={{marginBottom: '5px', fontSize: '7px'}}>{state.user.language ? wife.village : getHindiText(wife.village, 'village')}</div> : ''}
+            {wife.village !== '' ? <div style={{marginBottom: '5px', fontSize: '8px'}}>{state.user.language ? wife.village : getHindiText(wife.village, 'village')}</div> : ''}
             {/* {wife.gotra ? <div style={{marginBottom: '10px'}}>.</div> : ''} */}
-            {wife.gotra ? <div style={{marginBottom: '5px', fontSize: '7px'}}>{state.user.language ? wife.gotra : getHindiText(wife.gotra, 'gotra')}</div> : ''}
+            {wife.gotra ? <div style={{marginBottom: '5px', fontSize: '8px'}}>{state.user.language ? wife.gotra : getHindiText(wife.gotra, 'gotra')}</div> : ''}
           </div>) : ''}
-          {member.gender === "M" && member.village && <div style={{fontSize: '7px', fontWeight: 'bolder'}}>( {state.user.language ? `Settled in ${member.village}` : `${getHindiText(member.village, 'village')} ${getHindiText('in')} ${getHindiText('settled')}`} )</div>}
+          {member.gender === "M" && member.village && <div style={{fontSize: '8px', fontWeight: 'bolder'}}>( {state.user.language ? `Settled in ${member.village}` : `${getHindiText(member.village, 'village')} ${getHindiText('in')} ${getHindiText('settled')}`} )</div>}
           <span className="memberCount">
             {state.user.language ?
               <span>
@@ -112,8 +117,11 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
               </span>
             }
           </span>
-          {state.user.role === 'admin' && member.gender === 'M' ? <img className='member-icons' src={AddMemberIcon} alt='add' onClick={(e) => handleAddMember(e, member)} /> : ''}
-          {/* {state.user.role === 'admin' ? <img className='member-icons' src={DeleteIcon} alt='delete' onClick={(e) => handleDeleteMember(e, member.id)} /> : ''} */}
+          <div className='member-icons'>
+            {state.user.role === 'admin' && member.gender === 'M' ? <img src={AddMemberIcon} alt='add' onClick={(e) => handleAddMember(e, member)} /> : ''}
+            {state.user.role === 'admin' ? <img src={EditMemberIcon} alt='edit' onClick={(e) => handleEditMember(e, member)} /> : ''}
+            {/* {state.user.role === 'admin' ? <img src={DeleteIcon} alt='delete' onClick={(e) => handleDeleteMember(e, member.id)} /> : ''} */}
+          </div>
         </div>
         <div style={{display: member.isCollapsed ? 'none' : 'block'}}>
           {member.gender === 'M' ? member.children?.map(child => displayMember(child, state.village === 'moruwa' ? depth + 7 : depth + 5)) : ''}
