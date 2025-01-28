@@ -32,8 +32,11 @@
 
 .display-pic {
   border-radius: 50%;
-  width: 25px;
-  height: 25px;
+  width: 27px;
+  height: 27px;
+  border: 1px solid lightgrey;
+  padding: 2px;
+  box-sizing: border-box;
 }
 
 .toggle-icons, .mobile-icons {
