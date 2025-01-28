@@ -7,7 +7,7 @@ const EditMember = ({state, dispatch}) => {
   for(let i=1; i<=31; i++) {
     dates.push(i);
   }
-  const months = ['Januray', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const currentYear = new Date().getFullYear();
   const years = [];
   for(let i=currentYear; i>=1900; i--) {
