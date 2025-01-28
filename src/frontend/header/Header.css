@@ -5,17 +5,12 @@
   width: 100%;
 }
 
-.signout, .addIcon {
-  border: none;
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-}
-
-.icons {
-  border: none;
+.header .icons, .header .signout, .header .addIcon {
+  padding: 2px;
+  border: 1px solid lightgrey;
   border-radius: 50%;
   width: 25px;
   height: 25px;
   cursor: pointer;
+  box-sizing: border-box;
 }

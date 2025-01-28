@@ -83,8 +83,11 @@
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	border: none;
-	border-radius: 50%;
-	width: 20px;
-	height: 20px;
+  padding: 2px;
+  border: 1px solid lightgrey;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  box-sizing: border-box;
 }
