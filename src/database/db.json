@@ -467,9 +467,13 @@
                                       "name": "Baby Boy",
                                       "wives": [],
                                       "children": [],
-                                      "dob": "15 January 2024",
+                                      "dob": "15 January 2025",
                                       "isAlive": true,
-                                      "gender": "M"
+                                      "gender": "M",
+                                      "village": "",
+                                      "gotra": "",
+                                      "email": [],
+                                      "mobile": []
                                     }
                                   ],
                                   "isAlive": true,
@@ -709,7 +713,8 @@
                           "name": "Bahadur Singh",
                           "mobile": [
                             9784461021,
-                            6375437060
+                            6375437060,
+                            9468827219
                           ],
                           "dob": "1 August 1958",
                           "email": [
@@ -827,7 +832,9 @@
                           ],
                           "isAlive": true,
                           "gender": "M",
-                          "isCollapsed": true
+                          "isCollapsed": true,
+                          "village": "",
+                          "gotra": ""
                         }
                       ],
                       "isAlive": false,
