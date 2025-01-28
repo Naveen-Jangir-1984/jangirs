@@ -58,16 +58,13 @@
 
 .member-icons {
   position: absolute;
-  right: 25px;
+  right: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
   column-gap: 5px;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
 }
 .member-icons img {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
 }

@@ -67,3 +67,13 @@
   align-items: center;
   width: 100%;
 }
+.view-actions button:first-child {
+  font-weight: bolder;
+  padding: 15px 35px;
+  background-color: lightgreen;
+}
+.view-actions button:last-child {
+  font-weight: bolder;
+  padding: 15px 35px;
+  background-color: lightcoral;
+}
