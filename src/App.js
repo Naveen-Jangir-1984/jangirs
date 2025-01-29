@@ -1439,7 +1439,7 @@ function App() {
   }
   const fetchData = async (user, village) => {
     try {
-      const response = await fetch('http://115.117.107.101:27001/getData');
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/getData`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
