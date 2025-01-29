@@ -30,13 +30,13 @@
   box-sizing: border-box;
 }
 
-.display-pic {
-  border-radius: 50%;
-  width: 27px;
-  height: 27px;
-  border: 1px solid lightgrey;
+.display-pic, .member-icons img {
+  width: 23px;
+  height: 23px;
+  border: 1px outset lightgrey;
   padding: 1px;
   box-sizing: border-box;
+  border-radius: 50%;
 }
 
 .toggle-icons, .mobile-icons {
@@ -66,12 +66,4 @@
   justify-content: center;
   align-items: center;
   column-gap: 5px;
-}
-.member-icons img {
-  width: 23px;
-  height: 23px;
-  border: 1px solid lightgrey;
-  padding: 1px;
-  border-radius: 50%;
-  box-sizing: border-box;
 }
