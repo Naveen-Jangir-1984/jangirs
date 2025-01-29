@@ -17,7 +17,7 @@ const DisplayUsers = ({state, dispatch}) => {
 		setDisplayAddUser(false);
 	}
 	const handleAddUser = async () => {
-		const response = await fetch('http://115.117.107.101:27001/addNewUser', {
+		const response = await fetch(`${process.env.REACT_APP_API_URL}/addNewUser`, {
 		method: 'post',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({ username: newUser.username, password: newUser.password, role: newUser.role })})
@@ -33,7 +33,7 @@ const DisplayUsers = ({state, dispatch}) => {
 	const handleDeleteUser = async (username) => {
 		const consent = window.confirm('Are you sure you want to delete this user ?');
 		if (consent) {
-			const response = await fetch('http://115.117.107.101:27001/deleteUser', {
+			const response = await fetch(`${process.env.REACT_APP_API_URL}/deleteUser`, {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ username: username })})

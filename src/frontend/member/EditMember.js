@@ -32,7 +32,7 @@ const EditMember = ({state, dispatch}) => {
         mobile: mobileNumbers,
         email: state.editInput.email !== '' ? state.editInput.email.replaceAll(' ', '').split(',') : [],
       }
-      const response = await fetch('http://115.117.107.101:27001/editMember', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/editMember`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ member: person, village: state.village })})

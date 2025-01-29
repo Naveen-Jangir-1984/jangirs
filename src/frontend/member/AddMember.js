@@ -62,7 +62,7 @@ const AddMember = ({state, dispatch}) => {
           village: newMember.village
         }   
       }
-      const response = await fetch('http://115.117.107.101:27001/addNewMember', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/addNewMember`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ member: state.member, newMember: person, type: type, village: state.village })})
@@ -87,7 +87,7 @@ const AddMember = ({state, dispatch}) => {
         village: newMember.village,
         gotra: newMember.gotra,
       }
-      const response = await fetch('http://115.117.107.101:27001/addNewMember', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/addNewMember`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ member: state.member, newMember: person, type: type, village: state.village })})
