@@ -1281,16 +1281,29 @@ function App() {
         if(error) {
           return {
             ...state,
-            input: {
-              username: '',
-              password: '',
-              error: false
-            },
             user: {
               username: state.input.username,
               password: state.input.password,
               role: state.users.find(user => user.username === state.input.username).role,
               language: false
+            },
+            input: {
+              username: '',
+              password: '',
+              error: false
+            },
+            editInput: {
+              id: '',
+              name: '',
+              mobile: '',
+              date: '',
+              month: '',
+              year: '',
+              gender: '',
+              village: '',
+              gotra: '',
+              email: '',
+              isAlive: ''
             }
           };
         } else {
@@ -1324,6 +1337,19 @@ function App() {
             username: 'General',
             password: '',
             error: false
+          },
+          editInput: {
+            id: '',
+            name: '',
+            mobile: '',
+            date: '',
+            month: '',
+            year: '',
+            gender: '',
+            village: '',
+            gotra: '',
+            email: '',
+            isAlive: ''
           },
           isUserEditOpen: false,
           member: '',
@@ -1416,6 +1442,7 @@ function App() {
         tatija: data.db.tatija,
         members: data.db.dulania,
         villages: data.db.villages,
+        // images: data.db.images,
         village: village,
         filters: {
           search: '',
@@ -1472,13 +1499,12 @@ function App() {
   useEffect(() => {
     sessionStorage.setItem('appState', JSON.stringify(state));
   }, [state]);
-  const pleaseWait = <div>Please wait...</div>;
   return (
     <div className="app">
-      <Suspense fallback={pleaseWait}>
+      <Suspense fallback={<div>Please wait...</div>}>
         {
           state.user ?
-          <Home 
+          <Home
             state={state} 
             dispatch={dispatch} 
             members={members}
