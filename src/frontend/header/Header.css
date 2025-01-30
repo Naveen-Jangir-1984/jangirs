@@ -7,7 +7,7 @@
 
 .header .icons, .header .signout, .header .addIcon {
   padding: 1px;
-  border: 1px solid lightgrey;
+  border: 1px outset lightgrey;
   border-radius: 50%;
   width: 25px;
   height: 25px;

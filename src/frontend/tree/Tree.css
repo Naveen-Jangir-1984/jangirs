@@ -30,10 +30,11 @@
   box-sizing: border-box;
 }
 
-.display-pic, .member-icons img {
+.display-pic {
   width: 23px;
   height: 23px;
-  border: 1px outset lightgrey;
+  border-width: 1px;
+  border-style: solid;
   padding: 1px;
   box-sizing: border-box;
   border-radius: 50%;
@@ -66,4 +67,13 @@
   justify-content: center;
   align-items: center;
   column-gap: 5px;
+}
+
+.member-icons img {
+  width: 23px;
+  height: 23px;
+  border: 1px outset lightgrey;
+  padding: 1px;
+  box-sizing: border-box;
+  border-radius: 50%;
 }
