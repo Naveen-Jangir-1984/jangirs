@@ -38,10 +38,10 @@
 }
 
 .view img {
-  width: 78dvw;
-  height: 78dvw;
+  width: 40dvh;
+  height: 40dvh;
   border-radius: 50%;
-  padding: 5px;
+  padding: 7px;
   border-width: 2px;
   border-style: solid;
   object-fit: cover;
