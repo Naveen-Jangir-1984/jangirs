@@ -1,11 +1,17 @@
 import CloseIcon from '../../images/close.png'
+import MaleProfileImage from '../../images/male.png';
+import FemaleProfileImage from '../../images/female.png';
 import './Details.css'
 
 const Details = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   // calculate age
+  const memberImage = state.images.find(image => image.id === state.member.id);
+  const memberDOB = state.member.dob ? state.member.dob : '';
+  const memberMobiles = state.member.mobile ? state.member.mobile : [];
+  const memberEmails = state.member.email ? state.member.email : [];
   const months = ['January', 'Februray', 'March', 'April', 'May', 'May', 'June', 'July', 'August', 'Septemeber', 'October', 'November', 'December']
   const getAge = (dateString) => {
-    if (!dateString.length) return ''
+    if (dateString.length === '') return 0;
     const dob = dateString.split(' ')
     var today = new Date();
     var age = today.getFullYear() - Number(dob[2]);
@@ -33,16 +39,16 @@ const Details = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   }
   return (
     <div className='details' style={{ display: state.view ? 'flex' : 'none' }}>
-      <img src={CloseIcon} alt='close' className='close' onClick={() => dispatch({type: 'exitView'})} />
+      <img src={CloseIcon} alt='close' className='close' onClick={() => dispatch({type: 'closeView'})} />
       <div className='view'>
-        {state.viewData.src !== '' ? <img src={state.viewData.src} alt={state.viewData.name} /> : ''}
-        <div>{state.user.language ? state.viewData.name : getHindiText(state.viewData.name, 'name')} {state.viewData.dob?.length && state.user.language ? <sup>{getAge(state.viewData.dob)}</sup> : <sup>{getHindiNumbers(getAge(state.viewData.dob).toString())}</sup>}</div>
-        {state.viewData.dob?.length && !state.user.language ? <div>{`${getHindiNumbers(state.viewData.dob.split(' ')[0])} ${getHindiText(state.viewData.dob.split(' ')[1], 'months')} ${getHindiNumbers(state.viewData.dob.split(' ')[2])}`}</div> : <div>{state.viewData.dob}</div>}
-        {state.viewData.mobile.length ? <div className='view-mobile'>{state.viewData.mobile.map((mo, i) => <a key={i} href={`tel: ${mo}`} onClick={(e) => e.stopPropagation()}>{mo}</a>)}</div> : ''}
-        {state.viewData.email.length ? <div className='view-email'>{state.viewData.email.map((em, i) => <a key={i} href={`mailto: ${em}`} onClick={(e) => e.stopPropagation()}>{em}</a>)}</div> : ''}
+        <img style={{borderColor: state.member.isAlive ? 'green' : '#f55'}} src={memberImage ? memberImage.src : state.member.gender === 'M' ? MaleProfileImage : FemaleProfileImage} alt={state.member.name} />
+        <div>{state.user.language ? state.member.name : getHindiText(state.member.name, 'name')} {memberDOB && state.user.language ? <sup>{getAge(memberDOB ? memberDOB : '')}</sup> : memberDOB && !state.user.language ? <sup>{getHindiNumbers(getAge(memberDOB ? memberDOB : '').toString())}</sup> : ''}</div>
+        {memberDOB && !state.user.language ? <div>{`${getHindiNumbers(memberDOB.split(' ')[0])} ${getHindiText(memberDOB.split(' ')[1], 'months')} ${getHindiNumbers(memberDOB.split(' ')[2])}`}</div> : <div>{memberDOB}</div>}
+        <div className='view-mobile'>{memberMobiles.map((mobile, i) => <a key={i} href={`tel: ${mobile}`} onClick={(e) => e.stopPropagation()}>{mobile}</a>)}</div>
+        <div className='view-email'>{memberEmails.map((email, i) => <a key={i} href={`mailto: ${email}`} onClick={(e) => e.stopPropagation()}>{email}</a>)}</div>
         <div className='view-actions'>
           {state.user.role === 'admin' ? <button onClick={() => handleEditMember()}>UPDATE</button> : ''}
-          {state.user.role === 'admin' ? <button onClick={() => handleDeleteMember(state.viewData.id)}>DELETE</button> : ''}
+          {state.user.role === 'admin' ? <button onClick={() => handleDeleteMember(state.member.id)}>DELETE</button> : ''}
         </div>
       </div>
     </div>

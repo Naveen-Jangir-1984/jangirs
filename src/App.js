@@ -1,7 +1,5 @@
 import { lazy, Suspense, useReducer, useState, useEffect } from 'react';
 import BGDImage from './images/mata-mandir.jpg';
-import MaleProfileImage from './images/male.png';
-import FemaleProfileImage from './images/female.png';
 import './App.css';
 const SignIn = lazy(() => import("./frontend/signin/SignIn"));
 const Home = lazy(() => import("./frontend/home/Home"));
@@ -883,14 +881,6 @@ function App() {
       }
     },
     view: false,
-    viewData: { 
-      id: '',
-      src: '', 
-      name: '', 
-      mobile: '', 
-      email: '', 
-      dob: '' 
-    },
     input: {
       username: 'General',
       password: '',
@@ -1115,14 +1105,6 @@ function App() {
             }
           },
           view: false,
-          viewData: {
-            id: '',
-            src: '', 
-            name: '', 
-            mobile: '', 
-            email: '', 
-            dob: '' 
-          },
           input: {
             username: 'General',
             password: '',
@@ -1338,14 +1320,6 @@ function App() {
             }
           },
           view: false,
-          viewData: { 
-            id: '',
-            src: '', 
-            name: '', 
-            mobile: '', 
-            email: '', 
-            dob: '' 
-          },
           input: {
             username: 'General',
             password: '',
@@ -1412,25 +1386,15 @@ function App() {
           }
         };
       case 'view':
-        const image = images.find(image => image.id === action.member.id)
         return {
           ...state,
           view: true,
-          viewData: {
-            id: action.member.id,
-            src: action.member && image ? image.src : action.member.gender === 'M' ? MaleProfileImage : FemaleProfileImage,
-            name: action.member ? action.member.name : '',
-            mobile: action.member?.mobile?.length ? action.member.mobile : [],
-            email: action.member?.email?.length ? action.member.email : [],
-            dob: action.member?.dob?.length ? action.member.dob : '',
-          },
           member: action.member
         };
-      case 'exitView':
+      case 'closeView':
         return {
           ...state,
           view: false,
-          viewData: { id: '', src: '', name: '', mobile: '', email: '', dob: '' },
           member: ''
         };
       default:
@@ -1465,14 +1429,6 @@ function App() {
           }
         },
         view: false,
-        viewData: { 
-          id: '',
-          src: '', 
-          name: '', 
-          mobile: '', 
-          email: '', 
-          dob: '' 
-        },
         input: {
           username: '',
           password: '',

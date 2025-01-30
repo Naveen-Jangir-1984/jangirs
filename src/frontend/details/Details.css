@@ -42,8 +42,8 @@
   height: 78dvw;
   border-radius: 50%;
   padding: 5px;
-  border-width: 1px;
-  border-style: outset;
+  border-width: 2px;
+  border-style: solid;
   object-fit: cover;
 }
 
