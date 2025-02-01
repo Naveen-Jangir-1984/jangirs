@@ -899,8 +899,10 @@ function App() {
       email: '',
       isAlive: ''
     },
+    memberToBeDisplayed: '',
+    memberToBeAdded: '',
+    memberToBeEdited: '',
     isUserEditOpen: false,
-    member: '',
     isMemberAddOpen: false,
     isMemberEditOpen: false
   }
@@ -1123,8 +1125,10 @@ function App() {
             email: '',
             isAlive: ''
           },
+          memberToBeDisplayed: '',
+          memberToBeAdded: '',
+          memberToBeEdited: '',
           isUserEditOpen: false,
-          member: '',
           isMemberAddOpen: false,
           isMemberEditOpen: false
         };
@@ -1153,14 +1157,19 @@ function App() {
       case 'openMemberAdd':
         return {
           ...state,
-          member: action.member,
+          memberToBeAdded: action.member,
+          memberToBeDisplayed: '',
+          memberToBeEdited: '',
           isMemberAddOpen: true
         };
       case 'closeMemberAdd':
         return {
           ...state,
-          isMemberToBeEdited: '',
-          isMemberAddOpen: false
+          memberToBeDisplayed: '',
+          memberToBeAdded: '',
+          memberToBeEdited: '',
+          isMemberAddOpen: false,
+          isMemberEditOpen: false
         };
       case 'openMemberEdit':
         return {
@@ -1196,7 +1205,8 @@ function App() {
             email: '',
             isAlive: ''
           },
-          member: '',
+          memberToBeAdded: '',
+          memberToBeEdited: '',
           isMemberEditOpen: false
         };
       case 'addMember':
@@ -1205,7 +1215,9 @@ function App() {
         return {
           ...state,
           members: updatedMembersPostAddMember,
-          member: '',
+          memberToBeDisplayed: '',
+          memberToBeAdded: '',
+          memberToBeEdited: '',
           isMemberAddOpen: false,
           isMemberEditOpen: false
         };
@@ -1215,15 +1227,6 @@ function App() {
         return {
           ...state,
           members: updatedMembersPostEditMember,
-          view: false,
-          viewData: {
-            id: '',
-            src: '', 
-            name: '', 
-            mobile: '', 
-            email: '', 
-            dob: '' 
-          },
           editInput: {
             id: '',
             name: '',
@@ -1237,7 +1240,8 @@ function App() {
             email: '',
             isAlive: ''
           },
-          member: '',
+          memberToBeAdded: '',
+          memberToBeEdited: '',
           isMemberAddOpen: false,
           isMemberEditOpen: false
         };
@@ -1248,15 +1252,9 @@ function App() {
         ...state,
         members: updatedMembersPostDeleteMember,
         view: false,
-        viewData: {
-          id: '',
-          src: '', 
-          name: '', 
-          mobile: '', 
-          email: '', 
-          dob: '' 
-        },
-        member: '',
+        memberToBeDisplayed: '',
+        memberToBeAdded: '',
+        memberToBeEdited: '',
         isMemberAddOpen: false,
         isMemberEditOpen: false
       };
@@ -1351,8 +1349,10 @@ function App() {
             email: '',
             isAlive: ''
           },
+          memberToBeDisplayed: '',
+          memberToBeAdded: '',
+          memberToBeEdited: '',
           isUserEditOpen: false,
-          member: '',
           isMemberAddOpen: false,
           isMemberEditOpen: false,
         };
@@ -1415,13 +1415,17 @@ function App() {
         return {
           ...state,
           view: true,
-          member: action.member
+          memberToBeDisplayed: action.member,
+          memberToBeAdded: '',
+          memberToBeEdited: '',
         };
       case 'closeView':
         return {
           ...state,
           view: false,
-          member: ''
+          memberToBeDisplayed: '',
+          memberToBeAdded: '',
+          memberToBeEdited: '',
         };
       default:
         return state;
@@ -1475,7 +1479,9 @@ function App() {
           isAlive: ''
         },
         isUserEditOpen: false,
-        member: '',
+        memberToBeDisplayed: '',
+        memberToBeAdded: '',
+        memberToBeEdited: '',
         isMemberAddOpen: false,
         isMemberEditOpen: false
       }));

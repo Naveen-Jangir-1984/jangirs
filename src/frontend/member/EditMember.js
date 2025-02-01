@@ -46,7 +46,7 @@ const EditMember = ({state, dispatch}) => {
 		dispatch({type: 'closeMemberEdit'});
 	}
   return (
-    <div className="add-member" style={{display: state.isMemberEditOpen ? 'flex' : 'none'}}>
+    <div className="edit-member" style={{display: state.isMemberEditOpen ? 'flex' : 'none'}}>
 			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
       <div className='view'>
         <input type='text' name='name' value={state.editInput.name} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder='Name (optional)' />

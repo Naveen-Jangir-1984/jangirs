@@ -38,7 +38,7 @@ const AddMember = ({state, dispatch}) => {
       let person = undefined;
       if(newMember.gender === 'M') {
         person = {
-          id: state.member ? ((state.member.id * 10) + (state.member.children.length + 1)) : 0,
+          id: state.memberToBeAdded ? ((state.memberToBeAdded.id * 10) + (state.memberToBeAdded.children.length + 1)) : 0,
           name: newMember.name,
           children: [],
           wives: [],
@@ -52,7 +52,7 @@ const AddMember = ({state, dispatch}) => {
         }
       } else {
         person = {
-          id: state.member ? ((state.member.id * 10) + (state.member.children.length + 1)) : 0,
+          id: state.memberToBeAdded ? ((state.memberToBeAdded.id * 10) + (state.memberToBeAdded.children.length + 1)) : 0,
           name: newMember.name,
           mobile: mobileNumbers,
           email: newMember.email !== '' ? newMember.email.replaceAll(' ', '').split(',') : [],
@@ -65,7 +65,7 @@ const AddMember = ({state, dispatch}) => {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/addNewMember`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ member: state.member, newMember: person, type: type, village: state.village })})
+      body: JSON.stringify({ member: state.memberToBeAdded, newMember: person, type: type, village: state.village })})
       const data = await response.json();
       if (data.result === 'success') {
         dispatch({type: 'addMember', member: person, memberType: type});
@@ -77,7 +77,7 @@ const AddMember = ({state, dispatch}) => {
         mobileNumbers.push(Number(mobiles[i]));
       }
       const person = {
-        id: state.member ? (state.member.id * 10) : 0,
+        id: state.memberToBeAdded ? (state.memberToBeAdded.id * 10) : 0,
         name: newMember.name,
         mobile: mobileNumbers,
         email: newMember.email !== '' ? newMember.email.replaceAll(' ', '').split(',') : [],
@@ -90,7 +90,7 @@ const AddMember = ({state, dispatch}) => {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/addNewMember`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ member: state.member, newMember: person, type: type, village: state.village })})
+      body: JSON.stringify({ member: state.memberToBeAdded, newMember: person, type: type, village: state.village })})
       const data = await response.json();
       if (data.result === 'success') {
         dispatch({type: 'addMember', member: person, memberType: type});      
