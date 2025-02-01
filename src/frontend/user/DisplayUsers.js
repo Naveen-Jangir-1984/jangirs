@@ -16,6 +16,10 @@ const DisplayUsers = ({state, dispatch}) => {
 		dispatch({type: 'closeUserEdit'});
 		setDisplayAddUser(false);
 	}
+	const handleAddNewUser = () => {
+		setNewUser({username: '', password: '', role: 'user', error: false});
+		setDisplayAddUser(!displayAddUser);
+	}
 	const handleAddUser = async () => {
 		const response = await fetch(`${process.env.REACT_APP_API_URL}/addNewUser`, {
 		method: 'post',
@@ -48,7 +52,7 @@ const DisplayUsers = ({state, dispatch}) => {
 		<div className='display-users' style={{display: state.isUserEditOpen ? 'flex' : 'none'}}>
 			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
 			<div className='view'>
-				<div style={{textDecoration: 'underline', fontSize: '14px'}} onClick={() => setDisplayAddUser(!displayAddUser)}>{`Click to ${displayAddUser ? 'close' : 'open'} Add User`}</div>
+				<div style={{textDecoration: 'underline', fontSize: '14px'}} onClick={() => handleAddNewUser()}>{`Click to ${displayAddUser ? 'close' : 'open'} Add User`}</div>
 				<div className='user-inputs' style={{display: displayAddUser ? 'flex' : 'none'}}>
 					<input name='username' placeholder='Username (mandatory)' type='text' value={newUser.username} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
 					<input disabled={newUser.username === ''} name='password' placeholder='Password (mandatory)' type='password' value={newUser.password} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />

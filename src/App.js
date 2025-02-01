@@ -1,7 +1,5 @@
 import { lazy, Suspense, useReducer, useState, useEffect } from 'react';
 import BGDImage from './images/mata-mandir.jpg';
-import MaleProfileImage from './images/male.png';
-import FemaleProfileImage from './images/female.png';
 import './App.css';
 const SignIn = lazy(() => import("./frontend/signin/SignIn"));
 const Home = lazy(() => import("./frontend/home/Home"));
@@ -882,15 +880,7 @@ function App() {
         gotra: ''
       }
     },
-    view: false,
-    viewData: { 
-      id: '',
-      src: '', 
-      name: '', 
-      mobile: '', 
-      email: '', 
-      dob: '' 
-    },
+    isMemberDisplayOpen: false,
     input: {
       username: 'General',
       password: '',
@@ -909,8 +899,10 @@ function App() {
       email: '',
       isAlive: ''
     },
+    memberToBeDisplayed: '',
+    memberToBeAdded: '',
+    memberToBeEdited: '',
     isUserEditOpen: false,
-    member: '',
     isMemberAddOpen: false,
     isMemberEditOpen: false
   }
@@ -1114,15 +1106,7 @@ function App() {
               gotra: ''
             }
           },
-          view: false,
-          viewData: {
-            id: '',
-            src: '', 
-            name: '', 
-            mobile: '', 
-            email: '', 
-            dob: '' 
-          },
+          isMemberDisplayOpen: false,
           input: {
             username: 'General',
             password: '',
@@ -1141,8 +1125,10 @@ function App() {
             email: '',
             isAlive: ''
           },
+          memberToBeDisplayed: '',
+          memberToBeAdded: '',
+          memberToBeEdited: '',
           isUserEditOpen: false,
-          member: '',
           isMemberAddOpen: false,
           isMemberEditOpen: false
         };
@@ -1171,14 +1157,19 @@ function App() {
       case 'openMemberAdd':
         return {
           ...state,
-          member: action.member,
+          memberToBeAdded: action.member,
+          memberToBeDisplayed: '',
+          memberToBeEdited: '',
           isMemberAddOpen: true
         };
       case 'closeMemberAdd':
         return {
           ...state,
-          isMemberToBeEdited: '',
-          isMemberAddOpen: false
+          memberToBeDisplayed: '',
+          memberToBeAdded: '',
+          memberToBeEdited: '',
+          isMemberAddOpen: false,
+          isMemberEditOpen: false
         };
       case 'openMemberEdit':
         return {
@@ -1214,7 +1205,8 @@ function App() {
             email: '',
             isAlive: ''
           },
-          member: '',
+          memberToBeAdded: '',
+          memberToBeEdited: '',
           isMemberEditOpen: false
         };
       case 'addMember':
@@ -1223,7 +1215,9 @@ function App() {
         return {
           ...state,
           members: updatedMembersPostAddMember,
-          member: '',
+          memberToBeDisplayed: '',
+          memberToBeAdded: '',
+          memberToBeEdited: '',
           isMemberAddOpen: false,
           isMemberEditOpen: false
         };
@@ -1233,15 +1227,6 @@ function App() {
         return {
           ...state,
           members: updatedMembersPostEditMember,
-          view: false,
-          viewData: {
-            id: '',
-            src: '', 
-            name: '', 
-            mobile: '', 
-            email: '', 
-            dob: '' 
-          },
           editInput: {
             id: '',
             name: '',
@@ -1255,7 +1240,8 @@ function App() {
             email: '',
             isAlive: ''
           },
-          member: '',
+          memberToBeAdded: '',
+          memberToBeEdited: '',
           isMemberAddOpen: false,
           isMemberEditOpen: false
         };
@@ -1265,16 +1251,10 @@ function App() {
       return {
         ...state,
         members: updatedMembersPostDeleteMember,
-        view: false,
-        viewData: {
-          id: '',
-          src: '', 
-          name: '', 
-          mobile: '', 
-          email: '', 
-          dob: '' 
-        },
-        member: '',
+        isMemberDisplayOpen: false,
+        memberToBeDisplayed: '',
+        memberToBeAdded: '',
+        memberToBeEdited: '',
         isMemberAddOpen: false,
         isMemberEditOpen: false
       };
@@ -1299,16 +1279,29 @@ function App() {
         if(error) {
           return {
             ...state,
-            input: {
-              username: '',
-              password: '',
-              error: false
-            },
             user: {
               username: state.input.username,
               password: state.input.password,
               role: state.users.find(user => user.username === state.input.username).role,
               language: false
+            },
+            input: {
+              username: '',
+              password: '',
+              error: false
+            },
+            editInput: {
+              id: '',
+              name: '',
+              mobile: '',
+              date: '',
+              month: '',
+              year: '',
+              gender: '',
+              village: '',
+              gotra: '',
+              email: '',
+              isAlive: ''
             }
           };
         } else {
@@ -1337,22 +1330,29 @@ function App() {
               gotra: ''
             }
           },
-          view: false,
-          viewData: { 
-            id: '',
-            src: '', 
-            name: '', 
-            mobile: '', 
-            email: '', 
-            dob: '' 
-          },
+          isMemberDisplayOpen: false,
           input: {
             username: 'General',
             password: '',
             error: false
           },
+          editInput: {
+            id: '',
+            name: '',
+            mobile: '',
+            date: '',
+            month: '',
+            year: '',
+            gender: '',
+            village: '',
+            gotra: '',
+            email: '',
+            isAlive: ''
+          },
+          memberToBeDisplayed: '',
+          memberToBeAdded: '',
+          memberToBeEdited: '',
           isUserEditOpen: false,
-          member: '',
           isMemberAddOpen: false,
           isMemberEditOpen: false,
         };
@@ -1411,27 +1411,21 @@ function App() {
             }
           }
         };
-      case 'view':
-        const image = images.find(image => image.id === action.member.id)
+      case 'openMemberDisplay':
         return {
           ...state,
-          view: true,
-          viewData: {
-            id: action.member.id,
-            src: action.member && image ? image.src : action.member.gender === 'M' ? MaleProfileImage : FemaleProfileImage,
-            name: action.member ? action.member.name : '',
-            mobile: action.member?.mobile?.length ? action.member.mobile : [],
-            email: action.member?.email?.length ? action.member.email : [],
-            dob: action.member?.dob?.length ? action.member.dob : '',
-          },
-          member: action.member
+          isMemberDisplayOpen: true,
+          memberToBeDisplayed: action.member,
+          memberToBeAdded: '',
+          memberToBeEdited: '',
         };
-      case 'exitView':
+      case 'closeMemberDisplay':
         return {
           ...state,
-          view: false,
-          viewData: { id: '', src: '', name: '', mobile: '', email: '', dob: '' },
-          member: ''
+          isMemberDisplayOpen: false,
+          memberToBeDisplayed: '',
+          memberToBeAdded: '',
+          memberToBeEdited: '',
         };
       default:
         return state;
@@ -1452,6 +1446,7 @@ function App() {
         tatija: data.db.tatija,
         members: data.db.dulania,
         villages: data.db.villages,
+        // images: data.db.images,
         village: village,
         filters: {
           search: '',
@@ -1464,15 +1459,7 @@ function App() {
             gotra: ''
           }
         },
-        view: false,
-        viewData: { 
-          id: '',
-          src: '', 
-          name: '', 
-          mobile: '', 
-          email: '', 
-          dob: '' 
-        },
+        isMemberDisplayOpen: false,
         input: {
           username: '',
           password: '',
@@ -1492,7 +1479,9 @@ function App() {
           isAlive: ''
         },
         isUserEditOpen: false,
-        member: '',
+        memberToBeDisplayed: '',
+        memberToBeAdded: '',
+        memberToBeEdited: '',
         isMemberAddOpen: false,
         isMemberEditOpen: false
       }));
@@ -1516,13 +1505,12 @@ function App() {
   useEffect(() => {
     sessionStorage.setItem('appState', JSON.stringify(state));
   }, [state]);
-  const pleaseWait = <div>Please wait...</div>;
   return (
     <div className="app">
-      <Suspense fallback={pleaseWait}>
+      <Suspense fallback={<div>Please wait...</div>}>
         {
           state.user ?
-          <Home 
+          <Home
             state={state} 
             dispatch={dispatch} 
             members={members}

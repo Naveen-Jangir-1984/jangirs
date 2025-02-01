@@ -31,12 +31,13 @@
 }
 
 .display-pic {
-  border-radius: 50%;
-  width: 27px;
-  height: 27px;
-  border: 1px solid lightgrey;
+  width: 23px;
+  height: 23px;
+  border-width: 1px;
+  border-style: solid;
   padding: 1px;
   box-sizing: border-box;
+  border-radius: 50%;
 }
 
 .toggle-icons, .mobile-icons {
@@ -44,7 +45,7 @@
   justify-content: center;
   align-items: center;
   width: 10px;
-  height: 10px;  
+  height: 10px;
 }
 
 .mobile-icons img {
@@ -67,11 +68,13 @@
   align-items: center;
   column-gap: 5px;
 }
+
 .member-icons img {
   width: 23px;
   height: 23px;
-  border: 1px solid lightgrey;
+  border: 1px outset lightgrey;
   padding: 1px;
-  border-radius: 50%;
   box-sizing: border-box;
+  border-radius: 50%;
+  box-shadow: 0 0 3px grey;
 }
