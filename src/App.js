@@ -880,7 +880,7 @@ function App() {
         gotra: ''
       }
     },
-    view: false,
+    isMemberDisplayOpen: false,
     input: {
       username: 'General',
       password: '',
@@ -1106,7 +1106,7 @@ function App() {
               gotra: ''
             }
           },
-          view: false,
+          isMemberDisplayOpen: false,
           input: {
             username: 'General',
             password: '',
@@ -1251,7 +1251,7 @@ function App() {
       return {
         ...state,
         members: updatedMembersPostDeleteMember,
-        view: false,
+        isMemberDisplayOpen: false,
         memberToBeDisplayed: '',
         memberToBeAdded: '',
         memberToBeEdited: '',
@@ -1330,7 +1330,7 @@ function App() {
               gotra: ''
             }
           },
-          view: false,
+          isMemberDisplayOpen: false,
           input: {
             username: 'General',
             password: '',
@@ -1411,18 +1411,18 @@ function App() {
             }
           }
         };
-      case 'view':
+      case 'openMemberDisplay':
         return {
           ...state,
-          view: true,
+          isMemberDisplayOpen: true,
           memberToBeDisplayed: action.member,
           memberToBeAdded: '',
           memberToBeEdited: '',
         };
-      case 'closeView':
+      case 'closeMemberDisplay':
         return {
           ...state,
-          view: false,
+          isMemberDisplayOpen: false,
           memberToBeDisplayed: '',
           memberToBeAdded: '',
           memberToBeEdited: '',
@@ -1459,7 +1459,7 @@ function App() {
             gotra: ''
           }
         },
-        view: false,
+        isMemberDisplayOpen: false,
         input: {
           username: '',
           password: '',

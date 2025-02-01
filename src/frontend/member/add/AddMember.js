@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import CloseIcon from '../../images/close.png';
+import CloseIcon from '../../../images/close.png';
 import './AddMember.css';
 
 const AddMember = ({state, dispatch}) => {

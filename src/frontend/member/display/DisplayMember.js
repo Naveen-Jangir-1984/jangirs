@@ -1,9 +1,9 @@
-import CloseIcon from '../../images/close.png'
-import MaleProfileImage from '../../images/male.png';
-import FemaleProfileImage from '../../images/female.png';
-import './Details.css'
+import CloseIcon from '../../../images/close.png'
+import MaleProfileImage from '../../../images/male.png';
+import FemaleProfileImage from '../../../images/female.png';
+import './DisplayMember.css'
 
-const Details = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
+const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   // calculate age
   const memberImage = state.images.find(image => image.id === state.memberToBeDisplayed.id);
   const memberDOB = state.memberToBeDisplayed.dob ? state.memberToBeDisplayed.dob : '';
@@ -38,8 +38,8 @@ const Details = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     }
   }
   return (
-    <div className='details' style={{ display: state.view ? 'flex' : 'none' }}>
-      <img src={CloseIcon} alt='close' className='close' onClick={() => dispatch({type: 'closeView'})} />
+    <div className='details' style={{ display: state.isMemberDisplayOpen ? 'flex' : 'none' }}>
+      <img src={CloseIcon} alt='close' className='close' onClick={() => dispatch({type: 'closeMemberDisplay'})} />
       <div className='view'>
         <img style={{borderColor: state.memberToBeDisplayed.isAlive ? 'green' : '#f55'}} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === 'M' ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} />
         <div>{state.user.language ? state.memberToBeDisplayed.name : getHindiText(state.memberToBeDisplayed.name, 'name')} {memberDOB && state.user.language ? <sup>{getAge(memberDOB ? memberDOB : '')}</sup> : memberDOB && !state.user.language ? <sup>{getHindiNumbers(getAge(memberDOB ? memberDOB : '').toString())}</sup> : ''}</div>
@@ -55,4 +55,4 @@ const Details = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   );
 }
 
-export default Details;
+export default DisplayMember;

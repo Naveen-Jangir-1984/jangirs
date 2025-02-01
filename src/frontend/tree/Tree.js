@@ -80,20 +80,24 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     e.stopPropagation();
     dispatch({type: 'openMemberEdit', member: member})
   }
+  const handleDisplayMember = (e, member) => {
+    e.stopPropagation(); 
+    dispatch({type: 'openMemberDisplay', member: member});
+  }
   const displayMember = (member, depth) => {
     const memberDP = state.images.find(image => image.id === member.id);
     return (
       <div key={member.id} style={{marginLeft: `${depth}px`}}>
         <div className='member-card' style={{backgroundColor: member.gender === 'M' ? '#eee' : '#fdd'}} onClick={() => dispatch({type: 'toggle', id: member.id})}>
           <img className='toggle-icons' src={member.children?.length && member.isCollapsed ? PlusIcon : MinusIcon} alt={member.isCollapsed ? '+' : ''} />
-          <img className='display-pic' style={{borderColor: member.isAlive ? 'green' : '#f55'}} src={memberDP ? memberDP.src : member.gender === 'M' ? MaleProfileIcon : FemaleProfileIcon} alt={member.id} onClick={(e) => {e.stopPropagation(); dispatch({type: 'view', member: member});}} />
+          <img className='display-pic' style={{borderColor: member.isAlive ? 'green' : '#f55'}} src={memberDP ? memberDP.src : member.gender === 'M' ? MaleProfileIcon : FemaleProfileIcon} alt={member.id} onClick={(e) => handleDisplayMember(e, member)} />
           {member.name !== '' ? <div style={{color: member.isAlive ? 'black' : 'red'}}>{state.user.language ? member.name : getHindiText(member.name)}</div> : ''}
           {state.user.role === 'admin' && member.mobile?.length ? <a className="mobile-icons" href={`tel: ${member.mobile[0]}`}><img onClick={(e) => e.stopPropagation()} src={MobileIcon} alt={member.mobile[0]} /></a> : ''}
           {state.user.role === 'admin' && member.mobile?.length ? <img className='mobile-icons' src={SMSIcon} alt={member.id} onClick={(e) => handleSMSClick(e, member)} /> : ''}
           {member.gender === 'F' && member.village ? <div style={{marginBottom: '5px', fontSize: '8px'}}>{state.user.language ? member.village : getHindiText(member.village, 'village')}</div> : ''}
           {member.gender === 'F' && member.gotra && <div style={{marginBottom: '5px', fontSize: '8px'}}>{state.user.language ? member.gotra : getHindiText(member.gotra, 'gotra')}</div>}
           {member.wives?.length ? member.wives?.map(wife => <div className='member-wife-card' key={wife.id}>
-            <img className='display-pic' style={{borderColor: wife.isAlive ? 'green' : '#f55'}} src={state.images.find(image => image.id === wife.id) ? state.images.find(image => image.id === wife.id).src : FemaleProfileIcon} alt={wife.id} onClick={(e) => {e.stopPropagation(); dispatch({type: 'view', member: wife});}} />
+            <img className='display-pic' style={{borderColor: wife.isAlive ? 'green' : '#f55'}} src={state.images.find(image => image.id === wife.id) ? state.images.find(image => image.id === wife.id).src : FemaleProfileIcon} alt={wife.id} onClick={(e) => {e.stopPropagation(); dispatch({type: 'openMemberDisplay', member: wife});}} />
             {wife.name !== '' ? <div style={{color: wife.isAlive ? 'black' : 'red'}}>{state.user.language ? wife.name : getHindiText(wife.name)}</div> : ''}
             {wife.village !== '' ? <div style={{marginBottom: '5px', fontSize: '8px'}}>{state.user.language ? wife.village : getHindiText(wife.village, 'village')}</div> : ''}
             {/* {wife.gotra ? <div style={{marginBottom: '10px'}}>.</div> : ''} */}
