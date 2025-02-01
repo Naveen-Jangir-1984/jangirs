@@ -41,7 +41,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     <div className='details' style={{ display: state.isMemberDisplayOpen ? 'flex' : 'none' }}>
       <img src={CloseIcon} alt='close' className='close' onClick={() => dispatch({type: 'closeMemberDisplay'})} />
       <div className='view'>
-        <img style={{borderColor: state.memberToBeDisplayed.isAlive ? 'green' : '#f55'}} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === 'M' ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} />
+        <img style={{borderColor: state.memberToBeDisplayed.isAlive ? 'green' : '#f55', boxShadow: state.memberToBeDisplayed.isAlive ? '0 0 20px lightgreen' : '0 0 20px #f55'}} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === 'M' ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} />
         <div>{state.user.language ? state.memberToBeDisplayed.name : getHindiText(state.memberToBeDisplayed.name, 'name')} {memberDOB && state.user.language ? <sup>{getAge(memberDOB ? memberDOB : '')}</sup> : memberDOB && !state.user.language ? <sup>{getHindiNumbers(getAge(memberDOB ? memberDOB : '').toString())}</sup> : ''}</div>
         {memberDOB && !state.user.language ? <div>{`${getHindiNumbers(memberDOB.split(' ')[0])} ${getHindiText(memberDOB.split(' ')[1], 'months')} ${getHindiNumbers(memberDOB.split(' ')[2])}`}</div> : <div>{memberDOB}</div>}
         <div className='view-mobile'>{memberMobiles.map((mobile, i) => <a key={i} href={`tel: ${mobile}`} onClick={(e) => e.stopPropagation()}>{mobile}</a>)}</div>
