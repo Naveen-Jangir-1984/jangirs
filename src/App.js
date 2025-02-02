@@ -1084,14 +1084,15 @@ function App() {
     switch (action.type) {
       case 'fetch_success':
         const db = action.initialState;
-        setMembers(db.dulania);
+        const updatedMembersOnReload = action.village === 'dulania' ? db.dulania : action.village === 'moruwa' ? db.moruwa : action.village === 'tatija' ? db.tatija : []
+        setMembers(updatedMembersOnReload);
         return {
           user: action.user,
           users: db.users,
           dulania: db.dulania,
           moruwa: db.moruwa,
           tatija: db.tatija,
-          members: action.village === 'dulania' ? db.dulania : action.village === 'moruwa' ? db.moruwa : action.village === 'tatija' ? db.tatija : [],
+          members: updatedMembersOnReload,
           villages: db.villages,
           village: action.village,
           images: images,
@@ -1277,6 +1278,7 @@ function App() {
       case 'signin':
         const error = state.users.find(user => user.username === state.input.username && user.password === state.input.password)
         if(error) {
+          setMembers(state.dulania);
           return {
             ...state,
             user: {
@@ -1285,6 +1287,8 @@ function App() {
               role: state.users.find(user => user.username === state.input.username).role,
               language: false
             },
+            village: 'dulania',
+            members: state.dulania,
             input: {
               username: '',
               password: '',
@@ -1375,10 +1379,11 @@ function App() {
           }
         };
       case 'village':
-        setMembers(action.village === 'dulania' ? state.dulania : action.village === 'moruwa' ? state.moruwa : action.village === 'tatija' ? state.tatija : []);
+        const updatedMembersPostVillageChange = action.village === 'dulania' ? state.dulania : action.village === 'moruwa' ? state.moruwa : action.village === 'tatija' ? state.tatija : [];
+        setMembers(updatedMembersPostVillageChange);
         return {
           ...state,
-          members: action.village === 'dulania' ? state.dulania : action.village === 'moruwa' ? state.moruwa : action.village === 'tatija' ? state.tatija : [],
+          members: updatedMembersPostVillageChange,
           village: action.village
         };
       case 'male-selection':
