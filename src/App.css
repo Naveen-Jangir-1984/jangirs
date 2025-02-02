@@ -24,7 +24,6 @@ input {
   border: none;
   border-radius: 5px;
   box-sizing: border-box;
-  box-shadow: 0 0 0 1px lightgrey;
 }
 
 button {
@@ -36,7 +35,6 @@ button {
   border-radius: 5px;
   cursor: pointer;
   box-sizing: border-box;
-  box-shadow: 0 0 0 1px lightgrey;
 }
 
 select {
@@ -49,7 +47,6 @@ select {
   border-radius: 5px;
   cursor: pointer;
   box-sizing: border-box;
-  box-shadow: 0 0 0 1px lightgrey;
 }
 input, select, button {
   background-color: #eee;

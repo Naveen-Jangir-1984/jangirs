@@ -11,13 +11,12 @@
   align-items: center;
   padding-left: 10px;
   box-sizing: border-box;
-  margin: 3px 1px;
+  margin: 2px 1px;
   border: none;
   border-radius: 5px;
   column-gap: 5px;
   width: 320px;
   height: 27px;
-  box-shadow: 0 0 0 1px lightgrey;
 }
 .member-card:first-child {
   margin-top: 2px;
