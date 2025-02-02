@@ -1,8 +1,16 @@
+import CryptoJS from "crypto-js";
 import { lazy, Suspense, useReducer, useState, useEffect } from 'react';
 import BGDImage from './images/mata-mandir.jpg';
 import './App.css';
 const SignIn = lazy(() => import("./frontend/signin/SignIn"));
 const Home = lazy(() => import("./frontend/home/Home"));
+const URL = process.env.REACT_APP_API_URL;
+const secretKey = process.env.REACT_APP_SECRET_KEY;
+
+const decryptData = (encryptedData) => {
+  const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+  return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+}
 
 function App() {
   const [images] = useState([
@@ -1438,19 +1446,20 @@ function App() {
   }
   const fetchData = async (user, village) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/getData`);
+      const response = await fetch(`${URL}/getData`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const data = await response.json();
+      const data = await response.text();
+      const db = decryptData(data);
       sessionStorage.setItem('appState', JSON.stringify({
         user: user,
-        users: data.db.users,
-        dulania: data.db.dulania,
-        moruwa: data.db.moruwa,
-        tatija: data.db.tatija,
-        members: data.db.dulania,
-        villages: data.db.villages,
+        users: db.users,
+        dulania: db.dulania,
+        moruwa: db.moruwa,
+        tatija: db.tatija,
+        members: db.dulania,
+        villages: db.villages,
         // images: db.images,
         village: village,
         filters: {
@@ -1490,7 +1499,7 @@ function App() {
         isMemberAddOpen: false,
         isMemberEditOpen: false
       }));
-      dispatch({ type: 'fetch_success', initialState: data.db, user: user, village: village });
+      dispatch({ type: 'fetch_success', initialState: db, user: user, village: village });
     } catch (error) {
       dispatch({ type: 'fetch_error', initialState: {}, user: user });
     }

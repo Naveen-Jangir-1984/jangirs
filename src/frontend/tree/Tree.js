@@ -7,6 +7,7 @@ import AddMemberIcon from '../../images/addMember.png'
 import EditMemberIcon from '../../images/editMember.png'
 import SMSIcon from '../../images/sms.png'
 // import DeleteIcon from '../../images/delete.png'
+// const URL = process.env.REACT_APP_API_URL;
 import './Tree.css'
 
 const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
@@ -62,7 +63,7 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   //   e.stopPropagation();
   //   const consent = window.confirm('Are you sure you want to delete this member?');
   //   if (consent) {
-  //     const response = await fetch(`${process.env.REACT_APP_API_URL}/deleteMember`, {
+  //     const response = await fetch(`${URL}/deleteMember`, {
   //     method: 'post',
   //     headers: { 'Content-Type': 'application/json' },
   //     body: JSON.stringify({ id: id, village: state.village })})

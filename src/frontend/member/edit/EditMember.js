@@ -1,6 +1,7 @@
 // import { useState } from 'react';
 import CloseIcon from '../../../images/close.png';
 import './EditMember.css';
+const URL = process.env.REACT_APP_API_URL;
 
 const EditMember = ({state, dispatch}) => {
   const dates = [];
@@ -32,7 +33,7 @@ const EditMember = ({state, dispatch}) => {
         mobile: mobileNumbers,
         email: state.editInput.email !== '' ? state.editInput.email.replaceAll(' ', '').split(',') : [],
       }
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/editMember`, {
+      const response = await fetch(`${URL}/editMember`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ member: person, village: state.village })})
