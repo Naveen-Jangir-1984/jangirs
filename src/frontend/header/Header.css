@@ -5,6 +5,10 @@
   width: 100%;
 }
 
+.header input, .header button, .header select {
+  box-shadow: 0 0 0 1px lightgrey;
+}
+
 .header .icons, .header .signout, .header .addIcon {
   padding: 1px;
   border: 1px outset lightgrey;
