@@ -882,7 +882,7 @@ function App() {
     },
     isMemberDisplayOpen: false,
     input: {
-      username: 'General',
+      username: '',
       password: '',
       error: false
     },
@@ -1108,7 +1108,7 @@ function App() {
           },
           isMemberDisplayOpen: false,
           input: {
-            username: 'General',
+            username: '',
             password: '',
             error: false
           },
@@ -1332,7 +1332,7 @@ function App() {
           },
           isMemberDisplayOpen: false,
           input: {
-            username: 'General',
+            username: '',
             password: '',
             error: false
           },
