@@ -8,11 +8,6 @@ const port = 27001;
 
 app.use(cors());
 app.use(bodyParser.json());
-const secretKey = "#jangirsFamilyTree#";
-
-function encryptData(data) {
-  return cryptojs.AES.encrypt(JSON.stringify(data), secretKey).toString();
-}
 
 const addMember = (tree, id, member, type) => {
   if (!tree) return null;
@@ -102,7 +97,8 @@ app.get('/getData', (req, res) => {
       console.error(err);
       return;
     }
-    res.send(encryptData(data));
+    const db = JSON.parse(data);
+    res.send({db});
   });
 });
 

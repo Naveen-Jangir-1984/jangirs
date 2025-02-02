@@ -1,4 +1,3 @@
-import cryptojs from 'crypto-js';
 import { lazy, Suspense, useReducer, useState, useEffect } from 'react';
 import BGDImage from './images/mata-mandir.jpg';
 import './App.css';
@@ -6,11 +5,6 @@ const SignIn = lazy(() => import("./frontend/signin/SignIn"));
 const Home = lazy(() => import("./frontend/home/Home"));
 
 function App() {
-  const secretKey = "#jangirsFamilyTree#";
-  const decryptData = (encryptedData) => {
-    const bytes = cryptojs.AES.decrypt(encryptedData, secretKey);
-    return JSON.parse(bytes.toString(cryptojs.enc.Utf8));
-  }
   const [images] = useState([
     { id: 11120, src: require('./images/11120.jpg') },
     { id: 1121, src: require('./images/1121.jpg') },
@@ -1443,16 +1437,15 @@ function App() {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const data = await response.text();
-      const db = decryptData(data);
+      const data = await response.json();
       sessionStorage.setItem('appState', JSON.stringify({
         user: user,
-        users: db.users,
-        dulania: db.dulania,
-        moruwa: db.moruwa,
-        tatija: db.tatija,
-        members: db.dulania,
-        villages: db.villages,
+        users: data.db.users,
+        dulania: data.db.dulania,
+        moruwa: data.db.moruwa,
+        tatija: data.db.tatija,
+        members: data.db.dulania,
+        villages: data.db.villages,
         // images: db.images,
         village: village,
         filters: {
@@ -1492,7 +1485,7 @@ function App() {
         isMemberAddOpen: false,
         isMemberEditOpen: false
       }));
-      dispatch({ type: 'fetch_success', initialState: db, user: user, village: village });
+      dispatch({ type: 'fetch_success', initialState: data.db, user: user, village: village });
     } catch (error) {
       dispatch({ type: 'fetch_error', initialState: {}, user: user });
     }
