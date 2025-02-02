@@ -11,12 +11,15 @@
   align-items: center;
   padding-left: 10px;
   box-sizing: border-box;
-  margin-bottom: 3px;
+  margin: 2px 1px;
   border: none;
   border-radius: 5px;
   column-gap: 5px;
   width: 320px;
   height: 27px;
+}
+.member-card:first-child {
+  margin-top: 2px;
 }
 .member-card:hover {
   cursor: pointer;
@@ -76,5 +79,5 @@
   padding: 1px;
   box-sizing: border-box;
   border-radius: 50%;
-  box-shadow: 0 0 3px grey;
+  box-shadow: 0 0 5px grey;
 }

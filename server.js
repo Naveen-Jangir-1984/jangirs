@@ -1,3 +1,4 @@
+const cryptojs = require("crypto-js");
 const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
@@ -96,8 +97,8 @@ app.get('/getData', (req, res) => {
       console.error(err);
       return;
     }
-    db = JSON.parse(data);
-    res.send({ db });
+    const db = JSON.parse(data);
+    res.send({db});
   });
 });
 

@@ -10,6 +10,7 @@ const SignIn = ({ state, dispatch }) => {
         value={input.username} 
         onChange={(e) => dispatch({type: 'input', attribute: e.target.name, value: e.target.value })}
         >
+          <option value=''>-- select user --</option>
           {state.users.map((user, i) => <option key={i} value={user.username}>{user.username}</option>)}
         </select>
         <input 

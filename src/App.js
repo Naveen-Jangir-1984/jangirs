@@ -882,7 +882,7 @@ function App() {
     },
     isMemberDisplayOpen: false,
     input: {
-      username: 'General',
+      username: '',
       password: '',
       error: false
     },
@@ -1108,7 +1108,7 @@ function App() {
           },
           isMemberDisplayOpen: false,
           input: {
-            username: 'General',
+            username: '',
             password: '',
             error: false
           },
@@ -1332,7 +1332,7 @@ function App() {
           },
           isMemberDisplayOpen: false,
           input: {
-            username: 'General',
+            username: '',
             password: '',
             error: false
           },
@@ -1446,7 +1446,7 @@ function App() {
         tatija: data.db.tatija,
         members: data.db.dulania,
         villages: data.db.villages,
-        // images: data.db.images,
+        // images: db.images,
         village: village,
         filters: {
           search: '',
