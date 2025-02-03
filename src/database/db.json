@@ -728,7 +728,10 @@
                               "isAlive": false,
                               "gender": "F",
                               "village": "Ghumansar",
-                              "gotra": "Sonania"
+                              "gotra": "Sonania",
+                              "dob": "5 October 1960",
+                              "email": [],
+                              "mobile": []
                             }
                           ],
                           "children": [

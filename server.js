@@ -1,13 +1,19 @@
-const cryptojs = require("crypto-js");
+const CryptoJS = require("crypto-js");
 const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const cors = require('cors');
 const app = express();
-const port = 27001;
 
 app.use(cors());
 app.use(bodyParser.json());
+require("dotenv").config();
+const port = process.env.REACT_APP_PORT;
+const secretKey = process.env.REACT_APP_SECRET_KEY;
+
+const encryptData = (data) => {
+  return CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
+}
 
 const addMember = (tree, id, member, type) => {
   if (!tree) return null;
@@ -98,7 +104,7 @@ app.get('/getData', (req, res) => {
       return;
     }
     const db = JSON.parse(data);
-    res.send({db});
+    res.send(encryptData(db));
   });
 });
 
