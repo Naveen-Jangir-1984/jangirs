@@ -2,6 +2,7 @@ import { useState } from 'react';
 import CloseIcon from '../../../images/close.png';
 import './AddMember.css';
 const URL = process.env.REACT_APP_API_URL;
+const PORT = process.env.REACT_APP_PORT;
 
 const AddMember = ({state, dispatch}) => {
   const dates = [];
@@ -63,7 +64,7 @@ const AddMember = ({state, dispatch}) => {
           village: newMember.village
         }   
       }
-      const response = await fetch(`${URL}/addNewMember`, {
+      const response = await fetch(`${URL}:${PORT}/addNewMember`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ member: state.memberToBeAdded, newMember: person, type: type, village: state.village })})
@@ -88,7 +89,7 @@ const AddMember = ({state, dispatch}) => {
         village: newMember.village,
         gotra: newMember.gotra,
       }
-      const response = await fetch(`${URL}/addNewMember`, {
+      const response = await fetch(`${URL}:${PORT}/addNewMember`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ member: state.memberToBeAdded, newMember: person, type: type, village: state.village })})

@@ -3,6 +3,7 @@ import CloseIcon from '../../images/close.png';
 import DeleteIcon from '../../images/delete.png';
 import './DisplayUsers.css';
 const URL = process.env.REACT_APP_API_URL;
+const PORT = process.env.REACT_APP_PORT;
 
 const DisplayUsers = ({state, dispatch}) => {
 	const [displayAddUser, setDisplayAddUser] = useState(false);
@@ -22,7 +23,7 @@ const DisplayUsers = ({state, dispatch}) => {
 		setDisplayAddUser(!displayAddUser);
 	}
 	const handleAddUser = async () => {
-		const response = await fetch(`${URL}/addNewUser`, {
+		const response = await fetch(`${URL}:${PORT}/addNewUser`, {
 		method: 'post',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({ username: newUser.username, password: newUser.password, role: newUser.role })})
@@ -38,7 +39,7 @@ const DisplayUsers = ({state, dispatch}) => {
 	const handleDeleteUser = async (username) => {
 		const consent = window.confirm('Are you sure you want to delete this user ?');
 		if (consent) {
-			const response = await fetch(`${URL}/deleteUser`, {
+			const response = await fetch(`${URL}:${PORT}/deleteUser`, {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ username: username })})
