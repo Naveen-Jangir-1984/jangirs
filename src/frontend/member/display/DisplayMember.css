@@ -31,7 +31,7 @@
   height: 80%;
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: 10px;
   justify-content: center;
   align-items: center;
   z-index: 2;
@@ -43,6 +43,18 @@
   border-radius: 50%;
   padding: 7px;
   object-fit: cover;
+}
+
+.dob, .dod {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100px;
+}
+
+.details .view .icons {
+  width: 15px;
+  height: 15px;
 }
 
 .view-mobile, .view-email {

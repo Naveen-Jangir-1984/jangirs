@@ -25,6 +25,9 @@ const AddMember = ({state, dispatch}) => {
     date: '',
     month: '',
     year: '',
+    dateDeath: '',
+    monthDeath: '',
+    yearDeath: '',
     isAlive: 'alive',
     gender: 'M',
     village: '',
@@ -48,6 +51,7 @@ const AddMember = ({state, dispatch}) => {
           email: newMember.email !== '' ? newMember.email.replaceAll(' ', '').split(',') : [],
           dob: newMember.date !== '' && newMember.month !== '' && newMember.year !== '' ? newMember.date + ' ' + newMember.month + ' ' + newMember.year : '',
           isAlive: newMember.isAlive === 'alive' ? true : false,
+          dod: newMember.dateDeath !== '' && newMember.monthDeath !== '' && newMember.yearDeath !== '' ? newMember.dateDeath + ' ' + newMember.monthDeath + ' ' + newMember.yearDeath : '',
           gender: 'M',
           village: newMember.village,
           isCollapsed: false,
@@ -60,6 +64,7 @@ const AddMember = ({state, dispatch}) => {
           email: newMember.email !== '' ? newMember.email.replaceAll(' ', '').split(',') : [],
           dob: newMember.date !== '' && newMember.month !== '' && newMember.year !== '' ? newMember.date + ' ' + newMember.month + ' ' + newMember.year : '',
           isAlive: newMember.isAlive === 'alive' ? true : false,
+          dod: newMember.dateDeath !== '' && newMember.monthDeath !== '' && newMember.yearDeath !== '' ? newMember.dateDeath + ' ' + newMember.monthDeath + ' ' + newMember.yearDeath : '',
           gender: 'F',
           village: newMember.village
         }   
@@ -85,6 +90,7 @@ const AddMember = ({state, dispatch}) => {
         email: newMember.email !== '' ? newMember.email.replaceAll(' ', '').split(',') : [],
         dob: newMember.date !== '' && newMember.month !== '' && newMember.year !== '' ? newMember.date + ' ' + newMember.month + ' ' + newMember.year : '',
         isAlive: newMember.isAlive === 'alive' ? true : false,
+        dod: newMember.dateDeath !== '' && newMember.monthDeath !== '' && newMember.yearDeath !== '' ? newMember.dateDeath + ' ' + newMember.monthDeath + ' ' + newMember.yearDeath : '',
         gender: 'F',
         village: newMember.village,
         gotra: newMember.gotra,
@@ -108,6 +114,9 @@ const AddMember = ({state, dispatch}) => {
       date: '',
       month: '',
       year: '',
+      dateDeath: '',
+      monthDeath: '',
+      yearDeath: '',
       isAlive: 'alive',
       gender: 'M',
       village: '',
@@ -126,6 +135,9 @@ const AddMember = ({state, dispatch}) => {
       date: '',
       month: '',
       year: '',
+      dateDeath: '',
+      monthDeath: '',
+      yearDeath: '',
       isAlive: true,
       gender: 'M',
       village: '',
@@ -165,6 +177,20 @@ const AddMember = ({state, dispatch}) => {
           <option value='alive'>Alive</option>
           <option value='dead'>Dead</option>
         </select>
+        {newMember.isAlive === 'dead' && <div className='dob'>
+          <select disabled={type === ''} name='dateDeath' value={newMember.dateDeath} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})}>
+            <option value=''>DD</option>
+            {dates.map((date, i) => <option key={i} value={date}>{date}</option>)}
+          </select>
+          <select disabled={type === ''} name='monthDeath' value={newMember.monthDeath} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})}>
+            <option value=''>MM</option>
+            {months.map((month, i) => <option key={i} value={month}>{month}</option>)}
+          </select>
+          <select disabled={type === ''} name='yearDeath' value={newMember.yearDeath} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})}>
+            <option value=''>YYYY</option>
+            {years.map((year, i) => <option key={i} value={year}>{year}</option>)}
+          </select>
+        </div>}
         <input disabled={type === ''} type='text' name='village' value={newMember.village} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='Village (optional)' />
         {type === 'wife' ? <input type='text' name='gotra' value={newMember.gotra} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='Gotra (optional)' /> : ''}
         <input disabled={type === ''} type='email' name='email' value={newMember.email} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='Email (optional)' />

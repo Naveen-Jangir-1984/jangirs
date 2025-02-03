@@ -29,6 +29,7 @@ const EditMember = ({state, dispatch}) => {
         dob: state.editInput.date !== '' && state.editInput.month !== '' && state.editInput.year !== '' ? state.editInput.date + ' ' + state.editInput.month + ' ' + state.editInput.year : '',
         gender: state.editInput.gender,
         isAlive: state.editInput.isAlive === 'alive' ? true : false,
+        dod: state.editInput.isAlive === 'dead' && state.editInput.dateDeath !== '' && state.editInput.monthDeath !== '' && state.editInput.yearDeath !== '' ? state.editInput.dateDeath + ' ' + state.editInput.monthDeath + ' ' + state.editInput.yearDeath : '',
         village: state.editInput.village,
         gotra: state.editInput.gotra,
         mobile: mobileNumbers,
@@ -75,6 +76,20 @@ const EditMember = ({state, dispatch}) => {
           <option value='alive'>Alive</option>
           <option value='dead'>Dead</option>
         </select>
+        {state.editInput.isAlive === 'dead' && <div className='dob'>
+          <select name='dateDeath' value={state.editInput.dateDeath} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})}>
+            <option value=''>DD</option>
+            {dates.map((date, i) => <option key={i} value={date}>{date}</option>)}
+          </select>
+          <select name='monthDeath' value={state.editInput.monthDeath} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})}>
+            <option value=''>MM</option>
+            {months.map((month, i) => <option key={i} value={month}>{month}</option>)}
+          </select>
+          <select name='yearDeath' value={state.editInput.yearDeath} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})}>
+            <option value=''>YYYY</option>
+            {years.map((year, i) => <option key={i} value={year}>{year}</option>)}
+          </select>
+        </div>}
         <input type='text' name='village' value={state.editInput.village} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder='Village (optional)' />
         <input type='text' name='gotra' value={state.editInput.gotra} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder='Gotra (optional)' />
         <input type='email' name='email' value={state.editInput.email} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder='Email (optional)' />

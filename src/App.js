@@ -902,6 +902,9 @@ function App() {
       date: '',
       month: '',
       year: '',
+      dateDeath: '',
+      monthDeath: '',
+      yearDeath: '',
       gender: '',
       village: '',
       gotra: '',
@@ -945,6 +948,7 @@ function App() {
       tree.gender = member.gender;
       tree.isAlive = member.isAlive;
       tree.dob = member.dob;
+      tree.dod = member.dod;
       tree.village = member.village;
       tree.gotra = member.gotra;
       tree.email = member.email;
@@ -957,6 +961,7 @@ function App() {
           child.gender = member.gender;
           child.isAlive = member.isAlive;
           child.dob = member.dob;
+          child.dod = member.dod;
           child.village = member.village;
           child.gotra = member.gotra;
           child.email = member.email;
@@ -973,6 +978,7 @@ function App() {
           wife.gender = member.gender;
           wife.isAlive = member.isAlive;
           wife.dob = member.dob;
+          wife.dod = member.dod;
           wife.village = member.village;
           wife.gotra = member.gotra;
           wife.email = member.email;
@@ -1129,6 +1135,9 @@ function App() {
             date: '',
             month: '',
             year: '',
+            dateDeath: '',
+            monthDeath: '',
+            yearDeath: '',
             gender: '',
             village: '',
             gotra: '',
@@ -1191,6 +1200,9 @@ function App() {
             date: action.member.dob ? action.member.dob.split(' ')[0] : '',
             month: action.member.dob ? action.member.dob.split(' ')[1] : '',
             year: action.member.dob ? action.member.dob.split(' ')[2] : '',
+            dateDeath: action.member.dod ? action.member.dod.split(' ')[0] : '',
+            monthDeath: action.member.dod ? action.member.dod.split(' ')[1] : '',
+            yearDeath: action.member.dod ? action.member.dod.split(' ')[2] : '',
             gender: action.member.gender ? action.member.gender : '',
             village: action.member.village ? action.member.village : '',
             gotra: action.member.gotra ? action.member.gotra : '',
@@ -1209,6 +1221,9 @@ function App() {
             date: '',
             month: '',
             year: '',
+            dateDeath: '',
+            monthDeath: '',
+            yearDeath: '',
             gender: '',
             village: '',
             gotra: '',
@@ -1244,6 +1259,9 @@ function App() {
             date: '',
             month: '',
             year: '',
+            dateDeath: '',
+            monthDeath: '',
+            yearDeath: '',
             gender: '',
             village: '',
             gotra: '',
@@ -1310,6 +1328,9 @@ function App() {
               date: '',
               month: '',
               year: '',
+              dateDeath: '',
+              monthDeath: '',
+              yearDeath: '',
               gender: '',
               village: '',
               gotra: '',
@@ -1356,6 +1377,9 @@ function App() {
             date: '',
             month: '',
             year: '',
+            dateDeath: '',
+            monthDeath: '',
+            yearDeath: '',
             gender: '',
             village: '',
             gotra: '',
@@ -1487,6 +1511,9 @@ function App() {
           date: '',
           month: '',
           year: '',
+          dateDeath: '',
+          monthDeath: '',
+          yearDeath: '',
           gender: '',
           village: '',
           gotra: '',

@@ -44,6 +44,7 @@ const editMember = (tree, member) => {
     tree.gender = member.gender;
     tree.isAlive = member.isAlive;
     tree.dob = member.dob;
+    tree.dod = member.dod;
     tree.village = member.village;
     tree.gotra = member.gotra;
     tree.email = member.email;
@@ -56,6 +57,7 @@ const editMember = (tree, member) => {
         child.gender = member.gender;
         child.isAlive = member.isAlive;
         child.dob = member.dob;
+        child.dod = member.dod;
         child.village = member.village;
         child.gotra = member.gotra;
         child.email = member.email;
@@ -72,6 +74,7 @@ const editMember = (tree, member) => {
         wife.gender = member.gender;
         wife.isAlive = member.isAlive;
         wife.dob = member.dob;
+        wife.dod = member.dod;
         wife.village = member.village;
         wife.gotra = member.gotra;
         wife.email = member.email;
