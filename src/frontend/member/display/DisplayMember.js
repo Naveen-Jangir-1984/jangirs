@@ -3,6 +3,8 @@ import MaleProfileImage from '../../../images/male.png';
 import FemaleProfileImage from '../../../images/female.png';
 import DOBIcon from '../../../images/birth.png';
 import DODIcon from '../../../images/death.png';
+import MobileIcon from '../../../images/mobile.jpg';
+import EmailIcon from '../../../images/email.png';
 import './DisplayMember.css';
 const URL = process.env.REACT_APP_API_URL;
 const PORT = process.env.REACT_APP_PORT;
@@ -76,8 +78,14 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
           <img className='icons' src={DODIcon} alt='death' />
           <span>{memberDOD}</span>
         </div> : ''}
-        {memberMobiles.length ? <div className='view-mobile'>{memberMobiles.map((mobile, i) => <a key={i} href={`tel: ${mobile}`} onClick={(e) => e.stopPropagation()}>{mobile}</a>)}</div> : ''}
-        {memberEmails.length ? <div className='view-email'>{memberEmails.map((email, i) => <a key={i} href={`mailto: ${email}`} onClick={(e) => e.stopPropagation()}>{email}</a>)}</div> : ''}
+        {memberMobiles.length ? <div className='view-mobile'>
+          <img className='icons' src={MobileIcon} alt='mobile' />
+          <span className='view-mobile'>{memberMobiles.map((mobile, i) => <a key={i} href={`tel: ${mobile}`} onClick={(e) => e.stopPropagation()}>{mobile}</a>)}</span>
+        </div> : ''}
+        {memberEmails.length ? <div className='view-email'>
+          <img className='icons' src={EmailIcon} alt='email' />
+          <span className='view-email'>{memberEmails.map((email, i) => <a key={i} href={`mailto: ${email}`} onClick={(e) => e.stopPropagation()}>{email}</a>)}</span>
+        </div> : ''}
         <div className='view-actions'>
           {state.user.role === 'admin' ? <button onClick={() => handleEditMember()}>UPDATE</button> : ''}
           {state.user.role === 'admin' ? <button onClick={() => handleDeleteMember(state.memberToBeDisplayed.id)}>DELETE</button> : ''}

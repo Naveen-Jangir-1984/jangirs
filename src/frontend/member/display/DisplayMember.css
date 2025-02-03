@@ -47,9 +47,10 @@
 
 .dob, .dod {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 100px;
+  height: 20px;
+  width: 95%;
 }
 
 .details .view .icons {
@@ -62,6 +63,7 @@
   column-gap: 5px;
   justify-content: center;
   align-items: center;
+  height: 20px;
 }
 
 .view sup {
