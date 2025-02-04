@@ -4,12 +4,13 @@ import './EditMember.css';
 const URL = process.env.REACT_APP_API_URL;
 const PORT = process.env.REACT_APP_PORT;
 
-const EditMember = ({state, dispatch}) => {
+const EditMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
   const dates = [];
   for(let i=1; i<=31; i++) {
     dates.push(i);
   }
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const monthsHindi = ['जनवरी', 'फरवरी', 'मार्च', 'अप्रैल', 'मई', 'जून', 'जुलाई', 'अगस्त', 'सितम्बर', 'अक्टूबर', 'नवम्बर', 'दिसम्बर'];
   const currentYear = new Date().getFullYear();
   const years = [];
   for(let i=currentYear; i>=1200; i--) {
@@ -56,44 +57,44 @@ const EditMember = ({state, dispatch}) => {
         <input type='text' name='mobile' value={state.editInput.mobile} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder='Mobile (optional)' />
         <div className='dob'>
           <select name='date' value={state.editInput.date} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})}>
-            <option value=''>DD</option>
-            {dates.map((date, i) => <option key={i} value={date}>{date}</option>)}
+            <option value=''>{state.user.language ? 'DD' : 'दिन'}</option>
+            {dates.map((date, i) => <option key={i} value={date}>{state.user.language ? date : getHindiNumbers(date.toString())}</option>)}
           </select>
           <select name='month' value={state.editInput.month} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})}>
-            <option value=''>MM</option>
-            {months.map((month, i) => <option key={i} value={month}>{month}</option>)}
+            <option value=''>{state.user.language ? 'MM' : 'महिना'}</option>
+            {months.map((month, i) => <option key={i} value={month}>{state.user.language ? month : monthsHindi[i]}</option>)}
           </select>
           <select name='year' value={state.editInput.year} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})}>
-            <option value=''>YYYY</option>
-            {years.map((year, i) => <option key={i} value={year}>{year}</option>)}
+            <option value=''>{state.user.language ? 'YYYY' : 'साल'}</option>
+            {years.map((year, i) => <option key={i} value={year}>{state.user.language ? year : getHindiNumbers(year.toString())}</option>)}
           </select>
         </div>
         <select name='gender' value={state.editInput.gender} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})}>
-          <option value='M'>Male</option>
-          <option value='F'>Female</option>
+          <option value='M'>{state.user.language ? 'Male' : 'पुरुष'}</option>
+          <option value='F'>{state.user.language ? 'Female' : 'महिला'}</option>
         </select>
         <select name='isAlive' value={state.editInput.isAlive} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})}>
-          <option value='alive'>Alive</option>
-          <option value='dead'>Dead</option>
+          <option value='alive'>{state.user.language ? 'Alive' : 'जिंदा'}</option>
+          <option value='dead'>{state.user.language ? 'Dead' : 'मृत'}</option>
         </select>
         {state.editInput.isAlive === 'dead' && <div className='dod'>
           <select name='dateDeath' value={state.editInput.dateDeath} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})}>
-            <option value=''>DD</option>
-            {dates.map((date, i) => <option key={i} value={date}>{date}</option>)}
+            <option value=''>{state.user.language ? 'DD' : 'दिन'}</option>
+            {dates.map((date, i) => <option key={i} value={date}>{state.user.language ? date : getHindiNumbers(date.toString())}</option>)}
           </select>
           <select name='monthDeath' value={state.editInput.monthDeath} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})}>
-            <option value=''>MM</option>
-            {months.map((month, i) => <option key={i} value={month}>{month}</option>)}
+            <option value=''>{state.user.language ? 'MM' : 'महिना'}</option>
+            {months.map((month, i) => <option key={i} value={month}>{state.user.language ? month : monthsHindi[i]}</option>)}
           </select>
           <select name='yearDeath' value={state.editInput.yearDeath} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})}>
-            <option value=''>YYYY</option>
-            {years.map((year, i) => <option key={i} value={year}>{year}</option>)}
+            <option value=''>{state.user.language ? 'YYYY' : 'साल'}</option>
+            {years.map((year, i) => <option key={i} value={year}>{state.user.language ? year : getHindiNumbers(year.toString())}</option>)}
           </select>
         </div>}
         <input type='text' name='village' value={state.editInput.village} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder='Village (optional)' />
         <input type='text' name='gotra' value={state.editInput.gotra} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder='Gotra (optional)' />
         <input type='email' name='email' value={state.editInput.email} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder='Email (optional)' />
-        <button onClick={() => handleEditMember()}>UPDATE</button>
+        <button onClick={() => handleEditMember()}>{state.user.language ? 'UPDATE' : 'अपडेट'}</button>
       </div>
     </div>
   );

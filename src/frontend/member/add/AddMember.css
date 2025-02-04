@@ -68,7 +68,22 @@
 	align-items: center;
 	height: auto;
 }
-.add-member .view .dob select {
+.add-member .view .dob select:nth-child(1) {
+	width: 25%;
+}
+.add-member .view .dob select:nth-child(2) {
+	width: 45%;
+}
+.add-member .view .dob select:nth-child(3) {
+	width: 30%;
+}
+.add-member .view .dod select:nth-child(1) {
+	width: 25%;
+}
+.add-member .view .dod select:nth-child(2) {
+	width: 45%;
+}
+.add-member .view .dod select:nth-child(3) {
 	width: 30%;
 }
 

@@ -4,12 +4,13 @@ import './AddMember.css';
 const URL = process.env.REACT_APP_API_URL;
 const PORT = process.env.REACT_APP_PORT;
 
-const AddMember = ({state, dispatch}) => {
+const AddMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
   const dates = [];
   for(let i=1; i<=31; i++) {
     dates.push(i);
   }
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const monthsHindi = ['जनवरी', 'फरवरी', 'मार्च', 'अप्रैल', 'मई', 'जून', 'जुलाई', 'अगस्त', 'सितम्बर', 'अक्टूबर', 'नवम्बर', 'दिसम्बर'];
   const currentYear = new Date().getFullYear();
   const years = [];
   for(let i=currentYear; i>=1200; i--) {
@@ -149,52 +150,52 @@ const AddMember = ({state, dispatch}) => {
 			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
       <div className='view'>
         <select value={type} onChange={(e) => setType(e.target.value)}>
-          <option value=''>User Type?</option>
-          <option value='child'>Child</option>
-          <option value='wife'>Wife</option>
+          <option value=''>{state.user.language ? 'User?' : 'सदस्य?'}</option>
+          <option value='child'>{state.user.language ? 'Child' : 'औलाद'}</option>
+          <option value='wife'>{state.user.language ? 'Wife' : 'पत्नी'}</option>
         </select>
         <input disabled={type === ''} type='text' name='name' value={newMember.name} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='Name (optional)' />
         <input disabled={type === ''} type='text' name='mobile' value={newMember.mobile} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='Mobile (optional)' />
         <div className='dob'>
           <select disabled={type === ''} name='date' value={newMember.date} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})}>
-            <option value=''>DD</option>
-            {dates.map((date, i) => <option key={i} value={date}>{date}</option>)}
+            <option value=''>{state.user.language ? 'DD' : 'दिन'}</option>
+            {dates.map((date, i) => <option key={i} value={date}>{state.user.language ? date : getHindiNumbers(date.toString())}</option>)}
           </select>
           <select disabled={type === ''} name='month' value={newMember.month} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})}>
-            <option value=''>MM</option>
-            {months.map((month, i) => <option key={i} value={month}>{month}</option>)}
+            <option value=''>{state.user.language ? 'MM' : 'महिना'}</option>
+            {months.map((month, i) => <option key={i} value={month}>{state.user.language ? month : monthsHindi[i]}</option>)}
           </select>
           <select disabled={type === ''} name='year' value={newMember.year} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})}>
-            <option value=''>YYYY</option>
-            {years.map((year, i) => <option key={i} value={year}>{year}</option>)}
+            <option value=''>{state.user.language ? 'YYYY' : 'साल'}</option>
+            {years.map((year, i) => <option key={i} value={year}>{state.user.language ? year : getHindiNumbers(year.toString())}</option>)}
           </select>
         </div>
         <select disabled={type === '' || type === 'wife'} name='gender' value={type === 'wife' ? 'F' : newMember.gender} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})}>
-          <option value='M'>Male</option>
-          <option value='F'>Female</option>
+          <option value='M'>{state.user.language ? 'Male' : 'पुरुष'}</option>
+          <option value='F'>{state.user.language ? 'Female' : 'महिला'}</option>
         </select>
         <select disabled={type === ''} name='isAlive' value={newMember.isAlive} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})}>
-          <option value='alive'>Alive</option>
-          <option value='dead'>Dead</option>
+          <option value='alive'>{state.user.language ? 'Alive' : 'जिंदा'}</option>
+          <option value='dead'>{state.user.language ? 'Dead' : 'मृत'}</option>
         </select>
         {newMember.isAlive === 'dead' && <div className='dob'>
           <select disabled={type === ''} name='dateDeath' value={newMember.dateDeath} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})}>
-            <option value=''>DD</option>
-            {dates.map((date, i) => <option key={i} value={date}>{date}</option>)}
+            <option value=''>{state.user.language ? 'DD' : 'दिन'}</option>
+            {dates.map((date, i) => <option key={i} value={date}>{state.user.language ? date : getHindiNumbers(date.toString())}</option>)}
           </select>
           <select disabled={type === ''} name='monthDeath' value={newMember.monthDeath} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})}>
-            <option value=''>MM</option>
-            {months.map((month, i) => <option key={i} value={month}>{month}</option>)}
+            <option value=''>{state.user.language ? 'MM' : 'महिना'}</option>
+            {months.map((month, i) => <option key={i} value={month}>{state.user.language ? month : monthsHindi[i]}</option>)}
           </select>
           <select disabled={type === ''} name='yearDeath' value={newMember.yearDeath} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})}>
-            <option value=''>YYYY</option>
-            {years.map((year, i) => <option key={i} value={year}>{year}</option>)}
+            <option value=''>{state.user.language ? 'YYYY' : 'साल'}</option>
+            {years.map((year, i) => <option key={i} value={year}>{state.user.language ? year : getHindiNumbers(year.toString())}</option>)}
           </select>
         </div>}
         <input disabled={type === ''} type='text' name='village' value={newMember.village} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='Village (optional)' />
         {type === 'wife' ? <input type='text' name='gotra' value={newMember.gotra} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='Gotra (optional)' /> : ''}
         <input disabled={type === ''} type='email' name='email' value={newMember.email} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder='Email (optional)' />
-        <button disabled={type === ''} onClick={() => handleAddMember()}>ADD</button>
+        <button disabled={type === ''} onClick={() => handleAddMember()}>{state.user.language ? 'ADD' : 'जोड़ें'}</button>
       </div>
     </div>
   );
