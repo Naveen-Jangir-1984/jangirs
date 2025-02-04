@@ -5,6 +5,10 @@
   width: 100%;
 }
 
+.toggle-language {
+  z-index: 10;
+}
+
 .header .icons, .header .signout, .header .addIcon {
   padding: 1px;
   border: 1px outset lightgrey;
