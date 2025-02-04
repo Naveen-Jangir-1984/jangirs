@@ -76,7 +76,7 @@ const EditMember = ({state, dispatch}) => {
           <option value='alive'>Alive</option>
           <option value='dead'>Dead</option>
         </select>
-        {state.editInput.isAlive === 'dead' && <div className='dob'>
+        {state.editInput.isAlive === 'dead' && <div className='dod'>
           <select name='dateDeath' value={state.editInput.dateDeath} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})}>
             <option value=''>DD</option>
             {dates.map((date, i) => <option key={i} value={date}>{date}</option>)}

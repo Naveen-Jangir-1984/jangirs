@@ -58,37 +58,39 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     <div className='details' style={{ display: state.isMemberDisplayOpen ? 'flex' : 'none' }}>
       <img src={CloseIcon} alt='close' className='close' onClick={() => dispatch({type: 'closeMemberDisplay'})} />
       <div className='view'>
-        <img style={{boxShadow: state.memberToBeDisplayed.isAlive ? '0 0 30px 5px lightgreen' : '0 0 30px 5px #f55'}} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === 'M' ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} />
-        <div>{state.user.language ? state.memberToBeDisplayed.name : getHindiText(state.memberToBeDisplayed.name, 'name')} {memberDOB && state.user.language ? <sup>{getAge(memberDOB ? memberDOB : '', memberDOD ? memberDOD : '')}</sup> : memberDOB && !state.user.language ? <sup>{getHindiNumbers(getAge(memberDOB ? memberDOB : '', memberDOD ? memberDOD : '').toString())}</sup> : ''}</div>
-        {memberDOB && !state.user.language ? 
-        <div className='dob'>
-          <img className='icons' src={DOBIcon} alt='birth' />
-          <span>{`${getHindiNumbers(memberDOB.split(' ')[0])} ${getHindiText(memberDOB.split(' ')[1], 'months')} ${getHindiNumbers(memberDOB.split(' ')[2])}`}</span>
-        </div> : memberDOB && state.user.language ? 
-        <div className='dob'>
-          <img className='icons' src={DOBIcon} alt='birth' />
-          <span>{memberDOB}</span>
-        </div> : ''}
-        {memberDOD && !state.user.language ? 
-        <div className='dod'>
-          <img className='icons' src={DODIcon} alt='death' />
-          <span>{`${getHindiNumbers(memberDOD.split(' ')[0])} ${getHindiText(memberDOD.split(' ')[1], 'months')} ${getHindiNumbers(memberDOD.split(' ')[2])}`}</span>
-        </div> : memberDOD && state.user.language ?
-        <div className='dod'>
-          <img className='icons' src={DODIcon} alt='death' />
-          <span>{memberDOD}</span>
-        </div> : ''}
-        {memberMobiles.length ? <div className='view-mobile'>
-          <img className='icons' src={MobileIcon} alt='mobile' />
-          <span className='view-mobile'>{memberMobiles.map((mobile, i) => <a key={i} href={`tel: ${mobile}`} onClick={(e) => e.stopPropagation()}>{mobile}</a>)}</span>
-        </div> : ''}
-        {memberEmails.length ? <div className='view-email'>
-          <img className='icons' src={EmailIcon} alt='email' />
-          <span className='view-email'>{memberEmails.map((email, i) => <a key={i} href={`mailto: ${email}`} onClick={(e) => e.stopPropagation()}>{email}</a>)}</span>
-        </div> : ''}
-        <div className='view-actions'>
-          {state.user.role === 'admin' ? <button onClick={() => handleEditMember()}>UPDATE</button> : ''}
-          {state.user.role === 'admin' ? <button onClick={() => handleDeleteMember(state.memberToBeDisplayed.id)}>DELETE</button> : ''}
+        <img style={{boxShadow: state.memberToBeDisplayed.isAlive ? '0 0 50px 5px lightgreen' : '0 0 50px 5px #f55'}} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === 'M' ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} />
+        <div className='info'>
+          <div>{state.user.language ? state.memberToBeDisplayed.name : getHindiText(state.memberToBeDisplayed.name, 'name')} {memberDOB && state.user.language ? <sup>{getAge(memberDOB ? memberDOB : '', memberDOD ? memberDOD : '')}</sup> : memberDOB && !state.user.language ? <sup>{getHindiNumbers(getAge(memberDOB ? memberDOB : '', memberDOD ? memberDOD : '').toString())}</sup> : ''}</div>
+          {memberDOB && !state.user.language ? 
+          <div className='dob'>
+            <img className='icons' src={DOBIcon} alt='birth' />
+            <span>{`${getHindiNumbers(memberDOB.split(' ')[0])} ${getHindiText(memberDOB.split(' ')[1], 'months')} ${getHindiNumbers(memberDOB.split(' ')[2])}`}</span>
+          </div> : memberDOB && state.user.language ? 
+          <div className='dob'>
+            <img className='icons' src={DOBIcon} alt='birth' />
+            <span>{memberDOB}</span>
+          </div> : ''}
+          {memberDOD && !state.user.language ? 
+          <div className='dod'>
+            <img className='icons' src={DODIcon} alt='death' />
+            <span>{`${getHindiNumbers(memberDOD.split(' ')[0])} ${getHindiText(memberDOD.split(' ')[1], 'months')} ${getHindiNumbers(memberDOD.split(' ')[2])}`}</span>
+          </div> : memberDOD && state.user.language ?
+          <div className='dod'>
+            <img className='icons' src={DODIcon} alt='death' />
+            <span>{memberDOD}</span>
+          </div> : ''}
+          {memberMobiles.length ? <div className='view-mobile'>
+            <img className='icons' src={MobileIcon} alt='mobile' />
+            <span className='view-mobile'>{memberMobiles.map((mobile, i) => <a key={i} href={`tel: ${mobile}`} onClick={(e) => e.stopPropagation()}>{mobile}</a>)}</span>
+          </div> : ''}
+          {memberEmails.length ? <div className='view-email'>
+            <img className='icons' src={EmailIcon} alt='email' />
+            <span className='view-email'>{memberEmails.map((email, i) => <a key={i} href={`mailto: ${email}`} onClick={(e) => e.stopPropagation()}>{email}</a>)}</span>
+          </div> : ''}
+          <div className='view-actions'>
+            {state.user.role === 'admin' ? <button onClick={() => handleEditMember()}>UPDATE</button> : ''}
+            {state.user.role === 'admin' ? <button onClick={() => handleDeleteMember(state.memberToBeDisplayed.id)}>DELETE</button> : ''}
+          </div>
         </div>
       </div>
     </div>
