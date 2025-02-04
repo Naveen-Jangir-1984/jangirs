@@ -53,8 +53,8 @@ const EditMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
     <div className="edit-member" style={{display: state.isMemberEditOpen ? 'flex' : 'none'}}>
 			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
       <div className='view'>
-        <input type='text' name='name' value={state.editInput.name} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder='Name (optional)' />
-        <input type='text' name='mobile' value={state.editInput.mobile} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder='Mobile (optional)' />
+        <input type='text' name='name' value={state.editInput.name} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder={state.user.language ? 'Name (optional)' : 'नाम (वैकल्पिक)'} />
+        <input type='text' name='mobile' value={state.editInput.mobile} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder={state.user.language ? 'Mobile (optional)' : 'मोबाइल (वैकल्पिक)'} />
         <div className='dob'>
           <select name='date' value={state.editInput.date} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})}>
             <option value=''>{state.user.language ? 'DD' : 'दिन'}</option>
@@ -91,9 +91,9 @@ const EditMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
             {years.map((year, i) => <option key={i} value={year}>{state.user.language ? year : getHindiNumbers(year.toString())}</option>)}
           </select>
         </div>}
-        <input type='text' name='village' value={state.editInput.village} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder='Village (optional)' />
-        <input type='text' name='gotra' value={state.editInput.gotra} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder='Gotra (optional)' />
-        <input type='email' name='email' value={state.editInput.email} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder='Email (optional)' />
+        <input type='text' name='village' value={state.editInput.village} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder={state.user.language ? 'Village (optional)' : 'गाँव (वैकल्पिक)'} />
+        {state.editInput.gender === 'F' ? <input type='text' name='gotra' value={state.editInput.gotra} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder={state.user.language ? 'Gotra (optional)' : 'गोत्र (वैकल्पिक)'} /> : ''}
+        <input type='email' name='email' value={state.editInput.email} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder={state.user.language ? 'Email (optional)' : 'ईमेल (वैकल्पिक)'} />
         <button onClick={() => handleEditMember()}>{state.user.language ? 'UPDATE' : 'अपडेट'}</button>
       </div>
     </div>
