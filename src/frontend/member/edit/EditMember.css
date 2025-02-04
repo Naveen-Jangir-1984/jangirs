@@ -31,7 +31,7 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  row-gap: 7px;
+  row-gap: 10px;
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
@@ -45,7 +45,7 @@
 	background-color: #eee;
 }
 .view input, .view select, .view option {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .edit-member .view button {

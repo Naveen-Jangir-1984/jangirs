@@ -56,10 +56,11 @@
 
 .dob, .dod {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  column-gap: 10px;
   height: 20px;
-  width: 95%;
+  width: 35%;
 }
 
 .details .view .icons {

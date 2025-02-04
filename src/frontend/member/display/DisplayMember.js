@@ -1,8 +1,8 @@
 import CloseIcon from '../../../images/close.png';
 import MaleProfileImage from '../../../images/male.png';
 import FemaleProfileImage from '../../../images/female.png';
-import DOBIcon from '../../../images/birth.png';
-import DODIcon from '../../../images/death.png';
+// import DOBIcon from '../../../images/birth.png';
+// import DODIcon from '../../../images/death.png';
 import MobileIcon from '../../../images/mobile.jpg';
 import EmailIcon from '../../../images/email.png';
 import './DisplayMember.css';
@@ -60,23 +60,27 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
       <div className='view'>
         <img style={{boxShadow: state.memberToBeDisplayed.isAlive ? '0 0 50px 5px lightgreen' : '0 0 50px 5px #f55'}} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === 'M' ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} />
         <div className='info'>
-          <div>{state.user.language ? state.memberToBeDisplayed.name : getHindiText(state.memberToBeDisplayed.name, 'name')} {memberDOB && state.user.language ? <sup>{getAge(memberDOB ? memberDOB : '', memberDOD ? memberDOD : '')}</sup> : memberDOB && !state.user.language ? <sup>{getHindiNumbers(getAge(memberDOB ? memberDOB : '', memberDOD ? memberDOD : '').toString())}</sup> : ''}</div>
+          <div>{state.user.language ? state.memberToBeDisplayed.name : getHindiText(state.memberToBeDisplayed.name, 'name')} {memberDOB && state.user.language ? <sup>Age: {getAge(memberDOB ? memberDOB : '', memberDOD ? memberDOD : '')}</sup> : memberDOB && !state.user.language ? <sup>उम्र: {getHindiNumbers(getAge(memberDOB ? memberDOB : '', memberDOD ? memberDOD : '').toString())}</sup> : ''}</div>
           {memberDOB && !state.user.language ? 
           <div className='dob'>
-            <img className='icons' src={DOBIcon} alt='birth' />
+            {/* <img className='icons' src={DOBIcon} alt='birth' /> */}
+            <span style={{fontWeight: 'bolder'}}>जन्म:</span>
             <span>{`${getHindiNumbers(memberDOB.split(' ')[0])} ${getHindiText(memberDOB.split(' ')[1], 'months')} ${getHindiNumbers(memberDOB.split(' ')[2])}`}</span>
           </div> : memberDOB && state.user.language ? 
           <div className='dob'>
-            <img className='icons' src={DOBIcon} alt='birth' />
+            {/* <img className='icons' src={DOBIcon} alt='birth' /> */}
+            <span style={{fontWeight: 'bolder'}}>Birth:</span>
             <span>{memberDOB}</span>
           </div> : ''}
           {memberDOD && !state.user.language ? 
           <div className='dod'>
-            <img className='icons' src={DODIcon} alt='death' />
+            {/* <img className='icons' src={DODIcon} alt='death' /> */}
+            <span style={{fontWeight: 'bolder'}}>मृत्यु:</span>
             <span>{`${getHindiNumbers(memberDOD.split(' ')[0])} ${getHindiText(memberDOD.split(' ')[1], 'months')} ${getHindiNumbers(memberDOD.split(' ')[2])}`}</span>
           </div> : memberDOD && state.user.language ?
           <div className='dod'>
-            <img className='icons' src={DODIcon} alt='death' />
+            {/* <img className='icons' src={DODIcon} alt='death' /> */}
+            <span style={{fontWeight: 'bolder'}}>Death:</span>
             <span>{memberDOD}</span>
           </div> : ''}
           {memberMobiles.length ? <div className='view-mobile'>
