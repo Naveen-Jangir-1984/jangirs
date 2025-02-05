@@ -72,7 +72,7 @@
 	width: 25%;
 }
 .edit-member .view .dob select:nth-child(2) {
-	width: 45%;
+	width: 40%;
 }
 .edit-member .view .dob select:nth-child(3) {
 	width: 30%;
@@ -81,7 +81,7 @@
 	width: 25%;
 }
 .edit-member .view .dod select:nth-child(2) {
-	width: 45%;
+	width: 40%;
 }
 .edit-member .view .dod select:nth-child(3) {
 	width: 30%;
