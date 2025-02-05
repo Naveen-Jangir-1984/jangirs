@@ -154,8 +154,8 @@ const AddMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
           <option value='child'>{state.user.language ? 'Child' : 'औलाद'}</option>
           <option value='wife'>{state.user.language ? 'Wife' : 'पत्नी'}</option>
         </select>
-        <input disabled={type === ''} type='text' name='name' value={newMember.name} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder={state.user.language ? 'Name (optional)' : 'नाम (वैकल्पिक)'} />
-        <input disabled={type === ''} type='text' name='mobile' value={newMember.mobile} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder={state.user.language ? 'Mobile (optional)' : 'मोबाइल (वैकल्पिक)'} />
+        <input disabled={type === ''} type='text' name='name' value={newMember.name} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder={state.user.language ? 'Name' : 'नाम'} />
+        <input disabled={type === ''} type='text' name='mobile' value={newMember.mobile} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder={state.user.language ? 'Mobile' : 'मोबाइल'} />
         <div className='dob'>
           <select disabled={type === ''} name='date' value={newMember.date} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})}>
             <option value=''>{state.user.language ? 'DD' : 'दिन'}</option>
@@ -192,9 +192,9 @@ const AddMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
             {years.map((year, i) => <option key={i} value={year}>{state.user.language ? year : getHindiNumbers(year.toString())}</option>)}
           </select>
         </div>}
-        <input disabled={type === ''} type='text' name='village' value={newMember.village} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder={state.user.language ? 'Village (optional)' : 'गाँव (वैकल्पिक)'} />
-        {type === 'wife' ? <input type='text' name='gotra' value={newMember.gotra} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder={state.user.language ? 'Gotra (optional)' : 'गोत्र (वैकल्पिक)'} /> : ''}
-        <input disabled={type === ''} type='email' name='email' value={newMember.email} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder={state.user.language ? 'Email (optional)' : 'ईमेल (वैकल्पिक)'} />
+        <input disabled={type === ''} type='text' name='village' value={newMember.village} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder={state.user.language ? 'Village' : 'गाँव'} />
+        {type === 'wife' ? <input type='text' name='gotra' value={newMember.gotra} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder={state.user.language ? 'Gotra' : 'गोत्र'} /> : ''}
+        <input disabled={type === ''} type='email' name='email' value={newMember.email} onChange={(e) => setNewMember({...newMember, [e.target.name]: e.target.value})} placeholder={state.user.language ? 'Email' : 'ईमेल'} />
         <button disabled={type === ''} onClick={() => handleAddMember()}>{state.user.language ? 'ADD' : 'जोड़ें'}</button>
       </div>
     </div>
