@@ -45,6 +45,10 @@
 	background-color: #eee;
 	box-shadow: 0 0 0 1px lightgrey;
 }
+.add-member .view select:focus {
+  outline: none;
+	box-shadow: 0 0 0 1px lightgrey;
+}
 .add-member .view input, .add-member .view select, .add-member .view option {
   font-size: 16px;
 }
