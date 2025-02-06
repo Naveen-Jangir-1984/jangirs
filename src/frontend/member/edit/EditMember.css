@@ -43,10 +43,10 @@
 	width: 100%;
 	height: 50px;
 	background-color: #eee;
+	box-shadow: 0 0 0 1px lightgrey;
 }
 .edit-member .view input, .edit-member .view select, .edit-member .view option {
   font-size: 16px;
-	box-shadow: 0 0 0 1px lightgrey;
 }
 
 .edit-member .view button {
