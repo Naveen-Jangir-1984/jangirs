@@ -6,7 +6,7 @@
   transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
-  background-color: rgba(250, 250, 250, 0.95);
+	background-color: rgba(255, 255, 255, 0.95);
   border-radius: 5px;
   justify-content: center;
   align-items: center;
@@ -17,8 +17,8 @@
 	position: absolute;
 	top: 10px;
 	right: 10px;
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 	cursor: pointer;
 }
 
@@ -27,14 +27,23 @@
   font-size: 10px;
   padding: 2px 5px;
   border-radius: 5px;
-  width: 80%;
+  width: 100%;
   height: 80%;
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: 50px;
   justify-content: center;
   align-items: center;
   z-index: 2;
+}
+
+.details .info {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  row-gap: 10px;
 }
 
 .view img {
@@ -45,11 +54,26 @@
   object-fit: cover;
 }
 
+.dob, .dod {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
+  height: 20px;
+  width: 33%;
+}
+
+.details .view .icons {
+  width: 15px;
+  height: 15px;
+}
+
 .view-mobile, .view-email {
   display: flex;
   column-gap: 5px;
   justify-content: center;
   align-items: center;
+  height: 20px;
 }
 
 .view sup {
@@ -66,8 +90,10 @@
 .view-actions button:first-child {
   padding: 15px 35px;
   background-color: lightgreen;
+	box-shadow: 5px 5px 10px 0 grey;
 }
 .view-actions button:last-child {
   padding: 15px 35px;
   background-color: lightcoral;
+	box-shadow: 5px 5px 10px 0 grey;
 }
