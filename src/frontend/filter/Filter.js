@@ -180,7 +180,7 @@ const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers }) => 
     return gotraForFemalesCountForDropdown;
   };
   return (
-    <div className='filter'>
+    <div className='filter' style={{filter: state.isMemberDisplayOpen || state.isMemberAddOpen || state.isMemberEditOpen ? 'blur(20px)' : 'none'}}>
       <div className='filter-label'>{state.user.language ? 'Men' : 'पुरुष'}</div>
       <div className='filter-men'>
         <select name='village' value={male.village} onChange={(e) => dispatch({ type: 'male-selection', village: e.target.value, gotra: '' })}>

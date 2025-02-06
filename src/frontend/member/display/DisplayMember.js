@@ -55,7 +55,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     }
   }
   return (
-    <div className='details' style={{ display: state.isMemberDisplayOpen ? 'flex' : 'none' }}>
+    <div className='details' style={{ display: state.isMemberDisplayOpen ? 'flex' : 'none', filter: state.isMemberEditOpen ? 'blur(20px)' : 'none' }}>
       <img src={CloseIcon} alt='close' className='close' onClick={() => dispatch({type: 'closeMemberDisplay'})} />
       <div className='view'>
         <img style={{boxShadow: state.memberToBeDisplayed.isAlive ? '0 0 50px 5px lightgreen' : '0 0 50px 5px #f55'}} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === 'M' ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} />

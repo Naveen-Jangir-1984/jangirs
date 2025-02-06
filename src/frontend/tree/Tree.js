@@ -137,7 +137,7 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     );
   }
   return (
-    <div className='tree'>{state.members.map(member => displayMember(member, state.village === 'moruwa' ? 3 : 0))}</div>
+    <div className='tree' style={{filter: state.isMemberDisplayOpen || state.isMemberAddOpen || state.isMemberEditOpen ? 'blur(20px)' : 'none'}}>{state.members.map(member => displayMember(member, state.village === 'moruwa' ? 3 : 0))}</div>
   );
 }
 
