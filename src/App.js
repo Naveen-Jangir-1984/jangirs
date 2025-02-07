@@ -1547,9 +1547,10 @@ function App() {
   useEffect(() => {
     sessionStorage.setItem('appState', JSON.stringify(state));
   }, [state]);
+  const fallback = <div>{state.user && state.user.language ? 'Please wait...' : 'कृपया प्रतीक्षा करें...'}</div>;
   return (
     <div className="app">
-      <Suspense fallback={<div>Please wait...</div>}>
+      <Suspense fallback={fallback}>
         {
           state.user ?
           <Home

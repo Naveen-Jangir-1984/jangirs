@@ -7,6 +7,7 @@
 
 .toggle-language {
   z-index: 10;
+  width: 45px;
 }
 
 .header .icons, .header .signout, .header .addIcon {

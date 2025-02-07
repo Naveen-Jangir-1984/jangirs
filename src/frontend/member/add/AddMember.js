@@ -150,7 +150,7 @@ const AddMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
 			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
       <div className='view'>
         <select value={type} onChange={(e) => setType(e.target.value)}>
-          <option value=''>{state.user.language ? 'User?' : 'सदस्य?'}</option>
+          <option value=''>{state.user.language ? 'Member?' : 'सदस्य?'}</option>
           <option value='child'>{state.user.language ? 'Child' : 'औलाद'}</option>
           <option value='wife'>{state.user.language ? 'Wife' : 'पत्नी'}</option>
         </select>

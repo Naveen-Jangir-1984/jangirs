@@ -16,6 +16,5 @@
   background-color: lightskyblue;
 }
 .signin input:disabled, .signin button:disabled {
-  color: grey;
-  background-color: #edd;
+  color: #aaa;
 }
