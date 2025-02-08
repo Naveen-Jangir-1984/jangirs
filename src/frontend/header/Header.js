@@ -7,7 +7,7 @@ import './Header.css';
 const Header = ({ state, dispatch, getHindiText }) => {
   const [collapsed, setCollapsed] = useState(false);
   const handleSignOut = () => {
-    const consent = window.confirm('Are you sure you want to sign out?');
+    const consent = window.confirm(state.user.language ? 'Are you sure you want to sign out?' : 'क्या आप वाकाई में साइन आउट करना चाहते हैं?');
     if(consent) {
       dispatch({type: 'signout'});
     }

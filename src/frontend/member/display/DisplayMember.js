@@ -92,8 +92,8 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
             <span className='view-email'>{memberEmails.map((email, i) => <a key={i} href={`mailto: ${email}`} onClick={(e) => e.stopPropagation()}>{email}</a>)}</span>
           </div> : ''}
           <div className='view-actions'>
-            {state.user.role === 'admin' ? <button onClick={() => handleEditMember()}>UPDATE</button> : ''}
-            {state.user.role === 'admin' ? <button onClick={() => handleDeleteMember(state.memberToBeDisplayed.id)}>DELETE</button> : ''}
+            {state.user.role === 'admin' ? <button onClick={() => handleEditMember()}>{state.user.language ? 'UPDATE' : 'नवीनीकरण'}</button> : ''}
+            {state.user.role === 'admin' ? <button onClick={() => handleDeleteMember(state.memberToBeDisplayed.id)}>{state.user.language ? 'DELETE' : 'हटाएँ'}</button> : ''}
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ const EditMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
     years.push(i);
   }
   const handleEditMember = async () => {
-    const consent = window.confirm('Are you sure you want to edit this member?');
+    const consent = window.confirm(state.user.language ? 'Are you sure you want to update the member?' : 'क्या आप वाकई सदस्य को अपडेट करना चाहते हैं?');
     if(consent) {
       const mobileNumbers = [];
       const mobiles = state.editInput.mobile !== '' ? state.editInput.mobile.replaceAll(' ', '').split(',') : [];
