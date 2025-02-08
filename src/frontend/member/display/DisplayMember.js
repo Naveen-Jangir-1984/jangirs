@@ -42,7 +42,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     dispatch({type: 'openMemberEdit', member: state.memberToBeDisplayed});
   }
   const handleDeleteMember = async (id) => {
-    const consent = window.confirm('Are you sure you want to delete this member?');
+    const consent = window.confirm(state.user.language ? 'Are you sure you want to delete the member?' : 'क्या आप वाकई सदस्य को हटाना चाहते हैं?');
     if (consent) {
       const response = await fetch(`${URL}:${PORT}/deleteMember`, {
       method: 'post',
