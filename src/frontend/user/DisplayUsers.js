@@ -23,7 +23,7 @@ const DisplayUsers = ({state, dispatch}) => {
 		setDisplayAddUser(!displayAddUser);
 	}
 	const handleAddUser = async () => {
-		const consent = window.confirm(state.user.language ? 'Are you sure you want to add the user?' : 'क्या आप वाकई इस उपयोगकर्ता को जोड़ना चाहते हैं?');
+		const consent = window.confirm(state.user.language ? 'Are you sure you want to add the user?' : 'क्या आप वाकई उपयोगकर्ता को जोड़ना चाहते हैं?');
 		if(consent) {
 			const response = await fetch(`${URL}:${PORT}/addNewUser`, {
 			method: 'post',
@@ -40,7 +40,7 @@ const DisplayUsers = ({state, dispatch}) => {
 		}
 	}
 	const handleDeleteUser = async (username) => {
-		const consent = window.confirm(state.user.language ? 'Are you sure you want to delete the user?' : 'क्या आप वाकई इस उपयोगकर्ता को हटाना चाहते हैं?');
+		const consent = window.confirm(state.user.language ? 'Are you sure you want to delete the user?' : 'क्या आप वाकई उपयोगकर्ता को हटाना चाहते हैं?');
 		if (consent) {
 			const response = await fetch(`${URL}:${PORT}/deleteUser`, {
 			method: 'post',
