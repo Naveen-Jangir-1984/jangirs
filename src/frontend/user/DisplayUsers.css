@@ -81,6 +81,21 @@
 	color: #aaa;
 }
 
+.display-users .view .new-user {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 3px;
+	box-sizing: border-box;
+}
+
+.display-users .view .new-user div {
+	font-size: 14px;
+	font-weight: bolder;
+	text-decoration: underline;
+}
+
 .display-users .view .icons {
 	display: flex;
 	justify-content: flex-end;

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import CloseIcon from '../../images/close.png';
 import DeleteIcon from '../../images/delete.png';
+import AddIcon from '../../images/add.png';
+import MinusIcon from '../../images/minus.png';
 import './DisplayUsers.css';
 const URL = process.env.REACT_APP_API_URL;
 const PORT = process.env.REACT_APP_PORT;
@@ -33,10 +35,10 @@ const DisplayUsers = ({state, dispatch}) => {
 			if (data.result === 'success') {
 				dispatch({type: 'addNewUser', newUser: newUser});
 				setNewUser({ username: '', password: '', role: 'user', error: false });
+				setDisplayAddUser(false);
 			} else if(data.result === 'duplicate') {
 				setNewUser({ ...newUser, error: true });
 			}
-			setDisplayAddUser(false);
 		}
 	}
 	const handleDeleteUser = async (username) => {
@@ -57,7 +59,10 @@ const DisplayUsers = ({state, dispatch}) => {
 		<div className='display-users' style={{display: state.isUserEditOpen ? 'flex' : 'none'}}>
 			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
 			<div className='view'>
-				<div style={{textDecoration: 'underline', fontSize: '14px'}} onClick={() => handleAddNewUser()}>{state.user.language ? `${displayAddUser ? 'Close' : 'Open'} Add User Panel` : `${displayAddUser ? 'बंद करें' : 'उपयोगकर्ता जोड़ें'}`}</div>
+				<div className='new-user' onClick={() => handleAddNewUser()}>
+					<div>{state.user.language ? `${displayAddUser ? 'Cancel' : 'Open'} to Add User` : `${displayAddUser ? 'उपभोक्ता जोड़ना रद्द करें' : 'उपयोगकर्ता जोड़ने के लिए खोलें'}`}</div>
+					<img className='icons' src={displayAddUser ? MinusIcon : AddIcon} alt={displayAddUser ? 'close' : 'open'} />
+				</div>
 				<div className='user-inputs' style={{display: displayAddUser ? 'flex' : 'none'}}>
 					<input name='username' placeholder={state.user.language ? 'Username' : 'उपयोगकर्ता नाम' } type='text' value={newUser.username} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
 					<input disabled={newUser.username === ''} name='password' placeholder={state.user.language ? 'Password' : 'पासवर्ड'} type='password' value={newUser.password} onChange={(e) => setNewUser({...newUser, [e.target.name]: e.target.value})} />
@@ -67,7 +72,7 @@ const DisplayUsers = ({state, dispatch}) => {
 					</select>
 					<button disabled={newUser.password === '' || newUser.role === ''} onClick={() => handleAddUser()}>{state.user.language ? 'ADD' : 'जोड़ें'}</button>
 				</div>
-				{newUser.error && <div style={{color: 'red'}}>{state.user.language ? 'user already exists !' : 'उपयोगकर्ता पहले से मौजूद है !'}</div>}
+				{newUser.error && <div style={{color: 'red'}}>{state.user.language ? 'User already exists !' : 'उपयोगकर्ता पहले से मौजूद है !'}</div>}
 				<table>
 					<thead>
 						<tr>
