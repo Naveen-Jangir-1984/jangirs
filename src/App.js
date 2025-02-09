@@ -1220,7 +1220,6 @@ function App() {
             gotra: ''
           },
           memberToBeAdded: action.member,
-          memberToBeDisplayed: '',
           memberToBeEdited: '',
           isMemberAddOpen: true
         };

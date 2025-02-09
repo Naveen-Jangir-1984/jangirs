@@ -82,9 +82,10 @@
 
 .view-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 90%;
+  column-gap: 15px;
+  width: 100%;
 }
 .view-actions button:first-child {
   padding: 15px 45px;
