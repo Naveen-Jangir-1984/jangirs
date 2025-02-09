@@ -42,7 +42,7 @@ const EditMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
       body: JSON.stringify({ member: person, village: state.village })})
       const data = await response.json();
       if (data.result === 'success') {
-        dispatch({type: 'editMember', member: person});   
+        dispatch({type: 'editMember', member: person});
       }
     }
   }

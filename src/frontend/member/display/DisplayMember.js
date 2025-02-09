@@ -38,6 +38,9 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
       return age;
     }
   }
+  const handleAddMember = async () => {
+    dispatch({type: 'openMemberAdd', member: state.memberToBeDisplayed});
+  }
   const handleEditMember = async () => {
     dispatch({type: 'openMemberEdit', member: state.memberToBeDisplayed});
   }
@@ -92,6 +95,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
             <span className='view-email'>{memberEmails.map((email, i) => <a key={i} href={`mailto: ${email}`} onClick={(e) => e.stopPropagation()}>{email}</a>)}</span>
           </div> : ''}
           <div className='view-actions'>
+            {state.user.role === 'admin' ? <button onClick={() => handleAddMember()}>{state.user.language ? 'ADD_MEMBER' : 'सदस्य_जोड़ें'}</button> : ''}
             {state.user.role === 'admin' ? <button onClick={() => handleEditMember()}>{state.user.language ? 'UPDATE' : 'नवीनीकरण'}</button> : ''}
             {state.user.role === 'admin' ? <button onClick={() => handleDeleteMember(state.memberToBeDisplayed.id)}>{state.user.language ? 'DELETE' : 'हटाएँ'}</button> : ''}
           </div>

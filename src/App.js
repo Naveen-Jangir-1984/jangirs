@@ -889,6 +889,28 @@ function App() {
         gotra: ''
       }
     },
+    newUser: {
+      username: '',
+      password: '',
+      role: 'user',
+      error: false
+    },
+    newMember: {
+      type: '',
+      name: '',
+      mobile: '',
+      email: '',
+      date: '',
+      month: '',
+      year: '',
+      dateDeath: '',
+      monthDeath: '',
+      yearDeath: '',
+      isAlive: 'alive',
+      gender: 'M',
+      village: '',
+      gotra: ''
+    },
     input: {
       username: '',
       password: '',
@@ -913,6 +935,7 @@ function App() {
     memberToBeDisplayed: '',
     memberToBeAdded: '',
     memberToBeEdited: '',
+    isUserAddOpen: false,
     isMemberDisplayOpen: false,
     isUserEditOpen: false,
     isMemberAddOpen: false,
@@ -1122,30 +1145,14 @@ function App() {
               gotra: ''
             }
           },
-          input: {
-            username: state.input.username,
-            password: state.input.password,
-            error: state.input.error
-          },
-          editInput: {
-            id: state.editInput.id,
-            name: state.editInput.name,
-            mobile: state.editInput.mobile,
-            date: state.editInput.date,
-            month: state.editInput.month,
-            year: state.editInput.year,
-            dateDeath: state.editInput.dateDeath,
-            monthDeath: state.editInput.monthDeath,
-            yearDeath: state.editInput.year,
-            gender: state.editInput.gender,
-            village: state.editInput.village,
-            gotra: state.editInput.gotra,
-            email: state.editInput.email,
-            isAlive: state.editInput.isAlive
-          },
+          newUser: state.newUser,
+          newMember: state.newMember,
+          input: state.input,
+          editInput: state.editInput,
           memberToBeDisplayed: state.memberToBeDisplayed,
           memberToBeAdded: state.memberToBeAdded,
           memberToBeEdited: state.memberToBeEdited,
+          isUserAddOpen: state.isUserAddOpen,
           isMemberDisplayOpen: state.isMemberDisplayOpen,
           isUserEditOpen: state.isUserEditOpen,
           isMemberAddOpen: state.isMemberAddOpen,
@@ -1154,17 +1161,37 @@ function App() {
       case 'openUserEdit':
         return {
           ...state,
+          newUser: {
+            username: '',
+            password: '',
+            role: 'user',
+            error: false
+          },
+          isUserAddOpen: false,
           isUserEditOpen: true
         };
       case 'closeUserEdit':
         return {
           ...state,
+          newUser: {
+            username: '',
+            password: '',
+            role: 'user',
+            error: false
+          },
+          isUserAddOpen: false,
           isUserEditOpen: false
         };
       case 'addNewUser':
         return {
           ...state,
           users: [...state.users, action.newUser],
+          newUser: {
+            username: '',
+            password: '',
+            role: 'user',
+            error: false
+          },
           isUserEditOpen: false
         };
       case 'deleteUser':
@@ -1176,6 +1203,22 @@ function App() {
       case 'openMemberAdd':
         return {
           ...state,
+          newMember: {
+            type: '',
+            name: '',
+            mobile: '',
+            email: '',
+            date: '',
+            month: '',
+            year: '',
+            dateDeath: '',
+            monthDeath: '',
+            yearDeath: '',
+            isAlive: 'alive',
+            gender: 'M',
+            village: '',
+            gotra: ''
+          },
           memberToBeAdded: action.member,
           memberToBeDisplayed: '',
           memberToBeEdited: '',
@@ -1184,6 +1227,22 @@ function App() {
       case 'closeMemberAdd':
         return {
           ...state,
+          newMember: {
+            type: '',
+            name: '',
+            mobile: '',
+            email: '',
+            date: '',
+            month: '',
+            year: '',
+            dateDeath: '',
+            monthDeath: '',
+            yearDeath: '',
+            isAlive: 'alive',
+            gender: 'M',
+            village: '',
+            gotra: ''
+          },
           memberToBeDisplayed: '',
           memberToBeAdded: '',
           memberToBeEdited: '',
@@ -1209,6 +1268,7 @@ function App() {
             isAlive: action.member.isAlive ? 'alive' : 'dead',
             email: action.member.email && action.member.email.length ? action.member.email.toString().replaceAll(',', ', ') : ''
           },
+          memberToBeEdited: action.member,
           isMemberEditOpen: true
         };
       case 'closeMemberEdit':
@@ -1235,12 +1295,11 @@ function App() {
           isMemberEditOpen: false
         };
       case 'addMember':
-        const updatedMembersPostAddMember = state.members.map(member => addMember(member, state.member.id, action.member, action.memberType))
+        const updatedMembersPostAddMember = state.members.map(member => addMember(member, state.memberToBeAdded.id, action.member, action.memberType))
         setMembers(updatedMembersPostAddMember);
         return {
           ...state,
           members: updatedMembersPostAddMember,
-          memberToBeDisplayed: '',
           memberToBeAdded: '',
           memberToBeEdited: '',
           isMemberAddOpen: false,
@@ -1279,13 +1338,53 @@ function App() {
       return {
         ...state,
         members: updatedMembersPostDeleteMember,
-        isMemberDisplayOpen: false,
         memberToBeDisplayed: '',
         memberToBeAdded: '',
         memberToBeEdited: '',
+        isMemberDisplayOpen: false,
         isMemberAddOpen: false,
         isMemberEditOpen: false
       };
+      case 'editInputNewMember':
+        return {
+          ...state,
+          newMember: {
+            ...state.newMember,
+            [action.attribute]: action.value
+          }
+        };
+      case 'editInputNewUser':
+        return {
+          ...state,
+          newUser: {
+            ...state.newUser,
+            [action.attribute]: action.value
+          }
+        };
+        case 'openAddNewUser': {
+          return {
+            ...state,
+            newUser: {
+              username: '',
+              password: '',
+              role: 'user',
+              error: false
+            },
+            isUserAddOpen: true
+          };
+        }
+      case 'closeAddNewUser': {
+        return {
+          ...state,
+          newUser: {
+            username: '',
+            password: '',
+            role: 'user',
+            error: false
+          },
+          isUserAddOpen: false
+        };
+      }
       case 'input':
         return {
           ...state,
@@ -1320,6 +1419,28 @@ function App() {
               username: '',
               password: '',
               error: false
+            },
+            newUser: {
+              username: '',
+              password: '',
+              role: 'user',
+              error: false
+            },
+            newMember: {
+              type: '',
+              name: '',
+              mobile: '',
+              email: '',
+              date: '',
+              month: '',
+              year: '',
+              dateDeath: '',
+              monthDeath: '',
+              yearDeath: '',
+              isAlive: 'alive',
+              gender: 'M',
+              village: '',
+              gotra: ''
             },
             editInput: {
               id: '',
@@ -1369,6 +1490,28 @@ function App() {
             password: '',
             error: false
           },
+          newUser: {
+            username: '',
+            password: '',
+            role: 'user',
+            error: false
+          },
+          newMember: {
+            type: '',
+            name: '',
+            mobile: '',
+            email: '',
+            date: '',
+            month: '',
+            year: '',
+            dateDeath: '',
+            monthDeath: '',
+            yearDeath: '',
+            isAlive: 'alive',
+            gender: 'M',
+            village: '',
+            gotra: ''
+          },
           editInput: {
             id: '',
             name: '',
@@ -1388,6 +1531,7 @@ function App() {
           memberToBeDisplayed: '',
           memberToBeAdded: '',
           memberToBeEdited: '',
+          isUserAddOpen: false,
           isMemberDisplayOpen: false,
           isUserEditOpen: false,
           isMemberAddOpen: false,
@@ -1503,6 +1647,28 @@ function App() {
           password: '',
           error: false
         },
+        newUser: {
+          username: '',
+          password: '',
+          role: 'user',
+          error: false
+        },
+        newMember: {
+          type: '',
+          name: '',
+          mobile: '',
+          email: '',
+          date: '',
+          month: '',
+          year: '',
+          dateDeath: '',
+          monthDeath: '',
+          yearDeath: '',
+          isAlive: 'alive',
+          gender: 'M',
+          village: '',
+          gotra: ''
+        },
         editInput: {
           id: '',
           name: '',
@@ -1522,6 +1688,7 @@ function App() {
         memberToBeDisplayed: '',
         memberToBeAdded: '',
         memberToBeEdited: '',
+        isUserAddOpen: false,
         isMemberDisplayOpen: false,
         isUserEditOpen: false,
         isMemberAddOpen: false,

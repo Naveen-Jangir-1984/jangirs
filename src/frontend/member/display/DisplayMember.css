@@ -82,18 +82,22 @@
 
 .view-actions {
   display: flex;
-  justify-content: center;
-  column-gap: 20px;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 90%;
 }
 .view-actions button:first-child {
-  padding: 15px 35px;
+  padding: 15px 45px;
   background-color: lightgreen;
 	box-shadow: 5px 5px 10px 0 grey;
 }
+.view-actions button:nth-child(2) {
+  padding: 15px 45px;
+  background-color: lightskyblue;
+	box-shadow: 5px 5px 10px 0 grey;
+}
 .view-actions button:last-child {
-  padding: 15px 35px;
+  padding: 15px 45px;
   background-color: lightcoral;
 	box-shadow: 5px 5px 10px 0 grey;
 }
