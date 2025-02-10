@@ -1242,7 +1242,6 @@ function App() {
             village: '',
             gotra: ''
           },
-          memberToBeDisplayed: '',
           memberToBeAdded: '',
           memberToBeEdited: '',
           isMemberAddOpen: false,
@@ -1291,6 +1290,7 @@ function App() {
           },
           memberToBeAdded: '',
           memberToBeEdited: '',
+          isMemberAddOpen: false,
           isMemberEditOpen: false
         };
       case 'addMember':
