@@ -6,7 +6,7 @@
 	transform: translate(-50%, -50%);
 	width: 100%;
 	height: 100%;
-	background-color: rgba(255, 255, 255, 0.95);
+	background-color: rgba(250, 250, 250, 0.95);
 	border-radius: 5px;
 	justify-content: center;
 	align-items: center;
@@ -27,7 +27,7 @@
   font-size: 10px;
   padding: 3px;
   border-radius: 5px;
-  width: 70%;
+  width: 65%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -41,13 +41,8 @@
 
 .edit-member .view input, .edit-member .view select {
 	width: 100%;
-	height: 50px;
+	height: 47px;
 	background-color: #eee;
-	box-shadow: 0 0 0 1px lightgrey;
-}
-.edit-member .view select:focus {
-  outline: none;
-	box-shadow: 0 0 0 1px lightgrey;
 }
 .edit-member .view input, .edit-member .view select, .edit-member .view option {
   font-size: 16px;
@@ -56,15 +51,13 @@
 .edit-member .view button {
 	font-size: 14px;
 	width: 100%;
-	height: 50px;
+	height: 47px;
 	background-color: lightskyblue;
-	box-shadow: 0 0 0 1px lightgrey;
 }
 .edit-member .view input:disabled,
 .edit-member .view select:disabled,
 .edit-member .view button:disabled {
-	color: grey;
-	background-color: #edd;
+	color: #aaa;
 }
 
 .edit-member .view .dob, .edit-member .view .dod {

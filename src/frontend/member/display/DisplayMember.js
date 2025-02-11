@@ -38,11 +38,14 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
       return age;
     }
   }
+  const handleAddMember = async () => {
+    dispatch({type: 'openMemberAdd', member: state.memberToBeDisplayed});
+  }
   const handleEditMember = async () => {
     dispatch({type: 'openMemberEdit', member: state.memberToBeDisplayed});
   }
   const handleDeleteMember = async (id) => {
-    const consent = window.confirm('Are you sure you want to delete this member?');
+    const consent = window.confirm(state.user.language ? 'Are you sure you want to delete the member?' : 'क्या आप वाकई सदस्य को हटाना चाहते हैं?');
     if (consent) {
       const response = await fetch(`${URL}:${PORT}/deleteMember`, {
       method: 'post',
@@ -58,7 +61,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     <div className='details' style={{ display: state.isMemberDisplayOpen ? 'flex' : 'none', filter: state.isMemberEditOpen ? 'blur(20px)' : 'none' }}>
       <img src={CloseIcon} alt='close' className='close' onClick={() => dispatch({type: 'closeMemberDisplay'})} />
       <div className='view'>
-        <img style={{boxShadow: state.memberToBeDisplayed.isAlive ? '0 0 50px 5px lightgreen' : '0 0 50px 5px #f55'}} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === 'M' ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} />
+        <img style={{boxShadow: state.memberToBeDisplayed.isAlive ? '0 0 50px lightgreen' : '0 0 50px #f55'}} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === 'M' ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} />
         <div className='info'>
           <div>{state.user.language ? state.memberToBeDisplayed.name : getHindiText(state.memberToBeDisplayed.name, 'name')} {memberDOB && state.user.language ? <sup>Age: {getAge(memberDOB ? memberDOB : '', memberDOD ? memberDOD : '')}</sup> : memberDOB && !state.user.language ? <sup>उम्र: {getHindiNumbers(getAge(memberDOB ? memberDOB : '', memberDOD ? memberDOD : '').toString())}</sup> : ''}</div>
           {memberDOB && !state.user.language ? 
@@ -92,8 +95,9 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
             <span className='view-email'>{memberEmails.map((email, i) => <a key={i} href={`mailto: ${email}`} onClick={(e) => e.stopPropagation()}>{email}</a>)}</span>
           </div> : ''}
           <div className='view-actions'>
-            {state.user.role === 'admin' ? <button onClick={() => handleEditMember()}>UPDATE</button> : ''}
-            {state.user.role === 'admin' ? <button onClick={() => handleDeleteMember(state.memberToBeDisplayed.id)}>DELETE</button> : ''}
+            {state.user.role === 'admin' && state.memberToBeDisplayed.gender === 'M' ? <button onClick={() => handleAddMember()}>{state.user.language ? 'ADD_MEMBER' : 'सदस्य_जोड़ें'}</button> : ''}
+            {state.user.role === 'admin' ? <button onClick={() => handleEditMember()}>{state.user.language ? 'UPDATE' : 'नवीनीकरण'}</button> : ''}
+            {state.user.role === 'admin' ? <button onClick={() => handleDeleteMember(state.memberToBeDisplayed.id)}>{state.user.language ? 'DELETE' : 'हटाएँ'}</button> : ''}
           </div>
         </div>
       </div>

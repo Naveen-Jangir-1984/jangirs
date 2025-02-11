@@ -17,7 +17,7 @@ const EditMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
     years.push(i);
   }
   const handleEditMember = async () => {
-    const consent = window.confirm('Are you sure you want to edit this member?');
+    const consent = window.confirm(state.user.language ? 'Are you sure you want to update the member?' : 'क्या आप वाकई सदस्य का नवीनीकरण करना चाहते हैं?');
     if(consent) {
       const mobileNumbers = [];
       const mobiles = state.editInput.mobile !== '' ? state.editInput.mobile.replaceAll(' ', '').split(',') : [];
@@ -42,7 +42,7 @@ const EditMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
       body: JSON.stringify({ member: person, village: state.village })})
       const data = await response.json();
       if (data.result === 'success') {
-        dispatch({type: 'editMember', member: person});   
+        dispatch({type: 'editMember', member: person});
       }
     }
   }
@@ -94,7 +94,7 @@ const EditMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
         <input type='text' name='village' value={state.editInput.village} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder={state.user.language ? 'Village' : 'गाँव'} />
         {state.editInput.gender === 'F' ? <input type='text' name='gotra' value={state.editInput.gotra} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder={state.user.language ? 'Gotra' : 'गोत्र'} /> : ''}
         <input type='email' name='email' value={state.editInput.email} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder={state.user.language ? 'Email' : 'ईमेल'} />
-        <button onClick={() => handleEditMember()}>{state.user.language ? 'UPDATE' : 'अपडेट'}</button>
+        <button onClick={() => handleEditMember()}>{state.user.language ? 'UPDATE' : 'नवीनीकरण'}</button>
       </div>
     </div>
   );
