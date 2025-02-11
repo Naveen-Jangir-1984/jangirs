@@ -64,7 +64,7 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   //   e.stopPropagation();
   //   const consent = window.confirm('Are you sure you want to delete this member?');
   //   if (consent) {
-  //     const response = await fetch(`${URL}:${PORT}/deleteMember`, {
+  //     const response = await fetch(`${URL}/deleteMember`, {
   //     method: 'post',
   //     headers: { 'Content-Type': 'application/json' },
   //     body: JSON.stringify({ id: id, village: state.village })})

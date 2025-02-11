@@ -4,7 +4,7 @@ import AddIcon from '../../images/add.png';
 import MinusIcon from '../../images/minus.png';
 import './DisplayUsers.css';
 const URL = process.env.REACT_APP_API_URL;
-const PORT = process.env.REACT_APP_PORT;
+// const PORT = process.env.REACT_APP_PORT;
 
 const DisplayUsers = ({state, dispatch}) => {
 	const handleClose = () => {
@@ -13,7 +13,7 @@ const DisplayUsers = ({state, dispatch}) => {
 	const handleAddUser = async () => {
 		const consent = window.confirm(state.user.language ? 'Are you sure you want to add the user?' : 'क्या आप वाकई उपयोगकर्ता को जोड़ना चाहते हैं?');
 		if(consent) {
-			const response = await fetch(`${URL}:${PORT}/addNewUser`, {
+			const response = await fetch(`${URL}/addNewUser`, {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ username: state.newUser.username, password: state.newUser.password, role: state.newUser.role })})
@@ -28,7 +28,7 @@ const DisplayUsers = ({state, dispatch}) => {
 	const handleDeleteUser = async (username) => {
 		const consent = window.confirm(state.user.language ? 'Are you sure you want to delete the user?' : 'क्या आप वाकई उपयोगकर्ता को हटाना चाहते हैं?');
 		if (consent) {
-			const response = await fetch(`${URL}:${PORT}/deleteUser`, {
+			const response = await fetch(`${URL}/deleteUser`, {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ username: username })})

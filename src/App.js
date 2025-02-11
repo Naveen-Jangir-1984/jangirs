@@ -5,7 +5,7 @@ import './App.css';
 const SignIn = lazy(() => import("./frontend/signin/SignIn"));
 const Home = lazy(() => import("./frontend/home/Home"));
 const URL = process.env.REACT_APP_API_URL;
-const port = process.env.REACT_APP_PORT;
+// const port = process.env.REACT_APP_PORT;
 const secretKey = process.env.REACT_APP_SECRET_KEY;
 
 const decryptData = (encryptedData) => {
@@ -1614,7 +1614,7 @@ function App() {
   }
   const fetchData = async (user, village) => {
     try {
-      const response = await fetch(`${URL}:${port}/getData`);
+      const response = await fetch(`${URL}/getData`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }

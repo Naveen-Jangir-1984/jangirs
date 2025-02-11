@@ -7,7 +7,7 @@ import MobileIcon from '../../../images/mobile.jpg';
 import EmailIcon from '../../../images/email.png';
 import './DisplayMember.css';
 const URL = process.env.REACT_APP_API_URL;
-const PORT = process.env.REACT_APP_PORT;
+// const PORT = process.env.REACT_APP_PORT;
 
 const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   // calculate age
@@ -47,7 +47,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   const handleDeleteMember = async (id) => {
     const consent = window.confirm(state.user.language ? 'Are you sure you want to delete the member?' : 'क्या आप वाकई सदस्य को हटाना चाहते हैं?');
     if (consent) {
-      const response = await fetch(`${URL}:${PORT}/deleteMember`, {
+      const response = await fetch(`${URL}/deleteMember`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: id, village: state.village })})

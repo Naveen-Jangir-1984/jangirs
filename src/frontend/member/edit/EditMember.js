@@ -2,7 +2,7 @@
 import CloseIcon from '../../../images/close.png';
 import './EditMember.css';
 const URL = process.env.REACT_APP_API_URL;
-const PORT = process.env.REACT_APP_PORT;
+// const PORT = process.env.REACT_APP_PORT;
 
 const EditMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
   const dates = [];
@@ -36,7 +36,7 @@ const EditMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
         mobile: mobileNumbers,
         email: state.editInput.email !== '' ? state.editInput.email.replaceAll(' ', '').split(',') : [],
       }
-      const response = await fetch(`${URL}:${PORT}/editMember`, {
+      const response = await fetch(`${URL}/editMember`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ member: person, village: state.village })})

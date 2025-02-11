@@ -1,7 +1,7 @@
 import CloseIcon from '../../../images/close.png';
 import './AddMember.css';
 const URL = process.env.REACT_APP_API_URL;
-const PORT = process.env.REACT_APP_PORT;
+// const PORT = process.env.REACT_APP_PORT;
 
 const AddMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
   const dates = [];
@@ -53,7 +53,7 @@ const AddMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
             village: state.newMember.village
           }   
         }
-        const response = await fetch(`${URL}:${PORT}/addNewMember`, {
+        const response = await fetch(`${URL}/addNewMember`, {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ member: state.memberToBeAdded, newMember: person, type: state.newMember.type, village: state.village })})
@@ -79,7 +79,7 @@ const AddMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
           village: state.newMember.village,
           gotra: state.newMember.gotra,
         }
-        const response = await fetch(`${URL}:${PORT}/addNewMember`, {
+        const response = await fetch(`${URL}/addNewMember`, {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ member: state.memberToBeAdded, newMember: person, type: state.newMember.type, village: state.village })})
