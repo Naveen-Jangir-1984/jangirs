@@ -14,6 +14,7 @@ const decryptData = (encryptedData) => {
 }
 
 function App() {
+  const [isServerDown, setIsServerDown] = useState(true);
   const [images] = useState([
     { id: 11120, src: require('./images/11120.jpg') },
     { id: 1121, src: require('./images/1121.jpg') },
@@ -1615,9 +1616,6 @@ function App() {
   const fetchData = async (user, village) => {
     try {
       const response = await fetch(`${URL}/getData`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
       const data = await response.text();
       const db = decryptData(data);
       sessionStorage.setItem('appState', JSON.stringify({
@@ -1693,8 +1691,10 @@ function App() {
         isMemberAddOpen: false,
         isMemberEditOpen: false
       }));
+      setIsServerDown(false);
       dispatch({ type: 'fetch_success', initialState: db, user: user, village: village });
     } catch (error) {
+      setIsServerDown(true);
       dispatch({ type: 'fetch_error', initialState: {}, user: user });
     }
   };
@@ -1714,8 +1714,10 @@ function App() {
     sessionStorage.setItem('appState', JSON.stringify(state));
   }, [state]);
   const fallback = <div>{state.user && state.user.language ? 'Please wait...' : 'कृपया प्रतीक्षा करें...'}</div>;
+  const connecting = <div>Connecting to the server...</div>
   return (
     <div className="app">
+      { isServerDown ? connecting :
       <Suspense fallback={fallback}>
         {
           state.user ?
@@ -1728,7 +1730,7 @@ function App() {
           /> :
           <SignIn state={state} dispatch={dispatch} />
         }
-      </Suspense>
+      </Suspense> }
       <img className="bgd-image" src={BGDImage} alt="mata" />
     </div>
   );
