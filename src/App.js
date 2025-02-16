@@ -352,6 +352,7 @@ function App() {
   const [members, setMembers] = useState([]);
   const englishToHindi = {
     villages: {
+      "khaatiya-ki-dhani": "खातियाँ-की-ढाणी",
       tatija: "तातिजा",
       moruwa: "मोरुवा",
       bangothdi: "बनगोठड़ी",
