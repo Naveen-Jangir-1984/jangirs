@@ -1714,7 +1714,7 @@ function App() {
     sessionStorage.setItem('appState', JSON.stringify(state));
   }, [state]);
   const fallback = <div>{state.user && state.user.language ? 'Please wait...' : 'कृपया प्रतीक्षा करें...'}</div>;
-  const connecting = <div>Connecting to the server...</div>
+  const connecting = <div>{state.user && state.user.language ? 'Connecting to the server...' : 'सर्वर से जुड़ने का प्रयास हो रहा है...'}</div>
   return (
     <div className="app">
       { isServerDown ? connecting :
