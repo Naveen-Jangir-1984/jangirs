@@ -2758,7 +2758,20 @@
                                 {
                                   "id": 11212212,
                                   "name": "Amit",
-                                  "wives": [],
+                                  "wives": [
+                                    {
+                                      "id": 112122120,
+                                      "name": "Monika",
+                                      "mobile": [],
+                                      "email": [],
+                                      "dob": "",
+                                      "isAlive": true,
+                                      "dod": "",
+                                      "gender": "F",
+                                      "village": "Khaatiya-Ki-Dhani",
+                                      "gotra": "Choyal"
+                                    }
+                                  ],
                                   "children": [],
                                   "isAlive": true,
                                   "gender": "M",
@@ -2770,7 +2783,20 @@
                                   "mobile": [
                                     9414787818
                                   ],
-                                  "wives": [],
+                                  "wives": [
+                                    {
+                                      "id": 112122130,
+                                      "name": "Sunita",
+                                      "mobile": [],
+                                      "email": [],
+                                      "dob": "",
+                                      "isAlive": true,
+                                      "dod": "",
+                                      "gender": "F",
+                                      "village": "Khaatiya-Ki-Dhani",
+                                      "gotra": "Choyal"
+                                    }
+                                  ],
                                   "children": [],
                                   "isAlive": true,
                                   "gender": "M",
