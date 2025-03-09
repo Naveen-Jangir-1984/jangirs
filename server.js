@@ -1,5 +1,6 @@
 const CryptoJS = require("crypto-js");
 const express = require("express");
+const https = require("https");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const cors = require('cors');
@@ -10,6 +11,11 @@ app.use(bodyParser.json());
 require("dotenv").config();
 const port = process.env.REACT_APP_PORT;
 const secretKey = process.env.REACT_APP_SECRET_KEY;
+
+const options = {
+  key: fs.readFileSync("server.key"),
+  cert: fs.readFileSync("server.cert"),
+};
 
 const encryptData = (data) => {
   return CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
@@ -219,6 +225,42 @@ app.post('/deleteMember', (req, res) => {
   });
 });
 
+// ---------- WATSON ----------
+
+const resource = '/api/watson';
+app.get(`${resource}/data`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    const db = JSON.parse(data);
+    res.send(encryptData(db));
+  });
+});
+
+app.post(`${resource}/addFeedback`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const feedback = req.body.feedback;
+    db.posts = [feedback, ...db.posts];
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send({ result: 'failed' });
+      res.send({ result: 'success' });
+    });
+  });
+});
+
+// ---------- WATSON ----------
+
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`);
 });
+
+// https.createServer(options, app).listen(port, () => {
+//   console.log(`listening at https://localhost:${port}`);
+// });

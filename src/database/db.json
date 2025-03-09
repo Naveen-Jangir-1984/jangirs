@@ -47,10 +47,14 @@
                     {
                       "id": 11110,
                       "name": "",
+                      "mobile": [],
+                      "email": [],
+                      "dob": "",
                       "isAlive": false,
+                      "dod": "",
                       "gender": "F",
-                      "village": "Heerwa",
-                      "gotra": "Rajotia"
+                      "village": "",
+                      "gotra": ""
                     }
                   ],
                   "children": [
@@ -2402,7 +2406,13 @@
                                   "id": 11211142,
                                   "name": "Divya",
                                   "isAlive": true,
-                                  "gender": "F"
+                                  "gender": "F",
+                                  "dob": "",
+                                  "dod": "",
+                                  "village": "Nyaloth",
+                                  "gotra": "Jhuljhulia",
+                                  "email": [],
+                                  "mobile": []
                                 },
                                 {
                                   "id": 11211143,
@@ -2628,7 +2638,15 @@
                               ],
                               "isAlive": true,
                               "gender": "M",
-                              "isCollapsed": true
+                              "isCollapsed": true,
+                              "dob": "",
+                              "dod": "",
+                              "village": "",
+                              "gotra": "",
+                              "email": [],
+                              "mobile": [
+                                8854894591
+                              ]
                             },
                             {
                               "id": 1121213,
@@ -2775,7 +2793,15 @@
                                   "children": [],
                                   "isAlive": true,
                                   "gender": "M",
-                                  "isCollapsed": true
+                                  "isCollapsed": true,
+                                  "dob": "",
+                                  "dod": "",
+                                  "village": "",
+                                  "gotra": "",
+                                  "email": [],
+                                  "mobile": [
+                                    8441961033
+                                  ]
                                 },
                                 {
                                   "id": 11212213,

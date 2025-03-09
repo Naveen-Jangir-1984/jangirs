@@ -1,0 +1,187 @@
+{
+  "pages": [
+    {
+      "name": "Home",
+      "logo": "./images/home.jpg",
+      "isSelected": true
+    },
+    {
+      "name": "Vision & Mission",
+      "logo": "./images/vision.jpg",
+      "isSelected": false
+    },
+    {
+      "name": "Why Watson",
+      "logo": "./images/why.jpg",
+      "isSelected": false
+    },
+    {
+      "name": "Courses",
+      "logo": "./images/courses.jpg",
+      "isSelected": false
+    },
+    {
+      "name": "Teachers",
+      "logo": "./images/teachers.jpg",
+      "isSelected": false
+    },
+    {
+      "name": "Admissions",
+      "logo": "./images/admissions.jpg",
+      "isSelected": false
+    },
+    {
+      "name": "Contact",
+      "logo": "./images/contact.jpg",
+      "isSelected": false
+    }
+  ],
+  "homePageLinks": [
+    {
+      "name": "Professional Developement",
+      "logo": "./images/Home/pd.jpg",
+      "isSelected": false
+    },
+    {
+      "name": "Alternate Education",
+      "logo": "./images/Home/ae.jpg",
+      "isSelected": false
+    }
+  ],
+  "instructions": [
+    {
+      "name": "Parent Instruction",
+      "logo": "./images/Watson/pp.jpg",
+      "isSelected": false
+    },
+    {
+      "name": "Student Instruction",
+      "logo": "./images/Watson/si.jpg",
+      "isSelected": false
+    }
+  ],
+  "footerLinks": [
+    {
+      "name": "Director",
+      "isSelected": false
+    },
+    {
+      "name": "Student Zone",
+      "isSelected": false
+    },
+    {
+      "name": "Report",
+      "isSelected": false
+    },
+    {
+      "name": "Parents",
+      "isSelected": false
+    },
+    {
+      "name": "Image Gallery",
+      "isSelected": false
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "title": "Watson Academy Aspirants",
+      "content": "We are excited to announce that our CRASH COURSE for NEET program will commence on 12th March and will run for 50 days.",
+      "bullet1": "Regular classes (Physics, Chemistry and Biology)",
+      "bullet2": "Alternate day mock tests (25 mock tests in total)",
+      "bullet3": "00-hour revision classes covering the entire syllabus",
+      "bullet4": "",
+      "bullet5": "",
+      "contact": "This is a crucial period for your NEET preparation, and we urge every student to make the most of it. Our dedicated faculty and team are committed to supporting and guiding you to achieve your goals.",
+      "date": "27 Februray 2025"
+    }
+  ],
+  "selectedEvent": "",
+  "headlines": [
+    {
+      "id": 1,
+      "title": "Urgently Hiring for a Typist",
+      "content": "Watson Academy, Goa is looking for a skilled typist to join our team. Immediate joiners required.",
+      "bullet1": "Candidate should have Good typing speed and accuracy",
+      "bullet2": "Basic Computer knowledge",
+      "bullet3": "Attention to details",
+      "bullet4": "Prior experience preferred (not mandatory)",
+      "bullet5": "",
+      "contact": "Interested candidates, please contact us ASAP on 9767940053",
+      "date": "25 Februray 2025"
+    }
+  ],
+  "selectedHeadline": "",
+  "courses": [
+    {
+      "name": "Basic Courses",
+      "logo": "./images/Courses/basic.jpg",
+      "isSelected": false
+    },
+    {
+      "name": "Special Courses",
+      "logo": "./images/Courses/special.jpg",
+      "isSelected": false
+    }
+  ],
+  "posters": [
+    {
+      "id": 1,
+      "logo": "./images/Posters/image01.jpg",
+      "isSelected": false
+    },
+    {
+      "id": 2,
+      "logo": "./images/Posters/image02.jpg",
+      "isSelected": false
+    },
+    {
+      "id": 3,
+      "logo": "./images/Posters/image03.jpg",
+      "isSelected": false
+    },
+    {
+      "id": 4,
+      "logo": "./images/Posters/image04.jpg",
+      "isSelected": false
+    },
+    {
+      "id": 5,
+      "logo": "./images/Posters/image05.jpg",
+      "isSelected": false
+    }
+  ],
+  "displayPoster": {
+    "isOpen": false,
+    "images": [],
+    "element": null,
+    "scrollToPoster": null
+  },
+  "posts": [
+    {
+      "id": 3,
+      "message": "Watson provides excellent curriculam and integrated course structure which every student must roll out for.",
+      "by": "Rahul Vaidya (Class X)",
+      "date": "5 January 2025"
+    },
+    {
+      "id": 2,
+      "message": "It has been a please to be part of this academy which focuses on problems students are facing and resolve them upfront.",
+      "by": "Junaid Khan (Class XI)",
+      "date": "1 January 2025"
+    },
+    {
+      "id": 1,
+      "message": "Such a great faculty set up makes the students study effortless by explaining topics in depth.",
+      "by": "Pooja Kale (Class IX)",
+      "date": "25 December 2024"
+    }
+  ],
+  "selectedPost": "",
+  "enquires": [],
+  "banner": {
+    "isDisplayed": false,
+    "message": "",
+    "position": ""
+  }
+}

@@ -348,6 +348,8 @@ const App = () => {
     { id: 1111151, src: require('./images/1111151.jpg') },
     { id: 11213, src: require('./images/11213.jpg') },
     { id: 111111320, src: require('./images/111111320.jpg') },
+    { id: 112122120, src: require('./images/112122120.jpg') },
+    { id: 112122130, src: require('./images/112122130.jpg') },
   ]);
   const [members, setMembers] = useState([]);
   const englishToHindi = {
