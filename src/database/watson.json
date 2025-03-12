@@ -1,37 +1,68 @@
 {
   "pages": [
     {
+      "id": 1,
       "name": "Home",
       "logo": "./images/home.jpg",
       "isSelected": true
     },
     {
+      "id": 2,
       "name": "Vision & Mission",
       "logo": "./images/vision.jpg",
       "isSelected": false
     },
     {
+      "id": 3,
       "name": "Why Watson",
       "logo": "./images/why.jpg",
       "isSelected": false
     },
     {
+      "id": 4,
       "name": "Courses",
       "logo": "./images/courses.jpg",
       "isSelected": false
     },
     {
+      "id": 5,
       "name": "Teachers",
       "logo": "./images/teachers.jpg",
       "isSelected": false
     },
     {
+      "id": 6,
       "name": "Admissions",
       "logo": "./images/admissions.jpg",
       "isSelected": false
     },
     {
+      "id": 7,
       "name": "Contact",
+      "logo": "./images/contact.jpg",
+      "isSelected": false
+    },
+    {
+      "id": 11,
+      "name": "Director's Message",
+      "logo": "./images/contact.jpg",
+      "isSelected": false
+    },
+    {
+      "id": 21,
+      "name": "Time Table 8th - 10th",
+      "logo": "./images/contact.jpg",
+      "isSelected": false
+    },
+    {
+      "id": 22,
+      "name": "Time Table 11th - 12th",
+      "logo": "./images/contact.jpg",
+      "isSelected": false
+    },
+    {
+      "id": 23,
+      "name": "Meeting 4 PM - 7 PM",
       "logo": "./images/contact.jpg",
       "isSelected": false
     }
@@ -57,28 +88,6 @@
     {
       "name": "Student Instruction",
       "logo": "./images/Watson/si.jpg",
-      "isSelected": false
-    }
-  ],
-  "footerLinks": [
-    {
-      "name": "Director",
-      "isSelected": false
-    },
-    {
-      "name": "Student Zone",
-      "isSelected": false
-    },
-    {
-      "name": "Report",
-      "isSelected": false
-    },
-    {
-      "name": "Parents",
-      "isSelected": false
-    },
-    {
-      "name": "Image Gallery",
       "isSelected": false
     }
   ],
@@ -124,38 +133,35 @@
       "isSelected": false
     }
   ],
-  "posters": [
-    {
-      "id": 1,
-      "logo": "./images/Posters/image01.jpg",
-      "isSelected": false
-    },
-    {
-      "id": 2,
-      "logo": "./images/Posters/image02.jpg",
-      "isSelected": false
-    },
-    {
-      "id": 3,
-      "logo": "./images/Posters/image03.jpg",
-      "isSelected": false
-    },
-    {
-      "id": 4,
-      "logo": "./images/Posters/image04.jpg",
-      "isSelected": false
-    },
-    {
-      "id": 5,
-      "logo": "./images/Posters/image05.jpg",
-      "isSelected": false
-    }
-  ],
-  "displayPoster": {
-    "isOpen": false,
-    "images": [],
-    "element": null,
-    "scrollToPoster": null
+  "posters": {
+    "isDisplayed": false,
+    "images": [
+      {
+        "id": 1,
+        "logo": "./images/Posters/image01.jpg",
+        "isSelected": false
+      },
+      {
+        "id": 2,
+        "logo": "./images/Posters/image02.jpg",
+        "isSelected": false
+      },
+      {
+        "id": 3,
+        "logo": "./images/Posters/image03.jpg",
+        "isSelected": false
+      },
+      {
+        "id": 4,
+        "logo": "./images/Posters/image04.jpg",
+        "isSelected": false
+      },
+      {
+        "id": 5,
+        "logo": "./images/Posters/image05.jpg",
+        "isSelected": false
+      }
+    ]
   },
   "posts": [
     {
@@ -178,10 +184,19 @@
     }
   ],
   "selectedPost": "",
-  "enquires": [],
+  "enquiries": [],
   "banner": {
     "isDisplayed": false,
     "message": "",
     "position": ""
-  }
+  },
+  "visitors": [
+    "103.197.74.220",
+    "42.104.220.97",
+    "103.197.75.163",
+    "203.99.214.80",
+    "152.59.11.123",
+    "103.197.75.12",
+    "103.197.75.167"
+  ]
 }

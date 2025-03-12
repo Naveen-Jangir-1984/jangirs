@@ -13,8 +13,8 @@ const port = process.env.REACT_APP_PORT;
 const secretKey = process.env.REACT_APP_SECRET_KEY;
 
 const options = {
-  key: fs.readFileSync("server.key"),
-  cert: fs.readFileSync("server.cert"),
+  key: fs.readFileSync("./server.key"),
+  cert: fs.readFileSync("./server.cert"),
 };
 
 const encryptData = (data) => {
@@ -235,6 +235,14 @@ app.get(`${resource}/data`, (req, res) => {
       return;
     }
     const db = JSON.parse(data);
+    const remoteAddress = req.socket.remoteAddress.split('::ffff:')[1];
+    if(!db.visitors.includes(remoteAddress)) {
+      db.visitors = [...db.visitors, remoteAddress];
+      fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+        if (err) res.send({ result: 'failed' });
+        // res.send({ result: 'success' });
+      });      
+    }
     res.send(encryptData(db));
   });
 });
@@ -248,6 +256,22 @@ app.post(`${resource}/addFeedback`, (req, res) => {
     db = JSON.parse(data);
     const feedback = req.body.feedback;
     db.posts = [feedback, ...db.posts];
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send({ result: 'failed' });
+      res.send({ result: 'success' });
+    });
+  });
+});
+
+app.post(`${resource}/addEnquiry`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const enquiry = req.body.enquiry;
+    db.enquiries = [enquiry, ...db.enquiries];
     fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
       if (err) res.send({ result: 'failed' });
       res.send({ result: 'success' });

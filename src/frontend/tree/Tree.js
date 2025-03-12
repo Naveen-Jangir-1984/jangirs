@@ -131,13 +131,15 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
           </div>
         </div>
         <div style={{display: member.isCollapsed ? 'none' : 'block'}}>
-          {member.gender === 'M' ? member.children?.map(child => displayMember(child, state.village === 'moruwa' ? depth + 7 : depth + 5)) : ''}
+          {/* {member.gender === 'M' ? member.children?.map(child => displayMember(child, state.village === 'moruwa' ? depth + 7 : depth + 5)) : ''} */}
+          {member.gender === 'M' ? member.children?.map(child => displayMember(child, depth + 5)) : ''}
         </div>
       </div>
     );
   }
   return (
-    <div className='tree'>{state.members.map(member => displayMember(member, state.village === 'moruwa' ? 3 : 0))}</div>
+    // <div className='tree'>{state.members.map(member => displayMember(member, state.village === 'moruwa' ? 3 : 0))}</div>
+    <div className='tree'>{state.members.map(member => displayMember(member, 0))}</div>
   );
 }
 

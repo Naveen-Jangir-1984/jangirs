@@ -3480,32 +3480,498 @@
                     {
                       "id": 211211111120,
                       "name": "",
+                      "mobile": [],
+                      "email": [],
+                      "dob": "",
                       "isAlive": false,
-                      "gender": "F"
+                      "dod": "",
+                      "gender": "F",
+                      "village": "",
+                      "gotra": ""
                     }
                   ],
                   "children": [
                     {
-                      "id": 1,
-                      "name": "Chetram",
-                      "wives": [
+                      "id": 211211111121,
+                      "name": "Nanad ram",
+                      "children": [
                         {
-                          "id": 10,
-                          "name": "",
+                          "id": 2112111111211,
+                          "name": "Ganga ram",
+                          "children": [
+                            {
+                              "id": 21121111112111,
+                              "name": "Rooga Ram",
+                              "children": [],
+                              "wives": [],
+                              "mobile": [],
+                              "email": [],
+                              "dob": "",
+                              "isAlive": false,
+                              "dod": "",
+                              "gender": "M",
+                              "village": "",
+                              "isCollapsed": false,
+                              "gotra": ""
+                            },
+                            {
+                              "id": 21121111112112,
+                              "name": "Harnarayan",
+                              "children": [],
+                              "wives": [],
+                              "mobile": [],
+                              "email": [],
+                              "dob": "",
+                              "isAlive": false,
+                              "dod": "",
+                              "gender": "M",
+                              "village": "",
+                              "isCollapsed": false
+                            },
+                            {
+                              "id": 21121111112113,
+                              "name": "Shobha ram",
+                              "children": [
+                                {
+                                  "id": 211211111121131,
+                                  "name": "Beerbal",
+                                  "children": [],
+                                  "wives": [],
+                                  "mobile": [],
+                                  "email": [],
+                                  "dob": "",
+                                  "isAlive": false,
+                                  "dod": "",
+                                  "gender": "M",
+                                  "village": "",
+                                  "isCollapsed": false
+                                },
+                                {
+                                  "id": 211211111121132,
+                                  "name": "Bhoora ram",
+                                  "children": [],
+                                  "wives": [],
+                                  "mobile": [],
+                                  "email": [],
+                                  "dob": "",
+                                  "isAlive": false,
+                                  "dod": "",
+                                  "gender": "M",
+                                  "village": "",
+                                  "isCollapsed": false
+                                },
+                                {
+                                  "id": 211211111121133,
+                                  "name": "Harji",
+                                  "children": [],
+                                  "wives": [],
+                                  "mobile": [],
+                                  "email": [],
+                                  "dob": "",
+                                  "isAlive": false,
+                                  "dod": "",
+                                  "gender": "M",
+                                  "village": "",
+                                  "isCollapsed": false
+                                }
+                              ],
+                              "wives": [
+                                {
+                                  "id": 211211111121130,
+                                  "name": "",
+                                  "mobile": [],
+                                  "email": [],
+                                  "dob": "",
+                                  "isAlive": false,
+                                  "dod": "",
+                                  "gender": "F",
+                                  "village": "",
+                                  "gotra": ""
+                                }
+                              ],
+                              "mobile": [],
+                              "email": [],
+                              "dob": "",
+                              "isAlive": false,
+                              "dod": "",
+                              "gender": "M",
+                              "village": "",
+                              "isCollapsed": false
+                            }
+                          ],
+                          "wives": [
+                            {
+                              "id": 21121111112110,
+                              "name": "",
+                              "mobile": [],
+                              "email": [],
+                              "dob": "",
+                              "isAlive": false,
+                              "dod": "",
+                              "gender": "F",
+                              "village": "",
+                              "gotra": ""
+                            }
+                          ],
+                          "mobile": [],
+                          "email": [],
+                          "dob": "",
                           "isAlive": false,
-                          "gender": "M"
+                          "dod": "",
+                          "gender": "M",
+                          "village": "",
+                          "isCollapsed": false
+                        },
+                        {
+                          "id": 2112111111212,
+                          "name": "Dhana ram",
+                          "children": [],
+                          "wives": [],
+                          "mobile": [],
+                          "email": [],
+                          "dob": "",
+                          "isAlive": false,
+                          "dod": "",
+                          "gender": "M",
+                          "village": "",
+                          "isCollapsed": false
+                        },
+                        {
+                          "id": 2112111111213,
+                          "name": "Kushala ram",
+                          "children": [
+                            {
+                              "id": 21121111112131,
+                              "name": "Isar",
+                              "children": [
+                                {
+                                  "id": 211211111121311,
+                                  "name": "Tek chand",
+                                  "children": [
+                                    {
+                                      "id": 2112111111213111,
+                                      "name": "Shyonarayan",
+                                      "children": [],
+                                      "wives": [],
+                                      "mobile": [],
+                                      "email": [],
+                                      "dob": "",
+                                      "isAlive": false,
+                                      "dod": "",
+                                      "gender": "M",
+                                      "village": "",
+                                      "isCollapsed": false
+                                    },
+                                    {
+                                      "id": 2112111111213112,
+                                      "name": "Prem",
+                                      "children": [],
+                                      "wives": [],
+                                      "mobile": [],
+                                      "email": [],
+                                      "dob": "",
+                                      "isAlive": true,
+                                      "dod": "",
+                                      "gender": "M",
+                                      "village": "",
+                                      "isCollapsed": false
+                                    },
+                                    {
+                                      "id": 2112111111213113,
+                                      "name": "Gokul",
+                                      "children": [],
+                                      "wives": [],
+                                      "mobile": [],
+                                      "email": [],
+                                      "dob": "",
+                                      "isAlive": false,
+                                      "dod": "",
+                                      "gender": "M",
+                                      "village": "",
+                                      "isCollapsed": false
+                                    }
+                                  ],
+                                  "wives": [
+                                    {
+                                      "id": 2112111111213110,
+                                      "name": "",
+                                      "mobile": [],
+                                      "email": [],
+                                      "dob": "",
+                                      "isAlive": false,
+                                      "dod": "",
+                                      "gender": "F",
+                                      "village": "",
+                                      "gotra": ""
+                                    }
+                                  ],
+                                  "mobile": [],
+                                  "email": [],
+                                  "dob": "",
+                                  "isAlive": false,
+                                  "dod": "",
+                                  "gender": "M",
+                                  "village": "",
+                                  "isCollapsed": false
+                                }
+                              ],
+                              "wives": [
+                                {
+                                  "id": 211211111121310,
+                                  "name": "",
+                                  "mobile": [],
+                                  "email": [],
+                                  "dob": "",
+                                  "isAlive": false,
+                                  "dod": "",
+                                  "gender": "F",
+                                  "village": "",
+                                  "gotra": ""
+                                }
+                              ],
+                              "mobile": [],
+                              "email": [],
+                              "dob": "",
+                              "isAlive": false,
+                              "dod": "",
+                              "gender": "M",
+                              "village": "",
+                              "isCollapsed": false
+                            },
+                            {
+                              "id": 21121111112132,
+                              "name": "Dalshukh",
+                              "children": [
+                                {
+                                  "id": 211211111121321,
+                                  "name": "Shanehi",
+                                  "children": [],
+                                  "wives": [],
+                                  "mobile": [],
+                                  "email": [],
+                                  "dob": "",
+                                  "isAlive": false,
+                                  "dod": "",
+                                  "gender": "M",
+                                  "village": "",
+                                  "isCollapsed": false
+                                },
+                                {
+                                  "id": 211211111121322,
+                                  "name": "Kaloo ram",
+                                  "children": [
+                                    {
+                                      "id": 2112111111213221,
+                                      "name": "Choth mal",
+                                      "children": [
+                                        {
+                                          "id": 21121111112132210,
+                                          "name": "Radhe shyam",
+                                          "children": [],
+                                          "wives": [],
+                                          "mobile": [
+                                            9950485275
+                                          ],
+                                          "email": [],
+                                          "dob": "",
+                                          "isAlive": true,
+                                          "dod": "",
+                                          "gender": "M",
+                                          "village": "",
+                                          "isCollapsed": false
+                                        }
+                                      ],
+                                      "wives": [
+                                        {
+                                          "id": 21121111112132210,
+                                          "name": "",
+                                          "mobile": [],
+                                          "email": [],
+                                          "dob": "",
+                                          "isAlive": true,
+                                          "dod": "",
+                                          "gender": "F",
+                                          "village": "",
+                                          "gotra": ""
+                                        }
+                                      ],
+                                      "mobile": [],
+                                      "email": [],
+                                      "dob": "",
+                                      "isAlive": true,
+                                      "dod": "",
+                                      "gender": "M",
+                                      "village": "",
+                                      "isCollapsed": false
+                                    }
+                                  ],
+                                  "wives": [
+                                    {
+                                      "id": 2112111111213220,
+                                      "name": "",
+                                      "mobile": [],
+                                      "email": [],
+                                      "dob": "",
+                                      "isAlive": false,
+                                      "dod": "",
+                                      "gender": "F",
+                                      "village": "",
+                                      "gotra": ""
+                                    }
+                                  ],
+                                  "mobile": [],
+                                  "email": [],
+                                  "dob": "",
+                                  "isAlive": false,
+                                  "dod": "",
+                                  "gender": "M",
+                                  "village": "",
+                                  "isCollapsed": false,
+                                  "gotra": ""
+                                },
+                                {
+                                  "id": 211211111121323,
+                                  "name": "Mohar singh",
+                                  "children": [],
+                                  "wives": [],
+                                  "mobile": [],
+                                  "email": [],
+                                  "dob": "",
+                                  "isAlive": false,
+                                  "dod": "",
+                                  "gender": "M",
+                                  "village": "",
+                                  "isCollapsed": false
+                                }
+                              ],
+                              "wives": [
+                                {
+                                  "id": 211211111121320,
+                                  "name": "",
+                                  "mobile": [],
+                                  "email": [],
+                                  "dob": "",
+                                  "isAlive": false,
+                                  "dod": "",
+                                  "gender": "F",
+                                  "village": "",
+                                  "gotra": ""
+                                }
+                              ],
+                              "mobile": [],
+                              "email": [],
+                              "dob": "",
+                              "isAlive": false,
+                              "dod": "",
+                              "gender": "M",
+                              "village": "",
+                              "isCollapsed": false
+                            }
+                          ],
+                          "wives": [
+                            {
+                              "id": 21121111112130,
+                              "name": "",
+                              "mobile": [],
+                              "email": [],
+                              "dob": "",
+                              "isAlive": false,
+                              "dod": "",
+                              "gender": "F",
+                              "village": "",
+                              "gotra": ""
+                            }
+                          ],
+                          "mobile": [],
+                          "email": [],
+                          "dob": "",
+                          "isAlive": false,
+                          "dod": "",
+                          "gender": "M",
+                          "village": "",
+                          "isCollapsed": false
                         }
                       ],
-                      "children": [],
-                      "gender": "M",
-                      "village": "Dulania",
+                      "wives": [
+                        {
+                          "id": 2112111111210,
+                          "name": "",
+                          "mobile": [],
+                          "email": [],
+                          "dob": "",
+                          "isAlive": false,
+                          "dod": "",
+                          "gender": "F",
+                          "village": "",
+                          "gotra": ""
+                        }
+                      ],
+                      "mobile": [],
+                      "email": [],
+                      "dob": "",
                       "isAlive": false,
-                      "isCollapsed": true
+                      "dod": "",
+                      "gender": "M",
+                      "village": "",
+                      "isCollapsed": false
+                    },
+                    {
+                      "id": 211211111122,
+                      "name": "Dakhan",
+                      "mobile": [],
+                      "email": [],
+                      "dob": "",
+                      "isAlive": true,
+                      "dod": "",
+                      "gender": "F",
+                      "village": ""
+                    },
+                    {
+                      "id": 211211111123,
+                      "name": "Hukmi",
+                      "children": [],
+                      "wives": [],
+                      "mobile": [],
+                      "email": [],
+                      "dob": "",
+                      "isAlive": false,
+                      "dod": "",
+                      "gender": "M",
+                      "village": "",
+                      "isCollapsed": false
                     }
                   ],
                   "gender": "M",
                   "isAlive": false,
                   "isCollapsed": true
+                },
+                {
+                  "id": 21121111113,
+                  "name": "Chetram",
+                  "children": [],
+                  "wives": [
+                    {
+                      "id": 211211111130,
+                      "name": "",
+                      "mobile": [],
+                      "email": [],
+                      "dob": "",
+                      "isAlive": false,
+                      "dod": "",
+                      "gender": "F",
+                      "village": "",
+                      "gotra": ""
+                    }
+                  ],
+                  "mobile": [],
+                  "email": [],
+                  "dob": "",
+                  "isAlive": false,
+                  "dod": "",
+                  "gender": "M",
+                  "village": "",
+                  "isCollapsed": false,
+                  "gotra": ""
                 }
               ],
               "isAlive": false,
