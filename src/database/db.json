@@ -3768,7 +3768,20 @@
                                           "id": 21121111112132210,
                                           "name": "Radhe shyam",
                                           "children": [],
-                                          "wives": [],
+                                          "wives": [
+                                            {
+                                              "id": 211211111121322080,
+                                              "name": "",
+                                              "mobile": [],
+                                              "email": [],
+                                              "dob": "",
+                                              "isAlive": true,
+                                              "dod": "",
+                                              "gender": "F",
+                                              "village": "",
+                                              "gotra": ""
+                                            }
+                                          ],
                                           "mobile": [
                                             9950485275
                                           ],

@@ -190,6 +190,29 @@
     "message": "",
     "position": ""
   },
+  "users": [
+    {
+      "mobile": "8412011412",
+      "email": "monu.bits@gmail.com",
+      "firstname": "Naveen",
+      "lastname": "Jangir",
+      "password": "1111"
+    },
+    {
+      "mobile": "9860950561",
+      "email": "sonuv002@gmail.com",
+      "firstname": "Ravindra",
+      "lastname": "Jangir",
+      "password": "2222"
+    },
+    {
+      "mobile": "9784461021",
+      "email": "bsjangir@gmail.com",
+      "firstname": "Bahadur Singh",
+      "lastname": "Jangir",
+      "password": "3333"
+    }
+  ],
   "visitors": [
     "103.197.74.220",
     "42.104.220.97",
@@ -197,6 +220,9 @@
     "203.99.214.80",
     "152.59.11.123",
     "103.197.75.12",
-    "103.197.75.167"
+    "103.197.75.167",
+    "152.59.11.10",
+    "172.225.186.6",
+    "152.59.10.123"
   ]
 }

@@ -350,6 +350,7 @@ const App = () => {
     { id: 111111320, src: require('./images/111111320.jpg') },
     { id: 112122120, src: require('./images/112122120.jpg') },
     { id: 112122130, src: require('./images/112122130.jpg') },
+    // { id: 211211111121322080, src: require('./images/211211111121322080.jpg') },
   ]);
   const [members, setMembers] = useState([]);
   const englishToHindi = {
@@ -1364,18 +1365,18 @@ const App = () => {
             [action.attribute]: action.value
           }
         };
-        case 'openAddNewUser': {
-          return {
-            ...state,
-            newUser: {
-              username: '',
-              password: '',
-              role: 'user',
-              error: false
-            },
-            isUserAddOpen: true
-          };
-        }
+      case 'openAddNewUser': {
+        return {
+          ...state,
+          newUser: {
+            username: '',
+            password: '',
+            role: 'user',
+            error: false
+          },
+          isUserAddOpen: true
+        };
+      };
       case 'closeAddNewUser': {
         return {
           ...state,
@@ -1387,7 +1388,7 @@ const App = () => {
           },
           isUserAddOpen: false
         };
-      }
+      };
       case 'input':
         return {
           ...state,

@@ -21,6 +21,11 @@ const encryptData = (data) => {
   return CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
 }
 
+const decryptData = (encryptedData) => {
+  const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+  return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+}
+
 const addMember = (tree, id, member, type) => {
   if (!tree) return null;
   if (tree.id === id && type === 'child') {
@@ -255,7 +260,55 @@ app.post(`${resource}/addFeedback`, (req, res) => {
     }
     db = JSON.parse(data);
     const feedback = req.body.feedback;
-    db.posts = [feedback, ...db.posts];
+    db.posts = [decryptData(feedback), ...db.posts];
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
+    });
+  });
+});
+
+app.post(`${resource}/deleteFeedback`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const id = req.body.id;
+    db.posts = db.posts.filter(post => post.id !== id);
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send({ result: 'failed' });
+      res.send({ result: 'success' });
+    });
+  });
+});
+
+app.post(`${resource}/deleteEvent`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const id = req.body.id;
+    db.events = db.events.filter(event => event.id !== id);
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send({ result: 'failed' });
+      res.send({ result: 'success' });
+    });
+  });
+});
+
+app.post(`${resource}/deleteHeadline`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const id = req.body.id;
+    db.headlines = db.headlines.filter(headline => headline.id !== id);
     fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
       if (err) res.send({ result: 'failed' });
       res.send({ result: 'success' });
@@ -271,10 +324,10 @@ app.post(`${resource}/addEnquiry`, (req, res) => {
     }
     db = JSON.parse(data);
     const enquiry = req.body.enquiry;
-    db.enquiries = [enquiry, ...db.enquiries];
+    db.enquiries = [decryptData(enquiry), ...db.enquiries];
     fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
-      if (err) res.send({ result: 'failed' });
-      res.send({ result: 'success' });
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
     });
   });
 });
