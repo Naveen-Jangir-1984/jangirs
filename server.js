@@ -1,5 +1,6 @@
 const CryptoJS = require("crypto-js");
 const express = require("express");
+const https = require("https");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const cors = require('cors');
@@ -11,8 +12,18 @@ require("dotenv").config();
 const port = process.env.REACT_APP_PORT;
 const secretKey = process.env.REACT_APP_SECRET_KEY;
 
+const options = {
+  key: fs.readFileSync("./server.key"),
+  cert: fs.readFileSync("./server.cert"),
+};
+
 const encryptData = (data) => {
   return CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
+}
+
+const decryptData = (encryptedData) => {
+  const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+  return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 }
 
 const addMember = (tree, id, member, type) => {
@@ -219,6 +230,114 @@ app.post('/deleteMember', (req, res) => {
   });
 });
 
+// ---------- WATSON ----------
+
+const resource = '/api/watson';
+app.get(`${resource}/data`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    const db = JSON.parse(data);
+    const remoteAddress = req.socket.remoteAddress.split('::ffff:')[1];
+    if(!db.visitors.includes(remoteAddress)) {
+      db.visitors = [...db.visitors, remoteAddress];
+      fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+        if (err) res.send({ result: 'failed' });
+        // res.send({ result: 'success' });
+      });      
+    }
+    res.send(encryptData(db));
+  });
+});
+
+app.post(`${resource}/addFeedback`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const feedback = req.body.feedback;
+    db.posts = [decryptData(feedback), ...db.posts];
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
+    });
+  });
+});
+
+app.post(`${resource}/deleteFeedback`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const id = req.body.id;
+    db.posts = db.posts.filter(post => post.id !== id);
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send({ result: 'failed' });
+      res.send({ result: 'success' });
+    });
+  });
+});
+
+app.post(`${resource}/deleteEvent`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const id = req.body.id;
+    db.events = db.events.filter(event => event.id !== id);
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send({ result: 'failed' });
+      res.send({ result: 'success' });
+    });
+  });
+});
+
+app.post(`${resource}/deleteHeadline`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const id = req.body.id;
+    db.headlines = db.headlines.filter(headline => headline.id !== id);
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send({ result: 'failed' });
+      res.send({ result: 'success' });
+    });
+  });
+});
+
+app.post(`${resource}/addEnquiry`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const enquiry = req.body.enquiry;
+    db.enquiries = [decryptData(enquiry), ...db.enquiries];
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
+    });
+  });
+});
+
+// ---------- WATSON ----------
+
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`);
 });
+
+// https.createServer(options, app).listen(port, () => {
+//   console.log(`listening at https://localhost:${port}`);
+// });
