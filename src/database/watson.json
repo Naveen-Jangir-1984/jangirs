@@ -3,91 +3,91 @@
     {
       "id": 1,
       "name": "Home",
-      "logo": "./images/home.jpg",
+      "logo": "/images/home.jpg",
       "isSelected": true
     },
     {
       "id": 2,
       "name": "Vision & Mission",
-      "logo": "./images/vision.jpg",
+      "logo": "/images/vision.jpg",
       "isSelected": false
     },
     {
       "id": 3,
       "name": "Why Watson",
-      "logo": "./images/why.jpg",
+      "logo": "/images/why.jpg",
       "isSelected": false
     },
     {
       "id": 4,
       "name": "Courses",
-      "logo": "./images/courses.jpg",
+      "logo": "/images/courses.jpg",
       "isSelected": false
     },
     {
       "id": 5,
       "name": "Teachers",
-      "logo": "./images/teachers.jpg",
+      "logo": "/images/teachers.jpg",
       "isSelected": false
     },
     {
       "id": 6,
       "name": "Admissions",
-      "logo": "./images/admissions.jpg",
+      "logo": "/images/admissions.jpg",
       "isSelected": false
     },
     {
       "id": 7,
       "name": "Contact",
-      "logo": "./images/contact.jpg",
+      "logo": "/images/contact.jpg",
       "isSelected": false
     },
     {
       "id": 11,
       "name": "Director's Message",
-      "logo": "./images/contact.jpg",
+      "logo": "/images/contact.jpg",
       "isSelected": false
     },
     {
       "id": 21,
       "name": "Time Table 8th - 10th",
-      "logo": "./images/contact.jpg",
+      "logo": "/images/contact.jpg",
       "isSelected": false
     },
     {
       "id": 22,
       "name": "Time Table 11th - 12th",
-      "logo": "./images/contact.jpg",
+      "logo": "/images/contact.jpg",
       "isSelected": false
     },
     {
       "id": 23,
       "name": "Meeting 4 PM - 7 PM",
-      "logo": "./images/contact.jpg",
+      "logo": "/images/contact.jpg",
       "isSelected": false
     }
   ],
   "homePageLinks": [
     {
       "name": "Professional Developement",
-      "logo": "./images/Home/pd.jpg",
+      "logo": "/images/Home/pd.jpg",
       "isSelected": false
     },
     {
       "name": "Alternate Education",
-      "logo": "./images/Home/ae.jpg",
+      "logo": "/images/Home/ae.jpg",
       "isSelected": false
     }
   ],
   "instructions": [
     {
       "name": "Parent Instruction",
-      "logo": "./images/Watson/pp.jpg",
+      "logo": "/images/Watson/pp.jpg",
       "isSelected": false
     },
     {
       "name": "Student Instruction",
-      "logo": "./images/Watson/si.jpg",
+      "logo": "/images/Watson/si.jpg",
       "isSelected": false
     }
   ],
@@ -124,12 +124,12 @@
   "courses": [
     {
       "name": "Basic Courses",
-      "logo": "./images/Courses/basic.jpg",
+      "logo": "/images/Courses/basic.jpg",
       "isSelected": false
     },
     {
       "name": "Special Courses",
-      "logo": "./images/Courses/special.jpg",
+      "logo": "/images/Courses/special.jpg",
       "isSelected": false
     }
   ],
@@ -137,28 +137,28 @@
     "isDisplayed": false,
     "images": [
       {
-        "id": 1,
-        "logo": "./images/Posters/image01.jpg",
-        "isSelected": false
-      },
-      {
-        "id": 2,
-        "logo": "./images/Posters/image02.jpg",
-        "isSelected": false
-      },
-      {
-        "id": 3,
-        "logo": "./images/Posters/image03.jpg",
+        "id": 5,
+        "logo": "/images/Posters/image5.jpg",
         "isSelected": false
       },
       {
         "id": 4,
-        "logo": "./images/Posters/image04.jpg",
+        "logo": "/images/Posters/image4.jpg",
         "isSelected": false
       },
       {
-        "id": 5,
-        "logo": "./images/Posters/image05.jpg",
+        "id": 3,
+        "logo": "/images/Posters/image3.jpg",
+        "isSelected": false
+      },
+      {
+        "id": 2,
+        "logo": "/images/Posters/image2.jpg",
+        "isSelected": false
+      },
+      {
+        "id": 1,
+        "logo": "/images/Posters/image1.jpg",
         "isSelected": false
       }
     ]
@@ -223,6 +223,16 @@
     "103.197.75.167",
     "152.59.11.10",
     "172.225.186.6",
-    "152.59.10.123"
+    "152.59.10.123",
+    "152.59.12.87",
+    "152.59.11.112",
+    "152.59.11.194",
+    "152.59.11.96",
+    "103.197.75.212",
+    "42.104.222.26",
+    "42.104.222.50",
+    "42.104.222.101",
+    "42.104.222.6",
+    "42.104.224.40"
   ]
 }

@@ -1,5 +1,7 @@
 const CryptoJS = require("crypto-js");
 const express = require("express");
+const multer = require('multer');
+const path = require("path");
 const https = require("https");
 const bodyParser = require("body-parser");
 const fs = require("fs");
@@ -8,6 +10,10 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json({ limit: "50mb" })); // Increase JSON payload limit
+app.use(express.urlencoded({ limit: "50mb", extended: true })); // Increase URL-encoded payload limit
+app.use("/images", express.static(path.join(__dirname, "public/images")));
+
 require("dotenv").config();
 const port = process.env.REACT_APP_PORT;
 const secretKey = process.env.REACT_APP_SECRET_KEY;
@@ -284,6 +290,22 @@ app.post(`${resource}/deleteFeedback`, (req, res) => {
   });
 });
 
+app.post(`${resource}/addEvent`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const event = req.body.event;
+    db.events = [decryptData(event), ...db.events];
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
+    });
+  });
+});
+
 app.post(`${resource}/deleteEvent`, (req, res) => {
   fs.readFile("./src/database/watson.json", (err, data) => {
     if (err) {
@@ -296,6 +318,22 @@ app.post(`${resource}/deleteEvent`, (req, res) => {
     fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
       if (err) res.send({ result: 'failed' });
       res.send({ result: 'success' });
+    });
+  });
+});
+
+app.post(`${resource}/addHeadline`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const headline = req.body.headline;
+    db.headlines = [decryptData(headline), ...db.headlines];
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
     });
   });
 });
@@ -325,6 +363,91 @@ app.post(`${resource}/addEnquiry`, (req, res) => {
     db = JSON.parse(data);
     const enquiry = req.body.enquiry;
     db.enquiries = [decryptData(enquiry), ...db.enquiries];
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
+    });
+  });
+});
+
+// Configure Multer
+const storage = multer.diskStorage({
+  destination: "public/images/Posters",
+  filename: (req, file, cb) => {
+    const folderPath = path.join(__dirname, "public/images/Posters");
+
+    fs.readdir(folderPath, (err, files) => {
+      if (err) {
+        console.error("Error reading directory:", err);
+        return cb(err);
+      }
+
+      const fileIds = files.filter(file => {
+        if(file.startsWith('image')) {
+          return file.split('.')[0].substring(5);
+        }
+      });
+      let randomId = Math.floor(Math.random() * 1000) + 1;
+      while(fileIds.includes(randomId)) {
+        randomId = Math.floor(Math.random() * 1000) + 1;
+      };
+      const extension = path.extname(file.originalname);
+      const fileName = `image${randomId}${extension}`;
+
+      cb(null, fileName);
+    });
+  },
+});
+const upload = multer({ storage, limits: { fileSize: 50 * 1024 * 1024 } });
+
+app.post(`${resource}/addPoster`, upload.single('file'), (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    
+    db = JSON.parse(data);
+    const filename = req.file.filename;
+    const id = Number(filename.split('.')[0].substring(5));
+    const newPoster = {
+      id: id,
+      logo: `/images/Posters/${filename}`,
+      isSelected: false
+    };
+    db.posters.images = [newPoster, ...db.posters.images];
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
+    });
+  });
+});
+
+app.post(`${resource}/deletePoster`, (req, res) => {
+  const folderPath = path.join(__dirname, "public/images/Posters");
+  fs.readdir(folderPath, (err, files) => {
+    if (err) {
+      console.error("Error reading directory:", err);
+      return res.status(500).json({ error: "Failed to read directory" });
+    }
+    const id = decryptData(req.body.id);
+    const fileToDelete = files.find((file) => file.startsWith(`image${id}`));
+    const filePath = path.join(folderPath, fileToDelete);
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error("Error deleting file:", err);
+        return res.status(500).json({ error: "Failed to delete file" });
+      }
+    });
+  });
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    const id = decryptData(req.body.id);
+    db = JSON.parse(data);
+    db.posters.images = db.posters.images.filter(image => image.id !== id);
     fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
       if (err) res.send(encryptData({ result: 'failed' }));
       res.send(encryptData({ result: 'success' }));
