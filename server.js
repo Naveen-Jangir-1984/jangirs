@@ -19,18 +19,18 @@ const port = process.env.REACT_APP_PORT;
 const secretKey = process.env.REACT_APP_SECRET_KEY;
 
 const options = {
-  key: fs.readFileSync("./server.key"),
-  cert: fs.readFileSync("./server.cert"),
+  key: fs.readFileSync("./test.key"),
+  cert: fs.readFileSync("./test.crt"),
 };
 
 const encryptData = (data) => {
   return CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
-}
+};
 
 const decryptData = (encryptedData) => {
   const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
   return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-}
+};
 
 const addMember = (tree, id, member, type) => {
   if (!tree) return null;
@@ -52,7 +52,7 @@ const addMember = (tree, id, member, type) => {
   }
   tree.children?.forEach(child => addMember(child, id, member, type));
   return tree;
-}
+};
 
 const editMember = (tree, member) => {
   if (!tree) return null;
@@ -238,6 +238,23 @@ app.post('/deleteMember', (req, res) => {
 
 // ---------- WATSON ----------
 
+app.get("/events", (req, res) => {
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Connection", "keep-alive");
+
+  setInterval(() => {
+    fs.readFile("./src/database/watson.json", (err, data) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      const db = JSON.parse(data);
+      res.write(`data: ${encryptData(db.enquiries)}\n\n`);
+    });
+  }, 5000);
+});
+
 const resource = '/api/watson';
 app.get(`${resource}/data`, (req, res) => {
   fs.readFile("./src/database/watson.json", (err, data) => {
@@ -370,6 +387,84 @@ app.post(`${resource}/addEnquiry`, (req, res) => {
   });
 });
 
+app.post(`${resource}/resetEnquiry`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    db.enquiries.map(enquiry => {
+      enquiry.status = 'read'
+      return enquiry;
+    });
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
+    });
+  });
+});
+
+app.post(`${resource}/updateTimeTable`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const timetable = decryptData(req.body.timetable);
+    db.timetables.forEach(tt => {
+      if(tt.id === timetable.id) {
+        tt.standard = timetable.standard;
+        tt.hours = timetable.hours;
+        tt.start = timetable.start;
+        tt.startHour = timetable.startHour;
+        tt.end = timetable.end;
+        tt.endHour = timetable.endHour;
+        tt.subjects = timetable.subjects
+      }
+      return timetable;
+    });
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
+    });
+  });
+});
+
+app.post(`${resource}/addTimeTable`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const index = decryptData(req.body.index);
+    const timetable = decryptData(req.body.timetable);
+    db.timetables = [...db.timetables.slice(0, index), timetable, ...db.timetables.slice(index)];
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
+    });
+  });
+});
+
+app.post(`${resource}/deleteTimeTable`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const id = decryptData(req.body.id);
+    db.timetables = db.timetables.filter(timetable => timetable.id !== id);
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
+    });
+  });
+});
+
 // Configure Multer
 const storage = multer.diskStorage({
   destination: "public/images/Posters",
@@ -457,10 +552,10 @@ app.post(`${resource}/deletePoster`, (req, res) => {
 
 // ---------- WATSON ----------
 
-app.listen(port, () => {
-  console.log(`listening at http://localhost:${port}`);
-});
-
-// https.createServer(options, app).listen(port, () => {
-//   console.log(`listening at https://localhost:${port}`);
+// app.listen(port, () => {
+//   console.log(`listening at http://localhost:${port}`);
 // });
+
+https.createServer(options, app).listen(port, () => {
+  console.log(`listening at https://localhost:${port}`);
+});

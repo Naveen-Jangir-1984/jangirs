@@ -49,45 +49,51 @@
       "isSelected": false
     },
     {
-      "id": 21,
-      "name": "Time Table 8th - 10th",
-      "logo": "/images/contact.jpg",
-      "isSelected": false
-    },
-    {
-      "id": 22,
-      "name": "Time Table 11th - 12th",
-      "logo": "/images/contact.jpg",
-      "isSelected": false
-    },
-    {
-      "id": 23,
-      "name": "Meeting 4 PM - 7 PM",
-      "logo": "/images/contact.jpg",
-      "isSelected": false
-    }
-  ],
-  "homePageLinks": [
-    {
+      "id": 12,
       "name": "Professional Developement",
       "logo": "/images/Home/pd.jpg",
       "isSelected": false
     },
     {
+      "id": 13,
       "name": "Alternate Education",
       "logo": "/images/Home/ae.jpg",
       "isSelected": false
-    }
-  ],
-  "instructions": [
+    },
     {
+      "id": 14,
       "name": "Parent Instruction",
       "logo": "/images/Watson/pp.jpg",
       "isSelected": false
     },
     {
+      "id": 15,
       "name": "Student Instruction",
       "logo": "/images/Watson/si.jpg",
+      "isSelected": false
+    },
+    {
+      "id": 21,
+      "name": "Time Table 6th - 7th",
+      "logo": "/images/contact.jpg",
+      "isSelected": false
+    },
+    {
+      "id": 22,
+      "name": "Time Table 8th - 10th",
+      "logo": "/images/contact.jpg",
+      "isSelected": false
+    },
+    {
+      "id": 23,
+      "name": "Time Table 11th - 12th",
+      "logo": "/images/contact.jpg",
+      "isSelected": false
+    },
+    {
+      "id": 24,
+      "name": "Meeting 4 PM - 7 PM",
+      "logo": "/images/contact.jpg",
       "isSelected": false
     }
   ],
@@ -107,6 +113,18 @@
   ],
   "selectedEvent": "",
   "headlines": [
+    {
+      "id": 913,
+      "title": "Admissions are NOW OPEN",
+      "content": "Admissions are NOW OPEN for classes 6th to 12th at Watson Academy!",
+      "bullet1": "Join us for the new session starting on 23rd March",
+      "bullet2": "Share with friends & family who may be interested",
+      "bullet3": "Don't miss this opportunity!",
+      "bullet4": "Register now and secure your child's future!",
+      "bullet5": "",
+      "contact": "Contact us: 9834443445/ 9767940053",
+      "date": "16 March 2025"
+    },
     {
       "id": 1,
       "title": "Urgently Hiring for a Typist",
@@ -137,8 +155,8 @@
     "isDisplayed": false,
     "images": [
       {
-        "id": 5,
-        "logo": "/images/Posters/image5.jpg",
+        "id": 443,
+        "logo": "/images/Posters/image443.jpg",
         "isSelected": false
       },
       {
@@ -185,6 +203,295 @@
   ],
   "selectedPost": "",
   "enquiries": [],
+  "classes": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "subjects": [
+    {
+      "code": "BIO",
+      "name": "Biology"
+    },
+    {
+      "code": "CHE",
+      "name": "Chemistry"
+    },
+    {
+      "code": "MAT",
+      "name": "Maths"
+    },
+    {
+      "code": "PHY",
+      "name": "Physics"
+    },
+    {
+      "code": "SCI",
+      "name": "Science"
+    },
+    {
+      "code": "C + T",
+      "name": "Class + Test"
+    }
+  ],
+  "timetables": [
+    {
+      "id": 1,
+      "standard": 6,
+      "hours": "5:00 PM - 6:00 PM",
+      "start": "17",
+      "startHour": "00",
+      "end": "18",
+      "endHour": "00",
+      "subjects": [
+        "MAT",
+        "MAT",
+        "MAT",
+        "MAT",
+        "MAT",
+        "MAT",
+        "C + T"
+      ]
+    },
+    {
+      "id": 2,
+      "standard": 6,
+      "hours": "6:00 PM - 7:00 PM",
+      "start": "18",
+      "startHour": "00",
+      "end": "19",
+      "endHour": "00",
+      "subjects": [
+        "SCI",
+        "SCI",
+        "SCI",
+        "SCI",
+        "SCI",
+        "SCI",
+        "C + T"
+      ]
+    },
+    {
+      "id": 3,
+      "standard": 7,
+      "hours": "5:00 PM - 6:00 PM",
+      "start": "17",
+      "startHour": "00",
+      "end": "18",
+      "endHour": "00",
+      "subjects": [
+        "MAT",
+        "MAT",
+        "MAT",
+        "MAT",
+        "MAT",
+        "MAT",
+        "C + T"
+      ]
+    },
+    {
+      "id": 4,
+      "standard": 7,
+      "hours": "6:00 PM - 7:00 PM",
+      "start": "18",
+      "startHour": "00",
+      "end": "19",
+      "endHour": "00",
+      "subjects": [
+        "BIO",
+        "CHE",
+        "PHY",
+        "BIO",
+        "CHE",
+        "PHY",
+        "C + T"
+      ]
+    },
+    {
+      "id": 5,
+      "standard": 8,
+      "hours": "5:00 PM - 6:00 PM",
+      "start": "17",
+      "startHour": "00",
+      "end": "18",
+      "endHour": "00",
+      "subjects": [
+        "MAT",
+        "MAT",
+        "MAT",
+        "MAT",
+        "MAT",
+        "MAT",
+        "C + T"
+      ]
+    },
+    {
+      "id": 6,
+      "standard": 8,
+      "hours": "6:00 PM - 7:00 PM",
+      "start": "18",
+      "startHour": "00",
+      "end": "19",
+      "endHour": "00",
+      "subjects": [
+        "SCI",
+        "SCI",
+        "SCI",
+        "SCI",
+        "SCI",
+        "SCI",
+        "C + T"
+      ]
+    },
+    {
+      "id": 7,
+      "standard": 9,
+      "hours": "5:00 PM - 6:00 PM",
+      "start": "17",
+      "startHour": "00",
+      "end": "18",
+      "endHour": "00",
+      "subjects": [
+        "MAT",
+        "MAT",
+        "MAT",
+        "MAT",
+        "MAT",
+        "MAT",
+        "C + T"
+      ]
+    },
+    {
+      "id": 8,
+      "standard": 9,
+      "hours": "6:00 PM - 7:00 PM",
+      "start": "18",
+      "startHour": "00",
+      "end": "19",
+      "endHour": "00",
+      "subjects": [
+        "BIO",
+        "CHE",
+        "PHY",
+        "BIO",
+        "CHE",
+        "PHY",
+        "C + T"
+      ]
+    },
+    {
+      "id": 9,
+      "standard": 10,
+      "hours": "6:00 PM - 7:00 PM",
+      "start": "18",
+      "startHour": "00",
+      "end": "19",
+      "endHour": "00",
+      "subjects": [
+        "BIO",
+        "BIO",
+        "CHE",
+        "CHE",
+        "PHY",
+        "PHY",
+        "C + T"
+      ]
+    },
+    {
+      "id": 10,
+      "standard": 10,
+      "hours": "6:00 PM - 7:00 PM",
+      "start": "18",
+      "startHour": "00",
+      "end": "19",
+      "endHour": "00",
+      "subjects": [
+        "MAT",
+        "MAT",
+        "MAT",
+        "MAT",
+        "MAT",
+        "MAT",
+        "C + T"
+      ]
+    },
+    {
+      "id": 11,
+      "standard": 11,
+      "hours": "6:00 AM - 7:00 AM",
+      "start": "06",
+      "startHour": "00",
+      "end": "07",
+      "endHour": "00",
+      "subjects": [
+        "PHY",
+        "CHE",
+        "PHY",
+        "CHE",
+        "PHY",
+        "CHE",
+        "C + T"
+      ]
+    },
+    {
+      "id": 12,
+      "standard": 11,
+      "hours": "5:00 PM - 7:30 PM",
+      "start": "17",
+      "startHour": "00",
+      "end": "19",
+      "endHour": "30",
+      "subjects": [
+        "MAT",
+        "BIO",
+        "MAT",
+        "BIO",
+        "MAT",
+        "BIO",
+        "C + T"
+      ]
+    },
+    {
+      "id": 13,
+      "standard": 12,
+      "hours": "6:00 AM - 7:00 AM",
+      "start": "06",
+      "startHour": "00",
+      "end": "07",
+      "endHour": "00",
+      "subjects": [
+        "PHY",
+        "CHE",
+        "PHY",
+        "CHE",
+        "PHY",
+        "CHE",
+        "C + T"
+      ]
+    },
+    {
+      "id": 14,
+      "standard": 12,
+      "hours": "5:00 PM - 7:30 PM",
+      "start": "17",
+      "startHour": "00",
+      "end": "19",
+      "endHour": "30",
+      "subjects": [
+        "BIO",
+        "MAT",
+        "BIO",
+        "MAT",
+        "BIO",
+        "MAT",
+        "C + T"
+      ]
+    }
+  ],
   "banner": {
     "isDisplayed": false,
     "message": "",
@@ -211,6 +518,13 @@
       "firstname": "Bahadur Singh",
       "lastname": "Jangir",
       "password": "3333"
+    },
+    {
+      "mobile": "9767940053",
+      "email": "neetujangir@gmail.com",
+      "firstname": "Neetu",
+      "lastname": "Jangir",
+      "password": "Wats0n@0053"
     }
   ],
   "visitors": [
@@ -233,6 +547,23 @@
     "42.104.222.50",
     "42.104.222.101",
     "42.104.222.6",
-    "42.104.224.40"
+    "42.104.224.40",
+    "10.1.1.74",
+    "10.1.11.149",
+    "10.1.0.10",
+    "42.104.222.12",
+    "42.104.222.252",
+    "10.1.11.144",
+    "10.1.11.132",
+    "152.59.12.147",
+    "49.15.234.10",
+    "42.104.220.121",
+    "49.15.231.46",
+    "43.249.184.81",
+    "42.107.86.35",
+    "42.107.86.16",
+    "103.197.75.178",
+    "43.249.184.165",
+    "42.104.227.237"
   ]
 }
