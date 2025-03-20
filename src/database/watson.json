@@ -99,6 +99,18 @@
   ],
   "events": [
     {
+      "id": 312,
+      "title": "Orientation Program 2025 - Goa Branch",
+      "content": "A Warm Welcome to Our New Academic Session! Date: 23rd March 2025 Time: 11 am Venue: Watson Academy",
+      "bullet1": "Study materials for the new session",
+      "bullet2": "Distribution of uniforms",
+      "bullet3": "Prospectus overview",
+      "bullet4": "Insights into our upcoming academic session",
+      "bullet5": "Meet our esteemed faculty members",
+      "contact": "WATSON ACADEMY",
+      "date": "19 March 2025"
+    },
+    {
       "id": 1,
       "title": "Watson Academy Aspirants",
       "content": "We are excited to announce that our CRASH COURSE for NEET program will commence on 12th March and will run for 50 days.",
@@ -146,59 +158,76 @@
       "isSelected": false
     },
     {
+      "name": "Silent Features",
+      "logo": "/images/Courses/silent.jpg",
+      "isSelected": false
+    },
+    {
       "name": "Special Courses",
       "logo": "/images/Courses/special.jpg",
       "isSelected": false
     }
   ],
-  "posters": {
-    "isDisplayed": false,
-    "images": [
-      {
-        "id": 443,
-        "logo": "/images/Posters/image443.jpg",
-        "isSelected": false
-      },
-      {
-        "id": 4,
-        "logo": "/images/Posters/image4.jpg",
-        "isSelected": false
-      },
-      {
-        "id": 3,
-        "logo": "/images/Posters/image3.jpg",
-        "isSelected": false
-      },
-      {
-        "id": 2,
-        "logo": "/images/Posters/image2.jpg",
-        "isSelected": false
-      },
-      {
-        "id": 1,
-        "logo": "/images/Posters/image1.jpg",
-        "isSelected": false
-      }
-    ]
-  },
-  "posts": [
+  "posters": [
+    {
+      "id": 82,
+      "logo": "/images/Posters/image82.jpg"
+    },
+    {
+      "id": 443,
+      "logo": "/images/Posters/image443.jpg"
+    },
+    {
+      "id": 4,
+      "logo": "/images/Posters/image4.jpg"
+    },
     {
       "id": 3,
-      "message": "Watson provides excellent curriculam and integrated course structure which every student must roll out for.",
-      "by": "Rahul Vaidya (Class X)",
-      "date": "5 January 2025"
+      "logo": "/images/Posters/image3.jpg"
     },
     {
       "id": 2,
-      "message": "It has been a please to be part of this academy which focuses on problems students are facing and resolve them upfront.",
-      "by": "Junaid Khan (Class XI)",
-      "date": "1 January 2025"
+      "logo": "/images/Posters/image2.jpg"
     },
     {
       "id": 1,
-      "message": "Such a great faculty set up makes the students study effortless by explaining topics in depth.",
-      "by": "Pooja Kale (Class IX)",
-      "date": "25 December 2024"
+      "logo": "/images/Posters/image1.jpg"
+    }
+  ],
+  "videos": [
+    {
+      "id": 2,
+      "logo": "/videos/video2.mp4"
+    },
+    {
+      "id": 1,
+      "logo": "/videos/video1.mp4"
+    }
+  ],
+  "posts": [
+    {
+      "id": 4,
+      "message": "Regular test and discussion improved me a lot.",
+      "by": "Ayush (Class XI)",
+      "date": "5 May 2024"
+    },
+    {
+      "id": 3,
+      "message": "Personal attension and 24*7 availability of faculties worked for me.",
+      "by": "Kirti (Class IX)",
+      "date": "1 January 2024"
+    },
+    {
+      "id": 2,
+      "message": "Watson made our parent active participant in our studies.",
+      "by": "Abhishek (Class XII)",
+      "date": "25 December 2023"
+    },
+    {
+      "id": 1,
+      "message": "Thanks to Watson Academy for making our journey simple with less Complication in Complicated Subject.",
+      "by": "Ankita & Chetna (Class XII)",
+      "date": "25 July 2022"
     }
   ],
   "selectedPost": "",
@@ -564,6 +593,13 @@
     "42.107.86.16",
     "103.197.75.178",
     "43.249.184.165",
-    "42.104.227.237"
+    "42.104.227.237",
+    "42.104.216.49",
+    "152.59.11.161",
+    "103.186.246.196",
+    "43.249.184.220",
+    "66.249.66.9",
+    "66.249.66.7",
+    "152.59.189.39"
   ]
 }

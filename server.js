@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 app.use(express.json({ limit: "50mb" })); // Increase JSON payload limit
 app.use(express.urlencoded({ limit: "50mb", extended: true })); // Increase URL-encoded payload limit
 app.use("/images", express.static(path.join(__dirname, "public/images")));
+app.use("/videos", express.static(path.join(__dirname, "public/videos")));
 
 require("dotenv").config();
 const port = process.env.REACT_APP_PORT;
@@ -250,9 +251,16 @@ app.get("/events", (req, res) => {
         return;
       }
       const db = JSON.parse(data);
-      res.write(`data: ${encryptData(db.enquiries)}\n\n`);
+      const feed = {
+        enquiries: db.enquiries,
+        posts: db.posts,
+        headlines: db.headlines,
+        events: db.events,
+        posters: db.posters
+      }
+      res.write(`data: ${encryptData(feed)}\n\n`);
     });
-  }, 5000);
+  }, 10000);
 });
 
 const resource = '/api/watson';
@@ -405,6 +413,22 @@ app.post(`${resource}/resetEnquiry`, (req, res) => {
   });
 });
 
+app.post(`${resource}/deleteEnquiry`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const id = decryptData(req.body.id);
+    db.enquiries = db.enquiries.filter(enquiry => enquiry.id !== id);
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
+    });
+  });
+});
+
 app.post(`${resource}/updateTimeTable`, (req, res) => {
   fs.readFile("./src/database/watson.json", (err, data) => {
     if (err) {
@@ -510,7 +534,7 @@ app.post(`${resource}/addPoster`, upload.single('file'), (req, res) => {
       logo: `/images/Posters/${filename}`,
       isSelected: false
     };
-    db.posters.images = [newPoster, ...db.posters.images];
+    db.posters = [newPoster, ...db.posters];
     fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
       if (err) res.send(encryptData({ result: 'failed' }));
       res.send(encryptData({ result: 'success' }));
@@ -542,7 +566,7 @@ app.post(`${resource}/deletePoster`, (req, res) => {
     }
     const id = decryptData(req.body.id);
     db = JSON.parse(data);
-    db.posters.images = db.posters.images.filter(image => image.id !== id);
+    db.posters = db.posters.filter(poster => poster.id !== id);
     fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
       if (err) res.send(encryptData({ result: 'failed' }));
       res.send(encryptData({ result: 'success' }));
