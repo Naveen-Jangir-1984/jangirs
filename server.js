@@ -257,7 +257,8 @@ app.get("/events", (req, res) => {
         headlines: db.headlines,
         events: db.events,
         posters: db.posters,
-        videos: db.videos
+        videos: db.videos,
+        users: db.users
       }
       res.write(`data: ${encryptData(feed)}\n\n`);
     });
@@ -397,7 +398,7 @@ app.post(`${resource}/addEnquiry`, (req, res) => {
 });
 
 app.post(`${resource}/resetEnquiry`, (req, res) => {
-  fs.readFile("./src/database/watson.json", (err, data) => {
+  fs.readFile(c, (err, data) => {
     if (err) {
       console.error(err);
       return;
@@ -501,9 +502,9 @@ const createFolder = (folder) => {
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (file.mimetype.startsWith("image/")) {
-      folder = "uploads/images/Posters";
+      folder = "public/images/Posters";
     } else if (file.mimetype.startsWith("video/")) {
-      folder = "uploads/videos";
+      folder = "public/videos";
     }
     createFolder(folder);
     cb(null, folder);
@@ -511,27 +512,46 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     const folderPathFile = path.join(__dirname, "public/images/Posters");
     const folderPathVideo = path.join(__dirname, "public/videos");
-
-    fs.readdir(folderPathFile, (err, files) => {
-      if (err) {
-        console.error("Error reading directory:", err);
-        return cb(err);
-      }
-      const fileIds = files.filter(file => {
-        if(file.startsWith('image')) {
-          return file.split('.')[0].substring(5);
+    if(file.mimetype.startsWith('image/')) {
+      fs.readdir(folderPathFile, (err, files) => {
+        if (err) {
+          console.error("Error reading directory:", err);
+          return cb(err);
         }
+        const fileIds = files.filter(file => {
+          if(file.startsWith('image')) {
+            return file.split('.')[0].substring(5);
+          }
+        });
+        let randomId = Math.floor(Math.random() * 1000) + 1;
+        while(fileIds.includes(randomId)) {
+          randomId = Math.floor(Math.random() * 1000) + 1;
+        };
+        const extension = path.extname(file.originalname);
+        const fileName = `image${randomId}${extension}`;
+        cb(null, fileName);
       });
-      let randomId = Math.floor(Math.random() * 1000) + 1;
-      while(fileIds.includes(randomId)) {
-        randomId = Math.floor(Math.random() * 1000) + 1;
-      };
-      const extension = path.extname(file.originalname);
-      const fileName = `image${randomId}${extension}`;
-
-      cb(null, fileName);
-    });
-},
+    } else if(file.mimetype.startsWith('video/')) {
+      fs.readdir(folderPathVideo, (err, files) => {
+        if (err) {
+          console.error("Error reading directory:", err);
+          return cb(err);
+        }
+        const fileIds = files.filter(file => {
+          if(file.startsWith('video')) {
+            return file.split('.')[0].substring(5);
+          }
+        });
+        let randomId = Math.floor(Math.random() * 1000) + 1;
+        while(fileIds.includes(randomId)) {
+          randomId = Math.floor(Math.random() * 1000) + 1;
+        };
+        const extension = path.extname(file.originalname);
+        const fileName = `video${randomId}${extension}`;
+        cb(null, fileName);
+      });
+    }
+  },
 });
 const upload = multer({ storage, limits: { fileSize: 50 * 1024 * 1024 } });
 
@@ -636,6 +656,22 @@ app.post(`${resource}/deleteVideo`, (req, res) => {
     const id = decryptData(req.body.id);
     db = JSON.parse(data);
     db.videos = db.videos.filter(video => video.id !== id);
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
+    });
+  });
+});
+
+app.post(`${resource}/addUser`, (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = JSON.parse(data);
+    const user = decryptData(req.body.user);
+    db.users = [...db.users, user];
     fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
       if (err) res.send(encryptData({ result: 'failed' }));
       res.send(encryptData({ result: 'success' }));
