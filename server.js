@@ -256,7 +256,8 @@ app.get("/events", (req, res) => {
         posts: db.posts,
         headlines: db.headlines,
         events: db.events,
-        posters: db.posters
+        posters: db.posters,
+        videos: db.videos
       }
       res.write(`data: ${encryptData(feed)}\n\n`);
     });
@@ -489,18 +490,33 @@ app.post(`${resource}/deleteTimeTable`, (req, res) => {
   });
 });
 
+// Ensure upload directories exist
+const createFolder = (folder) => {
+  if (!fs.existsSync(folder)) {
+    fs.mkdirSync(folder, { recursive: true });
+  }
+};
+
 // Configure Multer
 const storage = multer.diskStorage({
-  destination: "public/images/Posters",
+  destination: (req, file, cb) => {
+    if (file.mimetype.startsWith("image/")) {
+      folder = "uploads/images/Posters";
+    } else if (file.mimetype.startsWith("video/")) {
+      folder = "uploads/videos";
+    }
+    createFolder(folder);
+    cb(null, folder);
+  },
   filename: (req, file, cb) => {
-    const folderPath = path.join(__dirname, "public/images/Posters");
+    const folderPathFile = path.join(__dirname, "public/images/Posters");
+    const folderPathVideo = path.join(__dirname, "public/videos");
 
-    fs.readdir(folderPath, (err, files) => {
+    fs.readdir(folderPathFile, (err, files) => {
       if (err) {
         console.error("Error reading directory:", err);
         return cb(err);
       }
-
       const fileIds = files.filter(file => {
         if(file.startsWith('image')) {
           return file.split('.')[0].substring(5);
@@ -515,7 +531,7 @@ const storage = multer.diskStorage({
 
       cb(null, fileName);
     });
-  },
+},
 });
 const upload = multer({ storage, limits: { fileSize: 50 * 1024 * 1024 } });
 
@@ -532,7 +548,6 @@ app.post(`${resource}/addPoster`, upload.single('file'), (req, res) => {
     const newPoster = {
       id: id,
       logo: `/images/Posters/${filename}`,
-      isSelected: false
     };
     db.posters = [newPoster, ...db.posters];
     fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
@@ -567,6 +582,60 @@ app.post(`${resource}/deletePoster`, (req, res) => {
     const id = decryptData(req.body.id);
     db = JSON.parse(data);
     db.posters = db.posters.filter(poster => poster.id !== id);
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
+    });
+  });
+});
+
+app.post(`${resource}/addVideo`, upload.single('file'), (req, res) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    
+    db = JSON.parse(data);
+    const filename = req.file.filename;
+    const id = Number(filename.split('.')[0].substring(5));
+    const newVideo = {
+      id: id,
+      logo: `/videos/${filename}`,
+    };
+    db.videos = [newVideo, ...db.videos];
+    fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
+      if (err) res.send(encryptData({ result: 'failed' }));
+      res.send(encryptData({ result: 'success' }));
+    });
+  });
+});
+
+app.post(`${resource}/deleteVideo`, (req, res) => {
+  const folderPath = path.join(__dirname, "public/videos");
+  fs.readdir(folderPath, (err, files) => {
+    if (err) {
+      console.error("Error reading directory:", err);
+      return res.status(500).json({ error: "Failed to read directory" });
+    }
+    const id = decryptData(req.body.id);
+    const fileToDelete = files.find((file) => file.startsWith(`video${id}`));
+    const filePath = path.join(folderPath, fileToDelete);
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error("Error deleting file:", err);
+        return res.status(500).json({ error: "Failed to delete file" });
+      }
+    });
+  });
+  fs.readFile("./src/database/watson.json", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    const id = decryptData(req.body.id);
+    db = JSON.parse(data);
+    db.videos = db.videos.filter(video => video.id !== id);
     fs.writeFile("./src/database/watson.json", JSON.stringify(db, null, 2), (err) => {
       if (err) res.send(encryptData({ result: 'failed' }));
       res.send(encryptData({ result: 'success' }));

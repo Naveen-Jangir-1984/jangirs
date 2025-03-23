@@ -168,6 +168,38 @@
       "isSelected": false
     }
   ],
+  "photos": [
+    {
+      "id": 82,
+      "logo": "/images/Posters/image82.jpg",
+      "name": "EVENT 1"
+    },
+    {
+      "id": 443,
+      "logo": "/images/Posters/image443.jpg",
+      "name": "EVENT 1"
+    },
+    {
+      "id": 4,
+      "logo": "/images/Posters/image4.jpg",
+      "name": "EVENT 1"
+    },
+    {
+      "id": 3,
+      "logo": "/images/Posters/image3.jpg",
+      "name": "EVENT 2"
+    },
+    {
+      "id": 2,
+      "logo": "/images/Posters/image2.jpg",
+      "name": "EVENT 2"
+    },
+    {
+      "id": 1,
+      "logo": "/images/Posters/image1.jpg",
+      "name": "EVENT 2"
+    }
+  ],
   "posters": [
     {
       "id": 82,
@@ -196,32 +228,78 @@
   ],
   "videos": [
     {
+      "id": 674,
+      "logo": "/videos/video674.mp4"
+    },
+    {
       "id": 2,
       "logo": "/videos/video2.mp4"
     },
     {
       "id": 1,
-      "logo": "/videos/video1.mp4"
+      "logo": "/videos/video3.mp4"
     }
   ],
   "posts": [
     {
-      "id": 4,
+      "id": 11,
       "message": "Regular test and discussion improved me a lot.",
       "by": "Ayush (Class XI)",
       "date": "5 May 2024"
     },
     {
-      "id": 3,
+      "id": 10,
+      "message": "Watson made our parent active participant in our studies.",
+      "by": "Abhishek (Class XII)",
+      "date": "25 April 2024"
+    },
+    {
+      "id": 9,
       "message": "Personal attension and 24*7 availability of faculties worked for me.",
       "by": "Kirti (Class IX)",
+      "date": "17 Februray 2024"
+    },
+    {
+      "id": 8,
+      "message": "We Got everything we asked for. Thank you Watson.",
+      "by": "Rohini (Class XII)",
+      "date": "13 Februray 2024"
+    },
+    {
+      "id": 7,
+      "message": "I never came across a doubt i unsolved for more than 1 year.",
+      "by": "Swati (Class XII)",
       "date": "1 January 2024"
     },
     {
+      "id": 6,
+      "message": "Teaching was such that we visualised everything in class.",
+      "by": "Sagarika (Class XII)",
+      "date": "1 November 2023"
+    },
+    {
+      "id": 5,
+      "message": "I own my success to my parents blessings and highly dedicated faculties of Watson.",
+      "by": "Vedang (Class XII)",
+      "date": "20 November 2023"
+    },
+    {
+      "id": 4,
+      "message": "Concept learning is better experience with Watson.",
+      "by": "Abhinav (Class XII)",
+      "date": "7 Auguest 2023"
+    },
+    {
+      "id": 3,
+      "message": "Guidence and support of Watson harnessed of me.",
+      "by": "Shubham (Class XII)",
+      "date": "30 Mar 2023"
+    },
+    {
       "id": 2,
-      "message": "Watson made our parent active participant in our studies.",
-      "by": "Abhishek (Class XII)",
-      "date": "25 December 2023"
+      "message": "Watson gave me world, me and my parents dreamt of.",
+      "by": "Akansha (Class XII)",
+      "date": "11 January 2023"
     },
     {
       "id": 1,
@@ -557,49 +635,10 @@
     }
   ],
   "visitors": [
-    "103.197.74.220",
-    "42.104.220.97",
-    "103.197.75.163",
-    "203.99.214.80",
-    "152.59.11.123",
-    "103.197.75.12",
-    "103.197.75.167",
-    "152.59.11.10",
-    "172.225.186.6",
-    "152.59.10.123",
-    "152.59.12.87",
-    "152.59.11.112",
-    "152.59.11.194",
-    "152.59.11.96",
-    "103.197.75.212",
-    "42.104.222.26",
-    "42.104.222.50",
-    "42.104.222.101",
-    "42.104.222.6",
-    "42.104.224.40",
-    "10.1.1.74",
-    "10.1.11.149",
-    "10.1.0.10",
-    "42.104.222.12",
-    "42.104.222.252",
+    "103.197.75.224",
     "10.1.11.144",
-    "10.1.11.132",
-    "152.59.12.147",
-    "49.15.234.10",
-    "42.104.220.121",
-    "49.15.231.46",
-    "43.249.184.81",
-    "42.107.86.35",
-    "42.107.86.16",
-    "103.197.75.178",
-    "43.249.184.165",
-    "42.104.227.237",
-    "42.104.216.49",
-    "152.59.11.161",
-    "103.186.246.196",
-    "43.249.184.220",
-    "66.249.66.9",
-    "66.249.66.7",
-    "152.59.189.39"
+    "103.197.74.213",
+    "10.1.1.74",
+    "42.104.228.162"
   ]
 }

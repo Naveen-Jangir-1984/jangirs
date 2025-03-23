@@ -468,7 +468,7 @@
                                   "children": [
                                     {
                                       "id": 111112121,
-                                      "name": "Baby Boy",
+                                      "name": "Hardik",
                                       "wives": [],
                                       "children": [],
                                       "dob": "15 January 2025",
@@ -477,7 +477,8 @@
                                       "village": "",
                                       "gotra": "",
                                       "email": [],
-                                      "mobile": []
+                                      "mobile": [],
+                                      "dod": ""
                                     }
                                   ],
                                   "isAlive": true,
