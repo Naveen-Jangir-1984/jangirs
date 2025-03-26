@@ -14,7 +14,7 @@ const decryptData = (encryptedData) => {
 }
 
 const App = () => {
-  const [isServerDown, setIsServerDown] = useState(true);
+  const [isServerDown, setIsServerDown] = useState('Connecting...');
   const [images] = useState([
     { id: 11120, src: require('./images/11120.jpg') },
     { id: 1121, src: require('./images/1121.jpg') },
@@ -1367,7 +1367,7 @@ const App = () => {
             [action.attribute]: action.value
           }
         };
-      case 'openAddNewUser': {
+      case 'openAddNewUser':
         return {
           ...state,
           newUser: {
@@ -1378,8 +1378,7 @@ const App = () => {
           },
           isUserAddOpen: true
         };
-      };
-      case 'closeAddNewUser': {
+      case 'closeAddNewUser':
         return {
           ...state,
           newUser: {
@@ -1390,7 +1389,6 @@ const App = () => {
           },
           isUserAddOpen: false
         };
-      };
       case 'input':
         return {
           ...state,
@@ -1697,10 +1695,10 @@ const App = () => {
         isMemberAddOpen: false,
         isMemberEditOpen: false
       }));
-      setIsServerDown(false);
+      setIsServerDown('');
       dispatch({ type: 'fetch_success', initialState: db, user: user, village: village });
     } catch (error) {
-      setIsServerDown(true);
+      setIsServerDown('Server down. Please try again later.');
       dispatch({ type: 'fetch_error', initialState: {}, user: user });
     }
   };
@@ -1719,12 +1717,12 @@ const App = () => {
   useEffect(() => {
     sessionStorage.setItem('appState', JSON.stringify(state));
   }, [state]);
-  const fallback = <div>{state.user && state.user.language ? 'Please wait...' : 'कृपया प्रतीक्षा करें...'}</div>;
-  const connecting = <div>{state.user && state.user.language ? 'Server is down...' : 'सर्वर डाउन है...'}</div>;
+  const info = <div style={{ padding: '1rem 2rem', borderRadius: '7px', backgroundColor: isServerDown === 'Connecting...' ? 'lightgreen' : 'lightpink' }}>{isServerDown}</div>;
   return (
     <div className="app">
-      { isServerDown ? connecting :
-      <Suspense fallback={fallback}>
+      { isServerDown !== '' ?
+      info :
+      <Suspense fallback={<div>Please wait...</div>}>
         {
           state.user ?
           <Home
