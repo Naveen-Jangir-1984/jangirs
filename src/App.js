@@ -1722,7 +1722,7 @@ const App = () => {
     <div className="app">
       { isServerDown !== '' ?
       info :
-      <Suspense fallback={<div>Please wait...</div>}>
+      <Suspense fallback={<div style={{ padding: '1rem 2rem', borderRadius: '7px', backgroundColor: 'lightgrey'}}>Please wait...</div>}>
         {
           state.user ?
           <Home

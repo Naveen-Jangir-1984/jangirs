@@ -2514,7 +2514,11 @@
                           "isAlive": false,
                           "gender": "F",
                           "village": "Ghumansar",
-                          "gotra": "Sonania"
+                          "gotra": "Sonania",
+                          "dob": "1 January 1920",
+                          "dod": "15 August 2017",
+                          "email": [],
+                          "mobile": []
                         }
                       ],
                       "children": [
@@ -2859,11 +2863,15 @@
                               "wives": [
                                 {
                                   "id": 11212220,
-                                  "name": "Poonam",
+                                  "name": "Poonam Devi",
                                   "isAlive": true,
                                   "gender": "F",
                                   "village": "Devroad",
-                                  "gotra": "Roliwal"
+                                  "gotra": "Roliwal",
+                                  "dob": "10 June 1982",
+                                  "dod": "",
+                                  "email": [],
+                                  "mobile": []
                                 }
                               ],
                               "children": [
@@ -2885,7 +2893,12 @@
                               ],
                               "isAlive": true,
                               "gender": "M",
-                              "isCollapsed": true
+                              "isCollapsed": true,
+                              "dob": "5 September 1979",
+                              "dod": "",
+                              "village": "",
+                              "gotra": "",
+                              "email": []
                             }
                           ],
                           "isAlive": true,
@@ -3193,7 +3206,13 @@
                       ],
                       "isAlive": false,
                       "gender": "M",
-                      "isCollapsed": true
+                      "isCollapsed": true,
+                      "dob": "7 February 1917",
+                      "dod": "18 December 1987",
+                      "village": "",
+                      "gotra": "",
+                      "email": [],
+                      "mobile": []
                     }
                   ],
                   "isAlive": false,
