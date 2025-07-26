@@ -24,11 +24,15 @@
           "wives": [
             {
               "id": 110,
-              "name": "",
+              "name": "Laxmi",
               "isAlive": false,
               "gender": "F",
               "village": "",
-              "gotra": ""
+              "gotra": "Charkhiya",
+              "dob": "",
+              "dod": "",
+              "email": [],
+              "mobile": []
             }
           ],
           "children": [
@@ -1523,7 +1527,7 @@
           "dod": "",
           "gender": "F",
           "village": "",
-          "gotra": ""
+          "gotra": "Beriwaal"
         }
       ],
       "children": [
@@ -3504,7 +3508,7 @@
               "dod": "",
               "gender": "F",
               "village": "",
-              "gotra": ""
+              "gotra": "Danewa"
             }
           ],
           "mobile": [],
@@ -3594,7 +3598,7 @@
                   "children": [
                     {
                       "id": 211211111121,
-                      "name": "Nanadram",
+                      "name": "Nandram",
                       "children": [
                         {
                           "id": 2112111111211,
@@ -3698,7 +3702,7 @@
                               "dod": "",
                               "gender": "M",
                               "village": "",
-                              "isCollapsed": false,
+                              "isCollapsed": true,
                               "gotra": ""
                             }
                           ],
@@ -3723,7 +3727,7 @@
                           "dod": "",
                           "gender": "M",
                           "village": "",
-                          "isCollapsed": false
+                          "isCollapsed": true
                         },
                         {
                           "id": 2112111111212,
@@ -3816,7 +3820,7 @@
                                   "dod": "",
                                   "gender": "M",
                                   "village": "",
-                                  "isCollapsed": false,
+                                  "isCollapsed": true,
                                   "gotra": ""
                                 }
                               ],
@@ -3841,7 +3845,7 @@
                               "dod": "",
                               "gender": "M",
                               "village": "",
-                              "isCollapsed": false
+                              "isCollapsed": true
                             },
                             {
                               "id": 21121111112132,
@@ -3859,7 +3863,7 @@
                                   "dod": "",
                                   "gender": "M",
                                   "village": "",
-                                  "isCollapsed": false,
+                                  "isCollapsed": true,
                                   "gotra": ""
                                 },
                                 {
@@ -3909,7 +3913,7 @@
                                       "dod": "",
                                       "gender": "M",
                                       "village": "",
-                                      "isCollapsed": false,
+                                      "isCollapsed": true,
                                       "gotra": ""
                                     }
                                   ],
@@ -3934,7 +3938,7 @@
                                   "dod": "",
                                   "gender": "M",
                                   "village": "",
-                                  "isCollapsed": false,
+                                  "isCollapsed": true,
                                   "gotra": ""
                                 },
                                 {
@@ -3974,7 +3978,7 @@
                               "dod": "",
                               "gender": "M",
                               "village": "",
-                              "isCollapsed": false
+                              "isCollapsed": true
                             }
                           ],
                           "wives": [
@@ -3998,7 +4002,7 @@
                           "dod": "",
                           "gender": "M",
                           "village": "",
-                          "isCollapsed": false
+                          "isCollapsed": true
                         }
                       ],
                       "wives": [
@@ -4085,7 +4089,7 @@
               ],
               "isAlive": false,
               "gender": "M",
-              "isCollapsed": true
+              "isCollapsed": false
             },
             {
               "id": 2112111112,
@@ -4148,12 +4152,12 @@
               ],
               "isAlive": false,
               "gender": "M",
-              "isCollapsed": true
+              "isCollapsed": false
             }
           ],
           "isAlive": false,
           "gender": "M",
-          "isCollapsed": true
+          "isCollapsed": false
         },
         {
           "id": 211211112,
@@ -4188,7 +4192,7 @@
       ],
       "isAlive": false,
       "gender": "M",
-      "isCollapsed": true
+      "isCollapsed": false
     }
   ],
   "tatija": [
