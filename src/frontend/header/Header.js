@@ -18,8 +18,8 @@ const Header = ({ state, dispatch, getHindiText }) => {
       <select value={state.village} onChange={(e) => dispatch({type: 'village', village: e.target.value})}>
         {state.villages.map((village, i) => <option key={i} value={village}>{state.user.language ? village.replace(village.charAt(0), village.charAt(0).toUpperCase()) : getHindiText(village.replace(village.charAt(0), village.charAt(0).toUpperCase()), 'village')}</option>)}
       </select>
-      {state.user.role === 'admin' ? <img className='icons' src={UserEditIcon} alt='editUser' onClick={() => dispatch({type: 'openUserEdit'})} /> : ''}
-      <img className='signout' src={SignOutIcon} alt='signout' onClick={() => handleSignOut()} />
+      {state.user.role === 'admin' ? <img className='icons' src={UserEditIcon} alt='editUser' onClick={() => dispatch({type: 'openUserEdit'})} loading='lazy' /> : ''}
+      <img className='signout' src={SignOutIcon} alt='signout' onClick={() => handleSignOut()} loading='lazy' />
       <button onClick={() => {
         setCollapsed(!collapsed)
         dispatch({type: 'toggle-all', flag: collapsed})

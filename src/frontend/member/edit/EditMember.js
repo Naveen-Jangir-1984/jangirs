@@ -51,7 +51,7 @@ const EditMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
 	}
   return (
     <div className="edit-member" style={{display: state.isMemberEditOpen ? 'flex' : 'none'}}>
-			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
+			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} loading='lazy' />
       <div className='view'>
         <input type='text' name='name' value={state.editInput.name} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder={state.user.language ? 'Name' : 'नाम'} />
         <input type='text' name='mobile' value={state.editInput.mobile} onChange={(e) => dispatch({type: 'editInput', attribute: e.target.name, value: e.target.value})} placeholder={state.user.language ? 'Mobile' : 'मोबाइल'} />

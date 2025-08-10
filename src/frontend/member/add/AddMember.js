@@ -95,7 +95,7 @@ const AddMember = ({state, dispatch, getHindiText, getHindiNumbers}) => {
 	}
   return (
     <div className="add-member" style={{display: state.isMemberAddOpen ? 'flex' : 'none'}}>
-			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
+			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} loading='lazy' />
       <div className='view'>
         <select name='type' value={state.newMember.type} onChange={(e) => dispatch({type: 'editInputNewMember', attribute: e.target.name, value: e.target.value})}>
           <option value=''>{state.user.language ? 'Member?' : 'सदस्य?'}</option>

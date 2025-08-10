@@ -59,39 +59,39 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   }
   return (
     <div className='details' style={{ display: state.isMemberDisplayOpen ? 'flex' : 'none', filter: state.isMemberEditOpen ? 'blur(20px)' : 'none' }}>
-      <img src={CloseIcon} alt='close' className='close' onClick={() => dispatch({type: 'closeMemberDisplay'})} />
+      <img src={CloseIcon} alt='close' className='close' onClick={() => dispatch({type: 'closeMemberDisplay'})} loading='lazy' />
       <div className='view'>
-        <img style={{boxShadow: state.memberToBeDisplayed.isAlive ? '0 0 50px lightgreen' : '0 0 50px #f55'}} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === 'M' ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} />
+        <img style={{boxShadow: state.memberToBeDisplayed.isAlive ? '0 0 50px lightgreen' : '0 0 50px #f55'}} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === 'M' ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} loading='lazy' />
         <div className='info'>
           <div>{state.user.language ? state.memberToBeDisplayed.name : getHindiText(state.memberToBeDisplayed.name, 'name')} {memberDOB && state.user.language ? <sup>Age: {getAge(memberDOB ? memberDOB : '', memberDOD ? memberDOD : '')}</sup> : memberDOB && !state.user.language ? <sup>उम्र: {getHindiNumbers(getAge(memberDOB ? memberDOB : '', memberDOD ? memberDOD : '').toString())}</sup> : ''}</div>
           {memberDOB && !state.user.language ? 
           <div className='dob'>
-            {/* <img className='icons' src={DOBIcon} alt='birth' /> */}
+            {/* <img className='icons' src={DOBIcon} alt='birth' loading='lazy' /> */}
             <span style={{fontWeight: 'bolder'}}>जन्म:</span>
             <span>{`${getHindiNumbers(memberDOB.split(' ')[0])} ${getHindiText(memberDOB.split(' ')[1], 'months')} ${getHindiNumbers(memberDOB.split(' ')[2])}`}</span>
           </div> : memberDOB && state.user.language ? 
           <div className='dob'>
-            {/* <img className='icons' src={DOBIcon} alt='birth' /> */}
+            {/* <img className='icons' src={DOBIcon} alt='birth' loading='lazy' /> */}
             <span style={{fontWeight: 'bolder'}}>Birth:</span>
             <span>{memberDOB}</span>
           </div> : ''}
           {memberDOD && !state.user.language ? 
           <div className='dod'>
-            {/* <img className='icons' src={DODIcon} alt='death' /> */}
+            {/* <img className='icons' src={DODIcon} alt='death' loading='lazy' /> */}
             <span style={{fontWeight: 'bolder'}}>मृत्यु:</span>
             <span>{`${getHindiNumbers(memberDOD.split(' ')[0])} ${getHindiText(memberDOD.split(' ')[1], 'months')} ${getHindiNumbers(memberDOD.split(' ')[2])}`}</span>
           </div> : memberDOD && state.user.language ?
           <div className='dod'>
-            {/* <img className='icons' src={DODIcon} alt='death' /> */}
+            {/* <img className='icons' src={DODIcon} alt='death' loading='lazy' /> */}
             <span style={{fontWeight: 'bolder'}}>Death:</span>
             <span>{memberDOD}</span>
           </div> : ''}
           {memberMobiles.length ? <div className='view-mobile'>
-            <img className='icons' src={MobileIcon} alt='mobile' />
+            <img className='icons' src={MobileIcon} alt='mobile' loading='lazy' />
             <span className='view-mobile'>{memberMobiles.map((mobile, i) => <a key={i} href={`tel: ${mobile}`} onClick={(e) => e.stopPropagation()}>{mobile}</a>)}</span>
           </div> : ''}
           {memberEmails.length ? <div className='view-email'>
-            <img className='icons' src={EmailIcon} alt='email' />
+            <img className='icons' src={EmailIcon} alt='email' loading='lazy' />
             <span className='view-email'>{memberEmails.map((email, i) => <a key={i} href={`mailto: ${email}`} onClick={(e) => e.stopPropagation()}>{email}</a>)}</span>
           </div> : ''}
           <div className='view-actions'>

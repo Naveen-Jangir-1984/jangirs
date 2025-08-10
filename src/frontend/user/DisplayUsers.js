@@ -40,11 +40,11 @@ const DisplayUsers = ({state, dispatch}) => {
 	}
 	return (
 		<div className='display-users' style={{display: state.isUserEditOpen ? 'flex' : 'none'}}>
-			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} />
+			<img src={CloseIcon} alt='close' className='close' onClick={() => handleClose()} loading='lazy' />
 			<div className='view'>
 				<div className='new-user' onClick={() => dispatch({type: state.isUserAddOpen ? 'closeAddNewUser' : 'openAddNewUser'})}>
 					<div>{state.user.language ? `${state.isUserAddOpen ? 'Cancel' : 'Open'} to Add User` : `${state.isUserAddOpen ? 'उपभोक्ता जोड़ना रद्द करें' : 'उपयोगकर्ता जोड़ने के लिए खोलें'}`}</div>
-					<img className='icons' src={state.isUserAddOpen ? MinusIcon : AddIcon} alt={state.isUserAddOpen ? 'close' : 'open'} />
+					<img className='icons' src={state.isUserAddOpen ? MinusIcon : AddIcon} alt={state.isUserAddOpen ? 'close' : 'open'} loading='lazy' />
 				</div>
 				<div className='user-inputs' style={{display: state.isUserAddOpen ? 'flex' : 'none'}}>
 					<input name='username' placeholder={state.user.language ? 'Username' : 'उपयोगकर्ता नाम' } type='text' value={state.newUser.username} onChange={(e) => dispatch({type: 'editInputNewUser', attribute: e.target.name, value: e.target.value})} />
@@ -72,7 +72,7 @@ const DisplayUsers = ({state, dispatch}) => {
 							 }}>{user.username}</td>
 							<td>{user.password}</td>
 							<td style={{textAlign: 'right'}}>
-								{state.user.username !== user.username && <img className="icons" src={DeleteIcon} alt="delete" onClick={() => handleDeleteUser(user.username)} />}
+								{state.user.username !== user.username && <img className="icons" src={DeleteIcon} alt="delete" onClick={() => handleDeleteUser(user.username)} loading='lazy' />}
 							</td>
 						</tr>)}
 					</tbody>
