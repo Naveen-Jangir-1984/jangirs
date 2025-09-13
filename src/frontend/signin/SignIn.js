@@ -19,9 +19,7 @@ const SignIn = ({ state, dispatch }) => {
           SIGN IN
         </button>
         {input.error && <div style={{ color: "red", fontSize: "12px" }}>Incorrect username or password !</div>}
-        <div>
-          Visitors: {state.visitors.length} (Today: {state.visitors.filter((visitor) => visitor.includes(current)).length})
-        </div>
+        <div>{`Visits: ${state.visitors.length} | Today ${state.visitors.filter((visitor) => visitor.includes(current)).length}`}</div>
       </div>
     </div>
   );
