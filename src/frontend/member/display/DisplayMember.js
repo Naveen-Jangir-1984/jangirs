@@ -18,24 +18,23 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   const memberEmails = state.memberToBeDisplayed.email ? state.memberToBeDisplayed.email : [];
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const getAge = (dobString, dodString) => {
-    if (!dobString || dobString.length === 0) return { years: 0, months: 0 };
+    if (!dobString || dobString.length === 0) return { years: 0, months: 0, days: 0 };
     const dobParts = dobString.split(" ");
     const birthDate = new Date(dobParts[2], months.indexOf(dobParts[1]), dobParts[0]);
     const endDate = !dodString || dodString.length === 0 ? new Date() : new Date(dodString.split(" ")[2], months.indexOf(dodString.split(" ")[1]), dodString.split(" ")[0]);
     let years = endDate.getFullYear() - birthDate.getFullYear();
     let monthsDiff = endDate.getMonth() - birthDate.getMonth();
+    let daysDiff = endDate.getDate() - birthDate.getDate();
+    if (daysDiff < 0) {
+      monthsDiff--;
+      const prevMonth = new Date(endDate.getFullYear(), endDate.getMonth() - 1, birthDate.getDate());
+      daysDiff += (endDate - prevMonth) / (1000 * 60 * 60 * 24);
+    }
     if (monthsDiff < 0) {
       years--;
       monthsDiff += 12;
     }
-    if (endDate.getDate() < birthDate.getDate()) {
-      monthsDiff--;
-      if (monthsDiff < 0) {
-        monthsDiff += 12;
-        years--;
-      }
-    }
-    return { years: Math.max(0, years), months: Math.max(0, monthsDiff) };
+    return { years: Math.max(0, years), months: Math.max(0, monthsDiff), days: Math.max(0, Math.floor(daysDiff)) };
   };
   const handleAddMember = async () => {
     dispatch({ type: "openMemberAdd", member: state.memberToBeDisplayed });
@@ -70,7 +69,11 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
                 Age:{" "}
                 {(() => {
                   const age = getAge(memberDOB, memberDOD);
-                  return age.years + " years " + age.months + " months";
+                  const parts = [];
+                  if (age.years > 0) parts.push(age.years + " years");
+                  if (age.months > 0) parts.push(age.months + " months");
+                  if (age.days > 0) parts.push(age.days + " days");
+                  return parts.join(" ");
                 })()}
               </sup>
             ) : memberDOB && !state.user.language ? (
@@ -78,7 +81,11 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
                 उम्र:{" "}
                 {(() => {
                   const age = getAge(memberDOB, memberDOD);
-                  return getHindiNumbers(age.years.toString()) + " साल " + getHindiNumbers(age.months.toString()) + " महीने";
+                  const parts = [];
+                  if (age.years > 0) parts.push(getHindiNumbers(age.years.toString()) + " साल");
+                  if (age.months > 0) parts.push(getHindiNumbers(age.months.toString()) + " महीने");
+                  if (age.days > 0) parts.push(getHindiNumbers(age.days.toString()) + " दिन");
+                  return parts.join(" ");
                 })()}
               </sup>
             ) : (
