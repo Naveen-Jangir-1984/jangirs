@@ -16,27 +16,26 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   const memberDOD = state.memberToBeDisplayed.dod ? state.memberToBeDisplayed.dod : "";
   const memberMobiles = state.memberToBeDisplayed.mobile ? state.memberToBeDisplayed.mobile : [];
   const memberEmails = state.memberToBeDisplayed.email ? state.memberToBeDisplayed.email : [];
-  const months = ["January", "Februray", "March", "April", "May", "May", "June", "July", "August", "Septemeber", "October", "November", "December"];
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const getAge = (dobString, dodString) => {
-    if (dobString.length === 0) return 0;
-    const dob = dobString.split(" ");
-    if (dobString.length && dodString.length === 0) {
-      var today = new Date();
-      var age = today.getFullYear() - Number(dob[2]);
-      var m = today.getMonth() - Number(months.indexOf(dob[1]));
-      if (m < 0 || (m === 0 && today.getDate() < Number(dob[0]))) {
-        age--;
-      }
-      return age;
-    } else if (dobString.length && dodString.length) {
-      const dod = dodString.split(" ");
-      age = Number(dod[2]) - Number(dob[2]);
-      m = Number(months.indexOf(dod[1])) - Number(months.indexOf(dob[1]));
-      if (m < 0 || (m === 0 && Number(dod[0]) < Number(dob[0]))) {
-        age--;
-      }
-      return age;
+    if (!dobString || dobString.length === 0) return { years: 0, months: 0 };
+    const dobParts = dobString.split(" ");
+    const birthDate = new Date(dobParts[2], months.indexOf(dobParts[1]), dobParts[0]);
+    const endDate = !dodString || dodString.length === 0 ? new Date() : new Date(dodString.split(" ")[2], months.indexOf(dodString.split(" ")[1]), dodString.split(" ")[0]);
+    let years = endDate.getFullYear() - birthDate.getFullYear();
+    let monthsDiff = endDate.getMonth() - birthDate.getMonth();
+    if (monthsDiff < 0) {
+      years--;
+      monthsDiff += 12;
     }
+    if (endDate.getDate() < birthDate.getDate()) {
+      monthsDiff--;
+      if (monthsDiff < 0) {
+        monthsDiff += 12;
+        years--;
+      }
+    }
+    return { years: Math.max(0, years), months: Math.max(0, monthsDiff) };
   };
   const handleAddMember = async () => {
     dispatch({ type: "openMemberAdd", member: state.memberToBeDisplayed });
@@ -65,7 +64,26 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
         <img style={{ boxShadow: state.memberToBeDisplayed.isAlive ? "0 0 50px lightgreen" : "0 0 50px #f55" }} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === "M" ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} loading="lazy" />
         <div className="info">
           <div>
-            {state.user.language ? state.memberToBeDisplayed.name : getHindiText(state.memberToBeDisplayed.name, "name")} {memberDOB && state.user.language ? <sup>Age: {getAge(memberDOB ? memberDOB : "", memberDOD ? memberDOD : "")}</sup> : memberDOB && !state.user.language ? <sup>उम्र: {getHindiNumbers(getAge(memberDOB ? memberDOB : "", memberDOD ? memberDOD : "").toString())}</sup> : ""}
+            {state.user.language ? state.memberToBeDisplayed.name : getHindiText(state.memberToBeDisplayed.name, "name")}{" "}
+            {memberDOB && state.user.language ? (
+              <sup>
+                Age:{" "}
+                {(() => {
+                  const age = getAge(memberDOB, memberDOD);
+                  return age.years + " years " + age.months + " months";
+                })()}
+              </sup>
+            ) : memberDOB && !state.user.language ? (
+              <sup>
+                उम्र:{" "}
+                {(() => {
+                  const age = getAge(memberDOB, memberDOD);
+                  return getHindiNumbers(age.years.toString()) + " साल " + getHindiNumbers(age.months.toString()) + " महीने";
+                })()}
+              </sup>
+            ) : (
+              ""
+            )}
           </div>
           {memberDOB && !state.user.language ? (
             <div className="dob">
