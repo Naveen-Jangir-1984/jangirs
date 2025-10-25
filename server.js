@@ -431,7 +431,7 @@ app.post(`${resource}/addEnquiry`, (req, res) => {
 });
 
 app.post(`${resource}/resetEnquiry`, (req, res) => {
-  fs.readFile(c, (err, data) => {
+  fs.readFile("./src/database/watson.json", (err, data) => {
     if (err) {
       console.error(err);
       return;
