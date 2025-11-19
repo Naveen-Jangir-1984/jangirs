@@ -1,5 +1,5 @@
 import CryptoJS from "crypto-js";
-import { lazy, Suspense, useReducer, useState, useEffect } from "react";
+import { lazy, Suspense, useReducer, useState, useEffect, useCallback } from "react";
 import BGDImage from "./images/mata-mandir.jpg";
 import { IMAGES } from "./utils/getImages";
 import "./App.css";
@@ -19,6 +19,7 @@ const App = () => {
   const [images] = useState(IMAGES);
   const [members, setMembers] = useState([]);
   const [englishToHindi, setEnglishToHindi] = useState();
+  const [hindiToEnglish, setHindiToEnglish] = useState();
   const initialState = {
     user: undefined,
     users: [],
@@ -190,6 +191,42 @@ const App = () => {
     member.isCollapsed = flag;
     member.gender === "M" && member.children?.map((child) => traverseMemberToExpandOrCollapseAll(child, flag));
     return member;
+  };
+  // invert englishToHindi to hindiToEnglish
+  const invertEnglishToHindi = (obj) => {
+    const result = {};
+    for (const [category, values] of Object.entries(obj)) {
+      result[category] = {};
+      for (const [eng, hin] of Object.entries(values)) {
+        // Capitalize each segment separated by hyphens but keep hyphens
+        const formattedEnglish = eng
+          .split("-")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join("-");
+
+        // Invert mapping: Hindi → English (formatted)
+        result[category][hin] = formattedEnglish;
+      }
+    }
+    return result;
+  };
+  // convert hindi to english text
+  const getEnglishText = (text, attribute) => {
+    return text?.length
+      ? text
+          ?.split(" ")
+          .map((word) => (attribute === "village" ? hindiToEnglish.villages[word] : attribute === "gotra" ? hindiToEnglish.gotras[word] : attribute === "months" ? hindiToEnglish.months[word] : hindiToEnglish.names[word]) || word)
+          .join(" ")
+      : "";
+  };
+  // convert hindi to english numbers
+  const getEnglishNumbers = (text) => {
+    const len = text.length;
+    let result = "";
+    for (let i = 0; i < len; i++) {
+      result += hindiToEnglish.numbers[text.charAt(i)];
+    }
+    return result;
   };
   // convert english to hindi text
   const getHindiText = (text, attribute) => {
@@ -753,7 +790,7 @@ const App = () => {
         return state;
     }
   };
-  const fetchData = async (user, village) => {
+  const fetchData = useCallback(async (user, village) => {
     try {
       const response = await fetch(`${URL}:${port}/getData`);
       const data = await response.text();
@@ -836,13 +873,14 @@ const App = () => {
         })
       );
       setEnglishToHindi(db.englishToHindi);
+      setHindiToEnglish(invertEnglishToHindi(db.englishToHindi));
       setIsServerDown("");
       dispatch({ type: "fetch_success", initialState: db, user: user, village: village });
     } catch (error) {
       setIsServerDown("Server down. Please try again later.");
       dispatch({ type: "fetch_error", initialState: {}, user: user });
     }
-  };
+  }, []);
   const [state, dispatch] = useReducer(reducer, initialState, (initial) => {
     const storedState = sessionStorage.getItem("appState");
     return storedState ? JSON.parse(storedState) : initial;
@@ -854,14 +892,14 @@ const App = () => {
     } else {
       fetchData(undefined, "dulania");
     }
-  }, []);
+  }, [fetchData]);
   useEffect(() => {
     sessionStorage.setItem("appState", JSON.stringify(state));
   }, [state]);
   const info = <div style={{ padding: "1rem 2rem", borderRadius: "7px", backgroundColor: isServerDown === "Connecting..." ? "lightgreen" : "lightpink" }}>{isServerDown}</div>;
   return (
     <div className="app">
-      {isServerDown !== "" ? info : <Suspense fallback={<div style={{ padding: "1rem 2rem", borderRadius: "7px", backgroundColor: "lightgrey" }}>Please wait...</div>}>{state.user ? <Home state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} /> : <SignIn state={state} dispatch={dispatch} />}</Suspense>}
+      {isServerDown !== "" ? info : <Suspense fallback={<div style={{ padding: "1rem 2rem", borderRadius: "7px", backgroundColor: "lightgrey" }}>Please wait...</div>}>{state.user ? <Home state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} getEnglishText={getEnglishText} getEnglishNumbers={getEnglishNumbers} /> : <SignIn state={state} dispatch={dispatch} />}</Suspense>}
       <img className="bgd-image" src={BGDImage} alt="mata" loading="lazy" />
     </div>
   );

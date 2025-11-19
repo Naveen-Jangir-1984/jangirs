@@ -9,7 +9,7 @@ const AddMember = lazy(() => import("../member/add/AddMember"));
 const EditMember = lazy(() => import("../member/edit/EditMember"));
 const DisplayUsers = lazy(() => import("../user/DisplayUsers"));
 
-const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers }) => {
+const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers, getEnglishText, getEnglishNumbers }) => {
   return (
     <div className="home">
       <Header state={state} dispatch={dispatch} getHindiText={getHindiText} />
@@ -18,8 +18,8 @@ const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers }) => {
       <Footer state={state} />
       {state.isMemberDisplayOpen ? <DisplayMember state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} /> : ""}
       {state.isUserEditOpen ? <DisplayUsers state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} /> : ""}
-      {state.isMemberAddOpen ? <AddMember state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} /> : ""}
-      {state.isMemberEditOpen ? <EditMember state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} /> : ""}
+      {state.isMemberAddOpen ? <AddMember state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} getEnglishText={getEnglishText} getEnglishNumbers={getEnglishNumbers} /> : ""}
+      {state.isMemberEditOpen ? <EditMember state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} getEnglishText={getEnglishText} getEnglishNumbers={getEnglishNumbers} /> : ""}
     </div>
   );
 };

@@ -3,7 +3,7 @@ import "./AddMember.css";
 const URL = process.env.REACT_APP_API_URL;
 const PORT = process.env.REACT_APP_PORT;
 
-const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
+const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishText, getEnglishNumbers }) => {
   const dates = [];
   for (let i = 1; i <= 31; i++) {
     dates.push(i);
@@ -104,7 +104,7 @@ const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
           <option value="child">{state.user.language ? "Child" : "औलाद"}</option>
           <option value="wife">{state.user.language ? "Wife" : "पत्नी"}</option>
         </select>
-        <input disabled={state.newMember.type === ""} type="text" name="name" value={state.newMember.name} onChange={(e) => dispatch({ type: "editInputNewMember", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Name" : "नाम"} />
+        <input disabled={state.newMember.type === ""} type="text" name="name" value={state.user.language ? getEnglishText(state.newMember.name) : getHindiText(state.newMember.name)} onChange={(e) => dispatch({ type: "editInputNewMember", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Name" : "नाम"} />
         <input disabled={state.newMember.type === ""} type="text" name="mobile" value={state.newMember.mobile} onChange={(e) => dispatch({ type: "editInputNewMember", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Mobile" : "मोबाइल"} />
         <div className="dob">
           <select disabled={state.newMember.type === ""} name="date" value={state.newMember.date} onChange={(e) => dispatch({ type: "editInputNewMember", attribute: e.target.name, value: e.target.value })}>
@@ -168,8 +168,8 @@ const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
             </select>
           </div>
         )}
-        <input disabled={state.newMember.type === ""} type="text" name="village" value={state.newMember.village} onChange={(e) => dispatch({ type: "editInputNewMember", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Village" : "गाँव"} />
-        {state.newMember.type === "wife" ? <input type="text" name="gotra" value={state.newMember.gotra} onChange={(e) => dispatch({ type: "editInputNewMember", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Gotra" : "गोत्र"} /> : ""}
+        <input disabled={state.newMember.type === ""} type="text" name="village" value={state.user.language ? getEnglishText(state.newMember.village) : getHindiText(state.newMember.village)} onChange={(e) => dispatch({ type: "editInputNewMember", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Village" : "गाँव"} />
+        {state.newMember.type === "wife" ? <input type="text" name="gotra" value={state.user.language ? getEnglishText(state.newMember.gotra) : getHindiText(state.newMember.gotra)} onChange={(e) => dispatch({ type: "editInputNewMember", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Gotra" : "गोत्र"} /> : ""}
         <input disabled={state.newMember.type === ""} type="email" name="email" value={state.newMember.email} onChange={(e) => dispatch({ type: "editInputNewMember", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Email" : "ईमेल"} />
         <button disabled={state.newMember.type === ""} onClick={() => handleAddMember()}>
           {state.user.language ? "ADD" : "जोड़ें"}
