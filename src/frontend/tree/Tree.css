@@ -43,7 +43,8 @@
   border-radius: 50%;
 }
 
-.toggle-icons, .mobile-icons {
+.toggle-icons,
+.mobile-icons {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,7 +61,7 @@
   border-radius: 50%;
   width: 10px;
   height: 10px;
-  background-color: grey; 
+  background-color: grey;
 }
 
 .member-icons {
