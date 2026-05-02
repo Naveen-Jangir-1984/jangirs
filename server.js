@@ -1,6 +1,7 @@
 const CryptoJS = require("crypto-js");
 const express = require("express");
 const multer = require("multer");
+const sarvamai = require("sarvamai");
 const path = require("path");
 const https = require("https");
 const bodyParser = require("body-parser");
@@ -18,6 +19,7 @@ app.use("/videos", express.static(path.join(__dirname, "public/videos")));
 require("dotenv").config();
 const port = process.env.REACT_APP_PORT;
 const secretKey = process.env.REACT_APP_SECRET_KEY;
+const saravamaiApiKey = process.env.REACT_APP_SARVAMAI_API_KEY;
 
 const options = {
   key: fs.readFileSync("./test.key"),
@@ -32,6 +34,24 @@ const decryptData = (encryptedData) => {
   const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
   return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 };
+
+async function translateToHindi(text) {
+  try {
+    const client = new sarvamai.SarvamAIClient({
+      apiSubscriptionKey: saravamaiApiKey,
+    });
+    const response = await client.text.transliterate({
+      input: text,
+      source_language_code: "en-IN",
+      target_language_code: "hi-IN",
+      spoken_form: true,
+    });
+    return response.transliterated_text;
+  } catch (e) {
+    console.error("Translation error:", e);
+    return text;
+  }
+}
 
 const addMember = (tree, id, member, type) => {
   if (!tree) return null;
@@ -200,7 +220,7 @@ app.post("/deleteUser", (req, res) => {
 });
 
 app.post("/addNewMember", (req, res) => {
-  fs.readFile(jangirsDatabase, (err, data) => {
+  fs.readFile(jangirsDatabase, async (err, data) => {
     if (err) {
       console.error(err);
       return;
@@ -210,6 +230,23 @@ app.post("/addNewMember", (req, res) => {
     const newMember = req.body.newMember;
     const type = req.body.type;
     const village = req.body.village;
+
+    // Check and translate name
+    if (newMember.name && !db.englishToHindi.names[newMember.name.toLowerCase()]) {
+      const hindiName = await translateToHindi(newMember.name.toLowerCase());
+      db.englishToHindi.names[newMember.name.toLowerCase()] = hindiName;
+    }
+    // Check and translate village
+    if (newMember.village && !db.englishToHindi.villages[newMember.village.toLowerCase()]) {
+      const hindiVillage = await translateToHindi(newMember.village.toLowerCase());
+      db.englishToHindi.villages[newMember.village.toLowerCase()] = hindiVillage;
+    }
+    // Check and translate gotra
+    if (newMember.gotra && !db.englishToHindi.gotras[newMember.gotra.toLowerCase()]) {
+      const hindiGotra = await translateToHindi(newMember.gotra.toLowerCase());
+      db.englishToHindi.gotras[newMember.gotra.toLowerCase()] = hindiGotra;
+    }
+
     if (village === "dulania") {
       db.dulania = db.dulania.map((member) => addMember(member, existingMember.id, newMember, type));
     } else if (village === "moruwa") {
@@ -225,7 +262,7 @@ app.post("/addNewMember", (req, res) => {
 });
 
 app.post("/editMember", (req, res) => {
-  fs.readFile(jangirsDatabase, (err, data) => {
+  fs.readFile(jangirsDatabase, async (err, data) => {
     if (err) {
       console.error(err);
       return;
@@ -233,6 +270,23 @@ app.post("/editMember", (req, res) => {
     db = JSON.parse(data);
     const existingMember = req.body.member;
     const village = req.body.village;
+
+    // Check and translate name
+    if (existingMember.name && !db.englishToHindi.names[existingMember.name.toLowerCase()]) {
+      const hindiName = await translateToHindi(existingMember.name.toLowerCase());
+      db.englishToHindi.names[existingMember.name.toLowerCase()] = hindiName;
+    }
+    // Check and translate village
+    if (existingMember.village && !db.englishToHindi.villages[existingMember.village.toLowerCase()]) {
+      const hindiVillage = await translateToHindi(existingMember.village.toLowerCase());
+      db.englishToHindi.villages[existingMember.village.toLowerCase()] = hindiVillage;
+    }
+    // Check and translate gotra
+    if (existingMember.gotra && !db.englishToHindi.gotras[existingMember.gotra.toLowerCase()]) {
+      const hindiGotra = await translateToHindi(existingMember.gotra.toLowerCase());
+      db.englishToHindi.gotras[existingMember.gotra.toLowerCase()] = hindiGotra;
+    }
+
     if (village === "dulania") {
       db.dulania = db.dulania.map((member) => editMember(member, existingMember));
     } else if (village === "moruwa") {

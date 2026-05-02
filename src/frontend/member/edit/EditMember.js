@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import CloseIcon from "../../../images/close.png";
 import "./EditMember.css";
 const URL = process.env.REACT_APP_API_URL;
