@@ -53,7 +53,7 @@ const EditMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglish
     <div className="edit-member" style={{ display: state.isMemberEditOpen ? "flex" : "none" }}>
       <img src={CloseIcon} alt="close" className="close" onClick={() => handleClose()} loading="lazy" />
       <div className="view">
-        <input type="text" name="name" value={state.user.language ? getEnglishText(state.editInput.name) : getHindiText(state.editInput.name)} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Name" : "नाम"} />
+        <input type="text" name="name" value={state.editInput.name} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Name" : "नाम"} />
         <input type="text" name="mobile" value={state.editInput.mobile} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Mobile" : "मोबाइल"} />
         <div className="dob">
           <select name="date" value={state.editInput.date} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })}>
@@ -117,9 +117,9 @@ const EditMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglish
             </select>
           </div>
         )}
-        <input type="text" name="village" value={state.user.language ? getEnglishText(state.editInput.village, "village") : getHindiText(state.editInput.village, "village")} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Village" : "गाँव"} />
-        {state.editInput.gender === "F" ? <input type="text" name="gotra" value={state.user.language ? getEnglishText(state.editInput.gotra, "gotra") : getHindiText(state.editInput.gotra, "gotra")} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Gotra" : "गोत्र"} /> : ""}
-        <input type="email" name="email" value={state.user.language ? state.editInput.email : getHindiText(state.editInput.email)} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Email" : "ईमेल"} />
+        <input type="text" name="village" value={state.editInput.village} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Village" : "गाँव"} />
+        {state.editInput.gender === "F" ? <input type="text" name="gotra" value={state.editInput.gotra} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Gotra" : "गोत्र"} /> : ""}
+        <input type="email" name="email" value={state.editInput.email} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Email" : "ईमेल"} />
         <button onClick={() => handleEditMember()}>{state.user.language ? "UPDATE" : "नवीनीकरण"}</button>
       </div>
     </div>
