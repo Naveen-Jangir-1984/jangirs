@@ -4,7 +4,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,12 +14,11 @@
 }
 
 .crop-modal {
-  background-color: #fff;
-  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
   padding: 20px;
   max-width: 400px;
-  width: 90%;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  width: 80%;
 }
 
 .crop-instructions {
@@ -75,8 +76,8 @@
 }
 
 .zoom-btn {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border: none;
   border-radius: 50%;
   background-color: #f0f0f0;

@@ -17,6 +17,16 @@ const ImageCropModal = ({ isOpen, imageFile, onConfirm, onCancel, isEnglish = tr
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [isProcessing, setIsProcessing] = useState(false);
+  const [pinchStart, setPinchStart] = useState(null); // For pinch-to-zoom
+
+  // Hindi numeral mapping
+  const hindiNumerals = ["०", "१", "२", "३", "४", "५", "६", "७", "८", "९"];
+  const toHindiNumber = (num) => {
+    return String(num)
+      .split("")
+      .map((d) => hindiNumerals[d] || d)
+      .join("");
+  };
 
   // Load image when file changes
   useEffect(() => {
@@ -99,23 +109,47 @@ const ImageCropModal = ({ isOpen, imageFile, onConfirm, onCancel, isEnglish = tr
   };
 
   // Touch handlers (separate to avoid passive listener issues)
+  // Calculate distance between two touch points
+  const getTouchDistance = (touches) => {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  };
+
   const handleTouchStart = (e) => {
-    setIsDragging(true);
-    const touch = e.touches[0];
-    setDragStart({ x: touch.clientX - position.x, y: touch.clientY - position.y });
+    if (e.touches.length === 2) {
+      // Pinch start
+      const distance = getTouchDistance(e.touches);
+      setPinchStart({ distance, scale });
+      setIsDragging(false);
+    } else if (e.touches.length === 1) {
+      // Single touch drag
+      setIsDragging(true);
+      const touch = e.touches[0];
+      setDragStart({ x: touch.clientX - position.x, y: touch.clientY - position.y });
+    }
   };
 
   const handleTouchMove = (e) => {
-    if (!isDragging) return;
-    const touch = e.touches[0];
-    setPosition({
-      x: touch.clientX - dragStart.x,
-      y: touch.clientY - dragStart.y,
-    });
+    if (e.touches.length === 2 && pinchStart) {
+      // Pinch zoom
+      const currentDistance = getTouchDistance(e.touches);
+      const scaleFactor = currentDistance / pinchStart.distance;
+      const newScale = Math.min(Math.max(pinchStart.scale * scaleFactor, 0.2), 5);
+      setScale(newScale);
+    } else if (e.touches.length === 1 && isDragging) {
+      // Single touch drag
+      const touch = e.touches[0];
+      setPosition({
+        x: touch.clientX - dragStart.x,
+        y: touch.clientY - dragStart.y,
+      });
+    }
   };
 
   const handleTouchEnd = () => {
     setIsDragging(false);
+    setPinchStart(null);
   };
 
   // Zoom handlers
@@ -198,7 +232,7 @@ const ImageCropModal = ({ isOpen, imageFile, onConfirm, onCancel, isEnglish = tr
           <button className="zoom-btn" onClick={handleZoomOut} disabled={isProcessing}>
             <img src={MinusIcon} alt="zoom out" className="zoom-icon" />
           </button>
-          <span className="zoom-label">{Math.round(scale * 100)}%</span>
+          <span className="zoom-label">{isEnglish ? Math.round(scale * 100) : toHindiNumber(Math.round(scale * 100))}%</span>
           <button className="zoom-btn" onClick={handleZoomIn} disabled={isProcessing}>
             <img src={PlusIcon} alt="zoom in" className="zoom-icon" />
           </button>
