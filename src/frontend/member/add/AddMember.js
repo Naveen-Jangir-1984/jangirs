@@ -1,4 +1,4 @@
-import CloseIcon from "../../../images/close.png";
+import { CloseIcon } from "../../../utils/imageConstants";
 import DatePicker from "../../../components/DatePicker";
 import ConfirmModal from "../../../components/ConfirmModal";
 import api from "../../../utils/api";

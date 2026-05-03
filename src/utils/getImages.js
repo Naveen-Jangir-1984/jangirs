@@ -1,14 +1,27 @@
-function importAll(r) {
-  return r.keys().map(key => {
-    const fileName = key.replace("./", ""); // e.g. "1.jpg"
-    return {
-      id: Number(fileName.split(".")[0]), // 1
-      src: require(`../images/${fileName}`) // require each image
-    };
-  });
-}
+const URL = process.env.REACT_APP_API_URL;
+const PORT = process.env.REACT_APP_PORT;
 
-// Scan images folder for jpg/png/webp
-export const IMAGES = importAll(
-  require.context("../images", false, /\.(png|jpe?g|webp)$/)
-);
+/**
+ * Fetch member images from server
+ * Images are served from public/images/Members/ directory
+ * @returns {Promise<Array<{id: number, src: string}>>}
+ */
+export const fetchMemberImages = async () => {
+  try {
+    const response = await fetch(`${URL}:${PORT}/getMemberImages`);
+    const data = await response.json();
+
+    // Convert relative paths to full URLs
+    return (data.images || []).map((img) => ({
+      id: img.id,
+      src: `${URL}:${PORT}${img.src}`,
+    }));
+  } catch (error) {
+    console.error("Error fetching member images:", error);
+    return [];
+  }
+};
+
+// For backwards compatibility - returns empty array initially
+// App.js will fetch the actual images from server
+export const IMAGES = [];

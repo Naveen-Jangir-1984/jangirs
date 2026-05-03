@@ -1,12 +1,5 @@
 import { useCallback } from "react";
-import PlusIcon from "../../images/plus.png";
-import MinusIcon from "../../images/minus.png";
-import MaleProfileIcon from "../../images/male.png";
-import FemaleProfileIcon from "../../images/female.png";
-import MobileIcon from "../../images/mobile.jpg";
-import AddMemberIcon from "../../images/addMember.png";
-import EditMemberIcon from "../../images/editMember.png";
-import SMSIcon from "../../images/sms.png";
+import { PlusIcon, MinusIcon, MaleProfileIcon, FemaleProfileIcon, MobileIcon, AddMemberIcon, EditMemberIcon, SMSIcon } from "../../utils/imageConstants";
 import { useMemberCounts, useImageMap } from "../../hooks/useMemberStats";
 import { collectMobileNumbers } from "../../utils/treeUtils";
 import useTranslation from "../../hooks/useTranslation";

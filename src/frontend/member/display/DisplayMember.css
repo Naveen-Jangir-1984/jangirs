@@ -107,3 +107,124 @@
   background-color: lightcoral;
   box-shadow: 5px 5px 10px 0 grey;
 }
+
+/* Profile Image Container with Upload */
+.profile-image-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-photo-btn {
+  position: absolute;
+  bottom: 15px;
+  right: calc(50% - 20dvh + 15px);
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.upload-photo-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.upload-photo-btn .upload-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.delete-photo-btn {
+  position: absolute;
+  bottom: 15px;
+  left: calc(50% - 20dvh + 15px);
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 200, 200, 0.95);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.delete-photo-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+  background-color: rgba(255, 150, 150, 0.95);
+}
+
+.delete-photo-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.delete-photo-btn .delete-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.upload-status {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.upload-status.uploading {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.upload-status.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.upload-status.error {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.upload-status .spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #1976d2;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

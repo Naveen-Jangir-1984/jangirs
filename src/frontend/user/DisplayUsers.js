@@ -1,7 +1,4 @@
-import CloseIcon from "../../images/close.png";
-import DeleteIcon from "../../images/delete.png";
-import AddIcon from "../../images/add.png";
-import MinusIcon from "../../images/minus.png";
+import { CloseIcon, DeleteIcon, AddIcon, MinusIcon } from "../../utils/imageConstants";
 import ConfirmModal from "../../components/ConfirmModal";
 import api from "../../utils/api";
 import useTranslation from "../../hooks/useTranslation";

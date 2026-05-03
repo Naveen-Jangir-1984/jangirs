@@ -37,6 +37,8 @@ const UI_LABELS = {
   "please wait": "कृपया प्रतीक्षा करें",
   update: "अपडेट करें",
   "add member": "सदस्य जोड़ें",
+  "drag to position": "स्थिति में खींचें, ज़ूम के लिए बटन या स्क्रॉल का उपयोग करें",
+  "processing...": "प्रोसेसिंग...",
 
   // Status & Messages
   success: "सफल",
@@ -264,6 +266,7 @@ const PHRASES = {
   "user exists": "उपयोगकर्ता पहले से मौजूद है!",
   "open to add user": "उपयोगकर्ता जोड़ने के लिए खोलें",
   "cancel add user": "उपयोगकर्ता जोड़ना रद्द करें",
+  "confirm delete photo": "क्या आप वाकई इस फोटो को हटाना चाहते हैं?",
 
   // Footer message
   confidentiality: "यह जानकारी डुलानिया जांगिड़ समाज के लिए गोपनीय है और नवीन जांगिड़ (पुत्र बहादुर सिंह जांगिड़) द्वारा संरक्षित है।",

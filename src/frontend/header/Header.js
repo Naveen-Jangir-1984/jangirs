@@ -1,10 +1,8 @@
 import { useState } from "react";
-import SignOutIcon from "../../images/signout.png";
-import UserEditIcon from "../../images/user.png";
+import { SignOutIcon, UserEditIcon } from "../../utils/imageConstants";
 import useTranslation from "../../hooks/useTranslation";
 import useConfirm from "../../hooks/useConfirm";
 import ConfirmModal from "../../components/ConfirmModal";
-// import MemberEditIcon from '../../images/member.png'
 import "./Header.css";
 
 const Header = ({ state, dispatch, getHindiText }) => {

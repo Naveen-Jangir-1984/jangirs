@@ -1,7 +1,7 @@
 import CryptoJS from "crypto-js";
 import { lazy, Suspense, useReducer, useState, useEffect, useCallback } from "react";
-import BGDImage from "./images/mata-mandir.jpg";
-import { IMAGES } from "./utils/getImages";
+import { BGDImage } from "./utils/imageConstants";
+import { fetchMemberImages } from "./utils/getImages";
 import { INITIAL_NEW_MEMBER, INITIAL_NEW_USER, INITIAL_EDIT_INPUT, INITIAL_FILTERS, INITIAL_INPUT } from "./utils/constants";
 import { addMemberToTree, editMemberInTree, deleteMemberFromTree, toggleMemberCollapse, toggleAllMembers, getMalesByVillage, getMalesByGotra, getFemalesByVillage, getFemalesByGotra, extractInitialCollapseStates, restoreCollapseStates } from "./utils/treeUtils";
 import { transliterateToHindi as transliterateHindi } from "./utils/transliterate";
@@ -20,7 +20,6 @@ const decryptData = (encryptedData) => {
 
 const App = () => {
   const [isServerDown, setIsServerDown] = useState("Connecting...");
-  const [images] = useState(IMAGES);
   const [members, setMembers] = useState([]);
   const [englishToHindi, setEnglishToHindi] = useState();
   const [hindiToEnglish, setHindiToEnglish] = useState();
@@ -196,7 +195,7 @@ const App = () => {
           members: updatedMembersOnReload,
           villages: db.villages,
           village: action.village,
-          images: images,
+          images: action.images || [],
           filters: INITIAL_FILTERS,
           newUser: state.newUser,
           newMember: state.newMember,
@@ -498,14 +497,20 @@ const App = () => {
           memberToBeAdded: "",
           memberToBeEdited: "",
         };
+      case "updateImages":
+        return {
+          ...state,
+          images: action.images || [],
+        };
       default:
         return state;
     }
   };
   const fetchData = useCallback(async (user, village) => {
     try {
-      const response = await fetch(`${URL}:${port}/getData`);
-      const data = await response.text();
+      // Fetch data and images in parallel
+      const [dataResponse, memberImages] = await Promise.all([fetch(`${URL}:${port}/getData`), fetchMemberImages()]);
+      const data = await dataResponse.text();
       const db = decryptData(data);
       sessionStorage.setItem(
         "appState",
@@ -587,7 +592,7 @@ const App = () => {
       setEnglishToHindi(db.englishToHindi);
       setHindiToEnglish(invertEnglishToHindi(db.englishToHindi));
       setIsServerDown("");
-      dispatch({ type: "fetch_success", initialState: db, user: user, village: village });
+      dispatch({ type: "fetch_success", initialState: db, user: user, village: village, images: memberImages });
     } catch (error) {
       setIsServerDown("Server down. Please try again later.");
       dispatch({ type: "fetch_error", initialState: {}, user: user });

@@ -103,6 +103,56 @@ export const api = {
   clearTranslationCache: () => {
     translationCache.clear();
   },
+
+  /**
+   * Upload a photo for a member with automatic face detection and cropping
+   * @param {number} memberId - The member's ID
+   * @param {File} file - The image file to upload
+   * @returns {Promise<object>} - Upload result
+   */
+  uploadPhoto: async (memberId, file) => {
+    const formData = new FormData();
+    formData.append("memberId", memberId);
+    formData.append("photo", file);
+
+    const response = await fetch(`${URL}:${PORT}/uploadPhoto`, {
+      method: "POST",
+      body: formData,
+    });
+    return response.json();
+  },
+
+  /**
+   * Delete a member's photo
+   * @param {number} memberId - The member's ID
+   * @returns {Promise<object>} - Delete result
+   */
+  deletePhoto: async (memberId) => {
+    const response = await fetch(`${URL}:${PORT}/deletePhoto`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ memberId }),
+    });
+    return response.json();
+  },
+
+  /**
+   * Upload a pre-cropped photo for a member (no face detection)
+   * @param {number} memberId - The member's ID
+   * @param {File} file - The already-cropped image file
+   * @returns {Promise<object>} - Upload result
+   */
+  uploadCroppedPhoto: async (memberId, file) => {
+    const formData = new FormData();
+    formData.append("memberId", memberId);
+    formData.append("photo", file);
+
+    const response = await fetch(`${URL}:${PORT}/uploadCroppedPhoto`, {
+      method: "POST",
+      body: formData,
+    });
+    return response.json();
+  },
 };
 
 export default api;

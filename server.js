@@ -6,6 +6,7 @@ const https = require("https");
 const fs = require("fs");
 const fsPromises = fs.promises;
 const cors = require("cors");
+const sharp = require("sharp");
 const app = express();
 
 app.use(cors());
@@ -73,8 +74,13 @@ async function applyMemberTranslations(db, member) {
 function collectUsedValues(node, result = { names: new Set(), villages: new Set(), gotras: new Set() }) {
   if (!node) return result;
 
-  // Collect from current node
-  if (node.name) result.names.add(node.name.toLowerCase());
+  // Collect from current node (split names into individual words for translation keys)
+  if (node.name) {
+    node.name
+      .toLowerCase()
+      .split(/\s+/)
+      .forEach((word) => result.names.add(word));
+  }
   if (node.village) result.villages.add(node.village.toLowerCase());
   if (node.gotra) result.gotras.add(node.gotra.toLowerCase());
 
@@ -476,6 +482,141 @@ app.post(`${resource}/addUser`, (req, res) => {
     },
     true,
   );
+});
+
+// ==================== MEMBER PHOTO UPLOAD ====================
+
+const { detectAndCropFace } = require("./src/utils/faceDetection");
+
+// Memory storage for photo upload (process before saving)
+const photoStorage = multer.memoryStorage();
+const photoUpload = multer({
+  storage: photoStorage,
+  limits: { fileSize: 50 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Invalid file type. Only JPEG, PNG, and WebP are allowed."));
+    }
+  },
+});
+
+// Server-served member images directory (no build required)
+const MEMBER_IMAGES_DIR = path.join(__dirname, "public/images/Members");
+
+// Ensure Members directory exists
+if (!fs.existsSync(MEMBER_IMAGES_DIR)) {
+  fs.mkdirSync(MEMBER_IMAGES_DIR, { recursive: true });
+}
+
+app.post("/uploadPhoto", photoUpload.single("photo"), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.json({ result: "failed", message: "No file uploaded" });
+    }
+
+    const memberId = req.body.memberId;
+    if (!memberId) {
+      return res.json({ result: "failed", message: "Member ID is required" });
+    }
+
+    console.log(`Processing photo upload for member ${memberId}`);
+
+    // Detect face and crop portrait
+    const result = await detectAndCropFace(req.file.buffer, memberId, MEMBER_IMAGES_DIR);
+
+    if (!result.success) {
+      return res.json({ result: "failed", message: result.message });
+    }
+
+    console.log(`Photo saved: ${result.filePath}`);
+
+    // Return success with image URL (no build-deploy needed)
+    const imageUrl = `/images/Members/${memberId}.jpg`;
+    res.json({ result: "success", message: result.message, imageUrl });
+  } catch (error) {
+    console.error("Photo upload error:", error);
+    res.json({ result: "failed", message: error.message });
+  }
+});
+
+// Delete a member's photo
+app.post("/deletePhoto", async (req, res) => {
+  try {
+    const { memberId } = req.body;
+    if (!memberId) {
+      return res.json({ result: "failed", message: "Member ID is required" });
+    }
+
+    const photoPath = path.join(MEMBER_IMAGES_DIR, `${memberId}.jpg`);
+
+    if (!fs.existsSync(photoPath)) {
+      return res.json({ result: "failed", message: "Photo not found" });
+    }
+
+    await fsPromises.unlink(photoPath);
+    console.log(`Photo deleted: ${photoPath}`);
+
+    res.json({ result: "success", message: "Photo deleted successfully" });
+  } catch (error) {
+    console.error("Photo delete error:", error);
+    res.json({ result: "failed", message: error.message });
+  }
+});
+
+// Upload a pre-cropped photo (user adjusted via crop modal)
+app.post("/uploadCroppedPhoto", photoUpload.single("photo"), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.json({ result: "failed", message: "No file uploaded" });
+    }
+
+    const memberId = req.body.memberId;
+    if (!memberId) {
+      return res.json({ result: "failed", message: "Member ID is required" });
+    }
+
+    console.log(`Uploading pre-cropped photo for member ${memberId}`);
+
+    // Ensure output directory exists
+    if (!fs.existsSync(MEMBER_IMAGES_DIR)) {
+      fs.mkdirSync(MEMBER_IMAGES_DIR, { recursive: true });
+    }
+
+    // Save the image (already cropped by client, just resize to standard size)
+    const outputPath = path.join(MEMBER_IMAGES_DIR, `${memberId}.jpg`);
+    await sharp(req.file.buffer).resize(800, 800, { fit: "cover", position: "center" }).jpeg({ quality: 90 }).toFile(outputPath);
+
+    console.log(`Photo saved: ${outputPath}`);
+
+    const imageUrl = `/images/Members/${memberId}.jpg`;
+    res.json({ result: "success", message: "Photo uploaded successfully", imageUrl });
+  } catch (error) {
+    console.error("Photo upload error:", error);
+    res.json({ result: "failed", message: error.message });
+  }
+});
+
+// Get list of all member images (for frontend to build image map)
+app.get("/getMemberImages", async (req, res) => {
+  try {
+    if (!fs.existsSync(MEMBER_IMAGES_DIR)) {
+      return res.json({ images: [] });
+    }
+    const files = await fsPromises.readdir(MEMBER_IMAGES_DIR);
+    const images = files
+      .filter((f) => /\.(jpg|jpeg|png|webp)$/i.test(f))
+      .map((f) => ({
+        id: Number(f.split(".")[0]),
+        src: `/images/Members/${f}`,
+      }));
+    res.json({ images });
+  } catch (error) {
+    console.error("Error reading member images:", error);
+    res.json({ images: [] });
+  }
 });
 
 // ==================== SERVER STARTUP ====================

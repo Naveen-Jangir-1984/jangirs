@@ -36,6 +36,7 @@ const KEY_MAP = {
   Open: "open",
   Close: "close",
   Cancel: "cancel",
+  Confirm: "confirm",
   OK: "ok",
   yes: "yes",
   no: "no",
@@ -82,6 +83,9 @@ const KEY_MAP = {
   cancelAddUser: "cancel add user",
   settledIn: "settled in",
   confidentiality: "confidentiality",
+  adjustPhoto: "adjust photo",
+  dragToPosition: "drag to position",
+  processing: "processing...",
 };
 
 /**
@@ -108,6 +112,10 @@ const ENGLISH_TEXT = {
   confidentiality: "This information is confidential to Dulania Jangir Samaaj and protected by Naveen Jangir (s/o Bahadur Singh Jangir).",
   yes: "Yes",
   no: "No",
+  adjustPhoto: "Adjust Photo",
+  dragToPosition: "Drag to position, use buttons or scroll to zoom",
+  processing: "Processing...",
+  Confirm: "Confirm",
 };
 
 /**
