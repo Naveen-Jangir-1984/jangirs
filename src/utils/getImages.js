@@ -11,10 +11,13 @@ export const fetchMemberImages = async () => {
     const response = await fetch(`${URL}:${PORT}/getMemberImages`);
     const data = await response.json();
 
-    // Convert relative paths to full URLs
+    // Add cache-busting timestamp to force reload after upload
+    const timestamp = Date.now();
+
+    // Convert relative paths to full URLs with cache buster
     return (data.images || []).map((img) => ({
       id: img.id,
-      src: `${URL}:${PORT}${img.src}`,
+      src: `${URL}:${PORT}${img.src}?t=${timestamp}`,
     }));
   } catch (error) {
     console.error("Error fetching member images:", error);
