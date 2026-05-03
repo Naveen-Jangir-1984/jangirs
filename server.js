@@ -1,7 +1,6 @@
 const CryptoJS = require("crypto-js");
 const express = require("express");
 const multer = require("multer");
-const sarvamai = require("sarvamai");
 const path = require("path");
 const https = require("https");
 const fs = require("fs");
@@ -18,7 +17,6 @@ app.use("/videos", express.static(path.join(__dirname, "public/videos")));
 require("dotenv").config();
 const port = process.env.REACT_APP_PORT;
 const secretKey = process.env.REACT_APP_SECRET_KEY;
-const saravamaiApiKey = process.env.REACT_APP_SARVAMAI_API_KEY;
 
 const options = {
   key: fs.readFileSync("./test.key"),
@@ -53,43 +51,72 @@ const dbOperation = async (res, dbPath, operation, encrypt = false) => {
   }
 };
 
-// Translation helper using Sarvam AI
-let sarvamClient = null;
-const getSarvamClient = () => {
-  if (!sarvamClient) {
-    sarvamClient = new sarvamai.SarvamAIClient({ apiSubscriptionKey: saravamaiApiKey });
-  }
-  return sarvamClient;
-};
+// Import centralized Hindi transliteration
+const { transliterateToHindi } = require("./src/utils/transliterate");
 
-async function translateToHindi(text) {
-  try {
-    const response = await getSarvamClient().text.transliterate({
-      input: text,
-      source_language_code: "en-IN",
-      target_language_code: "hi-IN",
-      spoken_form: true,
-    });
-    return response.transliterated_text;
-  } catch (e) {
-    console.error("Translation error:", e);
-    return text;
-  }
-}
-
-// Translate and add to englishToHindi if not exists
+// Transliterate and add to englishToHindi if not exists
 async function translateAndStore(db, value, type) {
   if (!value) return;
   const key = value.toLowerCase();
   const mapping = db.englishToHindi[type];
   if (mapping && !mapping[key]) {
-    mapping[key] = await translateToHindi(key);
+    mapping[key] = await transliterateToHindi(key);
   }
 }
 
 // Apply translations for member fields
 async function applyMemberTranslations(db, member) {
   await Promise.all([translateAndStore(db, member.name, "names"), translateAndStore(db, member.village, "villages"), translateAndStore(db, member.gotra, "gotras")]);
+}
+
+// Recursively collect all used names, villages, and gotras from a tree node
+function collectUsedValues(node, result = { names: new Set(), villages: new Set(), gotras: new Set() }) {
+  if (!node) return result;
+
+  // Collect from current node
+  if (node.name) result.names.add(node.name.toLowerCase());
+  if (node.village) result.villages.add(node.village.toLowerCase());
+  if (node.gotra) result.gotras.add(node.gotra.toLowerCase());
+
+  // Recursively collect from children
+  node.children?.forEach((child) => collectUsedValues(child, result));
+
+  // Recursively collect from wives
+  node.wives?.forEach((wife) => collectUsedValues(wife, result));
+
+  return result;
+}
+
+// Collect all used values from all village trees
+function collectAllUsedValues(db) {
+  const result = { names: new Set(), villages: new Set(), gotras: new Set() };
+
+  VILLAGES.forEach((village) => {
+    db[village]?.forEach((root) => collectUsedValues(root, result));
+  });
+
+  return result;
+}
+
+// Clean up unused translations from englishToHindi
+function cleanupUnusedTranslations(db) {
+  const usedValues = collectAllUsedValues(db);
+
+  // Helper to filter out unused keys
+  const filterUnused = (mapping, usedSet) => {
+    const filtered = {};
+    Object.keys(mapping).forEach((key) => {
+      if (usedSet.has(key)) {
+        filtered[key] = mapping[key];
+      }
+    });
+    return filtered;
+  };
+
+  // Clean up each category
+  db.englishToHindi.names = filterUnused(db.englishToHindi.names, usedValues.names);
+  db.englishToHindi.villages = filterUnused(db.englishToHindi.villages, usedValues.villages);
+  db.englishToHindi.gotras = filterUnused(db.englishToHindi.gotras, usedValues.gotras);
 }
 
 // Village-based tree operation helper
@@ -196,6 +223,7 @@ app.post("/addNewMember", async (req, res) => {
 
     await applyMemberTranslations(db, newMember);
     applyToVillageTree(db, village, (m) => addMember(m, existingMember.id, newMember, type));
+    cleanupUnusedTranslations(db);
 
     await writeDb(JANGIRS_DB, db);
     res.send({ result: "success" });
@@ -212,6 +240,7 @@ app.post("/editMember", async (req, res) => {
 
     await applyMemberTranslations(db, existingMember);
     applyToVillageTree(db, village, (m) => editMember(m, existingMember));
+    cleanupUnusedTranslations(db);
 
     await writeDb(JANGIRS_DB, db);
     res.send({ result: "success" });
@@ -225,6 +254,7 @@ app.post("/deleteMember", (req, res) => {
   dbOperation(res, JANGIRS_DB, (db) => {
     const { id, village } = req.body;
     applyToVillageTree(db, village, (m) => deleteMemberById(m, id));
+    cleanupUnusedTranslations(db);
   });
 });
 

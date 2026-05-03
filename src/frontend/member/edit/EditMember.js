@@ -1,127 +1,105 @@
 import CloseIcon from "../../../images/close.png";
+import DatePicker from "../../../components/DatePicker";
+import ConfirmModal from "../../../components/ConfirmModal";
+import api from "../../../utils/api";
+import useTranslation from "../../../hooks/useTranslation";
+import useConfirm from "../../../hooks/useConfirm";
 import "./EditMember.css";
-const URL = process.env.REACT_APP_API_URL;
-const PORT = process.env.REACT_APP_PORT;
 
 const EditMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishText, getEnglishNumbers }) => {
-  const dates = [];
-  for (let i = 1; i <= 31; i++) {
-    dates.push(i);
-  }
-  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  const monthsHindi = ["जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितम्बर", "अक्टूबर", "नवम्बर", "दिसम्बर"];
-  const currentYear = new Date().getFullYear();
-  const years = [];
-  for (let i = currentYear; i >= 1200; i--) {
-    years.push(i);
-  }
+  const isEnglish = state.user.language;
+  const { t } = useTranslation(isEnglish);
+  const { isOpen: confirmOpen, message: confirmMessage, showConfirm, handleConfirm, handleCancel } = useConfirm();
+
+  // Helper to parse mobile numbers
+  const parseMobileNumbers = (mobileStr) => {
+    if (!mobileStr) return [];
+    return mobileStr.replaceAll(" ", "").split(",").filter(Boolean).map(Number);
+  };
+
+  // Helper to parse emails
+  const parseEmails = (emailStr) => {
+    if (!emailStr) return [];
+    return emailStr.replaceAll(" ", "").split(",").filter(Boolean);
+  };
+
+  // Helper to format date string
+  const formatDate = (date, month, year) => {
+    if (date && month && year) {
+      return `${date} ${month} ${year}`;
+    }
+    return "";
+  };
+
   const handleEditMember = async () => {
-    const consent = window.confirm(state.user.language ? "Are you sure you want to update the member?" : "क्या आप वाकई सदस्य का नवीनीकरण करना चाहते हैं?");
-    if (consent) {
-      const mobileNumbers = [];
-      const mobiles = state.editInput.mobile !== "" ? state.editInput.mobile.replaceAll(" ", "").split(",") : [];
-      for (let i = 0; i < mobiles.length; i++) {
-        mobileNumbers.push(Number(mobiles[i]));
-      }
-      const person = {
-        id: state.editInput.id,
-        name: state.editInput.name,
-        dob: state.editInput.date !== "" && state.editInput.month !== "" && state.editInput.year !== "" ? state.editInput.date + " " + state.editInput.month + " " + state.editInput.year : "",
-        gender: state.editInput.gender,
-        isAlive: state.editInput.isAlive === "alive" ? true : false,
-        dod: state.editInput.isAlive === "dead" && state.editInput.dateDeath !== "" && state.editInput.monthDeath !== "" && state.editInput.yearDeath !== "" ? state.editInput.dateDeath + " " + state.editInput.monthDeath + " " + state.editInput.yearDeath : "",
-        village: state.editInput.village,
-        gotra: state.editInput.gotra,
-        mobile: mobileNumbers,
-        email: state.editInput.email !== "" ? state.editInput.email.replaceAll(" ", "").split(",") : [],
-      };
-      const response = await fetch(`${URL}:${PORT}/editMember`, {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ member: person, village: state.village }),
-      });
-      const data = await response.json();
-      if (data.result === "success") {
-        dispatch({ type: "editMember", member: person });
-      }
+    const confirmMsg = t("confirmEditMember");
+
+    if (!(await showConfirm(confirmMsg))) return;
+
+    const { editInput, village } = state;
+    const mobileNumbers = parseMobileNumbers(editInput.mobile);
+    const emails = parseEmails(editInput.email);
+    const dob = formatDate(editInput.date, editInput.month, editInput.year);
+    const dod = editInput.isAlive === "dead" ? formatDate(editInput.dateDeath, editInput.monthDeath, editInput.yearDeath) : "";
+
+    const person = {
+      id: editInput.id,
+      name: editInput.name,
+      dob,
+      gender: editInput.gender,
+      isAlive: editInput.isAlive === "alive",
+      dod,
+      village: editInput.village,
+      gotra: editInput.gotra,
+      mobile: mobileNumbers,
+      email: emails,
+    };
+
+    const data = await api.editMember(person, village);
+    if (data.result === "success") {
+      dispatch({ type: "editMember", member: person });
     }
   };
+
   const handleClose = () => {
     dispatch({ type: "closeMemberEdit" });
   };
+
+  const handleInputChange = (e) => {
+    dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value });
+  };
+
   return (
     <div className="edit-member" style={{ display: state.isMemberEditOpen ? "flex" : "none" }}>
-      <img src={CloseIcon} alt="close" className="close" onClick={() => handleClose()} loading="lazy" />
+      <img src={CloseIcon} alt="close" className="close" onClick={handleClose} loading="lazy" />
       <div className="view">
-        <input type="text" name="name" value={state.editInput.name} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Name" : "नाम"} />
-        <input type="text" name="mobile" value={state.editInput.mobile} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Mobile" : "मोबाइल"} />
-        <div className="dob">
-          <select name="date" value={state.editInput.date} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })}>
-            <option value="">{state.user.language ? "DD" : "दिन"}</option>
-            {dates.map((date, i) => (
-              <option key={i} value={date}>
-                {state.user.language ? date : getHindiNumbers(date.toString())}
-              </option>
-            ))}
-          </select>
-          <select name="month" value={state.editInput.month} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })}>
-            <option value="">{state.user.language ? "MM" : "महिना"}</option>
-            {months.map((month, i) => (
-              <option key={i} value={month}>
-                {state.user.language ? month : monthsHindi[i]}
-              </option>
-            ))}
-          </select>
-          <select name="year" value={state.editInput.year} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })}>
-            <option value="">{state.user.language ? "YYYY" : "साल"}</option>
-            {years.map((year, i) => (
-              <option key={i} value={year}>
-                {state.user.language ? year : getHindiNumbers(year.toString())}
-              </option>
-            ))}
-          </select>
-        </div>
-        <select name="gender" value={state.editInput.gender} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })}>
-          <option value="M">{state.user.language ? "Male" : "पुरुष"}</option>
-          <option value="F">{state.user.language ? "Female" : "महिला"}</option>
+        <input type="text" name="name" value={state.editInput.name} onChange={handleInputChange} placeholder={t("Name")} />
+
+        <input type="text" name="mobile" value={state.editInput.mobile} onChange={handleInputChange} placeholder={t("Mobile")} />
+
+        <DatePicker dateValue={state.editInput.date} monthValue={state.editInput.month} yearValue={state.editInput.year} onDateChange={handleInputChange} onMonthChange={handleInputChange} onYearChange={handleInputChange} isEnglish={isEnglish} getHindiNumbers={getHindiNumbers} className="dob" />
+
+        <select name="gender" value={state.editInput.gender} onChange={handleInputChange}>
+          <option value="M">{t("Male")}</option>
+          <option value="F">{t("Female")}</option>
         </select>
-        <select name="isAlive" value={state.editInput.isAlive} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })}>
-          <option value="alive">{state.user.language ? "Alive" : "जिंदा"}</option>
-          <option value="dead">{state.user.language ? "Dead" : "मृत"}</option>
+
+        <select name="isAlive" value={state.editInput.isAlive} onChange={handleInputChange}>
+          <option value="alive">{t("Alive")}</option>
+          <option value="dead">{t("Dead")}</option>
         </select>
-        {state.editInput.isAlive === "dead" && (
-          <div className="dod">
-            <select name="dateDeath" value={state.editInput.dateDeath} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })}>
-              <option value="">{state.user.language ? "DD" : "दिन"}</option>
-              {dates.map((date, i) => (
-                <option key={i} value={date}>
-                  {state.user.language ? date : getHindiNumbers(date.toString())}
-                </option>
-              ))}
-            </select>
-            <select name="monthDeath" value={state.editInput.monthDeath} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })}>
-              <option value="">{state.user.language ? "MM" : "महिना"}</option>
-              {months.map((month, i) => (
-                <option key={i} value={month}>
-                  {state.user.language ? month : monthsHindi[i]}
-                </option>
-              ))}
-            </select>
-            <select name="yearDeath" value={state.editInput.yearDeath} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })}>
-              <option value="">{state.user.language ? "YYYY" : "साल"}</option>
-              {years.map((year, i) => (
-                <option key={i} value={year}>
-                  {state.user.language ? year : getHindiNumbers(year.toString())}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
-        <input type="text" name="village" value={state.editInput.village} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Village" : "गाँव"} />
-        {state.editInput.gender === "F" ? <input type="text" name="gotra" value={state.editInput.gotra} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Gotra" : "गोत्र"} /> : ""}
-        <input type="email" name="email" value={state.editInput.email} onChange={(e) => dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value })} placeholder={state.user.language ? "Email" : "ईमेल"} />
-        <button onClick={() => handleEditMember()}>{state.user.language ? "UPDATE" : "नवीनीकरण"}</button>
+
+        {state.editInput.isAlive === "dead" && <DatePicker dateValue={state.editInput.dateDeath} monthValue={state.editInput.monthDeath} yearValue={state.editInput.yearDeath} onDateChange={handleInputChange} onMonthChange={handleInputChange} onYearChange={handleInputChange} isEnglish={isEnglish} getHindiNumbers={getHindiNumbers} dateName="dateDeath" monthName="monthDeath" yearName="yearDeath" className="dod" />}
+
+        <input type="text" name="village" value={state.editInput.village} onChange={handleInputChange} placeholder={t("Village")} />
+
+        {state.editInput.gender === "F" && <input type="text" name="gotra" value={state.editInput.gotra} onChange={handleInputChange} placeholder={t("Gotra")} />}
+
+        <input type="email" name="email" value={state.editInput.email} onChange={handleInputChange} placeholder={t("Email")} />
+
+        <button onClick={handleEditMember}>{t("UPDATE")}</button>
       </div>
+      <ConfirmModal isOpen={confirmOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={confirmMessage} confirmText={t("yes")} cancelText={t("no")} />
     </div>
   );
 };

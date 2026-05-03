@@ -2,7 +2,11 @@ import CryptoJS from "crypto-js";
 import { lazy, Suspense, useReducer, useState, useEffect, useCallback } from "react";
 import BGDImage from "./images/mata-mandir.jpg";
 import { IMAGES } from "./utils/getImages";
+import { INITIAL_NEW_MEMBER, INITIAL_NEW_USER, INITIAL_EDIT_INPUT, INITIAL_FILTERS, INITIAL_INPUT } from "./utils/constants";
+import { addMemberToTree, editMemberInTree, deleteMemberFromTree, toggleMemberCollapse, toggleAllMembers, getMalesByVillage, getMalesByGotra, getFemalesByVillage, getFemalesByGotra, extractInitialCollapseStates, restoreCollapseStates } from "./utils/treeUtils";
+import { transliterateToHindi as transliterateHindi } from "./utils/transliterate";
 import "./App.css";
+
 const SignIn = lazy(() => import("./frontend/signin/SignIn"));
 const Home = lazy(() => import("./frontend/home/Home"));
 const URL = process.env.REACT_APP_API_URL;
@@ -20,6 +24,7 @@ const App = () => {
   const [members, setMembers] = useState([]);
   const [englishToHindi, setEnglishToHindi] = useState();
   const [hindiToEnglish, setHindiToEnglish] = useState();
+
   const initialState = {
     user: undefined,
     users: [],
@@ -30,60 +35,11 @@ const App = () => {
     members: [],
     villages: [],
     village: "",
-    filters: {
-      search: "",
-      male: {
-        village: "",
-        gotra: "",
-      },
-      female: {
-        village: "",
-        gotra: "",
-      },
-    },
-    newUser: {
-      username: "",
-      password: "",
-      role: "user",
-      error: false,
-    },
-    newMember: {
-      type: "",
-      name: "",
-      mobile: "",
-      email: "",
-      date: "",
-      month: "",
-      year: "",
-      dateDeath: "",
-      monthDeath: "",
-      yearDeath: "",
-      isAlive: "alive",
-      gender: "M",
-      village: "",
-      gotra: "",
-    },
-    input: {
-      username: "",
-      password: "",
-      error: false,
-    },
-    editInput: {
-      id: "",
-      name: "",
-      mobile: "",
-      date: "",
-      month: "",
-      year: "",
-      dateDeath: "",
-      monthDeath: "",
-      yearDeath: "",
-      gender: "",
-      village: "",
-      gotra: "",
-      email: "",
-      isAlive: "",
-    },
+    filters: INITIAL_FILTERS,
+    newUser: INITIAL_NEW_USER,
+    newMember: INITIAL_NEW_MEMBER,
+    input: INITIAL_INPUT,
+    editInput: INITIAL_EDIT_INPUT,
     memberToBeDisplayed: "",
     memberToBeAdded: "",
     memberToBeEdited: "",
@@ -93,105 +49,9 @@ const App = () => {
     isMemberAddOpen: false,
     isMemberEditOpen: false,
     visitors: "",
+    initialCollapseStates: new Map(),
   };
-  // traverse to add a member
-  const addMember = (tree, id, member, type) => {
-    if (!tree) return null;
-    if (tree.id === id && type === "child") {
-      if (tree.children) {
-        tree.children.push(member);
-      } else {
-        tree.children = [member];
-      }
-      return tree;
-    } else if (tree.id === id && type === "wife") {
-      if (tree.wives) {
-        tree.wives.push(member);
-      } else {
-        tree.wives = [member];
-      }
-      return tree;
-    }
-    tree.children?.forEach((child) => addMember(child, id, member, type));
-    return tree;
-  };
-  // traverse to edit a member
-  const editMemberById = (tree, member) => {
-    if (!tree) return null;
-    if (tree.id === member.id) {
-      tree.name = member.name;
-      tree.gender = member.gender;
-      tree.isAlive = member.isAlive;
-      tree.dob = member.dob;
-      tree.dod = member.dod;
-      tree.village = member.village;
-      tree.gotra = member.gotra;
-      tree.email = member.email;
-      tree.mobile = member.mobile;
-    }
-    if (tree.children) {
-      tree.children = tree.children.map((child) => {
-        if (child.id === member.id) {
-          child.name = member.name;
-          child.gender = member.gender;
-          child.isAlive = member.isAlive;
-          child.dob = member.dob;
-          child.dod = member.dod;
-          child.village = member.village;
-          child.gotra = member.gotra;
-          child.email = member.email;
-          child.mobile = member.mobile;
-        }
-        return child;
-      });
-    }
-    tree.children?.forEach((child) => editMemberById(child, member));
-    if (tree.wives) {
-      tree.wives = tree.wives.map((wife) => {
-        if (wife.id === member.id) {
-          wife.name = member.name;
-          wife.gender = member.gender;
-          wife.isAlive = member.isAlive;
-          wife.dob = member.dob;
-          wife.dod = member.dod;
-          wife.village = member.village;
-          wife.gotra = member.gotra;
-          wife.email = member.email;
-          wife.mobile = member.mobile;
-        }
-        return wife;
-      });
-    }
-    tree.wives?.forEach((wife) => editMemberById(wife, member));
-    return tree;
-  };
-  // traverse to delete a member
-  const deleteMemberById = (tree, id) => {
-    if (!tree) return null;
-    if (tree.children) {
-      tree.children = tree.children.filter((child) => child.id !== id);
-    }
-    tree.children?.forEach((child) => deleteMemberById(child, id));
-    if (tree.wives) {
-      tree.wives = tree.wives.filter((wife) => wife.id !== id);
-    }
-    tree.wives?.forEach((wife) => deleteMemberById(wife, id));
-    return tree;
-  };
-  // traverse members to expand or collapse
-  const traverseMemberToExpandOrCollapse = (member, id) => {
-    if (member.id === id && member.gender === "M") {
-      member.isCollapsed = !member.isCollapsed;
-    }
-    member.children?.map((child) => traverseMemberToExpandOrCollapse(child, id));
-    return member;
-  };
-  // traverse members to either expand all or collapse all
-  const traverseMemberToExpandOrCollapseAll = (member, flag) => {
-    member.isCollapsed = flag;
-    member.gender === "M" && member.children?.map((child) => traverseMemberToExpandOrCollapseAll(child, flag));
-    return member;
-  };
+  // Tree traversal functions are now imported from utils/treeUtils.js
   // invert englishToHindi to hindiToEnglish
   const invertEnglishToHindi = (obj) => {
     const result = {};
@@ -230,12 +90,36 @@ const App = () => {
   };
   // convert english to hindi text
   const getHindiText = (text, attribute) => {
-    return text?.length
-      ? text
-          ?.split(" ")
-          .map((word) => (attribute === "village" ? englishToHindi.villages[word.toLowerCase()] : attribute === "gotra" ? englishToHindi.gotras[word.toLowerCase()] : attribute === "months" ? englishToHindi.months[word.toLowerCase()] : englishToHindi.names[word.toLowerCase()]) || word)
-          .join(" ")
-      : "";
+    if (!text?.length) return "";
+
+    return text
+      .split(" ")
+      .map((word) => {
+        const key = word.toLowerCase();
+        let translation;
+
+        if (attribute === "village") {
+          translation = englishToHindi?.villages?.[key];
+        } else if (attribute === "gotra") {
+          translation = englishToHindi?.gotras?.[key];
+        } else if (attribute === "months") {
+          translation = englishToHindi?.months?.[key];
+        } else {
+          translation = englishToHindi?.names?.[key];
+        }
+
+        // Use custom transliteration as fallback for names, villages, and gotras
+        if (!translation && attribute !== "months") {
+          try {
+            translation = transliterateHindi(word);
+          } catch (e) {
+            translation = word;
+          }
+        }
+
+        return translation || word;
+      })
+      .join(" ");
   };
   // convert english to hindi numbers
   const getHindiNumbers = (text) => {
@@ -246,63 +130,63 @@ const App = () => {
     }
     return result;
   };
-  // get village members
-  const traverseMaleVillageMembers = (members, village) => {
-    let result = [];
-    for (const member of members) {
-      if (member.wives?.length && member.wives[0].village === village) {
-        result.push(member);
+
+  // Update englishToHindi cache with new member data
+  const updateEnglishToHindi = (member) => {
+    if (!englishToHindi) return;
+
+    setEnglishToHindi((prev) => {
+      const updated = { ...prev };
+
+      // Add name translation if not exists
+      if (member.name) {
+        const nameKey = member.name.toLowerCase();
+        if (!updated.names[nameKey]) {
+          try {
+            updated.names = { ...updated.names, [nameKey]: transliterateHindi(member.name) };
+          } catch (e) {
+            // Ignore errors
+          }
+        }
       }
-      if (member.gender === "M" && member.children?.length) {
-        result = result.concat(traverseMaleVillageMembers(member.children, village));
+
+      // Add village translation if not exists
+      if (member.village) {
+        const villageKey = member.village.toLowerCase();
+        if (!updated.villages[villageKey]) {
+          try {
+            updated.villages = { ...updated.villages, [villageKey]: transliterateHindi(member.village) };
+          } catch (e) {
+            // Ignore errors
+          }
+        }
       }
-    }
-    return result;
+
+      // Add gotra translation if not exists
+      if (member.gotra) {
+        const gotraKey = member.gotra.toLowerCase();
+        if (!updated.gotras[gotraKey]) {
+          try {
+            updated.gotras = { ...updated.gotras, [gotraKey]: transliterateHindi(member.gotra) };
+          } catch (e) {
+            // Ignore errors
+          }
+        }
+      }
+
+      return updated;
+    });
   };
-  // get village members
-  const traverseFemaleVillageMembers = (members, village) => {
-    let result = [];
-    for (const member of members) {
-      if (member.gender === "F" && member.gotra !== undefined && member.village === village) {
-        result.push(member);
-      }
-      if (member.gender === "M" && member.children?.length) {
-        result = result.concat(traverseFemaleVillageMembers(member.children, village));
-      }
-    }
-    return result;
-  };
-  // get gotra members
-  const traverseMaleGotraMembers = (members, gotra) => {
-    let result = [];
-    for (const member of members) {
-      if (member.wives?.length && member.wives[0].gotra === gotra) {
-        result.push(member);
-      }
-      if (member.gender === "M" && member.children?.length) {
-        result = result.concat(traverseMaleGotraMembers(member.children, gotra));
-      }
-    }
-    return result;
-  };
-  const traverseFemaleGotraMembers = (members, gotra) => {
-    let result = [];
-    for (const member of members) {
-      if (member.gender === "F" && member.village !== undefined && member.gotra === gotra) {
-        result.push(member);
-      }
-      if (member.gender === "M" && member.children?.length) {
-        result = result.concat(traverseFemaleGotraMembers(member.children, gotra));
-      }
-    }
-    return result;
-  };
+
+  // Village/Gotra traversal functions are now imported from utils/treeUtils.js
   const reducer = (state, action) => {
     switch (action.type) {
       case "fetch_success":
         const db = action.initialState;
         const updatedMembersOnReload = action.village === "dulania" ? db.dulania : action.village === "moruwa" ? db.moruwa : action.village === "tatija" ? db.tatija : [];
         setMembers(updatedMembersOnReload);
+        // Extract initial collapse states from all villages
+        const allCollapseStates = new Map([...extractInitialCollapseStates(db.dulania), ...extractInitialCollapseStates(db.moruwa), ...extractInitialCollapseStates(db.tatija)]);
         return {
           user: action.user,
           users: db.users,
@@ -313,17 +197,7 @@ const App = () => {
           villages: db.villages,
           village: action.village,
           images: images,
-          filters: {
-            search: "",
-            male: {
-              village: "",
-              gotra: "",
-            },
-            female: {
-              village: "",
-              gotra: "",
-            },
-          },
+          filters: INITIAL_FILTERS,
           newUser: state.newUser,
           newMember: state.newMember,
           input: state.input,
@@ -337,28 +211,19 @@ const App = () => {
           isMemberAddOpen: state.isMemberAddOpen,
           isMemberEditOpen: state.isMemberEditOpen,
           visitors: db.visitors,
+          initialCollapseStates: allCollapseStates,
         };
       case "openUserEdit":
         return {
           ...state,
-          newUser: {
-            username: "",
-            password: "",
-            role: "user",
-            error: false,
-          },
+          newUser: INITIAL_NEW_USER,
           isUserAddOpen: false,
           isUserEditOpen: true,
         };
       case "closeUserEdit":
         return {
           ...state,
-          newUser: {
-            username: "",
-            password: "",
-            role: "user",
-            error: false,
-          },
+          newUser: INITIAL_NEW_USER,
           isUserAddOpen: false,
           isUserEditOpen: false,
         };
@@ -366,12 +231,7 @@ const App = () => {
         return {
           ...state,
           users: [...state.users, action.newUser],
-          newUser: {
-            username: "",
-            password: "",
-            role: "user",
-            error: false,
-          },
+          newUser: INITIAL_NEW_USER,
           isUserEditOpen: false,
         };
       case "deleteUser":
@@ -383,22 +243,7 @@ const App = () => {
       case "openMemberAdd":
         return {
           ...state,
-          newMember: {
-            type: "",
-            name: "",
-            mobile: "",
-            email: "",
-            date: "",
-            month: "",
-            year: "",
-            dateDeath: "",
-            monthDeath: "",
-            yearDeath: "",
-            isAlive: "alive",
-            gender: "M",
-            village: "",
-            gotra: "",
-          },
+          newMember: INITIAL_NEW_MEMBER,
           memberToBeAdded: action.member,
           memberToBeEdited: "",
           isMemberAddOpen: true,
@@ -406,22 +251,7 @@ const App = () => {
       case "closeMemberAdd":
         return {
           ...state,
-          newMember: {
-            type: "",
-            name: "",
-            mobile: "",
-            email: "",
-            date: "",
-            month: "",
-            year: "",
-            dateDeath: "",
-            monthDeath: "",
-            yearDeath: "",
-            isAlive: "alive",
-            gender: "M",
-            village: "",
-            gotra: "",
-          },
+          newMember: INITIAL_NEW_MEMBER,
           memberToBeAdded: "",
           memberToBeEdited: "",
           isMemberAddOpen: false,
@@ -452,30 +282,17 @@ const App = () => {
       case "closeMemberEdit":
         return {
           ...state,
-          editInput: {
-            id: "",
-            name: "",
-            mobile: "",
-            date: "",
-            month: "",
-            year: "",
-            dateDeath: "",
-            monthDeath: "",
-            yearDeath: "",
-            gender: "",
-            village: "",
-            gotra: "",
-            email: "",
-            isAlive: "",
-          },
+          editInput: INITIAL_EDIT_INPUT,
           memberToBeAdded: "",
           memberToBeEdited: "",
           isMemberAddOpen: false,
           isMemberEditOpen: false,
         };
       case "addMember":
-        const updatedMembersPostAddMember = state.members.map((member) => addMember(member, state.memberToBeAdded.id, action.member, action.memberType));
+        const updatedMembersPostAddMember = state.members.map((member) => addMemberToTree(member, state.memberToBeAdded.id, action.member, action.memberType));
         setMembers(updatedMembersPostAddMember);
+        // Update englishToHindi with new member's name/village/gotra
+        updateEnglishToHindi(action.member);
         return {
           ...state,
           members: updatedMembersPostAddMember,
@@ -485,34 +302,22 @@ const App = () => {
           isMemberEditOpen: false,
         };
       case "editMember":
-        const updatedMembersPostEditMember = state.members.map((member) => editMemberById(member, action.member));
+        const updatedMembersPostEditMember = state.members.map((member) => editMemberInTree(member, action.member));
         setMembers(updatedMembersPostEditMember);
+        // Update englishToHindi with edited member's name/village/gotra
+        updateEnglishToHindi(action.member);
         return {
           ...state,
           members: updatedMembersPostEditMember,
-          editInput: {
-            id: "",
-            name: "",
-            mobile: "",
-            date: "",
-            month: "",
-            year: "",
-            dateDeath: "",
-            monthDeath: "",
-            yearDeath: "",
-            gender: "",
-            village: "",
-            gotra: "",
-            email: "",
-            isAlive: "",
-          },
+          memberToBeDisplayed: action.member, // Update displayed member with new data
+          editInput: INITIAL_EDIT_INPUT,
           memberToBeAdded: "",
           memberToBeEdited: "",
           isMemberAddOpen: false,
           isMemberEditOpen: false,
         };
       case "deleteMember":
-        const updatedMembersPostDeleteMember = state.members.map((member) => deleteMemberById(member, action.id));
+        const updatedMembersPostDeleteMember = state.members.map((member) => deleteMemberFromTree(member, action.id));
         setMembers(updatedMembersPostDeleteMember);
         return {
           ...state,
@@ -543,23 +348,13 @@ const App = () => {
       case "openAddNewUser":
         return {
           ...state,
-          newUser: {
-            username: "",
-            password: "",
-            role: "user",
-            error: false,
-          },
+          newUser: INITIAL_NEW_USER,
           isUserAddOpen: true,
         };
       case "closeAddNewUser":
         return {
           ...state,
-          newUser: {
-            username: "",
-            password: "",
-            role: "user",
-            error: false,
-          },
+          newUser: INITIAL_NEW_USER,
           isUserAddOpen: false,
         };
       case "input":
@@ -592,49 +387,10 @@ const App = () => {
             },
             village: "dulania",
             members: state.dulania,
-            input: {
-              username: "",
-              password: "",
-              error: false,
-            },
-            newUser: {
-              username: "",
-              password: "",
-              role: "user",
-              error: false,
-            },
-            newMember: {
-              type: "",
-              name: "",
-              mobile: "",
-              email: "",
-              date: "",
-              month: "",
-              year: "",
-              dateDeath: "",
-              monthDeath: "",
-              yearDeath: "",
-              isAlive: "alive",
-              gender: "M",
-              village: "",
-              gotra: "",
-            },
-            editInput: {
-              id: "",
-              name: "",
-              mobile: "",
-              date: "",
-              month: "",
-              year: "",
-              dateDeath: "",
-              monthDeath: "",
-              yearDeath: "",
-              gender: "",
-              village: "",
-              gotra: "",
-              email: "",
-              isAlive: "",
-            },
+            input: INITIAL_INPUT,
+            newUser: INITIAL_NEW_USER,
+            newMember: INITIAL_NEW_MEMBER,
+            editInput: INITIAL_EDIT_INPUT,
           };
         } else {
           return {
@@ -651,60 +407,11 @@ const App = () => {
         return {
           ...state,
           user: undefined,
-          filters: {
-            search: "",
-            male: {
-              village: "",
-              gotra: "",
-            },
-            female: {
-              village: "",
-              gotra: "",
-            },
-          },
-          input: {
-            username: "",
-            password: "",
-            error: false,
-          },
-          newUser: {
-            username: "",
-            password: "",
-            role: "user",
-            error: false,
-          },
-          newMember: {
-            type: "",
-            name: "",
-            mobile: "",
-            email: "",
-            date: "",
-            month: "",
-            year: "",
-            dateDeath: "",
-            monthDeath: "",
-            yearDeath: "",
-            isAlive: "alive",
-            gender: "M",
-            village: "",
-            gotra: "",
-          },
-          editInput: {
-            id: "",
-            name: "",
-            mobile: "",
-            date: "",
-            month: "",
-            year: "",
-            dateDeath: "",
-            monthDeath: "",
-            yearDeath: "",
-            gender: "",
-            village: "",
-            gotra: "",
-            email: "",
-            isAlive: "",
-          },
+          filters: INITIAL_FILTERS,
+          input: INITIAL_INPUT,
+          newUser: INITIAL_NEW_USER,
+          newMember: INITIAL_NEW_MEMBER,
+          editInput: INITIAL_EDIT_INPUT,
           memberToBeDisplayed: "",
           memberToBeAdded: "",
           memberToBeEdited: "",
@@ -717,12 +424,17 @@ const App = () => {
       case "toggle":
         return {
           ...state,
-          members: state.members.map((member) => traverseMemberToExpandOrCollapse(member, action.id)),
+          members: state.members.map((member) => toggleMemberCollapse(member, action.id)),
         };
       case "toggle-all":
         return {
           ...state,
-          members: state.members.map((member) => traverseMemberToExpandOrCollapseAll(member, action.flag)),
+          members: state.members.map((member) => toggleAllMembers(member, action.flag)),
+        };
+      case "reset-collapse":
+        return {
+          ...state,
+          members: state.members.map((member) => restoreCollapseStates(member, state.initialCollapseStates)),
         };
       case "language":
         return {
@@ -743,7 +455,7 @@ const App = () => {
       case "male-selection":
         return {
           ...state,
-          members: action.village ? traverseMaleVillageMembers(members, action.village) : action.gotra ? traverseMaleGotraMembers(members, action.gotra) : members,
+          members: action.village ? getMalesByVillage(members, action.village) : action.gotra ? getMalesByGotra(members, action.gotra) : members,
           filters: {
             male: {
               village: action.village,
@@ -758,7 +470,7 @@ const App = () => {
       case "female-selection":
         return {
           ...state,
-          members: action.village ? traverseFemaleVillageMembers(members, action.village) : action.gotra ? traverseFemaleGotraMembers(members, action.gotra) : members,
+          members: action.village ? getFemalesByVillage(members, action.village) : action.gotra ? getFemalesByGotra(members, action.gotra) : members,
           filters: {
             male: {
               village: "",
@@ -870,7 +582,7 @@ const App = () => {
           isMemberAddOpen: false,
           isMemberEditOpen: false,
           visitors: db.visitors,
-        })
+        }),
       );
       setEnglishToHindi(db.englishToHindi);
       setHindiToEnglish(invertEnglishToHindi(db.englishToHindi));

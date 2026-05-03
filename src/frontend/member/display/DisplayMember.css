@@ -6,7 +6,7 @@
   transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
-	background-color: rgba(250, 250, 250, 0.95);
+  background-color: rgba(250, 250, 250, 0.95);
   border-radius: 5px;
   justify-content: center;
   align-items: center;
@@ -14,12 +14,12 @@
 }
 
 .details .close {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	width: 40px;
-	height: 40px;
-	cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
 }
 
 .details .view {
@@ -54,7 +54,8 @@
   object-fit: cover;
 }
 
-.dob, .dod {
+.dob,
+.dod {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -68,7 +69,8 @@
   height: 15px;
 }
 
-.view-mobile, .view-email {
+.view-mobile,
+.view-email {
   display: flex;
   column-gap: 5px;
   justify-content: center;
@@ -87,18 +89,21 @@
   column-gap: 15px;
   width: 100%;
 }
+.view-actions button {
+  white-space: nowrap;
+}
 .view-actions button:first-child {
   padding: 15px 45px;
   background-color: lightgreen;
-	box-shadow: 5px 5px 10px 0 grey;
+  box-shadow: 5px 5px 10px 0 grey;
 }
 .view-actions button:nth-child(2) {
   padding: 15px 45px;
   background-color: lightskyblue;
-	box-shadow: 5px 5px 10px 0 grey;
+  box-shadow: 5px 5px 10px 0 grey;
 }
 .view-actions button:last-child {
   padding: 15px 45px;
   background-color: lightcoral;
-	box-shadow: 5px 5px 10px 0 grey;
+  box-shadow: 5px 5px 10px 0 grey;
 }

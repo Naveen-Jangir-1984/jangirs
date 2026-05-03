@@ -1,0 +1,19 @@
+.date-picker {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.date-picker select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  min-width: 60px;
+}
+
+.date-picker select:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
