@@ -343,3 +343,36 @@ export const restoreCollapseStates = (member, collapseMap) => {
   member.children?.forEach((child) => restoreCollapseStates(child, collapseMap));
   return member;
 };
+
+/**
+ * Calculate the generation range (min and max) for a tree
+ * @param {Array} members - Array of root member nodes
+ * @returns {Object} - { min: number, max: number }
+ */
+export const calculateGenerationRange = (members) => {
+  if (!members || members.length === 0) return { min: 1, max: 1 };
+
+  let minGen = Infinity;
+  let maxGen = 0;
+
+  const traverse = (member, currentGen) => {
+    // Skip members who have moved to another village
+    if (member.isMoved) {
+      return;
+    }
+
+    if (currentGen < minGen) minGen = currentGen;
+    if (currentGen > maxGen) maxGen = currentGen;
+
+    if (member.gender === "M" && member.children?.length) {
+      member.children.forEach((child) => traverse(child, currentGen + 1));
+    }
+  };
+
+  members.forEach((member) => {
+    const startGen = member.generation || 1;
+    traverse(member, startGen);
+  });
+
+  return { min: minGen === Infinity ? 1 : minGen, max: maxGen || 1 };
+};

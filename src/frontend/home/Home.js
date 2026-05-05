@@ -12,7 +12,7 @@ const DisplayUsers = lazy(() => import("../user/DisplayUsers"));
 const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers, getEnglishText, getEnglishNumbers }) => {
   return (
     <div className="home">
-      <Header state={state} dispatch={dispatch} getHindiText={getHindiText} />
+      <Header state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} />
       <Filter state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} />
       <Tree state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} />
       <Footer state={state} />

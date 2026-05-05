@@ -5,7 +5,7 @@ import useConfirm from "../../hooks/useConfirm";
 import ConfirmModal from "../../components/ConfirmModal";
 import "./Header.css";
 
-const Header = ({ state, dispatch, getHindiText }) => {
+const Header = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   const [collapsed, setCollapsed] = useState(false);
   const isEnglish = state.user.language;
   const { t } = useTranslation(isEnglish);
@@ -24,11 +24,17 @@ const Header = ({ state, dispatch, getHindiText }) => {
           {isEnglish ? t("Hindi") : t("English")}
         </button>
         <select value={state.village} onChange={(e) => dispatch({ type: "village", village: e.target.value })}>
-          {state.villages.map((village, i) => (
-            <option key={i} value={village}>
-              {isEnglish ? village.replace(village.charAt(0), village.charAt(0).toUpperCase()) : getHindiText(village.replace(village.charAt(0), village.charAt(0).toUpperCase()), "village")}
-            </option>
-          ))}
+          {state.villages.map((village, i) => {
+            const range = state.generationRanges?.[village];
+            const rangeText = range ? (isEnglish ? ` (${range.min} - ${range.max})` : ` (${getHindiNumbers(range.min.toString())} - ${getHindiNumbers(range.max.toString())})`) : "";
+            const villageName = isEnglish ? village.replace(village.charAt(0), village.charAt(0).toUpperCase()) : getHindiText(village.replace(village.charAt(0), village.charAt(0).toUpperCase()), "village");
+            return (
+              <option key={i} value={village}>
+                {villageName}
+                {rangeText}
+              </option>
+            );
+          })}
         </select>
         {state.user.role === "admin" ? <img className="icons" src={UserEditIcon} alt="editUser" onClick={() => dispatch({ type: "openUserEdit" })} loading="lazy" /> : ""}
         <img className="signout" src={SignOutIcon} alt="signout" onClick={() => handleSignOut()} loading="lazy" />

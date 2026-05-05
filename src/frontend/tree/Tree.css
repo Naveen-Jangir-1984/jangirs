@@ -1,6 +1,7 @@
 .tree {
   width: 100%;
   height: 77%;
+  padding: 5px 0;
   overflow: auto;
 }
 

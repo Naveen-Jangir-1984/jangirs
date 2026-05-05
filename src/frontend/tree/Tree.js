@@ -48,13 +48,14 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     [dispatch],
   );
 
-  const displayMember = (member, depth) => {
+  const displayMember = (member, depth, generation = 1, isFirstInGeneration = true) => {
     // O(1) lookups using maps
     const memberDP = imageMap.get(member.id);
     const counts = memberCounts.get(member.id) || { alive: 0, dead: 0 };
 
     return (
-      <div key={member.id} style={{ marginLeft: `${depth}px` }}>
+      <div key={member.id} style={{ marginLeft: `${depth}px`, position: "relative" }}>
+        {isFirstInGeneration && <span style={{ position: "absolute", top: "-7px", left: "45px", fontSize: "8px", color: "black", zIndex: 1 }}>{isEnglish ? generation : getHindiNumbers(generation.toString())}</span>}
         <div className="member-card" style={{ backgroundColor: member.gender === "M" ? "#eee" : "#fdd" }} onClick={() => dispatch({ type: "toggle", id: member.id })}>
           <img className="toggle-icons" src={member.children?.length && member.isCollapsed ? PlusIcon : MinusIcon} alt={member.isCollapsed ? "+" : ""} loading="lazy" />
           <img className="display-pic" style={{ borderColor: member.isAlive ? "green" : "#f55" }} src={memberDP || (member.gender === "M" ? MaleProfileIcon : FemaleProfileIcon)} alt={member.id} onClick={(e) => handleDisplayMember(e, member)} loading="lazy" />
@@ -111,13 +112,13 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
             {state.user.role === "admin" ? <img src={EditMemberIcon} alt="edit" onClick={(e) => handleEditMember(e, member)} loading="lazy" /> : ""}
           </div>
         </div>
-        <div style={{ display: member.isCollapsed ? "none" : "block" }}>{member.gender === "M" ? member.children?.map((child) => displayMember(child, depth + 5)) : ""}</div>
+        <div style={{ display: member.isCollapsed ? "none" : "block" }}>{member.gender === "M" ? member.children?.map((child, index) => displayMember(child, depth + 5, generation + 1, index === 0)) : ""}</div>
       </div>
     );
   };
   return (
     // <div className='tree'>{state.members.map(member => displayMember(member, state.village === 'moruwa' ? 3 : 0))}</div>
-    <div className="tree">{state.members.map((member) => displayMember(member, 0))}</div>
+    <div className="tree">{state.members.map((member, index) => displayMember(member, 0, member.generation || 1, index === 0))}</div>
   );
 };
 

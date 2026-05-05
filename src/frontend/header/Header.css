@@ -5,12 +5,18 @@
   width: 100%;
 }
 
+.header select {
+  width: 120px;
+}
+
 .toggle-language {
   z-index: 10;
   width: 45px;
 }
 
-.header .icons, .header .signout, .header .addIcon {
+.header .icons,
+.header .signout,
+.header .addIcon {
   padding: 1px;
   border: 1px outset lightgrey;
   border-radius: 50%;

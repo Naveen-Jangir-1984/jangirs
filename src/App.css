@@ -1,8 +1,9 @@
-* { 
+* {
   margin: 0;
   font-size: 11px;
   font-family: "calibri light";
   text-shadow: 0 0 1px grey;
+  line-height: 1.5; /* Accommodates Hindi's taller characters */
 }
 
 .app {
@@ -48,13 +49,17 @@ select {
   cursor: pointer;
   box-sizing: border-box;
 }
-input, select, button {
+input,
+select,
+button {
   background-color: #eee;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-input:disabled, select:disabled, button:disabled {
+input:disabled,
+select:disabled,
+button:disabled {
   color: grey;
   cursor: not-allowed;
   background-color: transparent;
@@ -69,7 +74,7 @@ label {
   background-color: #eee;
   border: none;
   border-radius: 5px;
-  box-sizing: border-box;  
+  box-sizing: border-box;
 }
 
 .bgd-image {
@@ -79,7 +84,7 @@ label {
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: .05;
+  opacity: 0.05;
   pointer-events: none;
   z-index: 1;
 }

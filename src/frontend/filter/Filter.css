@@ -8,13 +8,18 @@
   box-sizing: border-box;
 }
 
+.filter select {
+  width: 100px;
+}
+
 .filter-label {
   font-size: 8px;
   font-weight: bolder;
   width: 100%;
 }
 
-.filter-men, .filter-women {
+.filter-men,
+.filter-women {
   display: flex;
   justify-content: space-between;
   align-items: center;

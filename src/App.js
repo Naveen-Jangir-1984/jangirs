@@ -3,7 +3,7 @@ import { lazy, Suspense, useReducer, useState, useEffect, useCallback } from "re
 import { BGDImage } from "./utils/imageConstants";
 import { fetchMemberImages } from "./utils/getImages";
 import { INITIAL_NEW_MEMBER, INITIAL_NEW_USER, INITIAL_EDIT_INPUT, INITIAL_FILTERS, INITIAL_INPUT } from "./utils/constants";
-import { addMemberToTree, editMemberInTree, deleteMemberFromTree, toggleMemberCollapse, toggleAllMembers, getMalesByVillage, getMalesByGotra, getFemalesByVillage, getFemalesByGotra, extractInitialCollapseStates, restoreCollapseStates } from "./utils/treeUtils";
+import { addMemberToTree, editMemberInTree, deleteMemberFromTree, toggleMemberCollapse, toggleAllMembers, getMalesByVillage, getMalesByGotra, getFemalesByVillage, getFemalesByGotra, extractInitialCollapseStates, restoreCollapseStates, calculateGenerationRange } from "./utils/treeUtils";
 import { transliterateToHindi as transliterateHindi } from "./utils/transliterate";
 import "./App.css";
 
@@ -49,6 +49,7 @@ const App = () => {
     isMemberEditOpen: false,
     visitors: "",
     initialCollapseStates: new Map(),
+    generationRanges: {},
   };
   // Tree traversal functions are now imported from utils/treeUtils.js
   // invert englishToHindi to hindiToEnglish
@@ -186,6 +187,12 @@ const App = () => {
         setMembers(updatedMembersOnReload);
         // Extract initial collapse states from all villages
         const allCollapseStates = new Map([...extractInitialCollapseStates(db.dulania), ...extractInitialCollapseStates(db.moruwa), ...extractInitialCollapseStates(db.tatija)]);
+        // Calculate generation ranges for each village
+        const generationRanges = {
+          dulania: calculateGenerationRange(db.dulania),
+          moruwa: calculateGenerationRange(db.moruwa),
+          tatija: calculateGenerationRange(db.tatija),
+        };
         return {
           user: action.user,
           users: db.users,
@@ -211,6 +218,7 @@ const App = () => {
           isMemberEditOpen: state.isMemberEditOpen,
           visitors: db.visitors,
           initialCollapseStates: allCollapseStates,
+          generationRanges: generationRanges,
         };
       case "openUserEdit":
         return {
