@@ -244,24 +244,34 @@ export const deleteMemberFromTree = (tree, id) => {
 
 /**
  * Toggle collapse state of a member
+ * Returns a new object to ensure React detects the change
  */
 export const toggleMemberCollapse = (member, id) => {
+  const newChildren = member.children?.map((child) => toggleMemberCollapse(child, id));
+
   if (member.id === id && member.gender === "M") {
-    member.isCollapsed = !member.isCollapsed;
+    return {
+      ...member,
+      isCollapsed: !member.isCollapsed,
+      children: newChildren,
+    };
   }
-  member.children?.forEach((child) => toggleMemberCollapse(child, id));
-  return member;
+
+  return newChildren ? { ...member, children: newChildren } : member;
 };
 
 /**
  * Expand or collapse all members
+ * Returns a new object to ensure React detects the change
  */
 export const toggleAllMembers = (member, flag) => {
-  member.isCollapsed = flag;
-  if (member.gender === "M") {
-    member.children?.forEach((child) => toggleAllMembers(child, flag));
-  }
-  return member;
+  const newChildren = member.gender === "M" && member.children ? member.children.map((child) => toggleAllMembers(child, flag)) : member.children;
+
+  return {
+    ...member,
+    isCollapsed: flag,
+    children: newChildren,
+  };
 };
 
 /**
@@ -337,11 +347,17 @@ export const extractInitialCollapseStates = (members) => {
  * @returns {Object} - Member with restored collapse state
  */
 export const restoreCollapseStates = (member, collapseMap) => {
+  const newChildren = member.children?.map((child) => restoreCollapseStates(child, collapseMap));
+
   if (member.gender === "M" && collapseMap.has(member.id)) {
-    member.isCollapsed = collapseMap.get(member.id);
+    return {
+      ...member,
+      isCollapsed: collapseMap.get(member.id),
+      children: newChildren,
+    };
   }
-  member.children?.forEach((child) => restoreCollapseStates(child, collapseMap));
-  return member;
+
+  return newChildren ? { ...member, children: newChildren } : member;
 };
 
 /**

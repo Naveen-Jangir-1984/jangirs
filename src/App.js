@@ -48,7 +48,11 @@ const App = () => {
     isMemberAddOpen: false,
     isMemberEditOpen: false,
     visitors: "",
-    initialCollapseStates: new Map(),
+    initialCollapseStates: {
+      dulania: new Map(),
+      moruwa: new Map(),
+      tatija: new Map(),
+    },
     generationRanges: {},
   };
   // Tree traversal functions are now imported from utils/treeUtils.js
@@ -185,8 +189,12 @@ const App = () => {
         const db = action.initialState;
         const updatedMembersOnReload = action.village === "dulania" ? db.dulania : action.village === "moruwa" ? db.moruwa : action.village === "tatija" ? db.tatija : [];
         setMembers(updatedMembersOnReload);
-        // Extract initial collapse states from all villages
-        const allCollapseStates = new Map([...extractInitialCollapseStates(db.dulania), ...extractInitialCollapseStates(db.moruwa), ...extractInitialCollapseStates(db.tatija)]);
+        // Extract initial collapse states per village (to avoid ID conflicts across villages)
+        const allCollapseStates = {
+          dulania: extractInitialCollapseStates(db.dulania),
+          moruwa: extractInitialCollapseStates(db.moruwa),
+          tatija: extractInitialCollapseStates(db.tatija),
+        };
         // Calculate generation ranges for each village
         const generationRanges = {
           dulania: calculateGenerationRange(db.dulania),
@@ -441,7 +449,7 @@ const App = () => {
       case "reset-collapse":
         return {
           ...state,
-          members: state.members.map((member) => restoreCollapseStates(member, state.initialCollapseStates)),
+          members: state.members.map((member) => restoreCollapseStates(member, state.initialCollapseStates[state.village] || new Map())),
         };
       case "language":
         return {
