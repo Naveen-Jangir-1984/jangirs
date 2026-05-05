@@ -189,11 +189,13 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
       <div className="view">
         <div className="profile-image-container">
           <img style={{ boxShadow: state.memberToBeDisplayed.isAlive ? "0 0 50px lightgreen" : "0 0 50px #f55" }} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === "M" ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} loading="lazy" />
-          <label className="upload-photo-btn" title={t("uploadPhoto") || "Upload Photo"}>
-            <input type="file" accept="image/jpeg,image/png,image/webp" onChange={handleFileSelect} ref={fileInputRef} style={{ display: "none" }} disabled={uploadStatus === "uploading"} />
-            <img src={UploadIcon} alt="upload" className="upload-icon" />
-          </label>
-          {memberImage && (
+          {state.user.role === "admin" && (
+            <label className="upload-photo-btn" title={t("uploadPhoto") || "Upload Photo"}>
+              <input type="file" accept="image/jpeg,image/png,image/webp" onChange={handleFileSelect} ref={fileInputRef} style={{ display: "none" }} disabled={uploadStatus === "uploading"} />
+              <img src={UploadIcon} alt="upload" className="upload-icon" />
+            </label>
+          )}
+          {state.user.role === "admin" && memberImage && (
             <button className="delete-photo-btn" title={t("deletePhoto") || "Delete Photo"} onClick={handlePhotoDelete} disabled={uploadStatus === "uploading"}>
               <img src={DeleteIcon} alt="delete" className="delete-icon" />
             </button>
