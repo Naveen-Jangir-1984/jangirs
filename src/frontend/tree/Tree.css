@@ -58,13 +58,6 @@
   height: 100%;
 }
 
-.edit-member {
-  border-radius: 50%;
-  width: 10px;
-  height: 10px;
-  background-color: grey;
-}
-
 .member-icons {
   position: absolute;
   right: 5px;

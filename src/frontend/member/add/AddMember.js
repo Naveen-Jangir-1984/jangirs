@@ -93,8 +93,8 @@ const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishT
 
   return (
     <div className="add-member" style={{ display: state.isMemberAddOpen ? "flex" : "none" }}>
-      <img src={CloseIcon} alt="close" className="close" onClick={handleClose} loading="lazy" />
       <div className="view">
+        <img src={CloseIcon} alt="close" className="close" onClick={handleClose} loading="lazy" />
         <select name="type" value={state.newMember.type} onChange={handleInputChange}>
           <option value="">{t("Member?")}</option>
           <option value="child">{t("Child")}</option>

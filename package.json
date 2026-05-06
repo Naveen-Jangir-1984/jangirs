@@ -28,7 +28,7 @@
     "serve": "node server.js",
     "build-deploy": "react-scripts build && firebase deploy"
   },
-  devDependencies": {
+  "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   },
   "eslintConfig": {
