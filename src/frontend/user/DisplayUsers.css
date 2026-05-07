@@ -1,34 +1,33 @@
 .display-users {
-	display: none;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 100%;
-	height: 100%;
-	background-color: rgba(250, 250, 250, 0.95);
-	border-radius: 5px;
-	justify-content: center;
-	align-items: center;
-	z-index: 1;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.display-users .close {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	width: 40px;
-	height: 40px;
-	cursor: pointer;
+.display-users .users-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 60px 20px;
+  border-radius: 20px;
+  width: 80dvw;
+  max-height: 95dvh;
 }
 
 .display-users .view {
   position: relative;
   font-size: 10px;
-  padding: 3px;
-  border-radius: 5px;
-  width: 65%;
-  height: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   row-gap: 10px;
@@ -36,70 +35,56 @@
   align-items: center;
   overflow-x: hidden;
   overflow-y: auto;
-  z-index: 2;
 }
 
 .view table {
-	width: 100%;
+  width: 90%;
 }
-.view table th, .view table td {
-	font-size: 14px;
+.view table th,
+.view table td {
+  font-size: 14px;
 }
 .view table td:last-child {
-	display: flex;
-	justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .user-inputs {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	row-gap: 10px;
-	align-items: center;
-	width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 10px;
+  align-items: center;
+  width: 100%;
 }
 
-.display-users .view input, .display-users .view select {
-	width: 100%;
-	height: 47px;
+.display-users .view input,
+.display-users .view select {
+  width: 100%;
+  height: 47px;
   font-size: 16px;
-	background-color: #eee;
+  background-color: #eee;
 }
 .display-users .view option {
-	font-size: 16px;
+  font-size: 16px;
 }
 
 .display-users .view button {
-	font-size: 14px;
-	width: 100%;
-	height: 47px;
-	background-color: lightskyblue;
+  font-size: 14px;
+  width: 100%;
+  height: 47px;
+  background-color: lightskyblue;
 }
 .display-users .view input:disabled,
 .display-users .view select:disabled,
 .display-users .view button:disabled {
-	color: #aaa;
-}
-
-.display-users .view .new-user {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0 3px;
-	box-sizing: border-box;
-}
-
-.display-users .view .new-user div {
-	font-size: 14px;
-	font-weight: bolder;
-	text-decoration: underline;
+  color: #aaa;
 }
 
 .display-users .view .icons {
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   padding: 1px;
   border: 1px outset lightgrey;
   border-radius: 50%;
@@ -108,4 +93,41 @@
   cursor: pointer;
   box-sizing: border-box;
   box-shadow: 0 0 3px grey;
+}
+
+.display-users .view-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.display-users .display-user-button {
+  padding: 10px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  min-width: 100px;
+  white-space: nowrap;
+}
+
+.display-users .display-user-button.cancel {
+  background-color: #dc3545;
+  color: white;
+}
+
+.display-users .display-user-button.cancel:hover {
+  background-color: #c82333;
+}
+
+.display-users .display-user-button.add {
+  background-color: #28a745;
+  color: white;
+}
+
+.display-users .display-user-button.add:hover {
+  background-color: #218838;
 }

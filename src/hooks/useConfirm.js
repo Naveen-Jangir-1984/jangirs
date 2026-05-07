@@ -8,9 +8,10 @@ import { useState, useCallback, useRef } from "react";
  *
  * @example
  * const { isOpen, message, showConfirm, handleConfirm, handleCancel } = useConfirm();
+ * const { t } = useTranslation(isEnglish);
  *
  * // Instead of: if (!window.confirm("Are you sure?")) return;
- * // Use: const confirmed = await showConfirm("Are you sure?");
+ * // Use: const confirmed = await showConfirm("confirmKey"); // Pass translation KEY, not translated text
  * //      if (!confirmed) return;
  *
  * return (
@@ -19,10 +20,10 @@ import { useState, useCallback, useRef } from "react";
  *       isOpen={isOpen}
  *       onConfirm={handleConfirm}
  *       onCancel={handleCancel}
- *       message={message}
+ *       message={t(message)} // Translate at render time so language changes work
  *     />
  *     <button onClick={async () => {
- *       const confirmed = await showConfirm("Delete this item?");
+ *       const confirmed = await showConfirm("confirmDeleteItem"); // Pass key, not t("confirmDeleteItem")
  *       if (confirmed) deleteItem();
  *     }}>Delete</button>
  *   </>
@@ -31,11 +32,13 @@ import { useState, useCallback, useRef } from "react";
 const useConfirm = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [messageParams, setMessageParams] = useState({});
   const resolveRef = useRef(null);
 
-  const showConfirm = useCallback((msg) => {
+  const showConfirm = useCallback((msg, params = {}) => {
     return new Promise((resolve) => {
       setMessage(msg);
+      setMessageParams(params);
       setIsOpen(true);
       resolveRef.current = resolve;
     });
@@ -44,6 +47,7 @@ const useConfirm = () => {
   const handleConfirm = useCallback(() => {
     setIsOpen(false);
     setMessage("");
+    setMessageParams({});
     if (resolveRef.current) {
       resolveRef.current(true);
       resolveRef.current = null;
@@ -53,6 +57,7 @@ const useConfirm = () => {
   const handleCancel = useCallback(() => {
     setIsOpen(false);
     setMessage("");
+    setMessageParams({});
     if (resolveRef.current) {
       resolveRef.current(false);
       resolveRef.current = null;
@@ -62,6 +67,7 @@ const useConfirm = () => {
   return {
     isOpen,
     message,
+    messageParams,
     showConfirm,
     handleConfirm,
     handleCancel,

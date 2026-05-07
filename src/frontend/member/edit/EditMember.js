@@ -1,6 +1,5 @@
-import { CloseIcon } from "../../../utils/imageConstants";
 import DatePicker from "../../../components/DatePicker";
-import ConfirmModal from "../../../components/ConfirmModal";
+import { ConfirmModal } from "../../../components/modals";
 import api from "../../../utils/api";
 import useTranslation from "../../../hooks/useTranslation";
 import useConfirm from "../../../hooks/useConfirm";
@@ -32,9 +31,7 @@ const EditMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglish
   };
 
   const handleEditMember = async () => {
-    const confirmMsg = t("confirmEditMember");
-
-    if (!(await showConfirm(confirmMsg))) return;
+    if (!(await showConfirm("confirmEditMember"))) return;
 
     const { editInput, village } = state;
     const mobileNumbers = parseMobileNumbers(editInput.mobile);
@@ -70,9 +67,8 @@ const EditMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglish
   };
 
   return (
-    <div className="edit-member" style={{ display: state.isMemberEditOpen ? "flex" : "none" }}>
-      <div className="view">
-        <img src={CloseIcon} alt="close" className="close" onClick={handleClose} loading="lazy" />
+    <div className="edit-member" style={{ display: state.isMemberEditOpen ? "flex" : "none" }} onClick={handleClose}>
+      <div className="view" onClick={(e) => e.stopPropagation()}>
         <input type="text" name="name" value={state.editInput.name} onChange={handleInputChange} placeholder={t("Name")} />
 
         <input type="text" name="mobile" value={state.editInput.mobile} onChange={handleInputChange} placeholder={t("Mobile")} />
@@ -97,9 +93,16 @@ const EditMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglish
 
         <input type="email" name="email" value={state.editInput.email} onChange={handleInputChange} placeholder={t("Email")} />
 
-        <button onClick={handleEditMember}>{t("UPDATE")}</button>
+        <div className="edit-member-buttons">
+          <button className="edit-member-button cancel" onClick={handleClose}>
+            {t("CANCEL")}
+          </button>
+          <button className="edit-member-button ok" onClick={handleEditMember}>
+            {t("UPDATE")}
+          </button>
+        </div>
       </div>
-      <ConfirmModal isOpen={confirmOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={confirmMessage} confirmText={t("yes")} cancelText={t("no")} />
+      <ConfirmModal isOpen={confirmOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={t(confirmMessage)} confirmText={t("yes")} cancelText={t("no")} />
     </div>
   );
 };

@@ -1,5 +1,5 @@
-import { CloseIcon, DeleteIcon, AddIcon, MinusIcon } from "../../utils/imageConstants";
-import ConfirmModal from "../../components/ConfirmModal";
+import { DeleteIcon } from "../../utils/imageConstants";
+import { ConfirmModal, AddUserModal } from "../../components/modals";
 import api from "../../utils/api";
 import useTranslation from "../../hooks/useTranslation";
 import useConfirm from "../../hooks/useConfirm";
@@ -8,29 +8,38 @@ import "./DisplayUsers.css";
 const DisplayUsers = ({ state, dispatch }) => {
   const isEnglish = state.user.language;
   const { t } = useTranslation(isEnglish);
-  const { isOpen: confirmOpen, message: confirmMessage, showConfirm, handleConfirm, handleCancel } = useConfirm();
+  const { isOpen: confirmOpen, message: confirmMessage, messageParams: confirmParams, showConfirm, handleConfirm, handleCancel } = useConfirm();
+
+  // Translate params at render time so language changes update properly
+  const translatedParams = confirmParams.role ? { ...confirmParams, role: t(confirmParams.role) } : confirmParams;
 
   const handleClose = () => {
-    dispatch({ type: "closeUserEdit" });
-  };
-
-  const handleAddUser = async () => {
-    const confirmMsg = t("confirmAddUser");
-
-    if (!(await showConfirm(confirmMsg))) return;
-
-    const data = await api.addUser(state.newUser.username, state.newUser.password, state.newUser.role);
-    if (data.result === "success") {
-      dispatch({ type: "addNewUser", newUser: state.editInputNewUser });
-    } else if (data.result === "duplicate") {
-      dispatch({ type: "editInputNewUser", newUser: { ...state.newUser, error: true } });
+    // Close layer by layer - only close DisplayUsers if no child modals are open
+    if (state.isUserAddOpen) {
+      dispatch({ type: "closeAddNewUser" });
+    } else if (!confirmOpen) {
+      dispatch({ type: "closeUserEdit" });
     }
   };
 
-  const handleDeleteUser = async (username) => {
-    const confirmMsg = t("confirmDeleteUser");
+  const handleAddUser = async ({ username, password, role }) => {
+    const roleKey = role.charAt(0).toUpperCase() + role.slice(1);
+    if (!(await showConfirm("confirmAddUser", { role: roleKey }))) return;
 
-    if (!(await showConfirm(confirmMsg))) return;
+    const data = await api.addUser(username, password, role);
+    if (data.result === "success") {
+      dispatch({ type: "addNewUser", newUser: { username, password, role } });
+    } else if (data.result === "duplicate") {
+      dispatch({ type: "editInputNewUser", newUser: { username, password, role, error: true } });
+    }
+  };
+
+  const handleCancelAddUser = () => {
+    dispatch({ type: "closeAddNewUser" });
+  };
+
+  const handleDeleteUser = async (username) => {
+    if (!(await showConfirm("confirmDeleteUser"))) return;
 
     const data = await api.deleteUser(username);
     if (data.result === "success") {
@@ -39,55 +48,46 @@ const DisplayUsers = ({ state, dispatch }) => {
   };
 
   return (
-    <div className="display-users" style={{ display: state.isUserEditOpen ? "flex" : "none" }}>
-      <img src={CloseIcon} alt="close" className="close" onClick={handleClose} loading="lazy" />
-      <div className="view">
-        <div className="new-user" onClick={() => dispatch({ type: state.isUserAddOpen ? "closeAddNewUser" : "openAddNewUser" })}>
-          <div>{state.isUserAddOpen ? t("cancelAddUser") : t("openToAddUser")}</div>
-          <img className="icons" src={state.isUserAddOpen ? MinusIcon : AddIcon} alt={state.isUserAddOpen ? "close" : "open"} loading="lazy" />
+    <div className="display-users" style={{ display: state.isUserEditOpen ? "flex" : "none" }} onClick={handleClose}>
+      <div className="users-container" onClick={(e) => e.stopPropagation()}>
+        <div className="view">
+          <table>
+            <thead>
+              <tr>
+                <th style={{ textAlign: "left", width: "50%" }}>{t("User")}</th>
+                <th style={{ textAlign: "left", width: "45%" }}>{t("Password")}</th>
+                <th style={{ width: "5%" }}></th>
+              </tr>
+            </thead>
+            <tbody>
+              {state.users.map((user, i) => (
+                <tr key={i}>
+                  <td
+                    style={{
+                      color: user.role === "admin" ? "red" : "black",
+                      fontWeight: user.role === "admin" ? "bold" : "normal",
+                    }}
+                  >
+                    {user.username}
+                  </td>
+                  <td>{user.password}</td>
+                  <td style={{ textAlign: "right" }}>{state.user.username !== user.username && <img className="icons" src={DeleteIcon} alt="delete" onClick={() => handleDeleteUser(user.username)} loading="lazy" />}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-
-        <div className="user-inputs" style={{ display: state.isUserAddOpen ? "flex" : "none" }}>
-          <input name="username" placeholder={t("Username")} type="text" value={state.newUser.username} onChange={(e) => dispatch({ type: "editInputNewUser", attribute: e.target.name, value: e.target.value })} />
-          <input disabled={state.newUser.username === ""} name="password" placeholder={t("Password")} type="password" value={state.newUser.password} onChange={(e) => dispatch({ type: "editInputNewUser", attribute: e.target.name, value: e.target.value })} />
-          <select disabled={state.newUser.password === ""} name="role" value={state.newUser.role} onChange={(e) => dispatch({ type: "editInputNewUser", attribute: e.target.name, value: e.target.value })}>
-            <option value="user">{t("User")}</option>
-            <option value="admin">{t("Admin")}</option>
-          </select>
-          <button disabled={state.newUser.password === "" || state.newUser.role === ""} onClick={handleAddUser}>
+        <div className="view-actions">
+          <button className="display-user-button cancel" onClick={handleClose}>
+            {t("CANCEL")}
+          </button>
+          <button className="display-user-button add" onClick={() => dispatch({ type: "openAddNewUser" })}>
             {t("ADD")}
           </button>
         </div>
-
-        {state.newUser.error && <div style={{ color: "red" }}>{t("userExists")}</div>}
-
-        <table>
-          <thead>
-            <tr>
-              <th style={{ textAlign: "left" }}>{t("Username")}</th>
-              <th style={{ textAlign: "left" }}>{t("Password")}</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {state.users.map((user, i) => (
-              <tr key={i}>
-                <td
-                  style={{
-                    color: user.role === "admin" ? "red" : "black",
-                    fontWeight: user.role === "admin" ? "bold" : "normal",
-                  }}
-                >
-                  {user.username}
-                </td>
-                <td>{user.password}</td>
-                <td style={{ textAlign: "right" }}>{state.user.username !== user.username && <img className="icons" src={DeleteIcon} alt="delete" onClick={() => handleDeleteUser(user.username)} loading="lazy" />}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
       </div>
-      <ConfirmModal isOpen={confirmOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={confirmMessage} confirmText={t("yes")} cancelText={t("no")} />
+      <AddUserModal isOpen={state.isUserAddOpen} onConfirm={handleAddUser} onCancel={handleCancelAddUser} isEnglish={isEnglish} error={state.newUser?.error} />
+      <ConfirmModal isOpen={confirmOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={t(confirmMessage, translatedParams)} confirmText={t("yes")} cancelText={t("no")} />
     </div>
   );
 };

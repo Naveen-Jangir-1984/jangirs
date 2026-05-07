@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import "./Modal.css";
+import "./modals.css";
 
 /**
  * Reusable Modal component
@@ -12,7 +12,13 @@ const Modal = memo(({ isOpen, onClose, children, className = "" }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div
+      className="modal-overlay"
+      onClick={(e) => {
+        e.stopPropagation();
+        onClose();
+      }}
+    >
       <div className={`modal ${className}`} onClick={(e) => e.stopPropagation()}>
         <div className="modal-content">{children}</div>
       </div>

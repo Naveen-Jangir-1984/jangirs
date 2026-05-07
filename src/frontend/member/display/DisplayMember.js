@@ -1,12 +1,11 @@
 import { useState, useRef } from "react";
-import { CloseIcon, MaleProfileIcon as MaleProfileImage, FemaleProfileIcon as FemaleProfileImage, MobileIcon, EmailIcon, UploadIcon, DeleteIcon } from "../../../utils/imageConstants";
+import { MaleProfileIcon as MaleProfileImage, FemaleProfileIcon as FemaleProfileImage, MobileIcon, EmailIcon, UploadIcon, DeleteIcon } from "../../../utils/imageConstants";
 import { MONTHS } from "../../../utils/constants";
 import api from "../../../utils/api";
 import { fetchMemberImages } from "../../../utils/getImages";
 import useTranslation from "../../../hooks/useTranslation";
 import useConfirm from "../../../hooks/useConfirm";
-import ConfirmModal from "../../../components/ConfirmModal";
-import ImageCropModal from "../../../components/ImageCropModal";
+import { ConfirmModal, ImageCropModal } from "../../../components/modals";
 import "./DisplayMember.css";
 
 const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
@@ -104,9 +103,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
 
   // Handle photo deletion
   const handlePhotoDelete = async () => {
-    const confirmMsg = t("confirm delete photo") || "Are you sure you want to delete this photo?";
-
-    if (!(await showConfirm(confirmMsg))) return;
+    if (!(await showConfirm("confirmDeletePhoto"))) return;
 
     setUploadStatus("uploading");
     setUploadMessage(t("deletingPhoto") || "Deleting photo...");
@@ -173,9 +170,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   };
 
   const handleDeleteMember = async (id) => {
-    const confirmMsg = t("confirmDeleteMember");
-
-    if (!(await showConfirm(confirmMsg))) return;
+    if (!(await showConfirm("confirmDeleteMember"))) return;
 
     const data = await api.deleteMember(id, state.village);
     if (data.result === "success") {
@@ -183,10 +178,18 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     }
   };
 
+  // Close modals layer by layer
+  const handleClose = () => {
+    if (cropModalOpen) {
+      handleCropCancel();
+    } else if (!confirmOpen) {
+      dispatch({ type: "closeMemberDisplay" });
+    }
+  };
+
   return (
-    <div className="details" style={{ display: state.isMemberDisplayOpen ? "flex" : "none", filter: state.isMemberEditOpen ? "blur(20px)" : "none" }}>
-      <div className="view">
-        <img src={CloseIcon} alt="close" className="close" onClick={() => dispatch({ type: "closeMemberDisplay" })} loading="lazy" />
+    <div className="details" style={{ display: state.isMemberDisplayOpen ? "flex" : "none" }} onClick={handleClose}>
+      <div className="view" onClick={(e) => e.stopPropagation()}>
         <div className="profile-image-container">
           <img style={{ boxShadow: state.memberToBeDisplayed.isAlive ? "0 0 50px lightgreen" : "0 0 50px #f55" }} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === "M" ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} loading="lazy" />
           {state.user.role === "admin" && (
@@ -297,13 +300,34 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
             ""
           )}
           <div className="view-actions">
-            {state.user.role === "admin" && state.memberToBeDisplayed.gender === "M" ? <button onClick={() => handleAddMember()}>{t("ADD_MEMBER")}</button> : ""}
-            {state.user.role === "admin" ? <button onClick={() => handleEditMember()}>{t("UPDATE")}</button> : ""}
-            {state.user.role === "admin" ? <button onClick={() => handleDeleteMember(state.memberToBeDisplayed.id)}>{t("DELETE")}</button> : ""}
+            <button className="display-member-button cancel" onClick={() => dispatch({ type: "closeMemberDisplay" })}>
+              {t("CANCEL")}
+            </button>
+            {state.user.role === "admin" && state.memberToBeDisplayed.gender === "M" ? (
+              <button className="display-member-button add" onClick={() => handleAddMember()}>
+                {t("ADD_MEMBER")}
+              </button>
+            ) : (
+              ""
+            )}
+            {state.user.role === "admin" ? (
+              <button className="display-member-button update" onClick={() => handleEditMember()}>
+                {t("UPDATE")}
+              </button>
+            ) : (
+              ""
+            )}
+            {state.user.role === "admin" ? (
+              <button className="display-member-button delete" onClick={() => handleDeleteMember(state.memberToBeDisplayed.id)}>
+                {t("DELETE")}
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
-      <ConfirmModal isOpen={confirmOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={confirmMessage} confirmText={t("yes")} cancelText={t("no")} />
+      <ConfirmModal isOpen={confirmOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={t(confirmMessage)} confirmText={t("yes")} cancelText={t("no")} />
       <ImageCropModal isOpen={cropModalOpen} imageFile={selectedFile} onConfirm={handleCropConfirm} onCancel={handleCropCancel} isEnglish={isEnglish} />
     </div>
   );

@@ -1,6 +1,5 @@
-import { CloseIcon } from "../../../utils/imageConstants";
 import DatePicker from "../../../components/DatePicker";
-import ConfirmModal from "../../../components/ConfirmModal";
+import { ConfirmModal } from "../../../components/modals";
 import api from "../../../utils/api";
 import useTranslation from "../../../hooks/useTranslation";
 import useConfirm from "../../../hooks/useConfirm";
@@ -32,9 +31,7 @@ const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishT
   };
 
   const handleAddMember = async () => {
-    const confirmMsg = t("confirmAddMember");
-
-    if (!(await showConfirm(confirmMsg))) return;
+    if (!(await showConfirm("confirmAddMember"))) return;
 
     const { newMember, memberToBeAdded, village } = state;
     const mobileNumbers = parseMobileNumbers(newMember.mobile);
@@ -92,9 +89,8 @@ const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishT
   const isDisabled = state.newMember.type === "";
 
   return (
-    <div className="add-member" style={{ display: state.isMemberAddOpen ? "flex" : "none" }}>
-      <div className="view">
-        <img src={CloseIcon} alt="close" className="close" onClick={handleClose} loading="lazy" />
+    <div className="add-member" style={{ display: state.isMemberAddOpen ? "flex" : "none" }} onClick={handleClose}>
+      <div className="view" onClick={(e) => e.stopPropagation()}>
         <select name="type" value={state.newMember.type} onChange={handleInputChange}>
           <option value="">{t("Member?")}</option>
           <option value="child">{t("Child")}</option>
@@ -125,11 +121,16 @@ const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishT
 
         <input disabled={isDisabled} type="email" name="email" value={state.newMember.email} onChange={handleInputChange} placeholder={t("Email")} />
 
-        <button disabled={isDisabled} onClick={handleAddMember}>
-          {t("ADD")}
-        </button>
+        <div className="add-member-buttons">
+          <button className="add-member-button cancel" onClick={handleClose}>
+            {t("CANCEL")}
+          </button>
+          <button className="add-member-button ok" disabled={isDisabled} onClick={handleAddMember}>
+            {t("ADD")}
+          </button>
+        </div>
       </div>
-      <ConfirmModal isOpen={confirmOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={confirmMessage} confirmText={t("yes")} cancelText={t("no")} />
+      <ConfirmModal isOpen={confirmOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={t(confirmMessage)} confirmText={t("yes")} cancelText={t("no")} />
     </div>
   );
 };

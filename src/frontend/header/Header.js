@@ -2,7 +2,7 @@ import { useState } from "react";
 import { SignOutIcon, UserEditIcon } from "../../utils/imageConstants";
 import useTranslation from "../../hooks/useTranslation";
 import useConfirm from "../../hooks/useConfirm";
-import ConfirmModal from "../../components/ConfirmModal";
+import { ConfirmModal } from "../../components/modals";
 import "./Header.css";
 
 const Header = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
@@ -12,7 +12,7 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   const { isOpen: confirmOpen, message: confirmMessage, showConfirm, handleConfirm, handleCancel } = useConfirm();
 
   const handleSignOut = async () => {
-    const consent = await showConfirm(t("confirmSignout"));
+    const consent = await showConfirm("confirmSignout");
     if (consent) {
       dispatch({ type: "signout" });
     }
@@ -53,7 +53,7 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
           {collapsed ? t("Close") : t("Open")}
         </button>
       </div>
-      <ConfirmModal isOpen={confirmOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={confirmMessage} confirmText={t("yes")} cancelText={t("no")} />
+      <ConfirmModal isOpen={confirmOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={t(confirmMessage)} confirmText={t("yes")} cancelText={t("no")} />
     </>
   );
 };

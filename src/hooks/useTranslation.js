@@ -31,8 +31,10 @@ const KEY_MAP = {
   // Actions
   ADD: "add",
   ADD_MEMBER: "add member",
+  ADD_USER: "add user",
   UPDATE: "update",
   DELETE: "delete",
+  CANCEL: "cancel",
   Open: "open",
   Close: "close",
   Cancel: "cancel",
@@ -76,11 +78,12 @@ const KEY_MAP = {
   confirmAddMember: "confirm add member",
   confirmEditMember: "confirm edit member",
   confirmDeleteMember: "confirm delete member",
+  confirmDeletePhoto: "confirm delete photo",
   confirmAddUser: "confirm add user",
   confirmDeleteUser: "confirm delete user",
   userExists: "user exists",
-  openToAddUser: "open to add user",
   cancelAddUser: "cancel add user",
+  addANewUser: "add a new user",
   settledIn: "settled in",
   confidentiality: "confidentiality",
   adjustPhoto: "adjust photo",
@@ -96,13 +99,16 @@ const ENGLISH_TEXT = {
   confirmAddMember: "Are you sure you want to add the member?",
   confirmEditMember: "Are you sure you want to update the member?",
   confirmDeleteMember: "Are you sure you want to delete the member?",
-  confirmAddUser: "Are you sure you want to add this person as a new user?",
+  confirmDeletePhoto: "Are you sure you want to delete this photo?",
+  confirmAddUser: "Are you sure you want to add this person as a new {{role}}?",
   confirmDeleteUser: "Are you sure you want to delete this person?",
   userExists: "User already exists!",
-  openToAddUser: "Open to Add User",
+  addANewUser: "Add a new User",
   cancelAddUser: "Cancel to Add User",
   settledIn: "Settled in",
   ADD_MEMBER: "ADD MEMBER",
+  ADD_USER: "ADD USER",
+  CANCEL: "CANCEL",
   Birth: "Birth:",
   "Birth:": "Birth:",
   Death: "Death:",
@@ -130,20 +136,24 @@ export const useTranslation = (isEnglish) => {
    * @returns {string} - Translated text
    */
   const t = useCallback(
-    (key) => {
+    (key, params = {}) => {
+      let text;
       if (isEnglish) {
         // Return special English text if available, otherwise return the key
-        return ENGLISH_TEXT[key] || key;
+        text = ENGLISH_TEXT[key] || key;
+      } else {
+        // Map the key to translate.js format
+        const mappedKey = KEY_MAP[key] || key.toLowerCase();
+
+        // Get Hindi translation from centralized dictionary
+        const translation = translateToHindi(mappedKey);
+
+        // If translation is same as input (not found), return original key
+        text = translation !== mappedKey ? translation : key;
       }
 
-      // Map the key to translate.js format
-      const mappedKey = KEY_MAP[key] || key.toLowerCase();
-
-      // Get Hindi translation from centralized dictionary
-      const translation = translateToHindi(mappedKey);
-
-      // If translation is same as input (not found), return original key
-      return translation !== mappedKey ? translation : key;
+      // Replace {{variable}} placeholders with values from params
+      return text.replace(/\{\{(\w+)\}\}/g, (_, name) => params[name] ?? `{{${name}}}`);
     },
     [isEnglish],
   );

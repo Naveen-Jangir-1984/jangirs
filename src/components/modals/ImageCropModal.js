@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { PlusIcon, MinusIcon } from "../utils/imageConstants";
-import useTranslation from "../hooks/useTranslation";
-import "./ImageCropModal.css";
+import { PlusIcon, MinusIcon } from "../../utils/imageConstants";
+import useTranslation from "../../hooks/useTranslation";
+import "./modals.css";
 
 /**
  * Image crop modal with pan and zoom controls
@@ -219,8 +219,14 @@ const ImageCropModal = ({ isOpen, imageFile, onConfirm, onCancel, isEnglish = tr
   if (!isOpen) return null;
 
   return (
-    <div className="crop-modal-overlay">
-      <div className="crop-modal">
+    <div
+      className="crop-modal-overlay"
+      onClick={(e) => {
+        e.stopPropagation();
+        onCancel();
+      }}
+    >
+      <div className="crop-modal" onClick={(e) => e.stopPropagation()}>
         <div className="crop-instructions">{t("dragToPosition")}</div>
 
         <div className="crop-container" ref={containerRef} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onMouseLeave={handleMouseUp} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd} onWheel={handleWheel}>

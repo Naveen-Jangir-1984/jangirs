@@ -247,13 +247,12 @@ const App = () => {
           ...state,
           users: [...state.users, action.newUser],
           newUser: INITIAL_NEW_USER,
-          isUserEditOpen: false,
+          isUserAddOpen: false,
         };
       case "deleteUser":
         return {
           ...state,
           users: state.users.filter((user) => user.username !== action.username),
-          isUserEditOpen: false,
         };
       case "openMemberAdd":
         return {
