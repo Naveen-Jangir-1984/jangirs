@@ -19,8 +19,8 @@
   padding: 60px 20px;
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.7);
-  width: 80dvw;
-  max-height: 90dvh;
+  width: 80vw;
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
   row-gap: 10px;

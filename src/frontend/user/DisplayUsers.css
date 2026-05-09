@@ -20,8 +20,8 @@
   background-color: rgba(255, 255, 255, 0.7);
   padding: 60px 20px;
   border-radius: 20px;
-  width: 80dvw;
-  max-height: 95dvh;
+  width: 80vw;
+  max-height: 95vh;
 }
 
 .display-users .view {
