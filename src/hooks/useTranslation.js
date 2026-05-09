@@ -115,7 +115,7 @@ const ENGLISH_TEXT = {
   "Death:": "Death",
   Age: "Age",
   "Age:": "Age",
-  confidentiality: "This information is confidential to Dulania Jangir Samaaj and protected by Naveen Jangir (s/o Bahadur Singh Jangir).",
+  confidentiality: "This information is confidential to Dulania Jangir Samaaj and protected by Naveen Jangir (s/o Mr. Bahadur Singh Jangir).",
   yes: "Yes",
   no: "No",
   adjustPhoto: "Adjust Photo",

@@ -77,7 +77,7 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
                   <div className="member-wife-card" key={wife.id}>
                     <img
                       className="display-pic"
-                      style={{ borderColor: wife.isAlive ? "green" : "#f55" }}
+                      style={{ borderColor: wife.isAlive ? "green" : "#f55", transform: !wifeDP ? "scaleX(-1)" : "none" }}
                       src={wifeDP || FemaleProfileIcon}
                       alt={wife.id}
                       onClick={(e) => {

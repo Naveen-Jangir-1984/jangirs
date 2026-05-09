@@ -191,7 +191,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     <div className="details" style={{ display: state.isMemberDisplayOpen ? "flex" : "none" }} onClick={handleClose}>
       <div className="view" onClick={(e) => e.stopPropagation()}>
         <div className="profile-image-container">
-          <img style={{ boxShadow: state.memberToBeDisplayed.isAlive ? "0 0 20px lightgreen" : "0 0 20px #f55" }} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === "M" ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} loading="lazy" />
+          <img style={{ boxShadow: state.memberToBeDisplayed.isAlive ? "0 0 20px lightgreen" : "0 0 20px #f55", transform: !memberImage && state.memberToBeDisplayed.gender === "F" && state.memberToBeDisplayed.gotra ? "scaleX(-1)" : "none" }} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === "M" ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} loading="lazy" />
           {state.user.role === "admin" && (
             <label className="upload-photo-btn" title={t("uploadPhoto") || "Upload Photo"}>
               <input type="file" accept="image/jpeg,image/png,image/webp" onChange={handleFileSelect} ref={fileInputRef} style={{ display: "none" }} disabled={uploadStatus === "uploading"} />

@@ -59,28 +59,12 @@
 .village,
 .gotra {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  column-gap: 20px;
+  column-gap: 10px;
   height: 20px;
   width: 33%;
   white-space: nowrap;
-}
-
-.age span:first-child,
-.dob span:first-child,
-.dod span:first-child,
-.village span:first-child,
-.gotra span:first-child {
-  text-align: right;
-}
-
-.age span:last-child,
-.dob span:last-child,
-.dod span:last-child,
-.village span:last-child,
-.gotra span:last-child {
-  text-align: left;
 }
 
 .details .view .icons {
@@ -167,7 +151,7 @@
 .upload-photo-btn {
   position: absolute;
   bottom: 15px;
-  right: calc(50% - 12.5vh + 15px);
+  right: calc(50% - 12.5dvh + 15px);
   width: 40px;
   height: 40px;
   background-color: rgba(255, 255, 255, 0.95);
@@ -198,7 +182,7 @@
 .delete-photo-btn {
   position: absolute;
   bottom: 15px;
-  left: calc(50% - 12.5vh + 15px);
+  left: calc(50% - 12.5dvh + 15px);
   width: 40px;
   height: 40px;
   background-color: rgba(255, 255, 255, 0.95);

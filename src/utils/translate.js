@@ -7,7 +7,7 @@
 // Common UI labels and actions
 const UI_LABELS = {
   // Navigation & Actions
-  home: "होम",
+  home: "घर",
   back: "वापस",
   next: "अगला",
   previous: "पिछला",
@@ -67,13 +67,13 @@ const UI_LABELS = {
   date: "तारीख",
   time: "समय",
   password: "पासवर्ड",
-  username: "उपयोगकर्ता नाम",
+  username: "उपयोगकर्ता",
   login: "लॉगिन",
   logout: "लॉगआउट",
   "sign in": "साइन इन",
   "sign out": "साइन आउट",
   "sign up": "साइन अप",
-  register: "रजिस्टर",
+  register: "पंजीकरण",
   profile: "प्रोफ़ाइल",
   settings: "सेटिंग्स",
   help: "मदद",
@@ -271,7 +271,7 @@ const PHRASES = {
   "confirm delete photo": "क्या आप वाकई इस फोटो को हटाना चाहते हैं?",
 
   // Footer message
-  confidentiality: "यह जानकारी डुलानिया जांगिड़ समाज के लिए गोपनीय है और नवीन जांगिड़ (पुत्र बहादुर सिंह जांगिड़) द्वारा संरक्षित है।",
+  confidentiality: "यह जानकारी डुलानिया जांगिड़ समाज के लिए गोपनीय है और नवीन जांगिड़ (पुत्र श्री बहादुर सिंह जांगिड़) द्वारा संरक्षित है।",
 };
 
 // Combine all dictionaries
