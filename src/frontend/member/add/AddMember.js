@@ -86,7 +86,8 @@ const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishT
     dispatch({ type: "editInputNewMember", attribute: e.target.name, value: e.target.value });
   };
 
-  const isDisabled = state.newMember.type === "";
+  const isFormDisabled = state.newMember.type === "";
+  const isAddDisabled = state.newMember.type === "" || !state.newMember.name.trim();
 
   return (
     <div className="add-member" style={{ display: state.isMemberAddOpen ? "flex" : "none" }} onClick={handleClose}>
@@ -97,35 +98,35 @@ const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishT
           <option value="wife">{t("Wife")}</option>
         </select>
 
-        <input disabled={isDisabled} type="text" name="name" value={state.newMember.name} onChange={handleInputChange} placeholder={t("Name")} />
+        <input disabled={isFormDisabled} type="text" name="name" value={state.newMember.name} onChange={handleInputChange} placeholder={t("Name")} />
 
-        <input disabled={isDisabled} type="text" name="mobile" value={state.newMember.mobile} onChange={handleInputChange} placeholder={t("Mobile")} />
+        <input disabled={isFormDisabled} type="text" name="mobile" value={state.newMember.mobile} onChange={handleInputChange} placeholder={t("Mobile")} />
 
-        <DatePicker dateValue={state.newMember.date} monthValue={state.newMember.month} yearValue={state.newMember.year} onDateChange={handleInputChange} onMonthChange={handleInputChange} onYearChange={handleInputChange} disabled={isDisabled} isEnglish={isEnglish} getHindiNumbers={getHindiNumbers} className="dob" />
+        <DatePicker dateValue={state.newMember.date} monthValue={state.newMember.month} yearValue={state.newMember.year} onDateChange={handleInputChange} onMonthChange={handleInputChange} onYearChange={handleInputChange} disabled={isFormDisabled} isEnglish={isEnglish} getHindiNumbers={getHindiNumbers} className="dob" />
 
-        <select disabled={isDisabled || state.newMember.type === "wife"} name="gender" value={state.newMember.type === "wife" ? "F" : state.newMember.gender} onChange={handleInputChange}>
+        <select disabled={isFormDisabled || state.newMember.type === "wife"} name="gender" value={state.newMember.type === "wife" ? "F" : state.newMember.gender} onChange={handleInputChange}>
           <option value="M">{t("Male")}</option>
           <option value="F">{t("Female")}</option>
         </select>
 
-        <select disabled={isDisabled} name="isAlive" value={state.newMember.isAlive} onChange={handleInputChange}>
+        <select disabled={isFormDisabled} name="isAlive" value={state.newMember.isAlive} onChange={handleInputChange}>
           <option value="alive">{t("Alive")}</option>
           <option value="dead">{t("Dead")}</option>
         </select>
 
-        {state.newMember.isAlive === "dead" && <DatePicker dateValue={state.newMember.dateDeath} monthValue={state.newMember.monthDeath} yearValue={state.newMember.yearDeath} onDateChange={handleInputChange} onMonthChange={handleInputChange} onYearChange={handleInputChange} disabled={isDisabled} isEnglish={isEnglish} getHindiNumbers={getHindiNumbers} dateName="dateDeath" monthName="monthDeath" yearName="yearDeath" className="dob" />}
+        {state.newMember.isAlive === "dead" && <DatePicker dateValue={state.newMember.dateDeath} monthValue={state.newMember.monthDeath} yearValue={state.newMember.yearDeath} onDateChange={handleInputChange} onMonthChange={handleInputChange} onYearChange={handleInputChange} disabled={isFormDisabled} isEnglish={isEnglish} getHindiNumbers={getHindiNumbers} dateName="dateDeath" monthName="monthDeath" yearName="yearDeath" className="dob" />}
 
-        <input disabled={isDisabled} type="text" name="village" value={state.newMember.village} onChange={handleInputChange} placeholder={t("Village")} />
+        <input disabled={isFormDisabled} type="text" name="village" value={state.newMember.village} onChange={handleInputChange} placeholder={t("Village")} />
 
         {state.newMember.type === "wife" && <input type="text" name="gotra" value={state.newMember.gotra} onChange={handleInputChange} placeholder={t("Gotra")} />}
 
-        <input disabled={isDisabled} type="email" name="email" value={state.newMember.email} onChange={handleInputChange} placeholder={t("Email")} />
+        <input disabled={isFormDisabled} type="email" name="email" value={state.newMember.email} onChange={handleInputChange} placeholder={t("Email")} />
 
         <div className="add-member-buttons">
           <button className="add-member-button cancel" onClick={handleClose}>
             {t("CANCEL")}
           </button>
-          <button className="add-member-button ok" disabled={isDisabled} onClick={handleAddMember}>
+          <button className="add-member-button ok" disabled={isAddDisabled} onClick={handleAddMember}>
             {t("ADD")}
           </button>
         </div>

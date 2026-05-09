@@ -306,15 +306,7 @@
   ],
   "selectedPost": "",
   "enquiries": [],
-  "classes": [
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12
-  ],
+  "classes": [6, 7, 8, 9, 10, 11, 12],
   "subjects": [
     {
       "code": "BIO",
@@ -350,15 +342,7 @@
       "startHour": "00",
       "end": "18",
       "endHour": "00",
-      "subjects": [
-        "MAT",
-        "MAT",
-        "MAT",
-        "MAT",
-        "MAT",
-        "MAT",
-        "C + T"
-      ]
+      "subjects": ["MAT", "MAT", "MAT", "MAT", "MAT", "MAT", "C + T"]
     },
     {
       "id": 2,
@@ -368,15 +352,7 @@
       "startHour": "00",
       "end": "19",
       "endHour": "00",
-      "subjects": [
-        "SCI",
-        "SCI",
-        "SCI",
-        "SCI",
-        "SCI",
-        "SCI",
-        "C + T"
-      ]
+      "subjects": ["SCI", "SCI", "SCI", "SCI", "SCI", "SCI", "C + T"]
     },
     {
       "id": 3,
@@ -386,15 +362,7 @@
       "startHour": "00",
       "end": "18",
       "endHour": "00",
-      "subjects": [
-        "MAT",
-        "MAT",
-        "MAT",
-        "MAT",
-        "MAT",
-        "MAT",
-        "C + T"
-      ]
+      "subjects": ["MAT", "MAT", "MAT", "MAT", "MAT", "MAT", "C + T"]
     },
     {
       "id": 4,
@@ -404,15 +372,7 @@
       "startHour": "00",
       "end": "19",
       "endHour": "00",
-      "subjects": [
-        "BIO",
-        "CHE",
-        "PHY",
-        "BIO",
-        "CHE",
-        "PHY",
-        "C + T"
-      ]
+      "subjects": ["BIO", "CHE", "PHY", "BIO", "CHE", "PHY", "C + T"]
     },
     {
       "id": 5,
@@ -422,15 +382,7 @@
       "startHour": "00",
       "end": "18",
       "endHour": "00",
-      "subjects": [
-        "MAT",
-        "MAT",
-        "MAT",
-        "MAT",
-        "MAT",
-        "MAT",
-        "C + T"
-      ]
+      "subjects": ["MAT", "MAT", "MAT", "MAT", "MAT", "MAT", "C + T"]
     },
     {
       "id": 6,
@@ -440,15 +392,7 @@
       "startHour": "00",
       "end": "19",
       "endHour": "00",
-      "subjects": [
-        "SCI",
-        "SCI",
-        "SCI",
-        "SCI",
-        "SCI",
-        "SCI",
-        "C + T"
-      ]
+      "subjects": ["SCI", "SCI", "SCI", "SCI", "SCI", "SCI", "C + T"]
     },
     {
       "id": 7,
@@ -458,15 +402,7 @@
       "startHour": "00",
       "end": "18",
       "endHour": "00",
-      "subjects": [
-        "MAT",
-        "MAT",
-        "MAT",
-        "MAT",
-        "MAT",
-        "MAT",
-        "C + T"
-      ]
+      "subjects": ["MAT", "MAT", "MAT", "MAT", "MAT", "MAT", "C + T"]
     },
     {
       "id": 8,
@@ -476,15 +412,7 @@
       "startHour": "00",
       "end": "19",
       "endHour": "00",
-      "subjects": [
-        "BIO",
-        "CHE",
-        "PHY",
-        "BIO",
-        "CHE",
-        "PHY",
-        "C + T"
-      ]
+      "subjects": ["BIO", "CHE", "PHY", "BIO", "CHE", "PHY", "C + T"]
     },
     {
       "id": 9,
@@ -494,15 +422,7 @@
       "startHour": "00",
       "end": "19",
       "endHour": "00",
-      "subjects": [
-        "BIO",
-        "BIO",
-        "CHE",
-        "CHE",
-        "PHY",
-        "PHY",
-        "C + T"
-      ]
+      "subjects": ["BIO", "BIO", "CHE", "CHE", "PHY", "PHY", "C + T"]
     },
     {
       "id": 10,
@@ -512,15 +432,7 @@
       "startHour": "00",
       "end": "19",
       "endHour": "00",
-      "subjects": [
-        "MAT",
-        "MAT",
-        "MAT",
-        "MAT",
-        "MAT",
-        "MAT",
-        "C + T"
-      ]
+      "subjects": ["MAT", "MAT", "MAT", "MAT", "MAT", "MAT", "C + T"]
     },
     {
       "id": 11,
@@ -530,15 +442,7 @@
       "startHour": "00",
       "end": "07",
       "endHour": "00",
-      "subjects": [
-        "PHY",
-        "CHE",
-        "PHY",
-        "CHE",
-        "PHY",
-        "CHE",
-        "C + T"
-      ]
+      "subjects": ["PHY", "CHE", "PHY", "CHE", "PHY", "CHE", "C + T"]
     },
     {
       "id": 12,
@@ -548,15 +452,7 @@
       "startHour": "00",
       "end": "19",
       "endHour": "30",
-      "subjects": [
-        "MAT",
-        "BIO",
-        "MAT",
-        "BIO",
-        "MAT",
-        "BIO",
-        "C + T"
-      ]
+      "subjects": ["MAT", "BIO", "MAT", "BIO", "MAT", "BIO", "C + T"]
     },
     {
       "id": 13,
@@ -566,15 +462,7 @@
       "startHour": "00",
       "end": "07",
       "endHour": "00",
-      "subjects": [
-        "PHY",
-        "CHE",
-        "PHY",
-        "CHE",
-        "PHY",
-        "CHE",
-        "C + T"
-      ]
+      "subjects": ["PHY", "CHE", "PHY", "CHE", "PHY", "CHE", "C + T"]
     },
     {
       "id": 14,
@@ -584,15 +472,7 @@
       "startHour": "00",
       "end": "19",
       "endHour": "30",
-      "subjects": [
-        "BIO",
-        "MAT",
-        "BIO",
-        "MAT",
-        "BIO",
-        "MAT",
-        "C + T"
-      ]
+      "subjects": ["BIO", "MAT", "BIO", "MAT", "BIO", "MAT", "C + T"]
     }
   ],
   "banner": {
@@ -630,11 +510,5 @@
       "password": "Wats0n@0053"
     }
   ],
-  "visitors": [
-    "103.197.75.224",
-    "10.1.11.144",
-    "103.197.74.213",
-    "10.1.1.74",
-    "42.104.228.162"
-  ]
+  "visitors": ["103.197.75.224; 2025-08-01", "10.1.11.144; 2025-08-01", "103.197.74.213; 2025-08-01", "10.1.1.74; 2025-08-01", "42.104.228.162; 2025-08-01"]
 }

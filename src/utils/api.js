@@ -1,10 +1,26 @@
+import CryptoJS from "crypto-js";
 import { transliterateToHindi } from "./transliterate";
 
 const URL = process.env.REACT_APP_API_URL;
 const PORT = process.env.REACT_APP_PORT;
+const SECRET_KEY = process.env.REACT_APP_SECRET_KEY;
 
 // Transliteration cache to avoid repeated operations for same text
 const translationCache = new Map();
+
+/**
+ * Decrypt data using AES
+ */
+const decryptData = (encryptedData) => {
+  try {
+    const bytes = CryptoJS.AES.decrypt(encryptedData, SECRET_KEY);
+    const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+    return JSON.parse(decrypted);
+  } catch (error) {
+    console.error("Decryption error:", error);
+    throw new Error("Failed to decrypt data");
+  }
+};
 
 /**
  * Cached transliteration wrapper
@@ -50,34 +66,47 @@ export const api = {
   },
 
   /**
-   * Add a new member
+   * Add a new member (uses HTTP API)
    */
-  addMember: (member, newMember, type, village) => api.post("/addNewMember", { member, newMember, type, village }),
+  addMember: async (member, newMember, type, village) => {
+    return api.post("/addNewMember", { member, newMember, type, village });
+  },
 
   /**
-   * Edit an existing member
+   * Edit an existing member (uses HTTP API)
    */
-  editMember: (member, village) => api.post("/editMember", { member, village }),
+  editMember: async (member, village) => {
+    return api.post("/editMember", { member, village });
+  },
 
   /**
-   * Delete a member
+   * Delete a member (uses HTTP API)
    */
-  deleteMember: (id, village) => api.post("/deleteMember", { id, village }),
+  deleteMember: async (id, village) => {
+    return api.post("/deleteMember", { id, village });
+  },
 
   /**
-   * Add a new user
+   * Add a new user (uses HTTP API)
    */
-  addUser: (username, password, role) => api.post("/addNewUser", { username, password, role }),
+  addUser: async (username, password, role) => {
+    return api.post("/addNewUser", { username, password, role });
+  },
 
   /**
-   * Delete a user
+   * Delete a user (uses HTTP API)
    */
-  deleteUser: (username) => api.post("/deleteUser", { username }),
+  deleteUser: async (username) => {
+    return api.post("/deleteUser", { username });
+  },
 
   /**
-   * Get all data
+   * Get all data (uses HTTP API)
    */
-  getData: () => api.get("/getData"),
+  getData: async () => {
+    const encryptedData = await api.get("/getData");
+    return decryptData(encryptedData);
+  },
 
   /**
    * Transliterate text to Devanagari

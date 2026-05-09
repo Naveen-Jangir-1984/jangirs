@@ -1,22 +1,14 @@
-import CryptoJS from "crypto-js";
 import { lazy, Suspense, useReducer, useState, useEffect, useCallback } from "react";
 import { BGDImage } from "./utils/imageConstants";
 import { fetchMemberImages } from "./utils/getImages";
 import { INITIAL_NEW_MEMBER, INITIAL_NEW_USER, INITIAL_EDIT_INPUT, INITIAL_FILTERS, INITIAL_INPUT } from "./utils/constants";
 import { addMemberToTree, editMemberInTree, deleteMemberFromTree, toggleMemberCollapse, toggleAllMembers, getMalesByVillage, getMalesByGotra, getFemalesByVillage, getFemalesByGotra, extractInitialCollapseStates, restoreCollapseStates, calculateGenerationRange } from "./utils/treeUtils";
 import { transliterateToHindi as transliterateHindi } from "./utils/transliterate";
+import { api } from "./utils/api";
 import "./App.css";
 
 const SignIn = lazy(() => import("./frontend/signin/SignIn"));
 const Home = lazy(() => import("./frontend/home/Home"));
-const URL = process.env.REACT_APP_API_URL;
-const port = process.env.REACT_APP_PORT;
-const secretKey = process.env.REACT_APP_SECRET_KEY;
-
-const decryptData = (encryptedData) => {
-  const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
-  return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-};
 
 const App = () => {
   const [isServerDown, setIsServerDown] = useState("Connecting...");
@@ -523,10 +515,8 @@ const App = () => {
   };
   const fetchData = useCallback(async (user, village) => {
     try {
-      // Fetch data and images in parallel
-      const [dataResponse, memberImages] = await Promise.all([fetch(`${URL}:${port}/getData`), fetchMemberImages()]);
-      const data = await dataResponse.text();
-      const db = decryptData(data);
+      // Fetch data from API and images in parallel
+      const [db, memberImages] = await Promise.all([api.getData(), fetchMemberImages()]);
       sessionStorage.setItem(
         "appState",
         JSON.stringify({

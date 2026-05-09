@@ -191,7 +191,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     <div className="details" style={{ display: state.isMemberDisplayOpen ? "flex" : "none" }} onClick={handleClose}>
       <div className="view" onClick={(e) => e.stopPropagation()}>
         <div className="profile-image-container">
-          <img style={{ boxShadow: state.memberToBeDisplayed.isAlive ? "0 0 50px lightgreen" : "0 0 50px #f55" }} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === "M" ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} loading="lazy" />
+          <img style={{ boxShadow: state.memberToBeDisplayed.isAlive ? "0 0 20px lightgreen" : "0 0 20px #f55" }} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === "M" ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} loading="lazy" />
           {state.user.role === "admin" && (
             <label className="upload-photo-btn" title={t("uploadPhoto") || "Upload Photo"}>
               <input type="file" accept="image/jpeg,image/png,image/webp" onChange={handleFileSelect} ref={fileInputRef} style={{ display: "none" }} disabled={uploadStatus === "uploading"} />
@@ -211,36 +211,31 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
           )}
         </div>
         <div className="info">
-          <div>
-            {isEnglish ? state.memberToBeDisplayed.name : getHindiText(state.memberToBeDisplayed.name, "name")}{" "}
-            {memberDOB && isEnglish ? (
-              <sup>
-                {t("Age")}{" "}
-                {(() => {
-                  const age = getAge(memberDOB, memberDOD);
-                  const parts = [];
-                  if (age.years > 0) parts.push(age.years + " " + t("years"));
-                  if (age.months > 0) parts.push(age.months + " " + t("months"));
-                  if (age.days > 0) parts.push(age.days + " " + t("days"));
-                  return parts.join(" ");
-                })()}
-              </sup>
-            ) : memberDOB && !isEnglish ? (
-              <sup>
-                {t("Age")}{" "}
-                {(() => {
-                  const age = getAge(memberDOB, memberDOD);
-                  const parts = [];
-                  if (age.years > 0) parts.push(getHindiNumbers(age.years.toString()) + " " + t("years"));
-                  if (age.months > 0) parts.push(getHindiNumbers(age.months.toString()) + " " + t("months"));
-                  if (age.days > 0) parts.push(getHindiNumbers(age.days.toString()) + " " + t("days"));
-                  return parts.join(" ");
-                })()}
-              </sup>
-            ) : (
-              ""
-            )}
-          </div>
+          <div>{isEnglish ? state.memberToBeDisplayed.name : getHindiText(state.memberToBeDisplayed.name, "name")}</div>
+          {memberDOB && (
+            <div className="age">
+              <span style={{ fontWeight: "bolder" }}>{t("Age")}</span>
+              <span>
+                {isEnglish
+                  ? (() => {
+                      const age = getAge(memberDOB, memberDOD);
+                      const parts = [];
+                      if (age.years > 0) parts.push(age.years + " " + t("years"));
+                      if (age.months > 0) parts.push(age.months + " " + t("months"));
+                      if (age.days > 0) parts.push(age.days + " " + t("days"));
+                      return parts.join(" ");
+                    })()
+                  : (() => {
+                      const age = getAge(memberDOB, memberDOD);
+                      const parts = [];
+                      if (age.years > 0) parts.push(getHindiNumbers(age.years.toString()) + " " + t("years"));
+                      if (age.months > 0) parts.push(getHindiNumbers(age.months.toString()) + " " + t("months"));
+                      if (age.days > 0) parts.push(getHindiNumbers(age.days.toString()) + " " + t("days"));
+                      return parts.join(" ");
+                    })()}
+              </span>
+            </div>
+          )}
           {memberDOB && !isEnglish ? (
             <div className="dob">
               {/* <img className='icons' src={DOBIcon} alt='birth' loading='lazy' /> */}
@@ -270,7 +265,19 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
             </div>
           ) : (
             ""
+          )}{" "}
+          {state.memberToBeDisplayed.village && (
+            <div className="village">
+              <span style={{ fontWeight: "bolder" }}>{t("Village")}</span>
+              <span>{isEnglish ? state.memberToBeDisplayed.village : getHindiText(state.memberToBeDisplayed.village, "village")}</span>
+            </div>
           )}
+          {state.memberToBeDisplayed.gotra && (
+            <div className="gotra">
+              <span style={{ fontWeight: "bolder" }}>{t("Gotra")}</span>
+              <span>{isEnglish ? state.memberToBeDisplayed.gotra : getHindiText(state.memberToBeDisplayed.gotra, "gotra")}</span>
+            </div>
+          )}{" "}
           {memberMobiles.length ? (
             <div className="view-mobile">
               <img className="icons" src={MobileIcon} alt="mobile" loading="lazy" />

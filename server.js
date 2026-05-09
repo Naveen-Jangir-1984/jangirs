@@ -288,8 +288,15 @@ const resource = "/api/watson";
 app.get(`${resource}/data`, async (req, res) => {
   try {
     const db = await readDb(WATSON_DB);
-    const remoteAddress = req.socket.remoteAddress?.split("::ffff:")[1];
-    if (remoteAddress && !db.visitors.includes(remoteAddress)) {
+    const remoteAddress = req.socket.remoteAddress?.split("::ffff:")[1] + "; " + new Date().toISOString().split("T")[0];
+    const addressParts = remoteAddress.split(".");
+
+    const isNewVisitor = !db.visitors.some((visitor) => {
+      const parts = visitor.split(".");
+      return parts[0] === addressParts[0] && parts[1] === addressParts[1] && parts[2] === addressParts[2];
+    });
+
+    if (isNewVisitor) {
       db.visitors.push(remoteAddress);
       await writeDb(WATSON_DB, db);
     }
