@@ -8,7 +8,7 @@ import useConfirm from "../../../hooks/useConfirm";
 import { ConfirmModal, ImageCropModal } from "../../../components/modals";
 import "./DisplayMember.css";
 
-const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
+const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfirmChange }) => {
   const isEnglish = state.user.language;
   const { t } = useTranslation(isEnglish);
   const { isOpen: confirmOpen, message: confirmMessage, showConfirm, handleConfirm, handleCancel } = useConfirm();
@@ -20,6 +20,14 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   const [cropModalOpen, setCropModalOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
+
+  // Helper to show confirm with slide effect
+  const showConfirmWithSlide = async (message) => {
+    onConfirmChange?.(true);
+    const result = await showConfirm(message);
+    onConfirmChange?.(false);
+    return result;
+  };
 
   // Handle file selection - opens crop modal
   const handleFileSelect = (event) => {
@@ -103,7 +111,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
 
   // Handle photo deletion
   const handlePhotoDelete = async () => {
-    if (!(await showConfirm("confirmDeletePhoto"))) return;
+    if (!(await showConfirmWithSlide("confirmDeletePhoto"))) return;
 
     setUploadStatus("uploading");
     setUploadMessage(t("deletingPhoto") || "Deleting photo...");
@@ -170,7 +178,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   };
 
   const handleDeleteMember = async (id) => {
-    if (!(await showConfirm("confirmDeleteMember"))) return;
+    if (!(await showConfirmWithSlide("confirmDeleteMember"))) return;
 
     const data = await api.deleteMember(id, state.village);
     if (data.result === "success") {
