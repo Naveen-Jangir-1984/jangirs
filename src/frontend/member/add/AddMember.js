@@ -87,7 +87,7 @@ const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishT
   };
 
   const isFormDisabled = state.newMember.type === "";
-  const isAddDisabled = state.newMember.type === "" || !state.newMember.name.trim();
+  const isAddDisabled = state.newMember.type === "";
 
   return (
     <div className="add-member" style={{ display: state.isMemberAddOpen ? "flex" : "none" }} onClick={handleClose}>
