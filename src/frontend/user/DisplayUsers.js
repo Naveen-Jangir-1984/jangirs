@@ -5,10 +5,18 @@ import useTranslation from "../../hooks/useTranslation";
 import useConfirm from "../../hooks/useConfirm";
 import "./DisplayUsers.css";
 
-const DisplayUsers = ({ state, dispatch }) => {
+const DisplayUsers = ({ state, dispatch, onConfirmChange }) => {
   const isEnglish = state.user.language;
   const { t } = useTranslation(isEnglish);
   const { isOpen: confirmOpen, message: confirmMessage, messageParams: confirmParams, showConfirm, handleConfirm, handleCancel } = useConfirm();
+
+  // Helper to show confirm with slide effect
+  const showConfirmWithSlide = async (message, params) => {
+    onConfirmChange?.(true);
+    const result = await showConfirm(message, params);
+    onConfirmChange?.(false);
+    return result;
+  };
 
   // Translate params at render time so language changes update properly
   const translatedParams = confirmParams.role ? { ...confirmParams, role: t(confirmParams.role) } : confirmParams;
@@ -24,7 +32,7 @@ const DisplayUsers = ({ state, dispatch }) => {
 
   const handleAddUser = async ({ username, password, role }) => {
     const roleKey = role.charAt(0).toUpperCase() + role.slice(1);
-    if (!(await showConfirm("confirmAddUser", { role: roleKey }))) return;
+    if (!(await showConfirmWithSlide("confirmAddUser", { role: roleKey }))) return;
 
     const data = await api.addUser(username, password, role);
     if (data.result === "success") {
@@ -39,7 +47,7 @@ const DisplayUsers = ({ state, dispatch }) => {
   };
 
   const handleDeleteUser = async (username) => {
-    if (!(await showConfirm("confirmDeleteUser"))) return;
+    if (!(await showConfirmWithSlide("confirmDeleteUser"))) return;
 
     const data = await api.deleteUser(username);
     if (data.result === "success") {

@@ -2,7 +2,7 @@ import { useMemberStats } from "../../hooks/useMemberStats";
 import useTranslation from "../../hooks/useTranslation";
 import "./Filter.css";
 
-const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers }) => {
+const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers, isModalOpen }) => {
   const male = state.filters.male;
   const female = state.filters.female;
   const isEnglish = state.user.language;
@@ -15,7 +15,7 @@ const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers }) => 
   const formatNum = (num) => (isEnglish ? num : getHindiNumbers(num.toString()));
 
   return (
-    <div className="filter">
+    <div className={`filter ${isModalOpen ? "slide-out" : ""}`}>
       <div className="filter-label">{t("Men")}</div>
       <div className="filter-men">
         <select name="village" value={male.village} onChange={(e) => dispatch({ type: "male-selection", village: e.target.value, gotra: "" })}>

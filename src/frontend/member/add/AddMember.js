@@ -5,10 +5,18 @@ import useTranslation from "../../../hooks/useTranslation";
 import useConfirm from "../../../hooks/useConfirm";
 import "./AddMember.css";
 
-const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishText, getEnglishNumbers }) => {
+const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishText, getEnglishNumbers, onConfirmChange }) => {
   const isEnglish = state.user.language;
   const { t } = useTranslation(isEnglish);
   const { isOpen: confirmOpen, message: confirmMessage, showConfirm, handleConfirm, handleCancel } = useConfirm();
+
+  // Helper to show confirm with slide effect
+  const showConfirmWithSlide = async (message) => {
+    onConfirmChange?.(true);
+    const result = await showConfirm(message);
+    onConfirmChange?.(false);
+    return result;
+  };
 
   // Helper to parse mobile numbers
   const parseMobileNumbers = (mobileStr) => {
@@ -31,7 +39,7 @@ const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishT
   };
 
   const handleAddMember = async () => {
-    if (!(await showConfirm("confirmAddMember"))) return;
+    if (!(await showConfirmWithSlide("confirmAddMember"))) return;
 
     const { newMember, memberToBeAdded, village } = state;
     const mobileNumbers = parseMobileNumbers(newMember.mobile);
