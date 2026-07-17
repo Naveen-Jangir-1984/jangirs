@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "jangirs-333031"
-  }
+    "default": "jangirs-333031",
+    "prod": "watson-academy-333031"
+  },
+  "targets": {},
+  "etags": {}
 }
