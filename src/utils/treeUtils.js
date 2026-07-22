@@ -493,7 +493,6 @@ export const getEventsForMonth = (members, month, year) => {
         event.daysUntil = event.day - todayDay;
       } else {
         // Already passed this year, compute days until next year
-        const endOfYear = new Date(year, 11, 31);
         const eventNextYear = new Date(year + 1, event.month, event.day);
         event.daysUntil = Math.ceil((eventNextYear - today) / (1000 * 60 * 60 * 24));
         event.isPast = true;

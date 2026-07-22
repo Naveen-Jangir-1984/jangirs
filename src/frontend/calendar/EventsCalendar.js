@@ -66,24 +66,6 @@ const EventsCalendar = ({ state, dispatch, members, getHindiText, getHindiNumber
     setSelectedDay(null);
   }, [today]);
 
-  const getAgeAtDeath = (member) => {
-    if (member.dob && member.dod) {
-      const dobParts = member.dob.split(" ");
-      const dodParts = member.dod.split(" ");
-      if (dobParts.length === 3 && dodParts.length === 3) {
-        const dob = new Date(dobParts[2], MONTH_NAMES.indexOf(dobParts[1]), dobParts[0]);
-        const dod = new Date(dodParts[2], MONTH_NAMES.indexOf(dodParts[1]), dodParts[0]);
-        let age = dod.getFullYear() - dob.getFullYear();
-        const monthDiff = dod.getMonth() - dob.getMonth();
-        if (monthDiff < 0 || (monthDiff === 0 && dod.getDate() < dob.getDate())) {
-          age--;
-        }
-        return Math.max(0, age);
-      }
-    }
-    return null;
-  };
-
   const handleMemberClick = useCallback(
     (member) => {
       dispatch({ type: "openMemberDisplay", member });

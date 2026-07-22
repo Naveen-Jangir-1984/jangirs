@@ -16,7 +16,7 @@ const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers, getEngl
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const isModalOpen = state.isMemberDisplayOpen || state.isUserEditOpen || state.isMemberAddOpen || state.isMemberEditOpen || isConfirmOpen;
   const isEnglish = state.user?.language;
-  const { t } = useTranslation(isEnglish);
+  useTranslation(isEnglish);
 
   return (
     <div className={`home ${isModalOpen ? "modal-open" : ""}`}>
