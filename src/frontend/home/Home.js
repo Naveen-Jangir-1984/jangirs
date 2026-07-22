@@ -21,7 +21,7 @@ const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers, getEngl
   return (
     <div className={`home ${isModalOpen ? "modal-open" : ""}`}>
       <Header state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} onConfirmChange={setIsConfirmOpen} isCalendarOpen={isCalendarOpen} setIsCalendarOpen={setIsCalendarOpen} />
-      <Filter state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} />
+      <Filter state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} isCalendarOpen={isCalendarOpen} />
       <div className="view-content">
         <div className={`view-panel ${isCalendarOpen ? "panel-exit" : "panel-enter"}`}>{!isCalendarOpen && <Tree state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} />}</div>
         <div className={`view-panel ${isCalendarOpen ? "panel-enter" : "panel-exit"}`}>
