@@ -6,6 +6,7 @@ import { fetchMemberImages } from "../../../utils/getImages";
 import useTranslation from "../../../hooks/useTranslation";
 import useConfirm from "../../../hooks/useConfirm";
 import { ConfirmModal, ImageCropModal } from "../../../components/modals";
+import { exportMemberSubtreeAsPDF } from "../../../utils/exportPDF";
 import "./DisplayMember.css";
 
 const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfirmChange }) => {
@@ -14,14 +15,13 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
   const { isOpen: confirmOpen, message: confirmMessage, showConfirm, handleConfirm, handleCancel } = useConfirm();
   const memberImage = state.images.find((image) => image.id === state.memberToBeDisplayed.id);
 
-  // Photo upload state
-  const [uploadStatus, setUploadStatus] = useState(""); // "uploading", "success", "error", ""
+  const [uploadStatus, setUploadStatus] = useState("");
   const [uploadMessage, setUploadMessage] = useState("");
   const [cropModalOpen, setCropModalOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
+  const [pdfExportStatus, setPdfExportStatus] = useState("");
 
-  // Helper to show confirm with slide effect
   const showConfirmWithSlide = async (message) => {
     onConfirmChange?.(true);
     const result = await showConfirm(message);
@@ -29,134 +29,103 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
     return result;
   };
 
-  // Handle file selection - opens crop modal
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     if (!file) return;
-
-    // Validate file type
     const validTypes = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
     if (!validTypes.includes(file.type)) {
       setUploadStatus("error");
-      setUploadMessage(t("invalidFileType") || "Invalid file type. Please upload JPEG, PNG, or WebP.");
+      setUploadMessage(t("invalidFileType") || "Invalid file type.");
       setTimeout(() => {
         setUploadStatus("");
         setUploadMessage("");
       }, 3000);
       return;
     }
-
-    // Validate file size (max 50MB)
     if (file.size > 50 * 1024 * 1024) {
       setUploadStatus("error");
-      setUploadMessage(t("fileTooLarge") || "File is too large. Maximum size is 50MB.");
+      setUploadMessage(t("fileTooLarge") || "File too large.");
       setTimeout(() => {
         setUploadStatus("");
         setUploadMessage("");
       }, 3000);
       return;
     }
-
-    // Open crop modal
     setSelectedFile(file);
     setCropModalOpen(true);
-
-    // Reset file input
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  // Handle crop confirmation - upload the cropped image
   const handleCropConfirm = async (croppedBlob) => {
     setCropModalOpen(false);
     setSelectedFile(null);
-
     setUploadStatus("uploading");
-    setUploadMessage(t("uploadingPhoto") || "Uploading photo...");
-
+    setUploadMessage(t("uploadingPhoto") || "Uploading...");
     try {
-      // Create a File from the blob
       const croppedFile = new File([croppedBlob], "photo.jpg", { type: "image/jpeg" });
       const result = await api.uploadCroppedPhoto(state.memberToBeDisplayed.id, croppedFile);
-
       if (result.result === "success") {
         setUploadStatus("success");
-        setUploadMessage(t("photoUploaded") || "Photo uploaded successfully!");
-
-        // Refresh images from server and update state
+        setUploadMessage(t("photoUploaded") || "Uploaded!");
         const updatedImages = await fetchMemberImages();
         dispatch({ type: "updateImages", images: updatedImages });
-
-        // Clear status after 3 seconds
         setTimeout(() => {
           setUploadStatus("");
           setUploadMessage("");
         }, 3000);
       } else {
         setUploadStatus("error");
-        setUploadMessage(result.message || t("uploadFailed") || "Upload failed. Please try again.");
+        setUploadMessage(result.message || t("uploadFailed") || "Failed.");
       }
     } catch (error) {
       setUploadStatus("error");
-      setUploadMessage(error.message || t("uploadError") || "An error occurred during upload.");
+      setUploadMessage(error.message || t("uploadError") || "Error.");
     }
   };
 
-  // Handle crop cancel
   const handleCropCancel = () => {
     setCropModalOpen(false);
     setSelectedFile(null);
   };
 
-  // Handle photo deletion
   const handlePhotoDelete = async () => {
     if (!(await showConfirmWithSlide("confirmDeletePhoto"))) return;
-
     setUploadStatus("uploading");
-    setUploadMessage(t("deletingPhoto") || "Deleting photo...");
-
+    setUploadMessage(t("deletingPhoto") || "Deleting...");
     try {
       const result = await api.deletePhoto(state.memberToBeDisplayed.id);
-
       if (result.result === "success") {
         setUploadStatus("success");
-        setUploadMessage(t("photoDeleted") || "Photo deleted successfully!");
-
-        // Refresh images from server and update state
+        setUploadMessage(t("photoDeleted") || "Deleted!");
         const updatedImages = await fetchMemberImages();
         dispatch({ type: "updateImages", images: updatedImages });
-
-        // Clear status after 3 seconds
         setTimeout(() => {
           setUploadStatus("");
           setUploadMessage("");
         }, 3000);
       } else {
         setUploadStatus("error");
-        setUploadMessage(result.message || t("deleteFailed") || "Delete failed. Please try again.");
+        setUploadMessage(result.message || t("deleteFailed") || "Failed.");
       }
     } catch (error) {
       setUploadStatus("error");
-      setUploadMessage(error.message || t("deleteError") || "An error occurred during deletion.");
+      setUploadMessage(error.message || t("deleteError") || "Error.");
     }
   };
+
   const memberDOB = state.memberToBeDisplayed.dob || "";
   const memberDOD = state.memberToBeDisplayed.dod || "";
   const memberMobiles = state.memberToBeDisplayed.mobile || [];
   const memberEmails = state.memberToBeDisplayed.email || [];
 
-  // Calculate age helper
   const getAge = (dobString, dodString) => {
     if (!dobString || dobString.length === 0) return { years: 0, months: 0, days: 0 };
     const dobParts = dobString.split(" ");
     const birthDate = new Date(dobParts[2], MONTHS.indexOf(dobParts[1]), dobParts[0]);
     const endDate = !dodString || dodString.length === 0 ? new Date() : new Date(dodString.split(" ")[2], MONTHS.indexOf(dodString.split(" ")[1]), dodString.split(" ")[0]);
-
     let years = endDate.getFullYear() - birthDate.getFullYear();
     let monthsDiff = endDate.getMonth() - birthDate.getMonth();
     let daysDiff = endDate.getDate() - birthDate.getDate();
-
     if (daysDiff < 0) {
       monthsDiff--;
       const prevMonth = new Date(endDate.getFullYear(), endDate.getMonth() - 1, birthDate.getDate());
@@ -169,30 +138,43 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
     return { years: Math.max(0, years), months: Math.max(0, monthsDiff), days: Math.max(0, Math.floor(daysDiff)) };
   };
 
-  const handleAddMember = () => {
-    dispatch({ type: "openMemberAdd", member: state.memberToBeDisplayed });
-  };
-
-  const handleEditMember = () => {
-    dispatch({ type: "openMemberEdit", member: state.memberToBeDisplayed });
-  };
-
+  const handleAddMember = () => dispatch({ type: "openMemberAdd", member: state.memberToBeDisplayed });
+  const handleEditMember = () => dispatch({ type: "openMemberEdit", member: state.memberToBeDisplayed });
   const handleDeleteMember = async (id) => {
     if (!(await showConfirmWithSlide("confirmDeleteMember"))) return;
-
     const data = await api.deleteMember(id, state.village);
-    if (data.result === "success") {
-      dispatch({ type: "deleteMember", id: id });
+    if (data.result === "success") dispatch({ type: "deleteMember", id });
+  };
+
+  const handleExportPDF = async () => {
+    onConfirmChange(true);
+    const consent = await showConfirm("confirmExportSubtreePDF");
+    onConfirmChange(false);
+
+    if (consent) {
+      setPdfExportStatus("generating");
+      try {
+        await exportMemberSubtreeAsPDF(state.memberToBeDisplayed, {
+          village: state.village,
+          isEnglish,
+          getHindiText,
+          getHindiNumbers,
+          images: state.images,
+          onProgress: (status) => {
+            if (status === "done") setPdfExportStatus("");
+            else if (status === "error") setPdfExportStatus("error");
+          },
+        });
+      } catch (err) {
+        setPdfExportStatus("error");
+        setTimeout(() => setPdfExportStatus(""), 3000);
+      }
     }
   };
 
-  // Close modals layer by layer
   const handleClose = () => {
-    if (cropModalOpen) {
-      handleCropCancel();
-    } else if (!confirmOpen) {
-      dispatch({ type: "closeMemberDisplay" });
-    }
+    if (cropModalOpen) handleCropCancel();
+    else if (!confirmOpen) dispatch({ type: "closeMemberDisplay" });
   };
 
   return (
@@ -212,7 +194,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
             </button>
           )}
           {uploadStatus && (
-            <div className={`upload-status ${uploadStatus}`}>
+            <div className={"upload-status " + uploadStatus}>
               {uploadStatus === "uploading" && <span className="spinner"></span>}
               <span>{uploadMessage}</span>
             </div>
@@ -225,7 +207,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
               <span style={{ fontWeight: "bolder" }}>{t("Age")}</span>
               <span>
                 {isEnglish
-                  ? (() => {
+                  ? (function () {
                       const age = getAge(memberDOB, memberDOD);
                       const parts = [];
                       if (age.years > 0) parts.push(age.years + " " + t("years"));
@@ -233,7 +215,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
                       if (age.days > 0) parts.push(age.days + " " + t("days"));
                       return parts.join(" ");
                     })()
-                  : (() => {
+                  : (function () {
                       const age = getAge(memberDOB, memberDOD);
                       const parts = [];
                       if (age.years > 0) parts.push(getHindiNumbers(age.years.toString()) + " " + t("years"));
@@ -246,34 +228,26 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
           )}
           {memberDOB && !isEnglish ? (
             <div className="dob">
-              {/* <img className='icons' src={DOBIcon} alt='birth' loading='lazy' /> */}
               <span style={{ fontWeight: "bolder" }}>{t("Birth")}</span>
-              <span>{`${getHindiNumbers(memberDOB.split(" ")[0])} ${getHindiText(memberDOB.split(" ")[1], "months")} ${getHindiNumbers(memberDOB.split(" ")[2])}`}</span>
+              <span>{getHindiNumbers(memberDOB.split(" ")[0]) + " " + getHindiText(memberDOB.split(" ")[1], "months") + " " + getHindiNumbers(memberDOB.split(" ")[2])}</span>
             </div>
           ) : memberDOB && isEnglish ? (
             <div className="dob">
-              {/* <img className='icons' src={DOBIcon} alt='birth' loading='lazy' /> */}
               <span style={{ fontWeight: "bolder" }}>{t("Birth")}</span>
               <span>{memberDOB}</span>
             </div>
-          ) : (
-            ""
-          )}
+          ) : null}
           {memberDOD && !isEnglish ? (
             <div className="dod">
-              {/* <img className='icons' src={DODIcon} alt='death' loading='lazy' /> */}
               <span style={{ fontWeight: "bolder" }}>{t("Death")}</span>
-              <span>{`${getHindiNumbers(memberDOD.split(" ")[0])} ${getHindiText(memberDOD.split(" ")[1], "months")} ${getHindiNumbers(memberDOD.split(" ")[2])}`}</span>
+              <span>{getHindiNumbers(memberDOD.split(" ")[0]) + " " + getHindiText(memberDOD.split(" ")[1], "months") + " " + getHindiNumbers(memberDOD.split(" ")[2])}</span>
             </div>
           ) : memberDOD && isEnglish ? (
             <div className="dod">
-              {/* <img className='icons' src={DODIcon} alt='death' loading='lazy' /> */}
               <span style={{ fontWeight: "bolder" }}>{t("Death")}</span>
               <span>{memberDOD}</span>
             </div>
-          ) : (
-            ""
-          )}{" "}
+          ) : null}
           {state.memberToBeDisplayed.village && (
             <div className="village">
               <span style={{ fontWeight: "bolder" }}>{t("Village")}</span>
@@ -285,60 +259,79 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
               <span style={{ fontWeight: "bolder" }}>{t("Gotra")}</span>
               <span>{isEnglish ? state.memberToBeDisplayed.gotra : getHindiText(state.memberToBeDisplayed.gotra, "gotra")}</span>
             </div>
-          )}{" "}
+          )}
           {memberMobiles.length ? (
             <div className="view-mobile">
               <img className="icons" src={MobileIcon} alt="mobile" loading="lazy" />
               <span className="view-mobile">
-                {memberMobiles.map((mobile, i) => (
-                  <a key={i} href={`tel: ${mobile}`} onClick={(e) => e.stopPropagation()}>
-                    {mobile}
-                  </a>
-                ))}
+                {memberMobiles.map(function (mobile, i) {
+                  return (
+                    <a
+                      key={i}
+                      href={"tel: " + mobile}
+                      onClick={function (e) {
+                        e.stopPropagation();
+                      }}
+                    >
+                      {mobile}
+                    </a>
+                  );
+                })}
               </span>
             </div>
-          ) : (
-            ""
-          )}
+          ) : null}
           {memberEmails.length ? (
             <div className="view-email">
               <img className="icons" src={EmailIcon} alt="email" loading="lazy" />
               <span className="view-email">
-                {memberEmails.map((email, i) => (
-                  <a key={i} href={`mailto: ${email}`} onClick={(e) => e.stopPropagation()}>
-                    {email}
-                  </a>
-                ))}
+                {memberEmails.map(function (email, i) {
+                  return (
+                    <a
+                      key={i}
+                      href={"mailto: " + email}
+                      onClick={function (e) {
+                        e.stopPropagation();
+                      }}
+                    >
+                      {email}
+                    </a>
+                  );
+                })}
               </span>
             </div>
-          ) : (
-            ""
-          )}
+          ) : null}
           <div className="view-actions">
-            <button className="display-member-button cancel" onClick={() => dispatch({ type: "closeMemberDisplay" })}>
+            <button
+              className="display-member-button cancel"
+              onClick={function () {
+                dispatch({ type: "closeMemberDisplay" });
+              }}
+            >
               {t("CANCEL")}
             </button>
+            <button className="display-member-button export-pdf" onClick={handleExportPDF} disabled={pdfExportStatus === "generating"}>
+              {pdfExportStatus === "generating" ? t("exporting") : t("exportPDF")}
+            </button>
             {state.user.role === "admin" && state.memberToBeDisplayed.gender === "M" ? (
-              <button className="display-member-button add" onClick={() => handleAddMember()}>
+              <button className="display-member-button add" onClick={handleAddMember}>
                 {t("ADD_MEMBER")}
               </button>
-            ) : (
-              ""
-            )}
+            ) : null}
             {state.user.role === "admin" ? (
-              <button className="display-member-button update" onClick={() => handleEditMember()}>
+              <button className="display-member-button update" onClick={handleEditMember}>
                 {t("UPDATE")}
               </button>
-            ) : (
-              ""
-            )}
+            ) : null}
             {state.user.role === "admin" ? (
-              <button className="display-member-button delete" onClick={() => handleDeleteMember(state.memberToBeDisplayed.id)}>
+              <button
+                className="display-member-button delete"
+                onClick={function () {
+                  handleDeleteMember(state.memberToBeDisplayed.id);
+                }}
+              >
                 {t("DELETE")}
               </button>
-            ) : (
-              ""
-            )}
+            ) : null}
           </div>
         </div>
       </div>

@@ -1,25 +1,14 @@
 import { useCallback } from "react";
 import { translateToHindi } from "../utils/translate";
 
-/**
- * Key mapping from app-specific keys to translate.js dictionary keys
- * This allows backward compatibility with existing code while using centralized translations
- */
 const KEY_MAP = {
-  // Date picker
   DD: "dd",
   MM: "mm",
   YYYY: "yyyy",
-
-  // Gender
   Male: "male",
   Female: "female",
-
-  // Status
   Alive: "alive",
   Dead: "dead",
-
-  // Form fields
   Name: "name",
   Mobile: "mobile",
   Email: "email",
@@ -27,8 +16,6 @@ const KEY_MAP = {
   Gotra: "gotra",
   Password: "password",
   Username: "username",
-
-  // Actions
   ADD: "add",
   ADD_MEMBER: "add member",
   ADD_USER: "add user",
@@ -42,13 +29,9 @@ const KEY_MAP = {
   OK: "ok",
   yes: "yes",
   no: "no",
-
-  // Member types
   "Member?": "member?",
   Child: "child",
   Wife: "wife",
-
-  // Labels
   Men: "men",
   Women: "women",
   Members: "members",
@@ -62,8 +45,6 @@ const KEY_MAP = {
   English: "english",
   User: "user",
   Admin: "admin",
-
-  // Messages
   years: "years",
   months: "months",
   days: "days",
@@ -73,10 +54,6 @@ const KEY_MAP = {
   Unmarried: "unmarried",
   in: "in",
   settled: "settled",
-
-  // Calendar events
-  calendar: "calendar",
-  eventsCalendar: "events calendar",
   birthday: "birthday",
   anniversary: "anniversary",
   deathAnniversary: "death anniversary",
@@ -90,8 +67,6 @@ const KEY_MAP = {
   year: "year",
   ageAtDeath: "age at death",
   pastEvents: "past events",
-
-  // Confirmations
   confirmSignout: "confirm signout",
   confirmAddMember: "confirm add member",
   confirmEditMember: "confirm edit member",
@@ -107,11 +82,15 @@ const KEY_MAP = {
   adjustPhoto: "adjust photo",
   dragToPosition: "drag to position",
   processing: "processing...",
+  exportPDF: "pdf",
+  exporting: "exporting",
+  exportSuccess: "pdf exported successfully",
+  exportError: "pdf export failed",
+  confirmExportTree: "confirm export tree",
+  confirmExportCalendar: "confirm export calendar",
+  confirmExportSubtreePDF: "confirm export subtree pdf",
 };
 
-/**
- * English text for keys that need special English translations (not just the key itself)
- */
 const ENGLISH_TEXT = {
   confirmSignout: "Are you sure you want to sign out?",
   confirmAddMember: "Are you sure you want to add the member?",
@@ -140,14 +119,12 @@ const ENGLISH_TEXT = {
   dragToPosition: "Drag to position, use buttons or scroll to zoom",
   processing: "Processing...",
   Confirm: "Confirm",
-
-  // Calendar Events
   calendar: "Calendar",
   Members: "Members",
   eventsCalendar: "Events Calendar",
-  birthday: "🎂 Birthday",
-  anniversary: "🕊️ Anniversary",
-  deathAnniversary: "🕊️ Death Anniversary",
+  birthday: "\uD83C\uDF82 Birthday",
+  anniversary: "\uD83D\uDD4A\uFE0F Anniversary",
+  deathAnniversary: "\uD83D\uDD4A\uFE0F Death Anniversary",
   upcomingEvents: "Upcoming Events",
   noEvents: "No events this month",
   today: "Today",
@@ -158,42 +135,35 @@ const ENGLISH_TEXT = {
   year: "Year",
   ageAtDeath: "Age at Death",
   pastEvents: "Past Events",
+  exportPDF: "PDF",
+  exporting: "Exporting...",
+  exportSuccess: "PDF exported successfully!",
+  exportError: "PDF export failed. Please try again.",
+  exportTree: "Export Family Tree",
+  exportDirectory: "Export Member Directory",
+  confirmExportTree: "Are you sure you want to export the family tree as PDF?",
+  confirmExportCalendar: "Are you sure you want to export the calendar as PDF?",
+  confirmExportSubtreePDF: "Are you sure you want to export this member's subtree as PDF?",
 };
 
-/**
- * Custom hook for translations using centralized translate.js dictionary
- * @param {boolean} isEnglish - Whether to use English (true) or Hindi (false)
- * @returns {object} - Translation function
- */
 export const useTranslation = (isEnglish) => {
-  /**
-   * Translation function
-   * @param {string} key - Translation key
-   * @returns {string} - Translated text
-   */
   const t = useCallback(
-    (key, params = {}) => {
+    (key, params) => {
+      if (!params) params = {};
       let text;
       if (isEnglish) {
-        // Return special English text if available, otherwise return the key
         text = ENGLISH_TEXT[key] || key;
       } else {
-        // Map the key to translate.js format
         const mappedKey = KEY_MAP[key] || key.toLowerCase();
-
-        // Get Hindi translation from centralized dictionary
         const translation = translateToHindi(mappedKey);
-
-        // If translation is same as input (not found), return original key
         text = translation !== mappedKey ? translation : key;
       }
-
-      // Replace {{variable}} placeholders with values from params
-      return text.replace(/\{\{(\w+)\}\}/g, (_, name) => params[name] ?? `{{${name}}}`);
+      return text.replace(/\{\{(\w+)\}\}/g, function (_, name) {
+        return params[name] !== undefined ? params[name] : "{{" + name + "}}";
+      });
     },
     [isEnglish],
   );
-
   return { t, isLoading: false };
 };
 

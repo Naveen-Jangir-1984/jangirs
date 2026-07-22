@@ -285,6 +285,17 @@ const PHRASES = {
 
   // Footer message
   confidentiality: "यह जानकारी डुलानिया जांगिड़ समाज के लिए गोपनीय है और नवीन जांगिड़ (पुत्र श्री बहादुर सिंह जांगिड़) द्वारा संरक्षित है।",
+
+  // Export PDF
+  pdf: "पीडीएफ",
+  exporting: "निर्यात हो रहा है...",
+  "pdf exported successfully": "पीडीएफ सफलतापूर्वक निर्यात हुआ",
+  "pdf export failed": "पीडीएफ निर्यात विफल रहा",
+  "export member directory": "सदस्य निर्देशिका निर्यात करें",
+  "confirm export tree": "क्या आप वाकई वंशवृक्ष को पीडीएफ के रूप में निर्यात करना चाहते हैं?",
+  "confirm export calendar": "क्या आप वाकई पंचांग को पीडीएफ के रूप में निर्यात करना चाहते हैं?",
+  "confirm export subtree pdf": "क्या आप वाकई इस सदस्य की उप-शाखा को पीडीएफ के रूप में निर्यात करना चाहते हैं?",
+  print: "प्रिंट करें",
 };
 
 // Combine all dictionaries

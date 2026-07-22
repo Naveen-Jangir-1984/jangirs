@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  gap: 10%;
+  gap: 5%;
 }
 
 .toggle-language {
@@ -17,7 +17,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80%;
+  width: 90%;
   animation: slideFromRight 0.4s ease-out;
   transition:
     transform 0.4s ease-out,

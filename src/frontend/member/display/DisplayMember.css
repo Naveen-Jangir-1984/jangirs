@@ -152,6 +152,20 @@
   background-color: #5c0000;
 }
 
+.display-member-button.export-pdf {
+  background-color: #4a90a4;
+  color: white;
+}
+
+.display-member-button.export-pdf:hover {
+  background-color: #3a7a8e;
+}
+
+.display-member-button.export-pdf:disabled {
+  background-color: #a0c4cf;
+  cursor: not-allowed;
+}
+
 /* Profile Image Container with Upload */
 .profile-image-container {
   position: relative;
