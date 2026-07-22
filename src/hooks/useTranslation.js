@@ -51,6 +51,7 @@ const KEY_MAP = {
   // Labels
   Men: "men",
   Women: "women",
+  Members: "members",
   Birth: "birth",
   "Birth:": "birth",
   Death: "death",
@@ -72,6 +73,23 @@ const KEY_MAP = {
   Unmarried: "unmarried",
   in: "in",
   settled: "settled",
+
+  // Calendar events
+  calendar: "calendar",
+  eventsCalendar: "events calendar",
+  birthday: "birthday",
+  anniversary: "anniversary",
+  deathAnniversary: "death anniversary",
+  upcomingEvents: "upcoming events",
+  noEvents: "no events this month",
+  today: "today",
+  daysLeft: "days left",
+  upcomingBirthdays: "upcoming birthdays",
+  upcomingAnniversaries: "upcoming anniversaries",
+  month: "month",
+  year: "year",
+  ageAtDeath: "age at death",
+  pastEvents: "past events",
 
   // Confirmations
   confirmSignout: "confirm signout",
@@ -122,6 +140,24 @@ const ENGLISH_TEXT = {
   dragToPosition: "Drag to position, use buttons or scroll to zoom",
   processing: "Processing...",
   Confirm: "Confirm",
+
+  // Calendar Events
+  calendar: "Calendar",
+  Members: "Members",
+  eventsCalendar: "Events Calendar",
+  birthday: "🎂 Birthday",
+  anniversary: "🕊️ Anniversary",
+  deathAnniversary: "🕊️ Death Anniversary",
+  upcomingEvents: "Upcoming Events",
+  noEvents: "No events this month",
+  today: "Today",
+  daysLeft: "days left",
+  upcomingBirthdays: "Upcoming Birthdays",
+  upcomingAnniversaries: "Upcoming Anniversaries",
+  month: "Month",
+  year: "Year",
+  ageAtDeath: "Age at Death",
+  pastEvents: "Past Events",
 };
 
 /**

@@ -370,6 +370,187 @@ export const restoreCollapseStates = (member, collapseMap) => {
 };
 
 /**
+ * Collect all birthdays from the tree members (including wives)
+ * @param {Array} members - Array of member nodes
+ * @returns {Array} - Array of { member, eventType, dateObj, month, day, age } objects
+ */
+export const collectBirthdays = (members) => {
+  const events = [];
+
+  const traverse = (member) => {
+    if (member.dob) {
+      const parts = member.dob.split(" ");
+      if (parts.length === 3) {
+        const monthIndex = MONTHS_REF.indexOf(parts[1]);
+        if (monthIndex !== -1) {
+          const day = parseInt(parts[0], 10);
+          const year = parseInt(parts[2], 10);
+          const today = new Date();
+          const birthDate = new Date(year, monthIndex, day);
+          let age = today.getFullYear() - birthDate.getFullYear();
+          const monthDiff = today.getMonth() - monthIndex;
+          if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < day)) {
+            age--;
+          }
+          events.push({
+            member,
+            eventType: "birthday",
+            dateObj: new Date(today.getFullYear(), monthIndex, day),
+            month: monthIndex,
+            day,
+            year,
+            age: Math.max(0, age),
+          });
+        }
+      }
+    }
+
+    // Traverse children (male lineage)
+    if (member.gender === "M" && member.children?.length) {
+      member.children.forEach(traverse);
+    }
+
+    // Traverse wives
+    if (member.wives?.length) {
+      member.wives.forEach(traverse);
+    }
+  };
+
+  members.forEach(traverse);
+  return events;
+};
+
+/**
+ * Collect all death anniversaries from the tree members (including wives)
+ * @param {Array} members - Array of member nodes
+ * @returns {Array} - Array of { member, eventType, dateObj, month, day, deathAge } objects
+ */
+export const collectDeathAnniversaries = (members) => {
+  const events = [];
+
+  const traverse = (member) => {
+    if (member.dod) {
+      const parts = member.dod.split(" ");
+      if (parts.length === 3) {
+        const monthIndex = MONTHS_REF.indexOf(parts[1]);
+        if (monthIndex !== -1) {
+          const day = parseInt(parts[0], 10);
+          const year = parseInt(parts[2], 10);
+          events.push({
+            member,
+            eventType: "anniversary",
+            dateObj: new Date(new Date().getFullYear(), monthIndex, day),
+            month: monthIndex,
+            day,
+            year,
+            deathYear: year,
+          });
+        }
+      }
+    }
+
+    // Traverse children (male lineage)
+    if (member.gender === "M" && member.children?.length) {
+      member.children.forEach(traverse);
+    }
+
+    // Traverse wives
+    if (member.wives?.length) {
+      member.wives.forEach(traverse);
+    }
+  };
+
+  members.forEach(traverse);
+  return events;
+};
+
+/**
+ * Get events for a specific month
+ * @param {Array} members - Array of member nodes
+ * @param {number} month - Month index (0-11)
+ * @param {number} year - Year
+ * @returns {Array} - Combined and sorted events for the month
+ */
+export const getEventsForMonth = (members, month, year) => {
+  const birthdays = collectBirthdays(members);
+  const anniversaries = collectDeathAnniversaries(members);
+  const allEvents = [...birthdays, ...anniversaries];
+
+  // Filter for the selected month
+  const monthEvents = allEvents.filter((event) => event.month === month);
+
+  // Sort by day
+  monthEvents.sort((a, b) => a.day - b.day);
+
+  // Compute days until event for upcoming section
+  const today = new Date();
+  const todayDay = today.getDate();
+  const todayMonth = today.getMonth();
+
+  monthEvents.forEach((event) => {
+    if (event.month === todayMonth) {
+      if (event.day >= todayDay) {
+        event.daysUntil = event.day - todayDay;
+      } else {
+        // Already passed this year, compute days until next year
+        const endOfYear = new Date(year, 11, 31);
+        const eventNextYear = new Date(year + 1, event.month, event.day);
+        event.daysUntil = Math.ceil((eventNextYear - today) / (1000 * 60 * 60 * 24));
+        event.isPast = true;
+      }
+    } else if (event.month > todayMonth) {
+      const eventDate = new Date(year, event.month, event.day);
+      event.daysUntil = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
+      event.isPast = false;
+    } else {
+      // Month already passed this year
+      const eventNextYear = new Date(year + 1, event.month, event.day);
+      event.daysUntil = Math.ceil((eventNextYear - today) / (1000 * 60 * 60 * 24));
+      event.isPast = true;
+    }
+  });
+
+  return monthEvents;
+};
+
+/**
+ * Get upcoming events within the next N days
+ * @param {Array} members - Array of member nodes
+ * @param {number} days - Number of days to look ahead
+ * @returns {Array} - Sorted array of upcoming events
+ */
+export const getUpcomingEvents = (members, days = 30) => {
+  const birthdays = collectBirthdays(members);
+  const anniversaries = collectDeathAnniversaries(members);
+  const allEvents = [...birthdays, ...anniversaries];
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const futureDate = new Date(today);
+  futureDate.setDate(futureDate.getDate() + days);
+
+  const upcoming = allEvents
+    .map((event) => {
+      // Calculate next occurrence of this event
+      const eventThisYear = new Date(today.getFullYear(), event.month, event.day);
+      if (eventThisYear < today) {
+        // Already passed, use next year
+        eventThisYear.setFullYear(today.getFullYear() + 1);
+      }
+      event.daysUntil = Math.ceil((eventThisYear - today) / (1000 * 60 * 60 * 24));
+      event.nextOccurrence = eventThisYear;
+      return event;
+    })
+    .filter((event) => event.daysUntil >= 0 && event.daysUntil <= days)
+    .sort((a, b) => a.daysUntil - b.daysUntil);
+
+  return upcoming;
+};
+
+// Reference for month name parsing
+const MONTHS_REF = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+/**
  * Calculate the generation range (min and max) for a tree
  * @param {Array} members - Array of root member nodes
  * @returns {Object} - { min: number, max: number }

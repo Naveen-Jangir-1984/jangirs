@@ -180,6 +180,7 @@ const TIME_TERMS = {
   tomorrow: "कल",
   day: "दिन",
   week: "सप्ताह",
+  calendar: "पंचांग",
   month: "महीना",
   year: "वर्ष",
   morning: "सुबह",
@@ -269,6 +270,18 @@ const PHRASES = {
   "add a new user": "एक नया उपयोगकर्ता जोड़ें",
   "cancel add user": "उपयोगकर्ता जोड़ना रद्द करें",
   "confirm delete photo": "क्या आप वाकई इस फोटो को हटाना चाहते हैं?",
+
+  // Calendar events
+  birthday: "जन्मदिन",
+  "death anniversary": "पुण्यतिथि",
+  anniversary: "पुण्यतिथि",
+  "upcoming events": "आगामी कार्यक्रम",
+  "no events this month": "इस महीने कोई कार्यक्रम नहीं",
+  "days left": "दिन शेष",
+  "upcoming birthdays": "आगामी जन्मदिन",
+  "upcoming anniversaries": "आगामी पुण्यतिथि",
+  "age at death": "मृत्यु के समय आयु",
+  "past events": "पिछले कार्यक्रम",
 
   // Footer message
   confidentiality: "यह जानकारी डुलानिया जांगिड़ समाज के लिए गोपनीय है और नवीन जांगिड़ (पुत्र श्री बहादुर सिंह जांगिड़) द्वारा संरक्षित है।",

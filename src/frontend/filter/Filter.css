@@ -6,25 +6,15 @@
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  animation: slideFromLeft 0.4s ease-out;
   transition:
-    transform 0.4s ease-out,
-    opacity 0.4s ease-out;
+    transform 0.35s ease-out,
+    opacity 0.35s ease-out;
 }
 
 .filter.slide-out {
-  transform: translateX(-10px);
-}
-
-@keyframes slideFromLeft {
-  from {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+  transform: translateX(-15px);
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .filter select {
