@@ -5,7 +5,7 @@ import useConfirm from "../../hooks/useConfirm";
 import { ConfirmModal } from "../../components/modals";
 import "./Header.css";
 
-const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, onConfirmChange }) => {
+const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, onConfirmChange, isCalendarOpen, setIsCalendarOpen }) => {
   const [collapsed, setCollapsed] = useState(false);
   const isEnglish = state.user.language;
   const { t } = useTranslation(isEnglish);
@@ -42,6 +42,9 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
               );
             })}
           </select>
+          <span className="view-toggle-icon icons" onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
+            {isEnglish ? (isCalendarOpen ? "👥" : "📅") : isCalendarOpen ? "👥" : "📅"}
+          </span>
           {state.user.role === "admin" ? <img className="icons" src={UserEditIcon} alt="editUser" onClick={() => dispatch({ type: "openUserEdit" })} loading="lazy" /> : ""}
           <img className="signout" src={SignOutIcon} alt="signout" onClick={() => handleSignOut()} loading="lazy" />
           <button
