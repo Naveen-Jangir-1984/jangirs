@@ -104,9 +104,6 @@ export const computeMemberStats = (members) => {
         stats.femaleGotraCount[member.gotra] = (stats.femaleGotraCount[member.gotra] || 0) + 1;
       }
     }
-
-    // Process wives
-    member.wives?.forEach(traverse);
   };
 
   members.forEach(traverse);
@@ -244,19 +241,31 @@ export const deleteMemberFromTree = (tree, id) => {
 
 /**
  * Toggle collapse state of a member
+ * When collapsing a parent, all descendants are also collapsed.
+ * When expanding a parent, only that member is expanded (children stay as they were).
  * Returns a new object to ensure React detects the change
  */
 export const toggleMemberCollapse = (member, id) => {
-  const newChildren = member.children?.map((child) => toggleMemberCollapse(child, id));
-
+  // If we found the target member
   if (member.id === id && member.gender === "M") {
+    const willBeCollapsed = !member.isCollapsed;
+
+    // If collapsing, also collapse all descendants using toggleAllMembers
+    if (willBeCollapsed) {
+      return toggleAllMembers(member, true);
+    }
+
+    // If expanding, only expand this member — leave children's state unchanged
+    const newChildren = member.children?.map((child) => toggleMemberCollapse(child, id));
     return {
       ...member,
-      isCollapsed: !member.isCollapsed,
+      isCollapsed: false,
       children: newChildren,
     };
   }
 
+  // Not the target — traverse children to find it
+  const newChildren = member.children?.map((child) => toggleMemberCollapse(child, id));
   return newChildren ? { ...member, children: newChildren } : member;
 };
 

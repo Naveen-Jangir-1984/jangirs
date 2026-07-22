@@ -1,0 +1,4 @@
+{
+  "watch": ["server.js", "src"],
+  "ignore": ["src/database/db.json", "src/database/watson.json", "src/database/copy.json", "src/database/*.json"]
+}

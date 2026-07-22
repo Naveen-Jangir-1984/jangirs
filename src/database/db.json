@@ -3198,7 +3198,13 @@
                                   "gender": "M",
                                   "wives": [],
                                   "children": [],
-                                  "isCollapsed": true
+                                  "isCollapsed": true,
+                                  "dob": "",
+                                  "dod": "",
+                                  "village": "",
+                                  "gotra": "",
+                                  "email": [],
+                                  "mobile": []
                                 }
                               ],
                               "isAlive": true,
@@ -3259,7 +3265,13 @@
                           ],
                           "isAlive": true,
                           "gender": "M",
-                          "isCollapsed": true
+                          "isCollapsed": true,
+                          "dob": "",
+                          "dod": "",
+                          "village": "",
+                          "gotra": "",
+                          "email": [],
+                          "mobile": [8638100599]
                         },
                         {
                           "id": 111233,
@@ -3315,7 +3327,7 @@
                           "village": "Ghumansar",
                           "gotra": "Sonania",
                           "dob": "",
-                          "dod": "17 July 2026",
+                          "dod": "18 July 2026",
                           "email": [],
                           "mobile": []
                         }
