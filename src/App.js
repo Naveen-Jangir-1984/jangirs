@@ -1,4 +1,7 @@
 import { lazy, Suspense, useReducer, useState, useEffect, useCallback } from "react";
+import Loader from "./components/Loader";
+import AppSkeleton from "./components/skeleton/AppSkeleton";
+import SignInSkeleton from "./components/skeleton/SignInSkeleton";
 import { BGDImage } from "./utils/imageConstants";
 import { fetchMemberImages } from "./utils/getImages";
 import { INITIAL_NEW_MEMBER, INITIAL_NEW_USER, INITIAL_EDIT_INPUT, INITIAL_FILTERS, INITIAL_INPUT } from "./utils/constants";
@@ -618,10 +621,25 @@ const App = () => {
   useEffect(() => {
     sessionStorage.setItem("appState", JSON.stringify(state));
   }, [state]);
-  const info = <div style={{ padding: "1rem 2rem", borderRadius: "7px", backgroundColor: isServerDown === "Connecting..." ? "lightgreen" : "lightpink" }}>{isServerDown}</div>;
+  const handleRetry = useCallback(() => {
+    const storedState = sessionStorage.getItem("appState");
+    if (storedState) {
+      fetchData(JSON.parse(storedState).user, JSON.parse(storedState).village);
+    } else {
+      fetchData(undefined, "dulania");
+    }
+  }, [fetchData]);
+
+  // Determine which skeleton to show based on whether user is signed in
+  const storedState = sessionStorage.getItem("appState");
+  const hasUser = state.user || (storedState && JSON.parse(storedState).user);
+  const initialSkeleton = hasUser ? <AppSkeleton /> : <SignInSkeleton />;
+
   return (
     <div className="app">
-      {isServerDown !== "" ? info : <Suspense fallback={<div style={{ padding: "1rem 2rem", borderRadius: "7px", backgroundColor: "lightgrey" }}>Please wait...</div>}>{state.user ? <Home state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} getEnglishText={getEnglishText} getEnglishNumbers={getEnglishNumbers} /> : <SignIn state={state} dispatch={dispatch} />}</Suspense>}
+      <Loader loading={isServerDown === "Connecting..."} error={isServerDown !== "" && isServerDown !== "Connecting..." ? isServerDown : null} onRetry={handleRetry} loadingMessage="Connecting to server..." skeleton={initialSkeleton}>
+        <Suspense fallback={initialSkeleton}>{state.user ? <Home state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} getEnglishText={getEnglishText} getEnglishNumbers={getEnglishNumbers} /> : <SignIn state={state} dispatch={dispatch} />}</Suspense>
+      </Loader>
       <img className="bgd-image" src={BGDImage} alt="mata" loading="lazy" />
     </div>
   );

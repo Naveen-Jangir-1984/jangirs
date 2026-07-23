@@ -3,8 +3,11 @@ import Filter from "../filter/Filter";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
 import Tree from "../tree/Tree";
+import Loader from "../../components/Loader";
 import useTranslation from "../../hooks/useTranslation";
 import { exportElementAsPDF } from "../../utils/exportPDF";
+import TreeSkeleton from "../../components/skeleton/TreeSkeleton";
+import CalendarSkeleton from "../../components/skeleton/CalendarSkeleton";
 import "./Home.css";
 const DisplayMember = lazy(() => import("../member/display/DisplayMember"));
 const AddMember = lazy(() => import("../member/add/AddMember"));
@@ -56,10 +59,16 @@ const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers, getEngl
       <Header state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} onConfirmChange={setIsConfirmOpen} isCalendarOpen={isCalendarOpen} setIsCalendarOpen={setIsCalendarOpen} onExportPDF={handleExportPDF} exportStatus={exportStatus} />
       <Filter state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} isCalendarOpen={isCalendarOpen} />
       <div className="view-content" ref={viewContentRef}>
-        <div className={`view-panel ${isCalendarOpen ? "panel-exit" : "panel-enter"}`}>{!isCalendarOpen && <Tree state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} />}</div>
+        <div className={`view-panel ${isCalendarOpen ? "panel-exit" : "panel-enter"}`}>
+          {!isCalendarOpen && (
+            <Suspense fallback={<TreeSkeleton />}>
+              <Tree state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} />
+            </Suspense>
+          )}
+        </div>
         <div className={`view-panel ${isCalendarOpen ? "panel-enter" : "panel-exit"}`}>
           {isCalendarOpen && (
-            <Suspense fallback={<div className="calendar-loading">Loading calendar...</div>}>
+            <Suspense fallback={<CalendarSkeleton />}>
               <EventsCalendar state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} />
             </Suspense>
           )}
