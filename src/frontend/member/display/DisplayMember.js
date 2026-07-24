@@ -177,10 +177,201 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
     else if (!confirmOpen) dispatch({ type: "closeMemberDisplay" });
   };
 
+  // Find family member images for circular border display
+  const getFamilyMemberImage = (memberId) => {
+    const img = state.images.find((image) => image.id === memberId);
+    return img ? img.src : null;
+  };
+
+  // Tree traversal: find the parent male node whose children array contains the target member id
+  const findParentNode = (nodes, targetId) => {
+    for (const node of nodes) {
+      if (!node) continue;
+      // Check if this male node has the target member as a child
+      if (node.children && node.children.some((child) => child && child.id === targetId)) {
+        return node;
+      }
+      // Recursively search in children (only male children)
+      if (node.children) {
+        for (const child of node.children) {
+          if (child && child.gender === "M") {
+            const found = findParentNode([child], targetId);
+            if (found) return found;
+          }
+        }
+      }
+    }
+    return null;
+  };
+
+  // Tree traversal: find the male node whose wives array contains the target female member id
+  const findHusbandNode = (nodes, targetId) => {
+    for (const node of nodes) {
+      if (!node) continue;
+      // Check if this male node has the target female as a wife
+      if (node.wives && node.wives.some((wife) => wife && wife.id === targetId)) {
+        return node;
+      }
+      // Recursively search in children (only male children)
+      if (node.children) {
+        for (const child of node.children) {
+          if (child && child.gender === "M") {
+            const found = findHusbandNode([child], targetId);
+            if (found) return found;
+          }
+        }
+      }
+    }
+    return null;
+  };
+
+  const isMale = state.memberToBeDisplayed.gender === "M";
+  const currentId = state.memberToBeDisplayed.id;
+
+  // Find father (the male node whose children includes current member)
+  const fatherNode = findParentNode(state.members, currentId);
+  const father = fatherNode
+    ? {
+        ...fatherNode,
+        imageSrc: getFamilyMemberImage(fatherNode.id) || MaleProfileImage,
+        type: "father",
+        isAlive: fatherNode.isAlive !== undefined ? fatherNode.isAlive : true,
+      }
+    : null;
+
+  // Find mother (first wife of the father node)
+  const mother =
+    fatherNode && fatherNode.wives && fatherNode.wives.length > 0
+      ? {
+          ...fatherNode.wives[0],
+          imageSrc: getFamilyMemberImage(fatherNode.wives[0].id) || FemaleProfileImage,
+          type: "mother",
+          isAlive: fatherNode.wives[0].isAlive !== undefined ? fatherNode.wives[0].isAlive : true,
+        }
+      : null;
+
+  // Find husband (for female members: the male node whose wives array includes current member)
+  const husbandNode = findHusbandNode(state.members, currentId);
+  const husband = husbandNode
+    ? {
+        ...husbandNode,
+        imageSrc: getFamilyMemberImage(husbandNode.id) || MaleProfileImage,
+        type: "husband",
+        isAlive: husbandNode.isAlive !== undefined ? husbandNode.isAlive : true,
+      }
+    : null;
+
+  const familyMembers = isMale
+    ? [
+        // Existing wives
+        ...(state.memberToBeDisplayed.wives || []).map((wife) => ({
+          ...wife,
+          imageSrc: getFamilyMemberImage(wife.id) || FemaleProfileImage,
+          type: "wife",
+          isAlive: wife.isAlive !== undefined ? wife.isAlive : true,
+        })),
+        // Existing children
+        ...(state.memberToBeDisplayed.children || []).map((child) => ({
+          ...child,
+          imageSrc: getFamilyMemberImage(child.id) || (child.gender === "M" ? MaleProfileImage : FemaleProfileImage),
+          type: "child",
+          isAlive: child.isAlive !== undefined ? child.isAlive : true,
+        })),
+      ]
+    : // For female members, show husband + children from the husband's children array
+      husbandNode
+      ? [
+          // Husband first
+          husband,
+          // Then children
+          ...(husbandNode.children || []).map((child) => ({
+            ...child,
+            imageSrc: getFamilyMemberImage(child.id) || (child.gender === "M" ? MaleProfileImage : FemaleProfileImage),
+            type: "child",
+            isAlive: child.isAlive !== undefined ? child.isAlive : true,
+          })),
+        ]
+      : [];
+
+  // Calculate positions around the circular border (clockwise from top)
+  // Orbit radius = half-image (12.5vh) + padding (10px) + half-thumbnail (12px) = 12.5vh + 22px
+  // CSS translate(-50%,-50%) centers the thumbnail on the calculated point
+  const getCircularPosition = (index, total) => {
+    const angleDeg = (index / total) * 360;
+    const angleRad = (angleDeg * Math.PI) / 180;
+    const sin = Math.sin(angleRad);
+    const cos = Math.cos(angleRad);
+    const left = `calc(50% + ${sin * 12.5}vh + ${sin * 22}px)`;
+    const top = `calc(50% - ${cos * 12.5}vh - ${cos * 22}px)`;
+    return { left, top };
+  };
+
+  const totalFamily = familyMembers.length;
+
   return (
     <div className="details" style={{ display: state.isMemberDisplayOpen ? "flex" : "none" }} onClick={handleClose}>
       <div className="view" onClick={(e) => e.stopPropagation()}>
+        {/* Father thumbnail - top left corner */}
+        {father && (
+          <div className="parent-thumbnail parent-thumbnail-left" title={father.name || t("Father")}>
+            <img
+              src={father.imageSrc}
+              alt={father.name || t("Father")}
+              className="parent-thumbnail-img"
+              loading="lazy"
+              style={{
+                border: `2px solid ${father.isAlive ? "lightgreen" : "#f55"}`,
+                boxShadow: `0 0 6px ${father.isAlive ? "lightgreen" : "#f55"}`,
+              }}
+            />
+            <span className="parent-thumbnail-name">{father.name ? (isEnglish ? father.name : getHindiText(father.name, "name")) : t("Father")}</span>
+            <span className="parent-thumbnail-relation">{t("Father")}</span>
+          </div>
+        )}
+        {/* Mother thumbnail - top right corner (for male members) */}
+        {mother && isMale && (
+          <div className="parent-thumbnail parent-thumbnail-right" title={mother.name || t("Mother")}>
+            <img
+              src={mother.imageSrc}
+              alt={mother.name || t("Mother")}
+              className="parent-thumbnail-img"
+              loading="lazy"
+              style={{
+                border: `2px solid ${mother.isAlive ? "lightgreen" : "#f55"}`,
+                boxShadow: `0 0 6px ${mother.isAlive ? "lightgreen" : "#f55"}`,
+                transform: "scaleX(-1)",
+              }}
+            />
+            <span className="parent-thumbnail-name">{mother.name ? (isEnglish ? mother.name : getHindiText(mother.name, "name")) : t("Mother")}</span>
+            <span className="parent-thumbnail-relation">{t("Mother")}</span>
+          </div>
+        )}
         <div className="profile-image-container">
+          {/* Family thumbnails arranged clockwise along circular border */}
+          {familyMembers.length > 0 &&
+            familyMembers.map((member, i) => {
+              const pos = getCircularPosition(i, totalFamily);
+              const defaultIcon = member.type === "wife" ? FemaleProfileImage : member.gender === "M" ? MaleProfileImage : FemaleProfileImage;
+              const isDefaultFemale = defaultIcon === FemaleProfileImage;
+              const borderColor = member.isAlive ? "lightgreen" : "#f55";
+              return (
+                <div key={i} className="family-thumbnail-wrapper" style={{ left: pos.left, top: pos.top }} title={member.name || (member.type === "wife" ? t("wife") : t("child"))}>
+                  <img
+                    src={member.imageSrc}
+                    alt={member.name || `${member.type} ${i + 1}`}
+                    className="family-thumbnail"
+                    loading="lazy"
+                    style={{
+                      border: `2px solid ${borderColor}`,
+                      boxShadow: `0 0 6px ${borderColor}`,
+                      transform: isDefaultFemale ? "scaleX(-1)" : "none",
+                    }}
+                  />
+                  <span className="family-thumbnail-name">{member.name ? (isEnglish ? member.name : getHindiText(member.name, "name")) : member.type === "wife" ? t("wife") : t("child")}</span>
+                  <span className="family-thumbnail-relation">{member.type === "wife" ? t("Wife") : member.type === "husband" ? t("Husband") : member.gender === "M" ? t("Son") : t("Daughter")}</span>
+                </div>
+              );
+            })}
           <img style={{ boxShadow: state.memberToBeDisplayed.isAlive ? "0 0 20px lightgreen" : "0 0 20px #f55", transform: !memberImage && state.memberToBeDisplayed.gender === "F" && state.memberToBeDisplayed.gotra ? "scaleX(-1)" : "none" }} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === "M" ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} loading="lazy" />
           {state.user.role === "admin" && (
             <label className="upload-photo-btn" title={t("uploadPhoto") || "Upload Photo"}>

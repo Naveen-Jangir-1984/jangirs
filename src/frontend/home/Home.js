@@ -1,9 +1,8 @@
-import { lazy, Suspense, useState, useRef, useCallback } from "react";
+import { lazy, Suspense, useState, useRef, useCallback, useEffect } from "react";
 import Filter from "../filter/Filter";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
 import Tree from "../tree/Tree";
-import Loader from "../../components/Loader";
 import useTranslation from "../../hooks/useTranslation";
 import { exportElementAsPDF } from "../../utils/exportPDF";
 import TreeSkeleton from "../../components/skeleton/TreeSkeleton";
@@ -17,9 +16,17 @@ const EventsCalendar = lazy(() => import("../calendar/EventsCalendar"));
 
 const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers, getEnglishText, getEnglishNumbers }) => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(() => {
+    const stored = sessionStorage.getItem("isCalendarOpen");
+    return stored === "true";
+  });
   const [exportStatus, setExportStatus] = useState("");
   const viewContentRef = useRef(null);
+  // Persist calendar view state to sessionStorage
+  useEffect(() => {
+    sessionStorage.setItem("isCalendarOpen", isCalendarOpen);
+  }, [isCalendarOpen]);
+
   const isModalOpen = state.isMemberDisplayOpen || state.isUserEditOpen || state.isMemberAddOpen || state.isMemberEditOpen || isConfirmOpen;
   const isEnglish = state.user?.language;
   useTranslation(isEnglish);

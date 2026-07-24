@@ -23,7 +23,7 @@
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  row-gap: 25px;
+  row-gap: 60px;
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
@@ -176,8 +176,8 @@
 
 .upload-photo-btn {
   position: absolute;
-  bottom: 15px;
-  right: calc(50% - 12.5vh + 15px);
+  bottom: -50px;
+  right: calc(50% - 12.5vh - 30px);
   width: 40px;
   height: 40px;
   background-color: rgba(255, 255, 255, 0.95);
@@ -207,8 +207,8 @@
 
 .delete-photo-btn {
   position: absolute;
-  bottom: 15px;
-  left: calc(50% - 12.5vh + 15px);
+  bottom: -50px;
+  left: calc(50% - 12.5vh - 30px);
   width: 40px;
   height: 40px;
   background-color: rgba(255, 255, 255, 0.95);
@@ -285,4 +285,121 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Parent thumbnails (Father/Mother) in top corners */
+.parent-thumbnail {
+  position: absolute;
+  top: 10px;
+  z-index: 5;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  text-align: center;
+}
+
+.parent-thumbnail:hover {
+  transform: scale(1.3);
+}
+
+.parent-thumbnail-left {
+  left: 10px;
+}
+
+.parent-thumbnail-right {
+  right: 10px;
+}
+
+.view .parent-thumbnail .parent-thumbnail-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #f0f0f0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  padding: 0;
+  display: block;
+  margin: 0 auto;
+}
+
+.view .parent-thumbnail .parent-thumbnail-name {
+  display: block;
+  text-align: center;
+  font-size: 8px;
+  line-height: 1.1;
+  color: #333;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60px;
+}
+
+.view .parent-thumbnail .parent-thumbnail-relation {
+  display: block;
+  text-align: center;
+  font-size: 7px;
+  line-height: 1;
+  color: #666;
+  font-style: italic;
+  max-width: 60px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Family Thumbnails arranged clockwise on circular border */
+.family-thumbnail-wrapper {
+  position: absolute;
+  z-index: 5;
+  pointer-events: auto;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 0.2s ease,
+    z-index 0s;
+}
+
+.family-thumbnail-wrapper:hover {
+  z-index: 10;
+  transform: translate(-50%, -50%) scale(1.3);
+}
+
+/* Override .view img specificity for thumbnail images */
+.view .family-thumbnail-wrapper .family-thumbnail {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #f0f0f0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  padding: 0;
+  display: block;
+}
+
+/* Name label below each family thumbnail */
+.view .family-thumbnail-wrapper .family-thumbnail-name {
+  display: block;
+  text-align: center;
+  font-size: 7px;
+  line-height: 1.1;
+  color: #333;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50px;
+}
+
+/* Relation label (Wife/Son/Daughter) below the name */
+.view .family-thumbnail-wrapper .family-thumbnail-relation {
+  display: block;
+  text-align: center;
+  font-size: 6px;
+  line-height: 1;
+  color: #666;
+  font-style: italic;
+  max-width: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
