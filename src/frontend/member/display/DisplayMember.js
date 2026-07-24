@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { MaleProfileIcon as MaleProfileImage, FemaleProfileIcon as FemaleProfileImage, MobileIcon, EmailIcon, UploadIcon, DeleteIcon } from "../../../utils/imageConstants";
 import { MONTHS } from "../../../utils/constants";
 import api from "../../../utils/api";
@@ -306,6 +306,14 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
     return { left, top };
   };
 
+  const handleDisplayMember = useCallback(
+    (e, member) => {
+      e.stopPropagation();
+      dispatch({ type: "openMemberDisplay", member: member });
+    },
+    [dispatch],
+  );
+
   const totalFamily = familyMembers.length;
 
   return (
@@ -314,34 +322,15 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
         {/* Father thumbnail - top left corner */}
         {father && (
           <div className="parent-thumbnail parent-thumbnail-left" title={father.name || t("Father")}>
-            <img
-              src={father.imageSrc}
-              alt={father.name || t("Father")}
-              className="parent-thumbnail-img"
-              loading="lazy"
-              style={{
-                border: `2px solid ${father.isAlive ? "lightgreen" : "#f55"}`,
-                boxShadow: `0 0 6px ${father.isAlive ? "lightgreen" : "#f55"}`,
-              }}
-            />
+            <img src={father.imageSrc} alt={father.name || t("Father")} className="parent-thumbnail-img" loading="lazy" style={{ border: `2px solid ${father.isAlive ? "lightgreen" : "#f55"}` }} onClick={(e) => handleDisplayMember(e, father)} />
             <span className="parent-thumbnail-name">{father.name ? (isEnglish ? father.name : getHindiText(father.name, "name")) : t("Father")}</span>
             <span className="parent-thumbnail-relation">{t("Father")}</span>
           </div>
         )}
-        {/* Mother thumbnail - top right corner (for male members) */}
-        {mother && isMale && (
+        {/* Mother thumbnail - top right corner */}
+        {mother && (
           <div className="parent-thumbnail parent-thumbnail-right" title={mother.name || t("Mother")}>
-            <img
-              src={mother.imageSrc}
-              alt={mother.name || t("Mother")}
-              className="parent-thumbnail-img"
-              loading="lazy"
-              style={{
-                border: `2px solid ${mother.isAlive ? "lightgreen" : "#f55"}`,
-                boxShadow: `0 0 6px ${mother.isAlive ? "lightgreen" : "#f55"}`,
-                transform: "scaleX(-1)",
-              }}
-            />
+            <img src={mother.imageSrc} alt={mother.name || t("Mother")} className="parent-thumbnail-img" loading="lazy" style={{ border: `2px solid ${mother.isAlive ? "lightgreen" : "#f55"}` }} onClick={(e) => handleDisplayMember(e, mother)} />
             <span className="parent-thumbnail-name">{mother.name ? (isEnglish ? mother.name : getHindiText(mother.name, "name")) : t("Mother")}</span>
             <span className="parent-thumbnail-relation">{t("Mother")}</span>
           </div>
@@ -351,22 +340,12 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
           {familyMembers.length > 0 &&
             familyMembers.map((member, i) => {
               const pos = getCircularPosition(i, totalFamily);
-              const defaultIcon = member.type === "wife" ? FemaleProfileImage : member.gender === "M" ? MaleProfileImage : FemaleProfileImage;
-              const isDefaultFemale = defaultIcon === FemaleProfileImage;
+              // const defaultIcon = member.type === "wife" ? FemaleProfileImage : member.gender === "M" ? MaleProfileImage : FemaleProfileImage;
+              // const isDefaultFemale = defaultIcon === FemaleProfileImage;
               const borderColor = member.isAlive ? "lightgreen" : "#f55";
               return (
                 <div key={i} className="family-thumbnail-wrapper" style={{ left: pos.left, top: pos.top }} title={member.name || (member.type === "wife" ? t("wife") : t("child"))}>
-                  <img
-                    src={member.imageSrc}
-                    alt={member.name || `${member.type} ${i + 1}`}
-                    className="family-thumbnail"
-                    loading="lazy"
-                    style={{
-                      border: `2px solid ${borderColor}`,
-                      boxShadow: `0 0 6px ${borderColor}`,
-                      transform: isDefaultFemale ? "scaleX(-1)" : "none",
-                    }}
-                  />
+                  <img src={member.imageSrc} alt={member.name || `${member.type} ${i + 1}`} className="family-thumbnail" loading="lazy" style={{ border: `2px solid ${borderColor}` }} onClick={(e) => handleDisplayMember(e, member)} />
                   <span className="family-thumbnail-name">{member.name ? (isEnglish ? member.name : getHindiText(member.name, "name")) : member.type === "wife" ? t("wife") : t("child")}</span>
                   <span className="family-thumbnail-relation">{member.type === "wife" ? t("Wife") : member.type === "husband" ? t("Husband") : member.gender === "M" ? t("Son") : t("Daughter")}</span>
                 </div>
@@ -492,14 +471,16 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
             </div>
           ) : null}
           <div className="view-actions">
-            <button
-              className="display-member-button cancel"
-              onClick={function () {
-                dispatch({ type: "closeMemberDisplay" });
-              }}
-            >
-              {t("CANCEL")}
-            </button>
+            {state.user.role === "admin" ? (
+              <button
+                className="display-member-button delete"
+                onClick={function () {
+                  handleDeleteMember(state.memberToBeDisplayed.id);
+                }}
+              >
+                {t("DELETE")}
+              </button>
+            ) : null}
             <button className="display-member-button export-pdf" onClick={handleExportPDF} disabled={pdfExportStatus === "generating"}>
               {pdfExportStatus === "generating" ? t("exporting") : t("exportPDF")}
             </button>
@@ -513,16 +494,14 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
                 {t("UPDATE")}
               </button>
             ) : null}
-            {state.user.role === "admin" ? (
-              <button
-                className="display-member-button delete"
-                onClick={function () {
-                  handleDeleteMember(state.memberToBeDisplayed.id);
-                }}
-              >
-                {t("DELETE")}
-              </button>
-            ) : null}
+            <button
+              className="display-member-button cancel"
+              onClick={function () {
+                dispatch({ type: "closeMemberDisplay" });
+              }}
+            >
+              {t("CANCEL")}
+            </button>
           </div>
         </div>
       </div>
