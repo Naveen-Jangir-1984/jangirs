@@ -322,17 +322,17 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
         {/* Father thumbnail - top left corner */}
         {father && (
           <div className="parent-thumbnail parent-thumbnail-left" title={father.name || t("Father")}>
-            <img src={father.imageSrc} alt={father.name || t("Father")} className="parent-thumbnail-img" loading="lazy" style={{ border: `2px solid ${father.isAlive ? "lightgreen" : "#f55"}` }} onClick={(e) => handleDisplayMember(e, father)} />
-            <span className="parent-thumbnail-name">{father.name ? (isEnglish ? father.name : getHindiText(father.name, "name")) : t("Father")}</span>
             <span className="parent-thumbnail-relation">{t("Father")}</span>
+            <img src={father.imageSrc} alt={father.name || t("Father")} className="parent-thumbnail-img" loading="lazy" style={{ border: `2px solid ${father.isAlive ? "green" : "#f55"}` }} onClick={(e) => handleDisplayMember(e, father)} />
+            <span className="parent-thumbnail-name">{father.name ? (isEnglish ? father.name : getHindiText(father.name, "name")) : t("Father")}</span>
           </div>
         )}
         {/* Mother thumbnail - top right corner */}
         {mother && (
           <div className="parent-thumbnail parent-thumbnail-right" title={mother.name || t("Mother")}>
-            <img src={mother.imageSrc} alt={mother.name || t("Mother")} className="parent-thumbnail-img" loading="lazy" style={{ border: `2px solid ${mother.isAlive ? "lightgreen" : "#f55"}` }} onClick={(e) => handleDisplayMember(e, mother)} />
-            <span className="parent-thumbnail-name">{mother.name ? (isEnglish ? mother.name : getHindiText(mother.name, "name")) : t("Mother")}</span>
             <span className="parent-thumbnail-relation">{t("Mother")}</span>
+            <img src={mother.imageSrc} alt={mother.name || t("Mother")} className="parent-thumbnail-img" loading="lazy" style={{ border: `2px solid ${mother.isAlive ? "green" : "#f55"}` }} onClick={(e) => handleDisplayMember(e, mother)} />
+            <span className="parent-thumbnail-name">{mother.name ? (isEnglish ? mother.name : getHindiText(mother.name, "name")) : t("Mother")}</span>
           </div>
         )}
         <div className="profile-image-container">
@@ -342,16 +342,30 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
               const pos = getCircularPosition(i, totalFamily);
               // const defaultIcon = member.type === "wife" ? FemaleProfileImage : member.gender === "M" ? MaleProfileImage : FemaleProfileImage;
               // const isDefaultFemale = defaultIcon === FemaleProfileImage;
-              const borderColor = member.isAlive ? "lightgreen" : "#f55";
+              const borderColor = member.isAlive ? "green" : "#f55";
               return (
                 <div key={i} className="family-thumbnail-wrapper" style={{ left: pos.left, top: pos.top }} title={member.name || (member.type === "wife" ? t("wife") : t("child"))}>
-                  <img src={member.imageSrc} alt={member.name || `${member.type} ${i + 1}`} className="family-thumbnail" loading="lazy" style={{ border: `2px solid ${borderColor}` }} onClick={(e) => handleDisplayMember(e, member)} />
-                  <span className="family-thumbnail-name">{member.name ? (isEnglish ? member.name : getHindiText(member.name, "name")) : member.type === "wife" ? t("wife") : t("child")}</span>
-                  <span className="family-thumbnail-relation">{member.type === "wife" ? t("Wife") : member.type === "husband" ? t("Husband") : member.gender === "M" ? t("Son") : t("Daughter")}</span>
+                  <div style={{ display: "flex" }}>
+                    <div style={{ zIndex: 1 }}>
+                      <span className="family-thumbnail-relation">
+                        {member.type === "wife" ? t("Wife") : member.type === "husband" ? t("Husband") : member.gender === "M" ? t("Son") : t("Daughter")}
+                        {/* {member.type !== "husband" && member.type !== "wife" ? ` (${isEnglish ? i : getHindiNumbers(i.toString())})` : ""} */}
+                      </span>
+                      <img src={member.imageSrc} alt={member.name || `${member.type} ${i + 1}`} className="family-thumbnail" loading="lazy" style={{ border: `2px solid ${borderColor}` }} onClick={(e) => handleDisplayMember(e, member)} />
+                      <span className="family-thumbnail-name">{member.name ? (isEnglish ? member.name : getHindiText(member.name, "name")) : member.type === "wife" ? t("wife") : t("child")}</span>
+                    </div>
+                    {member.wives && member.wives.length > 0 && state.memberToBeDisplayed.id !== member.wives[0].id && (
+                      <div style={{ marginLeft: "-15px", zIndex: 0 }} title={member.wives[0].name || t("Daughter-In-Law")}>
+                        <span className="family-thumbnail-relation">{t("Daughter-In-Law")}</span>
+                        <img src={getFamilyMemberImage(member.wives[0].id) || FemaleProfileImage} alt={member.wives[0].name || `${member.wives[0].type} ${i + 1}`} className="family-thumbnail" loading="lazy" style={{ border: `2px solid ${member.wives[0].isAlive ? "green" : "#f55"}` }} onClick={(e) => handleDisplayMember(e, member.wives[0])} />
+                        <span className="family-thumbnail-name">{member.wives[0].name ? (isEnglish ? member.wives[0].name : getHindiText(member.wives[0].name, "name")) : member.wives[0].type === "wife" ? t("wife") : t("child")}</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
               );
             })}
-          <img style={{ boxShadow: state.memberToBeDisplayed.isAlive ? "0 0 20px lightgreen" : "0 0 20px #f55", transform: !memberImage && state.memberToBeDisplayed.gender === "F" && state.memberToBeDisplayed.gotra ? "scaleX(-1)" : "none" }} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === "M" ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} loading="lazy" />
+          <img style={{ boxShadow: `0 0 20px ${state.memberToBeDisplayed.isAlive ? "green" : "#f55"}`, transform: !memberImage && state.memberToBeDisplayed.gender === "F" && state.memberToBeDisplayed.gotra ? "scaleX(-1)" : "none" }} src={memberImage ? memberImage.src : state.memberToBeDisplayed.gender === "M" ? MaleProfileImage : FemaleProfileImage} alt={state.memberToBeDisplayed.name} loading="lazy" />
           {state.user.role === "admin" && (
             <label className="upload-photo-btn" title={t("uploadPhoto") || "Upload Photo"}>
               <input type="file" accept="image/jpeg,image/png,image/webp" onChange={handleFileSelect} ref={fileInputRef} style={{ display: "none" }} disabled={uploadStatus === "uploading"} />
