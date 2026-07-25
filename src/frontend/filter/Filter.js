@@ -2,7 +2,7 @@ import { useMemberStats } from "../../hooks/useMemberStats";
 import useTranslation from "../../hooks/useTranslation";
 import "./Filter.css";
 
-const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers, isModalOpen, isCalendarOpen }) => {
+const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers, isModalOpen, isCalendarOpen, isConnectionOpen }) => {
   const male = state.filters.male;
   const female = state.filters.female;
   const isEnglish = state.user.language;
@@ -18,7 +18,7 @@ const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers, isMod
     <div className={`filter ${isModalOpen ? "slide-out" : ""}`}>
       <div className="filter-label">{t("Men")}</div>
       <div className="filter-men">
-        <select name="village" value={male.village} disabled={isCalendarOpen} style={{ border: isCalendarOpen ? "1px solid lightgrey" : "1px solid transparent" }} onChange={(e) => dispatch({ type: "male-selection", village: e.target.value, gotra: "" })}>
+        <select name="village" value={male.village} disabled={isCalendarOpen || isConnectionOpen} style={{ border: isCalendarOpen || isConnectionOpen ? "1px solid lightgrey" : "1px solid transparent" }} onChange={(e) => dispatch({ type: "male-selection", village: e.target.value, gotra: "" })}>
           <option value="">{`${t("Village")} (${formatNum(stats.maleVillages.length)})`}</option>
           {stats.maleVillages.map((village, i) => (
             <option key={i} value={village}>
@@ -38,7 +38,7 @@ const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers, isMod
             {`)`}
           </span>
         </label>
-        <select name="gotra" value={male.gotra} disabled={isCalendarOpen} style={{ border: isCalendarOpen ? "1px solid lightgrey" : "1px solid transparent" }} onChange={(e) => dispatch({ type: "male-selection", village: "", gotra: e.target.value })}>
+        <select name="gotra" value={male.gotra} disabled={isCalendarOpen || isConnectionOpen} style={{ border: isCalendarOpen || isConnectionOpen ? "1px solid lightgrey" : "1px solid transparent" }} onChange={(e) => dispatch({ type: "male-selection", village: "", gotra: e.target.value })}>
           <option value="">{`${t("Gotra")} (${formatNum(stats.maleGotras.length)})`}</option>
           {stats.maleGotras.map((gotra, i) => (
             <option key={i} value={gotra}>
@@ -49,7 +49,7 @@ const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers, isMod
       </div>
       <div className="filter-label">{t("Women")}</div>
       <div className="filter-women">
-        <select name="village" value={female.village} disabled={isCalendarOpen} style={{ border: isCalendarOpen ? "1px solid lightgrey" : "1px solid transparent" }} onChange={(e) => dispatch({ type: "female-selection", village: e.target.value, gotra: "" })}>
+        <select name="village" value={female.village} disabled={isCalendarOpen || isConnectionOpen} style={{ border: isCalendarOpen || isConnectionOpen ? "1px solid lightgrey" : "1px solid transparent" }} onChange={(e) => dispatch({ type: "female-selection", village: e.target.value, gotra: "" })}>
           <option value="">{`${t("Village")} (${formatNum(stats.femaleVillages.length)})`}</option>
           {stats.femaleVillages.map((village, i) => (
             <option key={i} value={village}>
@@ -69,7 +69,7 @@ const Filter = ({ state, dispatch, members, getHindiText, getHindiNumbers, isMod
             {`)`}
           </span>
         </label>
-        <select name="gotra" value={female.gotra} disabled={isCalendarOpen} style={{ border: isCalendarOpen ? "1px solid lightgrey" : "1px solid transparent" }} onChange={(e) => dispatch({ type: "female-selection", village: "", gotra: e.target.value })}>
+        <select name="gotra" value={female.gotra} disabled={isCalendarOpen || isConnectionOpen} style={{ border: isCalendarOpen || isConnectionOpen ? "1px solid lightgrey" : "1px solid transparent" }} onChange={(e) => dispatch({ type: "female-selection", village: "", gotra: e.target.value })}>
           <option value="">{`${t("Gotra")} (${formatNum(stats.femaleGotras.length)})`}</option>
           {stats.femaleGotras.map((gotra, i) => (
             <option key={i} value={gotra}>

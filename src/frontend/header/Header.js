@@ -5,8 +5,9 @@ import useConfirm from "../../hooks/useConfirm";
 import { ConfirmModal } from "../../components/modals";
 import "./Header.css";
 
-const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, onConfirmChange, isCalendarOpen, setIsCalendarOpen, onExportPDF, exportStatus }) => {
+const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, onConfirmChange, activeView, setActiveView, onExportPDF, exportStatus }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const [showNavIcons, setShowNavIcons] = useState(false);
   const isEnglish = state.user.language;
   const { t } = useTranslation(isEnglish);
   const { isOpen: confirmOpen, message: confirmMessage, showConfirm, handleConfirm, handleCancel } = useConfirm();
@@ -21,10 +22,15 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
   const handleExportClick = async () => {
     if (exportStatus === "loading" || exportStatus === "capturing" || exportStatus === "generating") return;
     onConfirmChange(true);
-    const confirmKey = isCalendarOpen ? "confirmExportCalendar" : "confirmExportTree";
+    const confirmKey = activeView === "calendar" ? "confirmExportCalendar" : "confirmExportTree";
     const consent = await showConfirm(confirmKey);
     onConfirmChange(false);
     if (consent && onExportPDF) onExportPDF();
+  };
+
+  const handleNavClick = (view) => {
+    setActiveView(view);
+    setShowNavIcons(false);
   };
 
   const shouldSlideOut = isModalOpen || confirmOpen;
@@ -50,25 +56,48 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
               );
             })}
           </select>
+
+          <div className="breadcrumb-wrapper">
+            <span className={"view-toggle-icon icons home-icon" + (showNavIcons ? " active" : "")} onClick={() => setShowNavIcons(!showNavIcons)}>
+              {"\uD83C\uDFE0"}
+            </span>
+
+            {showNavIcons && (
+              <div className="breadcrumb-dropdown">
+                <span className={"breadcrumb-item" + (activeView === "tree" ? " active" : "")} onClick={() => handleNavClick("tree")}>
+                  {"\uD83C\uDF33"} {t("family") || "Family"}
+                </span>
+                <span className={"breadcrumb-item" + (activeView === "calendar" ? " active" : "")} onClick={() => handleNavClick("calendar")}>
+                  {"\uD83D\uDCC5"} {t("calendar") || "Calendar"}
+                </span>
+                <span className={"breadcrumb-item" + (activeView === "connectionMap" ? " active" : "")} onClick={() => handleNavClick("connectionMap")}>
+                  {"\uD83D\uDD0D"} {t("connectionMap") || "Connections"}
+                </span>
+              </div>
+            )}
+          </div>
+
           <span className="view-toggle-icon icons" onClick={handleExportClick} title={t("exportPDF")} style={{ opacity: isExporting ? 0.5 : 1, cursor: isExporting ? "wait" : "pointer" }}>
             {isExporting ? "\u23F3" : "\uD83D\uDCC4"}
           </span>
-          <span className="view-toggle-icon icons" onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
-            {isEnglish ? (isCalendarOpen ? "\uD83D\uDC65" : "\uD83D\uDCC5") : isCalendarOpen ? "\uD83D\uDC65" : "\uD83D\uDCC5"}
-          </span>
+
           {state.user.role === "admin" ? <img className="icons" src={UserEditIcon} alt="editUser" onClick={() => dispatch({ type: "openUserEdit" })} loading="lazy" /> : ""}
+
           <img className="signout" src={SignOutIcon} alt="signout" onClick={() => handleSignOut()} loading="lazy" />
-          <button
-            onClick={() => {
-              setCollapsed(!collapsed);
-              if (collapsed) dispatch({ type: "reset-collapse" });
-              else dispatch({ type: "toggle-all", flag: false });
-            }}
-          >
-            {collapsed ? t("Close") : t("Open")}
-          </button>
+
+          {activeView === "tree" && (
+            <button
+              onClick={() => {
+                setCollapsed(!collapsed);
+                if (collapsed) dispatch({ type: "reset-collapse" });
+                else dispatch({ type: "toggle-all", flag: false });
+              }}
+            >
+              {collapsed ? t("Close") : t("Open")}
+            </button>
+          )}
         </div>
-      </div>
+    </div>
       <ConfirmModal isOpen={confirmOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={t(confirmMessage)} confirmText={t("yes")} cancelText={t("no")} />
     </>
   );

@@ -1,0 +1,216 @@
+.connection-map {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  background: #fafafa;
+  border-radius: 8px;
+}
+
+/* View toggle inside connection map */
+.connection-map .view-toggle {
+  padding: 4px 8px;
+  margin: 0;
+  border-bottom: 1px solid #e0e0e0;
+  background: #fff;
+  z-index: 10;
+}
+
+/* Tab-style toggle for sub-views */
+.cmap-sub-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  z-index: 10;
+}
+
+.cmap-sub-btn {
+  padding: 3px 10px;
+  height: 22px;
+  font-size: 9px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cmap-sub-btn.active {
+  background: #4a90a4;
+  color: #fff;
+  border-color: #4a90a4;
+  font-weight: bold;
+}
+
+/* Canvas wrapper fills remaining space */
+.cmap-canvas-wrapper {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  cursor: grab;
+}
+
+.cmap-canvas-wrapper:active {
+  cursor: grabbing;
+}
+
+.cmap-canvas-wrapper canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Stats panel overlay */
+.cmap-stats {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 9px;
+  line-height: 1.6;
+  min-width: 120px;
+  pointer-events: none;
+  z-index: 5;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cmap-stats-title {
+  font-weight: bold;
+  font-size: 10px;
+  margin-bottom: 3px;
+  color: #333;
+}
+
+.cmap-stats-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cmap-stats-label {
+  color: #666;
+}
+
+.cmap-stats-value {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Tooltip on hover */
+.cmap-tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  pointer-events: none;
+  z-index: 20;
+  white-space: nowrap;
+  line-height: 1.5;
+  max-width: 220px;
+  white-space: normal;
+}
+
+.cmap-tooltip-name {
+  font-weight: bold;
+  font-size: 11px;
+  margin-bottom: 2px;
+}
+
+.cmap-tooltip-detail {
+  font-size: 9px;
+  opacity: 0.85;
+}
+
+/* Legend */
+.cmap-legend {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 8px;
+  line-height: 1.6;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.cmap-legend-title {
+  font-weight: bold;
+  font-size: 9px;
+  margin-bottom: 2px;
+  color: #333;
+}
+
+.cmap-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cmap-legend-color {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.cmap-legend-line {
+  display: inline-block;
+  width: 14px;
+  height: 2px;
+  background: #999;
+  border-radius: 1px;
+}
+
+/* Zoom controls */
+.cmap-zoom-controls {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 5;
+}
+
+.cmap-zoom-btn {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+  transition: background 0.15s;
+}
+
+.cmap-zoom-btn:hover {
+  background: #e8e8e8;
+}
+
+.cmap-zoom-btn:active {
+  background: #ddd;
+}
+
+/* Node glow for hovered */
+.cmap-node-glow {
+  filter: drop-shadow(0 0 6px rgba(74, 144, 164, 0.6));
+}

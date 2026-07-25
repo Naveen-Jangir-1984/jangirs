@@ -295,6 +295,17 @@ const PHRASES = {
   "confirm export tree": "क्या आप वाकई वंशवृक्ष को पीडीएफ के रूप में निर्यात करना चाहते हैं?",
   "confirm export calendar": "क्या आप वाकई पंचांग को पीडीएफ के रूप में निर्यात करना चाहते हैं?",
   "confirm export subtree pdf": "क्या आप वाकई इस सदस्य की उप-शाखा को पीडीएफ के रूप में निर्यात करना चाहते हैं?",
+  "connection map": "संपर्क मानचित्र",
+  "connection map title": "संपर्क मानचित्र",
+  "gotra connections": "गोत्र",
+  "village connections": "गाँव",
+  "total gotras": "कुल गोत्र",
+  "total connections": "कुल संबंध",
+  "node size": "गोत्र आवृत्ति",
+  "zoom to fit": "फिट करने के लिए ज़ूम करें",
+  statistics: "सांख्यिकी",
+  legend: "किंवदंती",
+  "connection count": "संपर्क संख्या",
   print: "प्रिंट करें",
 };
 

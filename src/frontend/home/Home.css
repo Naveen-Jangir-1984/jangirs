@@ -5,6 +5,8 @@
   align-items: center;
   width: 95%;
   height: 97%;
+  box-sizing: border-box;
+  padding: 0 2px;
 }
 
 .view-toggle {
@@ -91,6 +93,12 @@
   pointer-events: none;
 }
 
+.view-panel.panel-hidden {
+  animation: panelFadeOut 0.25s ease-out forwards;
+  z-index: 1;
+  pointer-events: none;
+}
+
 @keyframes panelSlideIn {
   from {
     transform: translateX(40px);
@@ -109,6 +117,17 @@
   }
   to {
     transform: translateX(-40px);
+    opacity: 0;
+  }
+}
+
+@keyframes panelFadeOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-30px);
     opacity: 0;
   }
 }

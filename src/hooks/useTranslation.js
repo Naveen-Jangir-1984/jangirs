@@ -94,6 +94,17 @@ const KEY_MAP = {
   confirmExportTree: "confirm export tree",
   confirmExportCalendar: "confirm export calendar",
   confirmExportSubtreePDF: "confirm export subtree pdf",
+  connectionMap: "connection map",
+  connectionMapTitle: "connection map",
+  gotraConnections: "gotra connections",
+  villageConnections: "village connections",
+  totalGotras: "total gotras",
+  totalEdges: "total connections",
+  stats: "statistics",
+  legend: "legend",
+  connectionCount: "connection count",
+  nodeSize: "gotra frequency",
+  zoomToFit: "zoom to fit",
 };
 
 const ENGLISH_TEXT = {
@@ -154,6 +165,18 @@ const ENGLISH_TEXT = {
   confirmExportTree: "Are you sure you want to export the family tree as PDF?",
   confirmExportCalendar: "Are you sure you want to export the calendar as PDF?",
   confirmExportSubtreePDF: "Are you sure you want to export this member's subtree as PDF?",
+  connectionMap: "Connection Map",
+  connectionMapTitle: "Gotra Connection Map",
+  gotraConnections: "Gotra",
+  villageConnections: "Village",
+  totalGotras: "Total Gotras",
+  totalEdges: "Total Connections",
+  stats: "Statistics",
+  legend: "Legend",
+  connectionCount: "Connection Count",
+  nodeSize: "Gotra Frequency",
+  zoomToFit: "Zoom to Fit",
+  familyTree: "Family Tree",
 };
 
 export const useTranslation = (isEnglish) => {
