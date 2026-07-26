@@ -13,7 +13,7 @@
  * @returns {Object} - { nodes: Array<Object>, edges: Array<Object> }
  */
 export const buildConnectionGraph = (db) => {
-  const gotraMap = new Map(); // gotra name -> { count, villages: Set, connections: Map<gotra, weight> }
+  const gotraMap = new Map(); // gotra name -> { count, villages: Set, connections: Map<gotra, weight>, members: Array }
   const edgeSet = new Set(); // dedup "gotraA||gotraB"
 
   const villages = Object.keys(db).filter((v) => db[v]?.length);
@@ -33,12 +33,21 @@ export const buildConnectionGraph = (db) => {
     // Build sorted connections array
     const connections = [...data.connections.entries()].map(([gotra, weight]) => ({ gotra, weight })).sort((a, b) => b.weight - a.weight);
 
+    // Deduplicate members by id
+    const memberMap = new Map();
+    for (const m of data.members || []) {
+      if (!memberMap.has(m.id)) {
+        memberMap.set(m.id, m);
+      }
+    }
+
     nodes.push({
       id: name,
       name,
       count: data.count,
       villages: [...data.villages].sort(),
       connections,
+      members: [...memberMap.values()],
     });
   }
 
@@ -63,19 +72,21 @@ export const buildConnectionGraph = (db) => {
 };
 
 /**
- * Traverse a member subtree to collect gotra connections
+ * Traverse a member subtree to collect gotra connections and member lists
  */
 function traverseTree(member, gotraMap, edgeSet, village) {
   if (!member) return;
+
+  const JANGIR = "Mayal";
 
   // Process male members — they are Jangir by default, marry into other gotras
   if (member.gender === "M" && member.wives?.length) {
     const wifeGotras = member.wives.map((w) => w.gotra).filter(Boolean);
     const uniqueWifeGotras = [...new Set(wifeGotras)];
-    const JANGIR = "Mayal";
 
-    // Register Jangir node if any marriage exists
+    // Register Jangir node if any marriage exists, add male to Mayal members
     ensureGotraNode(gotraMap, JANGIR, village);
+    addMemberToGotra(gotraMap, JANGIR, member);
 
     // Create edges: Jangir <-> each wife's gotra
     for (const gotra of uniqueWifeGotras) {
@@ -83,6 +94,8 @@ function traverseTree(member, gotraMap, edgeSet, village) {
       if (g && g !== JANGIR) {
         ensureGotraNode(gotraMap, g, village);
         addEdgeBetween(gotraMap, edgeSet, JANGIR, g, 1);
+        // Add member to wife's gotra as associated
+        addMemberToGotra(gotraMap, g, member);
       }
     }
 
@@ -101,13 +114,20 @@ function traverseTree(member, gotraMap, edgeSet, village) {
 
   // Process female members (daughters) — they inherit gotra from marriage
   if (member.gender === "F" && member.gotra && member.village) {
-    const JANGIR = "Mayal";
     const g = member.gotra.trim();
     if (g) {
       ensureGotraNode(gotraMap, JANGIR, village);
       ensureGotraNode(gotraMap, g, member.village || village);
       addEdgeBetween(gotraMap, edgeSet, JANGIR, g, 1);
+      // Add daughter to her married gotra
+      addMemberToGotra(gotraMap, g, member);
     }
+  }
+
+  // Also add male members without wives to Mayal
+  if (member.gender === "M" && (!member.wives || member.wives.length === 0) && member.name) {
+    ensureGotraNode(gotraMap, JANGIR, village);
+    addMemberToGotra(gotraMap, JANGIR, member);
   }
 
   // Traverse children (only males to avoid double counting through wives)
@@ -122,6 +142,19 @@ function traverseTree(member, gotraMap, edgeSet, village) {
         wife.children.forEach((child) => traverseTree(child, gotraMap, edgeSet, village));
       }
     });
+  }
+}
+
+/**
+ * Add a member to a gotra node's member list
+ */
+function addMemberToGotra(gotraMap, gotraName, member) {
+  const data = gotraMap.get(gotraName);
+  if (data) {
+    if (!data.members) {
+      data.members = [];
+    }
+    data.members.push(member);
   }
 }
 
@@ -201,13 +234,36 @@ export const buildVillageConnections = (db) => {
     const connectionVillages = new Map();
     const villageCount = members.length;
 
+    // Build member list per village
+    const villageMembers = new Map(); // village -> member list
+    const addedIdsPerVillage = new Map(); // village -> Set of member ids
+
+    const addMemberToVillage = (villageKey, m) => {
+      if (!m || !m.name) return;
+      if (!addedIdsPerVillage.has(villageKey)) {
+        addedIdsPerVillage.set(villageKey, new Set());
+      }
+      const villageAddedIds = addedIdsPerVillage.get(villageKey);
+      if (villageAddedIds.has(m.id)) return;
+      villageAddedIds.add(m.id);
+      if (!villageMembers.has(villageKey)) {
+        villageMembers.set(villageKey, []);
+      }
+      villageMembers.get(villageKey).push(m);
+    };
+
     const traverse = (member) => {
+      if (!member) return;
+      // Add member to their own village
+      addMemberToVillage(village, member);
       // Male with wife from another village
       if (member.gender === "M" && member.wives?.length) {
         for (const wife of member.wives) {
           if (wife.village && wife.village.toLowerCase() !== village) {
             const wv = wife.village.toLowerCase();
             connectionVillages.set(wv, (connectionVillages.get(wv) || 0) + 1);
+            // Add the male member also to wife's village node
+            addMemberToVillage(wv, member);
           }
         }
       }
@@ -215,6 +271,8 @@ export const buildVillageConnections = (db) => {
       if (member.gender === "F" && member.village && member.village.toLowerCase() !== village) {
         const sv = member.village.toLowerCase();
         connectionVillages.set(sv, (connectionVillages.get(sv) || 0) + 1);
+        // Add daughter to her settlement village
+        addMemberToVillage(sv, member);
       }
       // Traverse children
       if (member.gender === "M" && member.children?.length) {
@@ -228,9 +286,9 @@ export const buildVillageConnections = (db) => {
     members.forEach(traverse);
 
     // Create nodes: the selected village + all connected villages
-    const nodes = [{ id: village, name: village.charAt(0).toUpperCase() + village.slice(1), count: villageCount }];
+    const nodes = [{ id: village, name: village.charAt(0).toUpperCase() + village.slice(1), count: villageCount, members: villageMembers.get(village) || [] }];
     for (const [v, count] of connectionVillages) {
-      nodes.push({ id: v, name: v.charAt(0).toUpperCase() + v.slice(1), count });
+      nodes.push({ id: v, name: v.charAt(0).toUpperCase() + v.slice(1), count, members: villageMembers.get(v) || [] });
     }
 
     // Create edges from selected village to each connected village

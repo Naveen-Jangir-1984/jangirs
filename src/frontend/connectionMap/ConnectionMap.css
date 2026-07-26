@@ -12,7 +12,6 @@
   padding: 4px 8px;
   margin: 0;
   border-bottom: 1px solid #e0e0e0;
-  /* background: #fff; */
   z-index: 10;
 }
 
@@ -23,9 +22,6 @@
   align-items: center;
   gap: 10px;
   margin-top: 5px;
-  /* padding: 3px 8px; */
-  /* background: #f5f5f5; */
-  /* border-bottom: 1px solid #e0e0e0; */
   z-index: 10;
 }
 
@@ -107,28 +103,116 @@
 /* Tooltip on hover */
 .cmap-tooltip {
   position: absolute;
-  background: rgba(0, 0, 0, 0.8);
+  /* background: rgba(255, 255, 255, 0.95); */
   color: #fff;
   padding: 6px 10px;
-  border-radius: 4px;
+  border-radius: 5px;
   font-size: 10px;
-  pointer-events: none;
+  pointer-events: auto;
   z-index: 20;
-  white-space: nowrap;
   line-height: 1.5;
-  max-width: 220px;
+  min-width: 120px;
+  max-width: 200px;
   white-space: normal;
+}
+
+.cmap-tooltip-selected {
+  background: rgba(0, 0, 0, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cmap-tooltip-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  margin-bottom: 2px;
 }
 
 .cmap-tooltip-name {
   font-weight: bold;
-  font-size: 11px;
-  margin-bottom: 2px;
+  font-size: 10px;
 }
 
 .cmap-tooltip-detail {
-  font-size: 9px;
+  font-size: 10px;
   opacity: 0.85;
+  margin-top: 1px;
+}
+
+/* Member list section in tooltip */
+.cmap-tooltip-members {
+  margin-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  padding-top: 5px;
+  max-height: 150px;
+  overflow: hidden;
+}
+
+.cmap-tooltip-members-title {
+  font-size: 9px;
+  font-weight: bold;
+  color: #8cf;
+  margin-bottom: 4px;
+}
+
+.cmap-tooltip-members-list {
+  max-height: 150px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cmap-tooltip-members-list::-webkit-scrollbar {
+  width: 3px;
+}
+
+.cmap-tooltip-members-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.cmap-tooltip-member-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 9px;
+  padding: 3px 0;
+  /* line-height: 1.4; */
+}
+
+.cmap-tooltip-member-photo {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #4caf50;
+  flex-shrink: 0;
+  background: #333;
+}
+
+.cmap-tooltip-member-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.cmap-tooltip-member-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cmap-tooltip-member-more {
+  font-size: 8px;
+  opacity: 0.6;
+  font-style: italic;
+  padding-top: 2px;
+  text-align: center;
+}
+
+/* Scrollable tooltip when many members */
+.cmap-tooltip-selected .cmap-tooltip-members {
+  max-height: 200px;
 }
 
 /* Legend */
@@ -180,7 +264,6 @@
   bottom: 8px;
   left: 8px;
   display: flex;
-  /* flex-direction: column; */
   gap: 5px;
   z-index: 5;
 }
@@ -207,9 +290,4 @@
 
 .cmap-zoom-btn:active {
   background: #ddd;
-}
-
-/* Node glow for hovered */
-.cmap-node-glow {
-  filter: drop-shadow(0 0 6px rgba(74, 144, 164, 0.6));
 }

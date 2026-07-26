@@ -24,6 +24,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   const { t } = useTranslation(isEnglish);
   const [subView, setSubView] = useState("gotra");
   const [hoveredNode, setHoveredNode] = useState(null);
+  const [selectedNode, setSelectedNode] = useState(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
@@ -36,6 +37,8 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   const offsetRef = useRef({ x: 0, y: 0 });
   const dragStartRef = useRef({ x: 0, y: 0 });
   const offsetStartRef = useRef({ x: 0, y: 0 });
+  const mouseDownPosRef = useRef({ x: 0, y: 0 });
+  const tooltipRef = useRef(null);
 
   const graphData = useMemo(() => {
     const currentVillage = state.village || "dulania";
@@ -67,6 +70,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
         marriages: n.marriages || [],
         type: n.type || "gotra",
         gotra: n.gotra || "",
+        members: n.members || [],
         x: existing?.x ?? cx + (Math.random() - 0.5) * width * 0.5,
         y: existing?.y ?? cy + (Math.random() - 0.5) * height * 0.5,
         vx: existing?.vx ?? 0,
@@ -85,7 +89,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     }));
     const maxConn = Math.max(1, ...nodes.map((n) => n.connections.length));
     for (const node of nodes) {
-      node.radius = 5 + node.connections.length / maxConn;
+      node.radius = 7 + node.connections.length / maxConn;
     }
     simDataRef.current = { nodes, edges, nodeMap };
   }, [graphData, subView]);
@@ -182,22 +186,34 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
       }
       for (const node of nodes) {
         const isH = hoveredNode?.id === node.id;
+        const isS = selectedNode?.id === node.id;
         const isJ = node.type === "jangir" || node.id === "Jangir";
         const isInlaw = node.type === "inlaw";
-        const isHl = subView === "inlaw" ? hoveredNode && node.connections?.some((c) => c.familyId === hoveredNode.id) : hoveredNode && node.connections?.some((c) => c.gotra === hoveredNode.id);
+        const activeNode = hoveredNode || selectedNode;
+        const isHl = subView === "inlaw" ? activeNode && node.connections?.some((c) => c.familyId === activeNode.id) : activeNode && node.connections?.some((c) => c.gotra === activeNode.id);
+        const isHlOrActive = isH || isS || isHl;
         const color = isJ ? JANGIR_COLOR : isInlaw ? "#8e44ad" : COLORS[node.id.length % COLORS.length];
-        if (isH || isHl) {
+        if (isHlOrActive) {
           ctx.shadowColor = color;
-          ctx.shadowBlur = 15;
+          ctx.shadowBlur = isS ? 25 : 15;
         }
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
         ctx.fillStyle = color;
-        ctx.globalAlpha = isH || !hoveredNode || isHl ? 1 : 0.5;
+        ctx.globalAlpha = activeNode ? (isHlOrActive ? 1 : 0.35) : 1;
         ctx.fill();
         ctx.strokeStyle = "rgba(255,255,255,0.3)";
         ctx.lineWidth = 1;
         ctx.stroke();
+        if (isS) {
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, node.radius + 4, 0, Math.PI * 2);
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 2.5;
+          ctx.setLineDash([4, 3]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
         ctx.shadowBlur = 0;
         ctx.globalAlpha = 1;
         const fontSize = Math.max(10, Math.min(13, node.radius * 0.5));
@@ -221,15 +237,12 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
         ctx.fillRect(node.x - bw / 2, node.y + node.radius - 2, bw, 12);
         ctx.fillStyle = "#555";
         ctx.fillText(ct, node.x, node.y + node.radius + 1);
-
-        // Draw type badge for in-law network
         if (subView === "inlaw" && node.type === "inlaw") {
           ctx.fillStyle = "whitesmoke";
           ctx.font = "8px";
           ctx.textAlign = "center";
           ctx.textBaseline = "bottom";
-          const badgeText = "in-law";
-          ctx.fillText(badgeText, node.x, node.y + node.radius + 0.5);
+          ctx.fillText("in-law", node.x, node.y + node.radius + 0.5);
         }
       }
       ctx.restore();
@@ -240,7 +253,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
       running = false;
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
-  }, [graphData, hoveredNode, isEnglish, getHindiText, getHindiNumbers, subView]);
+  }, [graphData, hoveredNode, selectedNode, isEnglish, getHindiText, getHindiNumbers, subView]);
 
   const findNodeAt = useCallback((clientX, clientY) => {
     const container = containerRef.current;
@@ -259,6 +272,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
 
   const handleMouseDown = useCallback(
     (e) => {
+      mouseDownPosRef.current = { x: e.clientX, y: e.clientY };
       const node = findNodeAt(e.clientX, e.clientY);
       if (node) {
         isDraggingNode.current = true;
@@ -301,11 +315,25 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     [findNodeAt],
   );
 
-  const handleMouseUp = useCallback(() => {
-    isDraggingNode.current = false;
-    dragNodeRef.current = null;
-    isDraggingCanvas.current = false;
-  }, []);
+  const handleMouseUp = useCallback(
+    (e) => {
+      const dx = e.clientX - mouseDownPosRef.current.x;
+      const dy = e.clientY - mouseDownPosRef.current.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 5) {
+        const node = findNodeAt(e.clientX, e.clientY);
+        if (node) {
+          setSelectedNode((prev) => (prev?.id === node.id ? null : node));
+        } else {
+          setSelectedNode(null);
+        }
+      }
+      isDraggingNode.current = false;
+      dragNodeRef.current = null;
+      isDraggingCanvas.current = false;
+    },
+    [findNodeAt],
+  );
 
   const handleWheel = useCallback((e) => {
     e.preventDefault();
@@ -339,53 +367,104 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   const isModalOpen = state.isMemberDisplayOpen || state.isUserEditOpen || state.isMemberAddOpen || state.isMemberEditOpen;
   const slideClass = isModalOpen ? " slide-out" : "";
 
+  const handleSubViewChange = (view) => {
+    setSelectedNode(null);
+    setHoveredNode(null);
+    setSubView(view);
+  };
+
   const renderToggle = (
     <div className="cmap-sub-toggle">
-      <button className={"cmap-sub-btn" + (subView === "gotra" ? " active" : "")} onClick={() => setSubView("gotra")}>
+      <button className={"cmap-sub-btn" + (subView === "gotra" ? " active" : "")} onClick={() => handleSubViewChange("gotra")}>
         {t("gotraConnections")}
       </button>
-      <button className={"cmap-sub-btn" + (subView === "village" ? " active" : "")} onClick={() => setSubView("village")}>
+      <button className={"cmap-sub-btn" + (subView === "village" ? " active" : "")} onClick={() => handleSubViewChange("village")}>
         {t("villageConnections")}
       </button>
-      {/* <button className={"cmap-sub-btn" + (subView === "inlaw" ? " active" : "")} onClick={() => setSubView("inlaw")}>
+      <button className={"cmap-sub-btn" + (subView === "inlaw" ? " active" : "")} onClick={() => handleSubViewChange("inlaw")}>
         {t("inLaws")}
-      </button> */}
+      </button>
     </div>
   );
 
-  const renderTooltip = hoveredNode ? (
-    <div className="cmap-tooltip" style={{ left: tooltipPos.x + 12, top: tooltipPos.y - 10 }}>
-      <div className="cmap-tooltip-name">{hoveredNode.label}</div>
+  const currentSelectedNode = (selectedNode && simDataRef.current?.nodes?.find((n) => n.id === selectedNode.id)) || null;
+  const tooltipNode = currentSelectedNode || hoveredNode;
+
+  useEffect(() => {
+    if (!tooltipNode || !tooltipRef.current || !containerRef.current) return;
+    const tooltip = tooltipRef.current;
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const relX = tooltipPos.x - containerRect.left;
+    const relY = tooltipPos.y - containerRect.top;
+    let left = relX + 12;
+    let top = relY - 10;
+    const tipRect = tooltip.getBoundingClientRect();
+    if (left + tipRect.width > containerRect.width - 8) left = containerRect.width - tipRect.width - 8;
+    if (left < 8) left = 8;
+    if (top + tipRect.height > containerRect.height - 8) top = containerRect.height - tipRect.height - 8;
+    if (top < 8) top = 8;
+    tooltip.style.left = left + "px";
+    tooltip.style.top = top + "px";
+  }, [tooltipNode, tooltipPos]);
+
+  const renderTooltip = tooltipNode ? (
+    <div ref={tooltipRef} className={"cmap-tooltip" + (selectedNode ? " cmap-tooltip-selected" : "")} style={{ left: tooltipPos.x + 12, top: tooltipPos.y - 10 }}>
+      <div className="cmap-tooltip-header">
+        <span className="cmap-tooltip-name">{isEnglish ? tooltipNode.label : getHindiText(tooltipNode.label, subView === "gotra" ? "gotra" : "village")}</span>
+        <span>({isEnglish ? tooltipNode.members.length : getHindiNumbers(tooltipNode.members.length.toString())})</span>
+      </div>
       {subView === "inlaw" ? (
         <>
           <div className="cmap-tooltip-detail">
-            {t("marriageType")}: {hoveredNode.type === "jangir" ? t("jangirFamily") : t("inLawFamily")}
+            {t("marriageType")}: {tooltipNode.type === "jangir" ? t("jangirFamily") : t("inLawFamily")}
           </div>
           <div className="cmap-tooltip-detail">
-            {t("connectionCount")}: {hoveredNode.connectionCount || hoveredNode.connections?.length || 0}
+            {t("connectionCount")}: {tooltipNode.connectionCount || tooltipNode.connections?.length || 0}
           </div>
-          {hoveredNode.marriages && hoveredNode.marriages.length > 0 && (
+          {tooltipNode.marriages && tooltipNode.marriages.length > 0 && (
             <div className="cmap-tooltip-detail">
               {t("marriedTo")}:{" "}
-              {hoveredNode.marriages
+              {tooltipNode.marriages
                 .slice(0, 3)
                 .map((m) => m.inlawName || m.jangirName)
                 .join(", ")}
-              {hoveredNode.marriages.length > 3 ? "..." : ""}
+              {tooltipNode.marriages.length > 3 ? "..." : ""}
             </div>
           )}
         </>
       ) : (
         <>
-          <div className="cmap-tooltip-detail">
-            {t("connectionCount")}: {hoveredNode.connections?.length || 0} | {t("nodeSize")}: {hoveredNode.count}
-          </div>
-          {hoveredNode.villages?.length > 0 && (
+          {tooltipNode.villages?.length > 0 && (
             <div className="cmap-tooltip-detail">
-              {t("village")}: {hoveredNode.villages.join(", ")}
+              {t("village")}: {tooltipNode.villages.map((v) => (isEnglish ? v : getHindiText(v, "village"))).join(", ")}
             </div>
           )}
         </>
+      )}
+      {tooltipNode.members && tooltipNode.members.length > 0 && (
+        <div className="cmap-tooltip-members">
+          <div className="cmap-tooltip-members-list">
+            {tooltipNode.members.slice(0, 50).map((m) => {
+              const photoSrc = state.images?.find((img) => img.id === m.id)?.src || null;
+              const defaultIcon = m.gender === "M" ? process.env.PUBLIC_URL + "/images/Icons/male.png" : process.env.PUBLIC_URL + "/images/Icons/female.png";
+              return (
+                <div
+                  key={m.id}
+                  className="cmap-tooltip-member-item"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch({ type: "openMemberDisplay", member: m });
+                  }}
+                  title={m.name}
+                >
+                  <img className="cmap-tooltip-member-photo" src={photoSrc || defaultIcon} alt={m.name} style={{ borderColor: m.isAlive !== false ? "#4caf50" : "#f44336" }} />
+                  <span className="cmap-tooltip-member-name">{isEnglish ? m.name : getHindiText(m.name)}</span>
+                </div>
+              );
+            })}
+            {tooltipNode.members.length > 10 && <div className="cmap-tooltip-member-more">... {t("andMore") || "and more"}</div>}
+          </div>
+        </div>
       )}
     </div>
   ) : null;
