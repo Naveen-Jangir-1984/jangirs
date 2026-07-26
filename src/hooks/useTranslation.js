@@ -116,6 +116,9 @@ const KEY_MAP = {
   connectionCount: "connection count",
   nodeSize: "gotra frequency",
   zoomToFit: "zoom to fit",
+  searchPlaceholder: "search members",
+  searchMembers: "search members",
+  noResults: "no results found",
 };
 
 const ENGLISH_TEXT = {
@@ -199,6 +202,9 @@ const ENGLISH_TEXT = {
   zoomToFit: "Zoom to Fit",
   familyTree: "Family Tree",
   inLaws: "In-Laws",
+  searchPlaceholder: "Search members...",
+  searchMembers: "Search Members",
+  noResults: "No members found",
 };
 
 export const useTranslation = (isEnglish) => {

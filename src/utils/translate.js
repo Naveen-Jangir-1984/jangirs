@@ -314,6 +314,9 @@ const PHRASES = {
   "in law family": "ससुराल परिवार",
   "jangir family": "जांगिड़ परिवार",
   "connection count": "संपर्क संख्या",
+  "search members": "सदस्यों की खोज करें",
+  "no results found": "कोई परिणाम नहीं मिला",
+  "search placeholder": "सदस्यों की खोज करें...",
   print: "प्रिंट करें",
 };
 

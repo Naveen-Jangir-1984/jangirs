@@ -68,18 +68,40 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
 
             {showNavIcons && (
               <div className="breadcrumb-dropdown">
-                <span className={"breadcrumb-item" + (activeView === "tree" ? " active" : "")} onClick={() => handleNavClick("tree")}>
-                  <span>{"🌳"}</span>
-                  <span>{t("family") || "Family"}</span>
-                </span>
-                <span className={"breadcrumb-item" + (activeView === "calendar" ? " active" : "")} onClick={() => handleNavClick("calendar")}>
-                  <span>{"📅"}</span>
-                  <span>{t("calendar") || "Calendar"}</span>
-                </span>
-                <span className={"breadcrumb-item" + (activeView === "connectionMap" ? " active" : "")} onClick={() => handleNavClick("connectionMap")}>
-                  <span>{"🗺️"}</span>
-                  <span>{t("familyConnections") || "Family Connections"}</span>
-                </span>
+                {activeView === "tree" ? (
+                  <>
+                    <span className={"breadcrumb-item" + (activeView === "calendar" ? " active" : "")} onClick={() => handleNavClick("calendar")}>
+                      <span>{"📅"}</span>
+                      <span>{t("calendar") || "Calendar"}</span>
+                    </span>
+                    <span className={"breadcrumb-item" + (activeView === "connectionMap" ? " active" : "")} onClick={() => handleNavClick("connectionMap")}>
+                      <span>{"🗺️"}</span>
+                      <span>{t("familyConnections") || "Family Connections"}</span>
+                    </span>
+                  </>
+                ) : activeView === "calendar" ? (
+                  <>
+                    <span className={"breadcrumb-item" + (activeView === "tree" ? " active" : "")} onClick={() => handleNavClick("tree")}>
+                      <span>{"🌳"}</span>
+                      <span>{t("family") || "Family"}</span>
+                    </span>
+                    <span className={"breadcrumb-item" + (activeView === "connectionMap" ? " active" : "")} onClick={() => handleNavClick("connectionMap")}>
+                      <span>{"🗺️"}</span>
+                      <span>{t("familyConnections") || "Family Connections"}</span>
+                    </span>
+                  </>
+                ) : activeView === "connectionMap" ? (
+                  <>
+                    <span className={"breadcrumb-item" + (activeView === "tree" ? " active" : "")} onClick={() => handleNavClick("tree")}>
+                      <span>{"🌳"}</span>
+                      <span>{t("family") || "Family"}</span>
+                    </span>
+                    <span className={"breadcrumb-item" + (activeView === "calendar" ? " active" : "")} onClick={() => handleNavClick("calendar")}>
+                      <span>{"📅"}</span>
+                      <span>{t("calendar") || "Calendar"}</span>
+                    </span>
+                  </>
+                ) : null}
               </div>
             )}
           </div>

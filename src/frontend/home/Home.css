@@ -1,7 +1,8 @@
 .home {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 5px;
   align-items: center;
   width: 95%;
   height: 97%;
@@ -68,6 +69,9 @@
 /* View content transition container */
 .view-content {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   width: 100%;
   height: 80%;
   overflow: hidden;

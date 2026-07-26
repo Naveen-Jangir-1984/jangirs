@@ -1,0 +1,201 @@
+.global-search-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 5px auto;
+  z-index: 100;
+}
+
+.global-search-input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 2px 10px;
+  /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); */
+  transition:
+    box-shadow 0.2s,
+    border-color 0.2s;
+}
+
+.global-search-icon {
+  font-size: 12px;
+  margin-right: 6px;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.global-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  height: 22px;
+  font-size: 12px;
+  background: transparent;
+  padding: 0 2px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.global-search-input::placeholder {
+  color: #aaa;
+  font-size: 10px;
+}
+
+.global-search-clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: #999;
+  padding: 2px 4px;
+  width: auto;
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.global-search-clear:hover {
+  color: #333;
+  background: #eee;
+}
+
+/* Dropdown */
+.global-search-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  max-height: 350px;
+  overflow-y: auto;
+  z-index: 9999;
+  animation: dropdownSlideIn 0.15s ease-out;
+}
+
+@keyframes dropdownSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar styling */
+.global-search-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.global-search-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.global-search-dropdown::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.global-search-dropdown::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+/* Result items */
+.global-search-result-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.1s;
+}
+
+.global-search-result-item:last-child {
+  border-bottom: none;
+}
+
+.global-search-result-item:hover,
+.global-search-result-item.selected {
+  background: #f0f7ff;
+}
+
+.global-search-result-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.global-search-result-name {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  font-size: 10px;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.global-search-result-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  flex-shrink: 0;
+  margin-left: 6px;
+}
+
+/* Village badge */
+.global-search-village-badge {
+  font-size: 8px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: white;
+}
+
+.global-search-village-badge.dulania {
+  background: blue;
+}
+
+.global-search-village-badge.moruwa {
+  background: green;
+}
+
+.global-search-village-badge.tatija {
+  background: red;
+}
+
+/* Field badge */
+.global-search-field-badge {
+  font-size: 8px;
+  background: lightgrey;
+  padding: 2px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+/* Highlight */
+.global-search-highlight {
+  background: #fff3cd;
+  color: #856404;
+  font-weight: 700;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* No results */
+.global-search-no-results {
+  padding: 20px;
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+}

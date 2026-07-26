@@ -3,9 +3,10 @@ import { PlusIcon, MinusIcon, MaleProfileIcon, FemaleProfileIcon, MobileIcon, Ad
 import { useMemberCounts, useImageMap } from "../../hooks/useMemberStats";
 import { collectMobileNumbers } from "../../utils/treeUtils";
 import useTranslation from "../../hooks/useTranslation";
+import GlobalSearchBar from "../../components/GlobalSearchBar";
 import "./Tree.css";
 
-const Tree = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen }) => {
+const Tree = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, dulania, moruwa, tatija }) => {
   // Pre-compute all member counts once when state.members changes
   const memberCounts = useMemberCounts(state.members);
 
@@ -118,7 +119,10 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen }) =
   };
   return (
     // <div className='tree'>{state.members.map(member => displayMember(member, state.village === 'moruwa' ? 3 : 0))}</div>
-    <div className={`tree ${isModalOpen ? "slide-out" : ""}`}>{state.members.map((member, index) => displayMember(member, 0, member.generation || 1, index === 0))}</div>
+    <div className={`tree ${isModalOpen ? "slide-out" : ""}`}>
+      <GlobalSearchBar dulania={dulania} moruwa={moruwa} tatija={tatija} dispatch={dispatch} getHindiText={getHindiText} isEnglish={isEnglish} images={state.images} />
+      {state.members.map((member, index) => displayMember(member, 0, member.generation || 1, index === 0))}
+    </div>
   );
 };
 

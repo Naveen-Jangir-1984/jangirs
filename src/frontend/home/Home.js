@@ -74,7 +74,7 @@ const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers, getEngl
       <div key={viewName} className={`view-panel ${panelClass}`} style={{ zIndex: isActive ? 2 : 1 }}>
         {isActive && viewName === "tree" && (
           <Suspense fallback={<TreeSkeleton />}>
-            <Tree state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} />
+            <Tree state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} dulania={state.dulania} moruwa={state.moruwa} tatija={state.tatija} />
           </Suspense>
         )}
         {isActive && viewName === "calendar" && (
