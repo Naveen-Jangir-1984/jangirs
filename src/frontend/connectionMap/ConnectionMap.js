@@ -433,13 +433,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
           )}
         </>
       ) : (
-        <>
-          {tooltipNode.villages?.length > 0 && (
-            <div className="cmap-tooltip-detail">
-              {t("village")}: {tooltipNode.villages.map((v) => (isEnglish ? v : getHindiText(v, "village"))).join(", ")}
-            </div>
-          )}
-        </>
+        <>{tooltipNode.villages?.length > 0 && <div className="cmap-tooltip-detail">{/* {t("village")}: {tooltipNode.villages.map((v) => (isEnglish ? v : getHindiText(v, "village"))).join(", ")} */}</div>}</>
       )}
       {tooltipNode.members && tooltipNode.members.length > 0 && (
         <div className="cmap-tooltip-members">
@@ -459,6 +453,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
                 >
                   <img className="cmap-tooltip-member-photo" src={photoSrc || defaultIcon} alt={m.name} style={{ borderColor: m.isAlive !== false ? "#4caf50" : "#f44336" }} />
                   <span className="cmap-tooltip-member-name">{isEnglish ? m.name : getHindiText(m.name)}</span>
+                  <span className="cmap-tooltip-member-name">({subView === "gotra" ? (isEnglish ? m.gotra || state.gotra : getHindiText(m.gotra || "Mayal", "gotra")) : isEnglish ? m.village || state.village : getHindiText(m.village || state.village, "village")})</span>
                 </div>
               );
             })}

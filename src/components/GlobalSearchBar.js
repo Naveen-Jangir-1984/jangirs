@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { flattenAllMembers, fuzzySearch } from "../utils/searchUtils";
+import { flattenTree, fuzzySearch } from "../utils/searchUtils";
 import { MaleProfileIcon, FemaleProfileIcon } from "../utils/imageConstants";
 import useTranslation from "../hooks/useTranslation";
 import "./GlobalSearchBar.css";
@@ -8,7 +8,7 @@ import "./GlobalSearchBar.css";
  * GlobalSearchBar - Fuzzy search across all members with auto-suggest dropdown
  * Dispatches openMemberDisplay to navigate to the selected member
  */
-const GlobalSearchBar = ({ dulania, moruwa, tatija, dispatch, getHindiText, isEnglish, images }) => {
+const GlobalSearchBar = ({ members, village, dispatch, getHindiText, isEnglish, images }) => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -20,11 +20,11 @@ const GlobalSearchBar = ({ dulania, moruwa, tatija, dispatch, getHindiText, isEn
   const debounceTimer = useRef(null);
   const { t } = useTranslation(isEnglish);
 
-  // Flatten all members once when data changes
+  // Flatten members for the selected village once when data changes
   useEffect(() => {
-    const flat = flattenAllMembers(dulania, moruwa, tatija);
+    const flat = flattenTree(members || [], village);
     setAllFlatMembers(flat);
-  }, [dulania, moruwa, tatija]);
+  }, [members, village]);
 
   // Debounced search
   const performSearch = useCallback(

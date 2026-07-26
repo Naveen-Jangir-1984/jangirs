@@ -103,7 +103,7 @@
 /* Tooltip on hover */
 .cmap-tooltip {
   position: absolute;
-  /* background: rgba(255, 255, 255, 0.95); */
+  background: rgba(0, 0, 0, 0.95);
   color: #fff;
   padding: 6px 10px;
   border-radius: 5px;
@@ -111,8 +111,6 @@
   pointer-events: auto;
   z-index: 20;
   line-height: 1.5;
-  min-width: 120px;
-  max-width: 200px;
   white-space: normal;
 }
 
@@ -176,7 +174,7 @@
 .cmap-tooltip-member-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
   font-size: 9px;
   padding: 3px 0;
   /* line-height: 1.4; */

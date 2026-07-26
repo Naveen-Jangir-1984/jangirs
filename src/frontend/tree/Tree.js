@@ -117,10 +117,13 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, dul
       </div>
     );
   };
+  // Determine which village's member tree data to use for global search
+  const selectedVillageMembers = state.village === "dulania" ? dulania : state.village === "moruwa" ? moruwa : state.village === "tatija" ? tatija : [];
+
   return (
     // <div className='tree'>{state.members.map(member => displayMember(member, state.village === 'moruwa' ? 3 : 0))}</div>
     <div className={`tree ${isModalOpen ? "slide-out" : ""}`}>
-      <GlobalSearchBar dulania={dulania} moruwa={moruwa} tatija={tatija} dispatch={dispatch} getHindiText={getHindiText} isEnglish={isEnglish} images={state.images} />
+      <GlobalSearchBar members={selectedVillageMembers} village={state.village} dispatch={dispatch} getHindiText={getHindiText} isEnglish={isEnglish} images={state.images} />
       {state.members.map((member, index) => displayMember(member, 0, member.generation || 1, index === 0))}
     </div>
   );

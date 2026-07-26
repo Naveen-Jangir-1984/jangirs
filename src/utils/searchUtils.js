@@ -10,7 +10,7 @@
  * @param {string} village - The village this tree belongs to
  * @returns {Array} - Flat array of { member, sourceVillage }
  */
-const flattenTree = (members, sourceVillage) => {
+export const flattenTree = (members, sourceVillage) => {
   const result = [];
 
   const traverse = (member) => {
