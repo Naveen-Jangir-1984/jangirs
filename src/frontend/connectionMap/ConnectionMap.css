@@ -112,11 +112,13 @@
   z-index: 20;
   line-height: 1.5;
   white-space: normal;
+  max-height: 500px;
 }
 
 .cmap-tooltip-selected {
   background: rgba(0, 0, 0, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  max-height: 500px;
 }
 
 .cmap-tooltip-header {
@@ -142,8 +144,8 @@
 .cmap-tooltip-members {
   margin-top: 6px;
   border-top: 1px solid rgba(255, 255, 255, 0.5);
-  padding-top: 5px;
-  max-height: 150px;
+  padding-top: 3px;
+  max-height: inherit;
   overflow: hidden;
 }
 
@@ -155,15 +157,15 @@
 }
 
 .cmap-tooltip-members-list {
-  max-height: 150px;
+  max-height: 300px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 }
 
 .cmap-tooltip-members-list::-webkit-scrollbar {
-  width: 3px;
+  width: 2px;
 }
 
 .cmap-tooltip-members-list::-webkit-scrollbar-thumb {
@@ -178,6 +180,33 @@
   font-size: 9px;
   padding: 3px 0;
   /* line-height: 1.4; */
+}
+
+/* Paired member item (wife + husband displayed as a single row) */
+.cmap-tooltip-pair-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.cmap-tooltip-pair-item:last-child {
+  border-bottom: none;
+}
+
+.cmap-tooltip-pair-member {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 3px;
+  flex: 1;
+}
+
+.cmap-tooltip-pair-member:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .cmap-tooltip-member-photo {

@@ -71,6 +71,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
         type: n.type || "gotra",
         gotra: n.gotra || "",
         members: n.members || [],
+        memberPairs: n.memberPairs || [],
         x: existing?.x ?? cx + (Math.random() - 0.5) * width * 0.5,
         y: existing?.y ?? cy + (Math.random() - 0.5) * height * 0.5,
         vx: existing?.vx ?? 0,
@@ -435,32 +436,75 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
       ) : (
         <>{tooltipNode.villages?.length > 0 && <div className="cmap-tooltip-detail">{/* {t("village")}: {tooltipNode.villages.map((v) => (isEnglish ? v : getHindiText(v, "village"))).join(", ")} */}</div>}</>
       )}
-      {tooltipNode.members && tooltipNode.members.length > 0 && (
+      {(tooltipNode.members && tooltipNode.members.length > 0) || (tooltipNode.memberPairs && tooltipNode.memberPairs.length > 0) ? (
         <div className="cmap-tooltip-members">
           <div className="cmap-tooltip-members-list">
-            {tooltipNode.members.slice(0, 50).map((m) => {
-              const photoSrc = state.images?.find((img) => img.id === m.id)?.src || null;
-              const defaultIcon = m.gender === "M" ? process.env.PUBLIC_URL + "/images/Icons/male.png" : process.env.PUBLIC_URL + "/images/Icons/female.png";
-              return (
-                <div
-                  key={m.id}
-                  className="cmap-tooltip-member-item"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    dispatch({ type: "openMemberDisplay", member: m });
-                  }}
-                  title={m.name}
-                >
-                  <img className="cmap-tooltip-member-photo" src={photoSrc || defaultIcon} alt={m.name} style={{ borderColor: m.isAlive !== false ? "#4caf50" : "#f44336" }} />
-                  <span className="cmap-tooltip-member-name">{isEnglish ? m.name : getHindiText(m.name)}</span>
-                  <span className="cmap-tooltip-member-name">({subView === "gotra" ? (isEnglish ? m.gotra || state.gotra : getHindiText(m.gotra || "Mayal", "gotra")) : isEnglish ? m.village || state.village : getHindiText(m.village || state.village, "village")})</span>
-                </div>
-              );
-            })}
-            {tooltipNode.members.length > 10 && <div className="cmap-tooltip-member-more">... {t("andMore") || "and more"}</div>}
+            {/* Render paired entries first (wife + husband combined) */}
+            {tooltipNode.memberPairs &&
+              tooltipNode.memberPairs.slice(0, 25).map((pair, idx) => {
+                const wife = pair.wife;
+                const husband = pair.husband;
+                const wifePhoto = state.images?.find((img) => img.id === wife.id)?.src || null;
+                const husbandPhoto = state.images?.find((img) => img.id === husband.id)?.src || null;
+                const wifeIcon = process.env.PUBLIC_URL + "/images/Icons/female.png";
+                const husbandIcon = process.env.PUBLIC_URL + "/images/Icons/male.png";
+                return (
+                  <div key={"pair-" + idx} className="cmap-tooltip-member-item cmap-tooltip-pair-item">
+                    {/* Wife */}
+                    <div
+                      className="cmap-tooltip-pair-member"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        dispatch({ type: "openMemberDisplay", member: wife });
+                      }}
+                      title={wife.name}
+                    >
+                      <img className="cmap-tooltip-member-photo" src={wifePhoto || wifeIcon} alt={wife.name} style={{ borderColor: wife.isAlive !== false ? "#4caf50" : "#f44336" }} />
+                      <span className="cmap-tooltip-member-name">{isEnglish ? wife.name : getHindiText(wife.name)}</span>
+                    </div>
+                    {/* Husband */}
+                    <div
+                      className="cmap-tooltip-pair-member"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        dispatch({ type: "openMemberDisplay", member: husband });
+                      }}
+                      title={husband.name}
+                    >
+                      <img className="cmap-tooltip-member-photo" src={husbandPhoto || husbandIcon} alt={husband.name} style={{ borderColor: husband.isAlive !== false ? "#4caf50" : "#f44336" }} />
+                      <span className="cmap-tooltip-member-name">{isEnglish ? husband.name : getHindiText(husband.name)}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            {/* Render solo members (those NOT in a pair) */}
+            {tooltipNode.members &&
+              tooltipNode.members.slice(0, 50).map((m) => {
+                // Skip members that are part of a pair (wife or husband)
+                if (tooltipNode.memberPairs && tooltipNode.memberPairs.some((p) => p.wife?.id === m.id || p.husband?.id === m.id)) {
+                  return null;
+                }
+                const photoSrc = state.images?.find((img) => img.id === m.id)?.src || null;
+                const defaultIcon = m.gender === "M" ? process.env.PUBLIC_URL + "/images/Icons/male.png" : process.env.PUBLIC_URL + "/images/Icons/female.png";
+                return (
+                  <div
+                    key={m.id}
+                    className="cmap-tooltip-member-item"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      dispatch({ type: "openMemberDisplay", member: m });
+                    }}
+                    title={m.name}
+                  >
+                    <img className="cmap-tooltip-member-photo" src={photoSrc || defaultIcon} alt={m.name} style={{ borderColor: m.isAlive !== false ? "#4caf50" : "#f44336" }} />
+                    <span className="cmap-tooltip-member-name">{isEnglish ? m.name : getHindiText(m.name)}</span>
+                  </div>
+                );
+              })}
+            {tooltipNode.members && tooltipNode.members.length > 10 && <div className="cmap-tooltip-member-more">... {t("andMore") || "and more"}</div>}
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   ) : null;
 

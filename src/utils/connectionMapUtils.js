@@ -48,6 +48,7 @@ export const buildConnectionGraph = (db) => {
       villages: [...data.villages].sort(),
       connections,
       members: [...memberMap.values()],
+      memberPairs: data.memberPairs || [],
     });
   }
 
@@ -88,14 +89,28 @@ function traverseTree(member, gotraMap, edgeSet, village) {
     ensureGotraNode(gotraMap, JANGIR, village);
     addMemberToGotra(gotraMap, JANGIR, member);
 
-    // Create edges: Jangir <-> each wife's gotra
+    // Create edges: Jangir <-> each wife's gotra (unique)
     for (const gotra of uniqueWifeGotras) {
       const g = gotra.trim();
       if (g && g !== JANGIR) {
         ensureGotraNode(gotraMap, g, village);
         addEdgeBetween(gotraMap, edgeSet, JANGIR, g, 1);
-        // Add member to wife's gotra as associated
+        // Add husband (male member) to wife's gotra as associated
         addMemberToGotra(gotraMap, g, member);
+      }
+    }
+
+    // Add each wife as a member to her own gotra AND create a paired entry (wife + husband)
+    for (const wife of member.wives) {
+      if (wife.gotra && wife.gotra.trim() && wife.gotra.trim() !== JANGIR) {
+        const wg = wife.gotra.trim();
+        // Ensure the gotra node exists (safe guard) and add the wife member
+        if (!gotraMap.has(wg)) {
+          gotraMap.set(wg, { count: 0, villages: new Set(), connections: new Map() });
+        }
+        addMemberToGotra(gotraMap, wg, wife);
+        // Create a paired entry (wife + husband) for combined display
+        addMemberPair(gotraMap, wg, { wife: wife, husband: member });
       }
     }
 
@@ -159,6 +174,23 @@ function addMemberToGotra(gotraMap, gotraName, member) {
 }
 
 /**
+ * Add a member pair (e.g., wife + husband) to a gotra node for combined display
+ */
+function addMemberPair(gotraMap, gotraName, pair) {
+  const data = gotraMap.get(gotraName);
+  if (data) {
+    if (!data.memberPairs) {
+      data.memberPairs = [];
+    }
+    // Deduplicate by wifeId||husbandId
+    const key = (pair.wife?.id || "") + "||" + (pair.husband?.id || "");
+    if (!data.memberPairs.some((p) => (p.wife?.id || "") + "||" + (p.husband?.id || "") === key)) {
+      data.memberPairs.push(pair);
+    }
+  }
+}
+
+/**
  * Ensure a gotra node exists in the map
  */
 function ensureGotraNode(gotraMap, name, village) {
@@ -167,6 +199,7 @@ function ensureGotraNode(gotraMap, name, village) {
       count: 0,
       villages: new Set(),
       connections: new Map(), // gotra -> weight
+      memberPairs: [],
     });
   }
   const data = gotraMap.get(name);
