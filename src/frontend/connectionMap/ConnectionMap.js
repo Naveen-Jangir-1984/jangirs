@@ -90,7 +90,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     }));
     const maxConn = Math.max(1, ...nodes.map((n) => n.connections.length));
     for (const node of nodes) {
-      node.radius = 7 + node.connections.length / maxConn;
+      node.radius = 10 + node.connections.length / maxConn;
     }
     simDataRef.current = { nodes, edges, nodeMap };
   }, [graphData, subView]);

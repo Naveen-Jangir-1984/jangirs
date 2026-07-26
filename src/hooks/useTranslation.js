@@ -185,7 +185,7 @@ const ENGLISH_TEXT = {
   villageConnections: "Village",
   inLawNetwork: "In-law Network",
   inLawConnections: "In-law Connections",
-  familyConnections: "Family Connections",
+  familyConnections: "Connections",
   marriedTo: "Married to",
   inLawTitle: "In-law Network",
   inLawFamily: "In-law Family",

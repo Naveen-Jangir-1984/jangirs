@@ -270,6 +270,7 @@ export const buildVillageConnections = (db) => {
     // Build member list per village
     const villageMembers = new Map(); // village -> member list
     const addedIdsPerVillage = new Map(); // village -> Set of member ids
+    const villageMemberPairs = new Map(); // village -> array of {wife, husband} pairs
 
     const addMemberToVillage = (villageKey, m) => {
       if (!m || !m.name) return;
@@ -285,6 +286,17 @@ export const buildVillageConnections = (db) => {
       villageMembers.get(villageKey).push(m);
     };
 
+    const addMemberPairToVillage = (villageKey, pair) => {
+      if (!villageMemberPairs.has(villageKey)) {
+        villageMemberPairs.set(villageKey, []);
+      }
+      const pairs = villageMemberPairs.get(villageKey);
+      const key = (pair.wife?.id || "") + "||" + (pair.husband?.id || "");
+      if (!pairs.some((p) => (p.wife?.id || "") + "||" + (p.husband?.id || "") === key)) {
+        pairs.push(pair);
+      }
+    };
+
     const traverse = (member) => {
       if (!member) return;
       // Add member to their own village
@@ -297,6 +309,10 @@ export const buildVillageConnections = (db) => {
             connectionVillages.set(wv, (connectionVillages.get(wv) || 0) + 1);
             // Add the male member also to wife's village node
             addMemberToVillage(wv, member);
+            // Also add the wife as a member to her own village
+            addMemberToVillage(wv, wife);
+            // Create paired entry for the wife's village
+            addMemberPairToVillage(wv, { wife: wife, husband: member });
           }
         }
       }
@@ -319,9 +335,9 @@ export const buildVillageConnections = (db) => {
     members.forEach(traverse);
 
     // Create nodes: the selected village + all connected villages
-    const nodes = [{ id: village, name: village.charAt(0).toUpperCase() + village.slice(1), count: villageCount, members: villageMembers.get(village) || [] }];
+    const nodes = [{ id: village, name: village.charAt(0).toUpperCase() + village.slice(1), count: villageCount, members: villageMembers.get(village) || [], memberPairs: villageMemberPairs.get(village) || [] }];
     for (const [v, count] of connectionVillages) {
-      nodes.push({ id: v, name: v.charAt(0).toUpperCase() + v.slice(1), count, members: villageMembers.get(v) || [] });
+      nodes.push({ id: v, name: v.charAt(0).toUpperCase() + v.slice(1), count, members: villageMembers.get(v) || [], memberPairs: villageMemberPairs.get(v) || [] });
     }
 
     // Create edges from selected village to each connected village

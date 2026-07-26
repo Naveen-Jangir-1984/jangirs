@@ -308,7 +308,7 @@ const PHRASES = {
   "in laws": "ससुराल",
   "in law network": "ससुराल नेटवर्क",
   "in law connections": "ससुराल संबंध",
-  "family connections": "परिवार संबंध",
+  "family connections": "संबंध",
   "married to": "से शादी की",
   "in law title": "ससुराल नेटवर्क",
   "in law family": "ससुराल परिवार",

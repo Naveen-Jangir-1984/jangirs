@@ -4,7 +4,7 @@
   overflow: auto;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 2px;
   box-sizing: border-box;
   transition:
     transform 0.4s ease-out,

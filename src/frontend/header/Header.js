@@ -87,7 +87,7 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
                     </span>
                     <span className={"breadcrumb-item" + (activeView === "connectionMap" ? " active" : "")} onClick={() => handleNavClick("connectionMap")}>
                       <span>{"🗺️"}</span>
-                      <span>{t("familyConnections") || "Family Connections"}</span>
+                      <span>{t("connections") || "Connections"}</span>
                     </span>
                   </>
                 ) : activeView === "connectionMap" ? (
