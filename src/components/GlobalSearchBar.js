@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { flattenAllMembers, fuzzySearch } from "../utils/searchUtils";
+import { MaleProfileIcon, FemaleProfileIcon } from "../utils/imageConstants";
 import useTranslation from "../hooks/useTranslation";
 import "./GlobalSearchBar.css";
 
@@ -223,11 +224,15 @@ const GlobalSearchBar = ({ dulania, moruwa, tatija, dispatch, getHindiText, isEn
           {results.map((item, index) => {
             const member = item.member;
             const displayName = isEnglish ? member.name : getHindiText?.(member.name, "name") || member.name;
+            const memberImg = images.find((img) => img.id === member.id);
+            const defaultIcon = member.gender === "M" ? MaleProfileIcon : FemaleProfileIcon;
+            const borderColor = member.isAlive ? "green" : "#f55";
 
             return (
               <div key={member.id} className={`global-search-result-item ${index === selectedIndex ? "selected" : ""}`} onClick={() => handleMemberClick(item)} onMouseEnter={() => setSelectedIndex(index)}>
                 <div className="global-search-result-main">
                   <span className="global-search-result-name" style={{ color: member.isAlive ? "inherit" : "#f55" }}>
+                    <img src={memberImg?.src || defaultIcon} alt="" style={{ width: "22px", height: "22px", borderRadius: "50%", objectFit: "cover", border: `2px solid ${borderColor}`, flexShrink: 0 }} loading="lazy" />
                     <span>{highlightMatch(displayName, query)}</span>
                     <span>{getVillageBadge(item.sourceVillage)}</span>
                     <span>{getFieldPreview(item.matchedFields)}</span>

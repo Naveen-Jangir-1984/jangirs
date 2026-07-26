@@ -381,9 +381,9 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
       <button className={"cmap-sub-btn" + (subView === "village" ? " active" : "")} onClick={() => handleSubViewChange("village")}>
         {t("villageConnections")}
       </button>
-      <button className={"cmap-sub-btn" + (subView === "inlaw" ? " active" : "")} onClick={() => handleSubViewChange("inlaw")}>
+      {/* <button className={"cmap-sub-btn" + (subView === "inlaw" ? " active" : "")} onClick={() => handleSubViewChange("inlaw")}>
         {t("inLaws")}
-      </button>
+      </button> */}
     </div>
   );
 
