@@ -98,10 +98,21 @@ const KEY_MAP = {
   connectionMapTitle: "connection map",
   gotraConnections: "gotra connections",
   villageConnections: "village connections",
+  inLawNetwork: "in law network",
+  inLawConnections: "in law connections",
+  familyConnections: "family connections",
+  marriedTo: "married to",
+  inLawTitle: "in law network",
+  inLawFamily: "in law family",
+  jangirFamily: "jangir family",
+  marriageType: "marriage type",
+  wifeMarriage: "wife marriage",
+  daughterMarriage: "daughter marriage",
   totalGotras: "total gotras",
   totalEdges: "total connections",
   stats: "statistics",
   legend: "legend",
+  inLaws: "in laws",
   connectionCount: "connection count",
   nodeSize: "gotra frequency",
   zoomToFit: "zoom to fit",
@@ -143,9 +154,9 @@ const ENGLISH_TEXT = {
   calendar: "Calendar",
   Members: "Members",
   eventsCalendar: "Events Calendar",
-  birthday: "\uD83C\uDF82 Birthday",
-  anniversary: "\uD83D\uDD4A\uFE0F Anniversary",
-  deathAnniversary: "\uD83D\uDD4A\uFE0F Death Anniversary",
+  birthday: "🎂 Birthday",
+  anniversary: "🕊️ Anniversary",
+  deathAnniversary: "🕊️ Death Anniversary",
   upcomingEvents: "Upcoming Events",
   noEvents: "No events this month",
   today: "Today",
@@ -169,6 +180,16 @@ const ENGLISH_TEXT = {
   connectionMapTitle: "Gotra Connection Map",
   gotraConnections: "Gotra",
   villageConnections: "Village",
+  inLawNetwork: "In-law Network",
+  inLawConnections: "In-law Connections",
+  familyConnections: "Family Connections",
+  marriedTo: "Married to",
+  inLawTitle: "In-law Network",
+  inLawFamily: "In-law Family",
+  jangirFamily: "Jangir Family",
+  marriageType: "Marriage Type",
+  wifeMarriage: "Wife Marriage",
+  daughterMarriage: "Daughter Marriage",
   totalGotras: "Total Gotras",
   totalEdges: "Total Connections",
   stats: "Statistics",
@@ -177,6 +198,7 @@ const ENGLISH_TEXT = {
   nodeSize: "Gotra Frequency",
   zoomToFit: "Zoom to Fit",
   familyTree: "Family Tree",
+  inLaws: "In-Laws",
 };
 
 export const useTranslation = (isEnglish) => {
@@ -191,7 +213,7 @@ export const useTranslation = (isEnglish) => {
         const translation = translateToHindi(mappedKey);
         text = translation !== mappedKey ? translation : key;
       }
-      return text.replace(/\{\{(\w+)\}\}/g, function (_, name) {
+      return text.replace(/{{(w+)}}/g, function (_, name) {
         return params[name] !== undefined ? params[name] : "{{" + name + "}}";
       });
     },

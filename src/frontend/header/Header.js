@@ -57,29 +57,32 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
             })}
           </select>
 
+          <span className="view-toggle-icon icons" onClick={handleExportClick} title={t("exportPDF")} style={{ opacity: isExporting ? 0.5 : 1, cursor: isExporting ? "wait" : "pointer" }}>
+            {isExporting ? "⏳" : "📄"}
+          </span>
+
           <div className="breadcrumb-wrapper">
-            <span className={"view-toggle-icon icons home-icon" + (showNavIcons ? " active" : "")} onClick={() => setShowNavIcons(!showNavIcons)}>
+            <span className={"view-toggle-icon icons breadcrumb-icon" + (showNavIcons ? " active" : "")} onClick={() => setShowNavIcons(!showNavIcons)}>
               {"\uD83C\uDFE0"}
             </span>
 
             {showNavIcons && (
               <div className="breadcrumb-dropdown">
                 <span className={"breadcrumb-item" + (activeView === "tree" ? " active" : "")} onClick={() => handleNavClick("tree")}>
-                  {"\uD83C\uDF33"} {t("family") || "Family"}
+                  <span>{"🌳"}</span>
+                  <span>{t("family") || "Family"}</span>
                 </span>
                 <span className={"breadcrumb-item" + (activeView === "calendar" ? " active" : "")} onClick={() => handleNavClick("calendar")}>
-                  {"\uD83D\uDCC5"} {t("calendar") || "Calendar"}
+                  <span>{"📅"}</span>
+                  <span>{t("calendar") || "Calendar"}</span>
                 </span>
                 <span className={"breadcrumb-item" + (activeView === "connectionMap" ? " active" : "")} onClick={() => handleNavClick("connectionMap")}>
-                  {"\uD83D\uDD0D"} {t("connectionMap") || "Connections"}
+                  <span>{"🗺️"}</span>
+                  <span>{t("familyConnections") || "Family Connections"}</span>
                 </span>
               </div>
             )}
           </div>
-
-          <span className="view-toggle-icon icons" onClick={handleExportClick} title={t("exportPDF")} style={{ opacity: isExporting ? 0.5 : 1, cursor: isExporting ? "wait" : "pointer" }}>
-            {isExporting ? "\u23F3" : "\uD83D\uDCC4"}
-          </span>
 
           {state.user.role === "admin" ? <img className="icons" src={UserEditIcon} alt="editUser" onClick={() => dispatch({ type: "openUserEdit" })} loading="lazy" /> : ""}
 
@@ -97,7 +100,7 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
             </button>
           )}
         </div>
-    </div>
+      </div>
       <ConfirmModal isOpen={confirmOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={t(confirmMessage)} confirmText={t("yes")} cancelText={t("no")} />
     </>
   );

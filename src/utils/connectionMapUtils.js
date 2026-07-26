@@ -72,7 +72,7 @@ function traverseTree(member, gotraMap, edgeSet, village) {
   if (member.gender === "M" && member.wives?.length) {
     const wifeGotras = member.wives.map((w) => w.gotra).filter(Boolean);
     const uniqueWifeGotras = [...new Set(wifeGotras)];
-    const JANGIR = "Jangir";
+    const JANGIR = "Mayal";
 
     // Register Jangir node if any marriage exists
     ensureGotraNode(gotraMap, JANGIR, village);
@@ -101,7 +101,7 @@ function traverseTree(member, gotraMap, edgeSet, village) {
 
   // Process female members (daughters) — they inherit gotra from marriage
   if (member.gender === "F" && member.gotra && member.village) {
-    const JANGIR = "Jangir";
+    const JANGIR = "Mayal";
     const g = member.gotra.trim();
     if (g) {
       ensureGotraNode(gotraMap, JANGIR, village);
@@ -310,3 +310,168 @@ function traverseVillage(member, homeVillage, data) {
     member.wives.forEach((wife) => traverseVillage(wife, homeVillage, data));
   }
 }
+
+/**
+ * Build an In-law Network showing family-to-family marriage connections.
+ * @param {Object} db - Database with dulania, moruwa, tatija members
+ * @returns {Object} - { nodes: Array<Object>, edges: Array<Object> }
+ */
+export const buildInLawNetwork = (db) => {
+  const familyMap = new Map();
+  const edgeSet = new Set();
+  const villages = Object.keys(db).filter((v) => db[v]?.length);
+
+  const getFamilyNodeId = (member, type) => {
+    if (type === "jangir") {
+      return `jangir-${member.id}`;
+    }
+    const gotra = (member.gotra || "unknown").trim();
+    const village = (member.village || member.wives?.[0]?.village || "unknown").trim();
+    return `inlaw-${gotra}-${village}`;
+  };
+
+  const ensureFamilyNode = (id, name, type, gotra, village) => {
+    if (!familyMap.has(id)) {
+      familyMap.set(id, {
+        id,
+        name,
+        type,
+        gotra: gotra || "",
+        village: village || "",
+        count: 0,
+        marriages: [],
+        connectedFamilies: new Set(),
+      });
+    }
+    const data = familyMap.get(id);
+    data.count++;
+    return data;
+  };
+
+  for (const village of villages) {
+    const members = db[village];
+    if (!members || !members.length) continue;
+
+    const traverseForInLaws = (member, homeVillage) => {
+      if (!member) return;
+
+      if (member.gender === "M" && member.wives?.length) {
+        const jangirId = getFamilyNodeId(member, "jangir");
+        const jangirName = member.name || "Unknown";
+        const jangirNode = ensureFamilyNode(jangirId, jangirName, "mayal", "Mayal", homeVillage);
+
+        for (const wife of member.wives) {
+          if (!wife.gotra && !wife.village) continue;
+          const inlawId = getFamilyNodeId(wife, "inlaw");
+          const inlawName = wife.gotra || wife.village || "Unknown";
+          const inlawNode = ensureFamilyNode(inlawId, inlawName, "inlaw", wife.gotra || "", wife.village || "");
+
+          jangirNode.marriages.push({
+            jangirName,
+            inlawName,
+            memberId: wife.id || member.id,
+            type: "wife",
+            wifeName: wife.name || "",
+            wifeGotra: wife.gotra || "",
+            wifeVillage: wife.village || "",
+          });
+
+          const edgeKey = [jangirId, inlawId].sort().join("||");
+          if (!edgeSet.has(edgeKey)) {
+            edgeSet.add(edgeKey);
+          }
+          jangirNode.connectedFamilies.add(inlawId);
+          inlawNode.connectedFamilies.add(jangirId);
+        }
+
+        if (member.children?.length) {
+          for (const child of member.children) {
+            traverseForInLaws(child, homeVillage);
+          }
+        }
+      }
+
+      if (member.gender === "F" && member.gotra && member.village) {
+        const inlawId = `inlaw-${member.gotra.trim()}-${member.village.trim()}`;
+        const inlawName = member.gotra || member.village || "Unknown";
+        const inlawNode = ensureFamilyNode(inlawId, inlawName, "inlaw", member.gotra, member.village);
+
+        if (member.fatherId) {
+          const fatherId = `jangir-${member.fatherId}`;
+          if (familyMap.has(fatherId)) {
+            const jangirNode = familyMap.get(fatherId);
+            jangirNode.marriages.push({
+              jangirName: jangirNode.name,
+              inlawName,
+              memberId: member.id,
+              type: "daughter",
+              daughterName: member.name || "",
+              daughterGotra: member.gotra || "",
+              daughterVillage: member.village || "",
+            });
+            const edgeKey = [fatherId, inlawId].sort().join("||");
+            if (!edgeSet.has(edgeKey)) {
+              edgeSet.add(edgeKey);
+            }
+            jangirNode.connectedFamilies.add(inlawId);
+            inlawNode.connectedFamilies.add(fatherId);
+          }
+        }
+      }
+
+      if (member.wives?.length) {
+        for (const wife of member.wives) {
+          if (wife.children?.length) {
+            for (const child of wife.children) {
+              traverseForInLaws(child, homeVillage);
+            }
+          }
+        }
+      }
+    };
+
+    members.forEach((rootMember) => traverseForInLaws(rootMember, village));
+  }
+
+  const nodes = [];
+  for (const [id, data] of familyMap) {
+    nodes.push({
+      id,
+      name: data.name,
+      type: data.type,
+      gotra: data.gotra,
+      village: data.village,
+      count: data.count,
+      marriages: data.marriages.slice(0, 100),
+      connectionCount: data.connectedFamilies.size,
+      connections: [...data.connectedFamilies].map((fid) => {
+        const f = familyMap.get(fid);
+        return {
+          familyId: fid,
+          name: f ? f.name : "Unknown",
+          type: f ? f.type : "inlaw",
+        };
+      }),
+    });
+  }
+
+  const edges = [];
+  const processedEdges = new Set();
+  for (const node of nodes) {
+    for (const conn of node.connections) {
+      const edgeKey = [node.id, conn.familyId].sort().join("||");
+      if (!processedEdges.has(edgeKey)) {
+        processedEdges.add(edgeKey);
+        const weight = Math.max(1, node.marriages.length);
+        edges.push({
+          source: node.id,
+          target: conn.familyId,
+          weight,
+          type: conn.type,
+        });
+      }
+    }
+  }
+
+  return { nodes, edges };
+};
