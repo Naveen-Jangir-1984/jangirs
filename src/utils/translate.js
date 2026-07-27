@@ -324,12 +324,13 @@ const PHRASES = {
   "search placeholder": "सदस्यों की खोज करें...",
   "all locations": "सभी स्थान",
   ancestral: "पारंपरिक",
-  "wife villages": "पत्नी के गाँव",
-  "daughter settlements": "बेटी के बस्तियाँ",
+  "wife's village": "पत्नी के गाँव",
+  "daughter's home": "बेटी के बस्तियाँ",
   migration: "Migration",
   "ancestral village": "पारंपरिक गाँव",
   "wife village": "पत्नी का गाँव",
-  "daughter settlement": "बेटी का बस्ती",
+  "daughter village": "बेटी का गाँव",
+  "daughters village": "बेटी का गाँव",
   print: "प्रिंट करें",
 };
 

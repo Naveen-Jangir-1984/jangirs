@@ -123,11 +123,10 @@ const KEY_MAP = {
   allLocations: "all locations",
   ancestral: "ancestral",
   wifeVillages: "wife villages",
-  daughterSettlements: "daughter settlements",
+  daughtervillage: "daughter village",
   migration: "migration",
   ancestralVillage: "ancestral village",
   wifeVillage: "wife village",
-  daughterSettlement: "daughter settlement",
   connection: "Connection",
   more: "more",
 };
@@ -220,13 +219,10 @@ const ENGLISH_TEXT = {
   allLocations: "All Locations",
   ancestral: "Ancestral",
   wifeVillages: "Wife's Villages",
-  daughterSettlements: "Daughters' Settlements",
+  daughtersVillage: "Daughter's Villages",
   migration: "Migration",
   ancestralVillage: "Ancestral Village",
   wifeVillage: "Wife's Village",
-  daughterSettlement: "Daughter's Settlement",
-
-  daughterSettlement: "Daughter's Settlement",
   more: "more",
 };
 

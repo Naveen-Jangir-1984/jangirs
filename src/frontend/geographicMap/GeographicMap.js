@@ -10,10 +10,10 @@ import "./GeographicMap.css";
 function createIcon(type, isHL) {
   if (isHL === undefined) isHL = false;
   var color = getMarkerColor(type);
-  var size = type === "ancestral" ? 16 : 12;
+  var size = type === "ancestral" ? 32 : 24;
   var borderColor = isHL ? "#fff" : "rgba(255,255,255,0.8)";
-  var w = size + 8;
-  var h = size + 8;
+  var w = size + 2;
+  var h = size + 2;
   var innerR = size / 2;
   var dotR = size / 4;
   var svg = '<svg viewBox="0 0 32 32" width="' + w + '" height="' + h + '">';
@@ -187,7 +187,7 @@ function GeographicMap(props) {
     all: "All Locations",
     ancestral: "Ancestral",
     wife: "Wife's Village",
-    daughter: "Daughter's",
+    daughter: "Daughters Village",
     migration: "Migration",
   };
   var typeCounts = {
@@ -215,9 +215,7 @@ function GeographicMap(props) {
               setActiveFilter(ft);
             },
           },
-          React.createElement("span", { className: "geo-filter-color", style: { backgroundColor: clr } }),
-          React.createElement("span", null, lbl),
-          React.createElement("span", { className: "geo-filter-count" }, cnt),
+          React.createElement("span", null, t(lbl)),
         ),
       );
     })(filterType, labelText, countValue, colorBg, btnClassName);
@@ -335,13 +333,13 @@ function GeographicMap(props) {
             },
             opacity: opacity,
           },
-          React.createElement(Popup, null, React.createElement("div", { className: "geo-popup" }, React.createElement("div", { className: "geo-popup-header" }, React.createElement("span", { className: "geo-popup-dot", style: { backgroundColor: getMarkerColor(nd.type) } }), React.createElement("span", { className: "geo-popup-name" }, name), React.createElement("span", { className: "geo-popup-type" }, "(" + nd.type + ")")), React.createElement("div", { className: "geo-popup-count" }, (t("members") || "Members") + ": ", React.createElement("strong", null, isEnglish ? nd.count : getHindiNumbers ? getHindiNumbers(nd.count.toString()) : nd.count)), members.length > 0 ? React.createElement("div", { className: "geo-popup-members" }, members) : null, React.createElement("div", { className: "geo-popup-coords" }, nd.lat.toFixed(4) + ", " + nd.lng.toFixed(4)))),
+          React.createElement(Popup, { closeButton: false }, React.createElement("div", { className: "geo-popup" }, React.createElement("div", { className: "geo-popup-header" }, React.createElement("span", { className: "geo-popup-name" }, name), React.createElement("span", { className: "geo-popup-type" }, isEnglish ? `(${nd.count})` : `(${getHindiNumbers(nd.count.toString())})`)), members.length > 0 ? React.createElement("div", { className: "geo-popup-members" }, members) : null)),
         ),
       );
     })(node, isHLnode, markerOpacity, memberItems, villageName);
   }
 
-  return React.createElement("div", { className: "geographic-map" + slideClass }, React.createElement("div", { className: "geo-filter-bar" }, filterButtons), React.createElement("div", { className: "geo-map-wrapper" }, React.createElement(MapContainer, { center: [28.7, 76.5], zoom: 8, className: "geo-map", zoomControl: false }, React.createElement(TileLayer, { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>', url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" }), connectionLines, React.createElement(FitBounds, { nodes: filteredNodes }), markers)), React.createElement("div", { className: "geo-legend" }, React.createElement("div", { className: "geo-legend-title" }, t("legend") || "Legend"), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("ancestral") } }), React.createElement("span", null, t("ancestralVillage") || "Ancestral Village")), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("wife") } }), React.createElement("span", null, t("wifeVillage") || "Wife's Village")), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("daughter") } }), React.createElement("span", null, t("daughterSettlement") || "Daughter's Settlement")), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-line" }), React.createElement("span", null, t("connection") || "Connection"))));
+  return React.createElement("div", { className: "geographic-map" + slideClass }, React.createElement("div", { className: "geo-filter-bar" }, filterButtons), React.createElement("div", { className: "geo-map-wrapper" }, React.createElement(MapContainer, { center: [28.7, 76.5], zoom: 8, className: "geo-map", zoomControl: false }, React.createElement(TileLayer, { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>', url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" }), connectionLines, React.createElement(FitBounds, { nodes: filteredNodes }), markers)), React.createElement("div", { className: "geo-legend" }, React.createElement("div", { className: "geo-legend-title" }, t("legend") || "Legend"), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("ancestral") } }), React.createElement("span", null, t("ancestralVillage") || "Ancestral Village")), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("wife") } }), React.createElement("span", null, t("wifeVillage") || "Wife's Village")), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("daughter") } }), React.createElement("span", null, t("daughtervillage") || "Daughter's Village")), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", null, t("connection") || "Connection"))));
 }
 
 export default GeographicMap;

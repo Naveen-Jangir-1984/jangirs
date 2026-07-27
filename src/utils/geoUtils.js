@@ -281,10 +281,7 @@ export const buildGeoData = (db) => {
       if (member.gender === "F" && member.village && member.village.toLowerCase() !== homeVillage) {
         const sv = member.village.toLowerCase();
         ensureVillageNode(villageNodes, sv, "daughter");
-        if (!addedMemberIds.has(member.id)) {
-          addMemberToNode(villageNodes, sv, member);
-          addedMemberIds.add(member.id);
-        }
+        addMemberToNode(villageNodes, sv, member);
         addEdge(edgeMap, homeVillage, sv, 1, "settlement");
       }
 
