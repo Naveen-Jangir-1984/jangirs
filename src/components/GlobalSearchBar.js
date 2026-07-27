@@ -234,7 +234,7 @@ const GlobalSearchBar = ({ members, village, dispatch, getHindiText, isEnglish, 
                   <span className="global-search-result-name" style={{ color: member.isAlive ? "inherit" : "#f55" }}>
                     <img src={memberImg?.src || defaultIcon} alt="" style={{ width: "22px", height: "22px", borderRadius: "50%", objectFit: "cover", border: `2px solid ${borderColor}`, flexShrink: 0 }} loading="lazy" />
                     <span>{highlightMatch(displayName, query)}</span>
-                    <span>{getVillageBadge(item.sourceVillage)}</span>
+                    {/* <span>{getVillageBadge(item.sourceVillage)}</span> */}
                     <span>{getFieldPreview(item.matchedFields)}</span>
                     <span>{member.mobile?.length > 0 && !item.matchedFields?.some((f) => f.field === "mobile") && <span className="global-search-field-badge">📱 {member.mobile[0]}</span>}</span>
                   </span>

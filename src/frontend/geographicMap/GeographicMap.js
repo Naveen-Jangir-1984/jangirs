@@ -98,7 +98,7 @@ function GeographicMap(props) {
     function () {
       if (activeFilter === "all") return geoData.nodes;
       return geoData.nodes.filter(function (n) {
-        return n.type === activeFilter;
+        return n.types && n.types.indexOf(activeFilter) !== -1;
       });
     },
     [geoData.nodes, activeFilter],
@@ -108,14 +108,14 @@ function GeographicMap(props) {
     function () {
       if (activeFilter === "all") return geoData.edges;
       var nodeIds = {};
-      for (var i = 0; i < filteredNodes.length; i++) {
-        nodeIds[filteredNodes[i].id] = true;
+      for (var i = 0; i < geoData.nodes.length; i++) {
+        nodeIds[geoData.nodes[i].id] = true;
       }
       return geoData.edges.filter(function (e) {
         return nodeIds[e.source] || nodeIds[e.target];
       });
     },
-    [geoData.edges, filteredNodes, activeFilter],
+    [geoData.edges, geoData.nodes, activeFilter],
   );
 
   var highlightedEdge = useMemo(
@@ -213,6 +213,7 @@ function GeographicMap(props) {
             className: cls,
             onClick: function () {
               setActiveFilter(ft);
+              setSelectedNode(null);
             },
           },
           React.createElement("span", null, t(lbl)),
@@ -278,7 +279,83 @@ function GeographicMap(props) {
     var markerOpacity = highlightNode ? (isHLnode || isConnected ? 1 : 0.4) : 1;
 
     var memberItems = [];
-    if (node.members && node.members.length > 0) {
+    // Determine display mode based on active filter and node's roles:
+    // - When filtering "wife": show wife+husband pairs (memberPairs)
+    // - When filtering "daughter": show individual members (daughters who settled there)
+    // - When "all" or other: show pairs when node is a wife source, else individuals
+    var hasWifeRole = node.types && node.types.indexOf("wife") !== -1;
+    var hasDaughterRole = node.types && node.types.indexOf("daughter") !== -1;
+    var showAsPairs = false;
+    if (activeFilter === "wife") {
+      showAsPairs = true;
+    } else if (activeFilter === "daughter") {
+      showAsPairs = false;
+    } else {
+      // "all" filter: show pairs for wife-role nodes, individuals for daughter-only nodes
+      showAsPairs = hasWifeRole && node.memberPairs && node.memberPairs.length > 0;
+    }
+
+    if (showAsPairs && node.memberPairs && node.memberPairs.length > 0) {
+      for (var pi = 0; pi < node.memberPairs.length; pi++) {
+        var pair = node.memberPairs[pi];
+        var w = pair.wife;
+        var h = pair.husband;
+        if (w && w.name) {
+          var wPhotoSrc = null;
+          var hPhotoSrc = null;
+          if (state.images) {
+            for (var wii = 0; wii < state.images.length; wii++) {
+              if (state.images[wii].id === w.id) {
+                wPhotoSrc = state.images[wii].src;
+                break;
+              }
+            }
+            for (var hii = 0; hii < state.images.length; hii++) {
+              if (state.images[hii].id === h.id) {
+                hPhotoSrc = state.images[hii].src;
+                break;
+              }
+            }
+          }
+          var wName = isEnglish ? w.name : getHindiText ? getHindiText(w.name, "name") : w.name;
+          var hName = h && h.name ? (isEnglish ? h.name : getHindiText ? getHindiText(h.name, "name") : h.name) : "";
+          (function (wife, hus, wifeSrc, husSrc) {
+            memberItems.push(
+              React.createElement(
+                "div",
+                { key: "pair-" + pi, className: "geo-popup-pair" },
+                React.createElement(
+                  "div",
+                  {
+                    className: "geo-popup-member",
+                    onClick: function () {
+                      handleMemberClick(wife);
+                    },
+                    title: wife.name,
+                  },
+                  React.createElement("img", { className: "geo-popup-member-photo", src: wifeSrc || FemaleProfileIcon, alt: wife.name, style: { borderColor: wife.isAlive !== false ? "#4caf50" : "#f44336" } }),
+                  React.createElement("span", { className: "geo-popup-member-name" }, wName),
+                ),
+                hus && hus.name
+                  ? React.createElement(
+                      "div",
+                      {
+                        className: "geo-popup-member",
+                        onClick: function () {
+                          handleMemberClick(hus);
+                        },
+                        title: hus.name,
+                      },
+                      React.createElement("img", { className: "geo-popup-member-photo", src: husSrc || MaleProfileIcon, alt: hus.name, style: { borderColor: hus.isAlive !== false ? "#4caf50" : "#f44336" } }),
+                      React.createElement("span", { className: "geo-popup-member-name" }, hName),
+                    )
+                  : null,
+              ),
+            );
+          })(w, h, wPhotoSrc, hPhotoSrc);
+        }
+      }
+    } else if (node.members && node.members.length > 0) {
       for (var memi = 0; memi < node.members.length; memi++) {
         var m = node.members[memi];
         var photoSrc = null;
@@ -339,7 +416,7 @@ function GeographicMap(props) {
     })(node, isHLnode, markerOpacity, memberItems, villageName);
   }
 
-  return React.createElement("div", { className: "geographic-map" + slideClass }, React.createElement("div", { className: "geo-filter-bar" }, filterButtons), React.createElement("div", { className: "geo-map-wrapper" }, React.createElement(MapContainer, { center: [28.7, 76.5], zoom: 8, className: "geo-map", zoomControl: false }, React.createElement(TileLayer, { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>', url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" }), connectionLines, React.createElement(FitBounds, { nodes: filteredNodes }), markers)), React.createElement("div", { className: "geo-legend" }, React.createElement("div", { className: "geo-legend-title" }, t("legend") || "Legend"), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("ancestral") } }), React.createElement("span", null, t("ancestralVillage") || "Ancestral Village")), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("wife") } }), React.createElement("span", null, t("wifeVillage") || "Wife's Village")), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("daughter") } }), React.createElement("span", null, t("daughtervillage") || "Daughter's Village")), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", null, t("connection") || "Connection"))));
+  return React.createElement("div", { className: "geographic-map" + slideClass }, React.createElement("div", { className: "geo-filter-bar" }, filterButtons), React.createElement("div", { className: "geo-map-wrapper" }, React.createElement(MapContainer, { center: [28.7, 76.5], zoom: 8, className: "geo-map", zoomControl: false }, React.createElement(TileLayer, { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>', url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" }), connectionLines, React.createElement(FitBounds, { nodes: filteredNodes }), markers)), React.createElement("div", { className: "geo-legend" }, React.createElement("div", { className: "geo-legend-title" }, t("legend") || "Legend"), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("ancestral") } }), React.createElement("span", null, t("ancestralVillage") || "Ancestral Village")), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("wife") } }), React.createElement("span", null, t("wifeVillage") || "Wife Village")), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("daughter") } }), React.createElement("span", null, t("daughtersvillage") || "Daughters Village"))));
 }
 
 export default GeographicMap;

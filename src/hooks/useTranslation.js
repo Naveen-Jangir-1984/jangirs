@@ -124,6 +124,7 @@ const KEY_MAP = {
   ancestral: "ancestral",
   wifeVillages: "wife villages",
   daughtervillage: "daughter village",
+  daughtersvillage: "daughters village",
   migration: "migration",
   ancestralVillage: "ancestral village",
   wifeVillage: "wife village",

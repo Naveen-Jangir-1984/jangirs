@@ -325,12 +325,12 @@ const PHRASES = {
   "all locations": "सभी स्थान",
   ancestral: "पारंपरिक",
   "wife's village": "पत्नी के गाँव",
+  "wife village": "पत्नी के गाँव",
   "daughter's home": "बेटी के बस्तियाँ",
   migration: "Migration",
   "ancestral village": "पारंपरिक गाँव",
-  "wife village": "पत्नी का गाँव",
   "daughter village": "बेटी का गाँव",
-  "daughters village": "बेटी का गाँव",
+  "daughters village": "बेटियों का गाँव",
   print: "प्रिंट करें",
 };
 

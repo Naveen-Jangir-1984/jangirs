@@ -265,14 +265,7 @@ export const buildGeoData = (db) => {
           if (wife.village && wife.village.toLowerCase() !== homeVillage) {
             const wv = wife.village.toLowerCase();
             ensureVillageNode(villageNodes, wv, "wife");
-            if (!addedMemberIds.has(wife.id)) {
-              addMemberToNode(villageNodes, wv, wife);
-              addedMemberIds.add(wife.id);
-            }
-            if (!addedMemberIds.has(member.id)) {
-              addMemberToNode(villageNodes, wv, member);
-              addedMemberIds.add(member.id);
-            }
+            addMemberPair(villageNodes, wv, { wife: wife, husband: member });
             addEdge(edgeMap, homeVillage, wv, 1, "marriage");
           }
         }
@@ -320,8 +313,10 @@ export const buildGeoData = (db) => {
       lat: coords.lat,
       lng: coords.lng,
       type: data.type,
+      types: data.types || [data.type],
       count: data.count,
       members: data.members || [],
+      memberPairs: data.memberPairs || [],
     });
   }
 
@@ -344,9 +339,22 @@ function ensureVillageNode(villageNodes, name, type) {
     villageNodes.set(key, {
       count: 0,
       type,
+      types: [type],
       label: name.charAt(0).toUpperCase() + name.slice(1),
       members: [],
+      memberPairs: [],
     });
+  } else {
+    const existing = villageNodes.get(key);
+    // Collect all applicable types for multi-role villages
+    if (!existing.types.includes(type)) {
+      existing.types.push(type);
+    }
+    // Keep the highest priority type as the primary type (for marker color)
+    const priority = { ancestral: 5, wife: 4, daughter: 3, migration: 2 };
+    if ((priority[type] || 0) > (priority[existing.type] || 0)) {
+      existing.type = type;
+    }
   }
 }
 
@@ -358,6 +366,21 @@ function addMemberToNode(villageNodes, villageName, member) {
       data.members.push(member);
     }
     data.count = data.members.length;
+  }
+}
+
+function addMemberPair(villageNodes, villageName, pair) {
+  const key = villageName.toLowerCase();
+  const data = villageNodes.get(key);
+  if (data) {
+    if (!data.memberPairs) {
+      data.memberPairs = [];
+    }
+    const pairKey = (pair.wife?.id || "") + "||" + (pair.husband?.id || "");
+    if (!data.memberPairs.some((p) => (p.wife?.id || "") + "||" + (p.husband?.id || "") === pairKey)) {
+      data.memberPairs.push(pair);
+    }
+    data.count = data.memberPairs.length;
   }
 }
 
