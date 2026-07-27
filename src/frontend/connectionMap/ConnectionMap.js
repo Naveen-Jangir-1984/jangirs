@@ -90,7 +90,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     }));
     const maxConn = Math.max(1, ...nodes.map((n) => n.connections.length));
     for (const node of nodes) {
-      node.radius = 10 + node.connections.length / maxConn;
+      node.radius = 5 + node.connections.length / maxConn;
     }
     simDataRef.current = { nodes, edges, nodeMap };
   }, [graphData, subView]);
@@ -426,10 +426,10 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
             <div className="cmap-tooltip-detail">
               {t("marriedTo")}:{" "}
               {tooltipNode.marriages
-                .slice(0, 3)
+                // .slice(0, 3)
                 .map((m) => m.inlawName || m.jangirName)
                 .join(", ")}
-              {tooltipNode.marriages.length > 3 ? "..." : ""}
+              {/* {tooltipNode.marriages.length > 3 ? "..." : ""} */}
             </div>
           )}
         </>
@@ -441,7 +441,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
           <div className="cmap-tooltip-members-list">
             {/* Render paired entries first (wife + husband combined) */}
             {tooltipNode.memberPairs &&
-              tooltipNode.memberPairs.slice(0, 25).map((pair, idx) => {
+              tooltipNode.memberPairs.map((pair, idx) => {
                 const wife = pair.wife;
                 const husband = pair.husband;
                 const wifePhoto = state.images?.find((img) => img.id === wife.id)?.src || null;
@@ -479,7 +479,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
               })}
             {/* Render solo members (those NOT in a pair) */}
             {tooltipNode.members &&
-              tooltipNode.members.slice(0, 50).map((m) => {
+              tooltipNode.members.map((m) => {
                 // Skip members that are part of a pair (wife or husband)
                 if (tooltipNode.memberPairs && tooltipNode.memberPairs.some((p) => p.wife?.id === m.id || p.husband?.id === m.id)) {
                   return null;
@@ -501,7 +501,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
                   </div>
                 );
               })}
-            {tooltipNode.members && tooltipNode.members.length > 10 && <div className="cmap-tooltip-member-more">... {t("andMore") || "and more"}</div>}
+            {/* {tooltipNode.members && tooltipNode.members.length > 10 && <div className="cmap-tooltip-member-more">... {t("andMore") || "and more"}</div>} */}
           </div>
         </div>
       ) : null}

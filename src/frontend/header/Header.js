@@ -76,8 +76,12 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
                     </span>
                     <span className={"breadcrumb-item" + (activeView === "connectionMap" ? " active" : "")} onClick={() => handleNavClick("connectionMap")}>
                       <span>{"🗺️"}</span>
-                      <span>{t("familyConnections") || "Family Connections"}</span>
+                      <span>{t("connectionMap") || "Connection Map"}</span>
                     </span>
+                    {/* <span className={"breadcrumb-item" + (activeView === "geographicMap" ? " active" : "")} onClick={() => handleNavClick("geographicMap")}>
+                      <span>{"🌍"}</span>
+                      <span>{t("geographicMap") || "Geographic Map"}</span>
+                    </span> */}
                   </>
                 ) : activeView === "calendar" ? (
                   <>
@@ -87,8 +91,12 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
                     </span>
                     <span className={"breadcrumb-item" + (activeView === "connectionMap" ? " active" : "")} onClick={() => handleNavClick("connectionMap")}>
                       <span>{"🗺️"}</span>
-                      <span>{t("connections") || "Connections"}</span>
+                      <span>{t("connectionMap") || "Connection Map"}</span>
                     </span>
+                    {/* <span className={"breadcrumb-item" + (activeView === "geographicMap" ? " active" : "")} onClick={() => handleNavClick("geographicMap")}>
+                      <span>{"🌍"}</span>
+                      <span>{t("geographicMap") || "Geographic Map"}</span>
+                    </span> */}
                   </>
                 ) : activeView === "connectionMap" ? (
                   <>
@@ -99,6 +107,25 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
                     <span className={"breadcrumb-item" + (activeView === "calendar" ? " active" : "")} onClick={() => handleNavClick("calendar")}>
                       <span>{"📅"}</span>
                       <span>{t("calendar") || "Calendar"}</span>
+                    </span>
+                    {/* <span className={"breadcrumb-item" + (activeView === "geographicMap" ? " active" : "")} onClick={() => handleNavClick("geographicMap")}>
+                      <span>{"🌍"}</span>
+                      <span>{t("geographicMap") || "Geographic Map"}</span>
+                    </span> */}
+                  </>
+                ) : activeView === "geographicMap" ? (
+                  <>
+                    <span className={"breadcrumb-item" + (activeView === "tree" ? " active" : "")} onClick={() => handleNavClick("tree")}>
+                      <span>{"🌳"}</span>
+                      <span>{t("family") || "Family"}</span>
+                    </span>
+                    <span className={"breadcrumb-item" + (activeView === "calendar" ? " active" : "")} onClick={() => handleNavClick("calendar")}>
+                      <span>{"📅"}</span>
+                      <span>{t("calendar") || "Calendar"}</span>
+                    </span>
+                    <span className={"breadcrumb-item" + (activeView === "connectionMap" ? " active" : "")} onClick={() => handleNavClick("connectionMap")}>
+                      <span>{"🗺️"}</span>
+                      <span>{t("connectionMap") || "Connection Map"}</span>
                     </span>
                   </>
                 ) : null}

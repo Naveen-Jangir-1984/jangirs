@@ -15,6 +15,7 @@ const EditMember = lazy(() => import("../member/edit/EditMember"));
 const DisplayUsers = lazy(() => import("../user/DisplayUsers"));
 const EventsCalendar = lazy(() => import("../calendar/EventsCalendar"));
 const ConnectionMap = lazy(() => import("../connectionMap/ConnectionMap"));
+const GeographicMap = lazy(() => import("../geographicMap/GeographicMap"));
 
 const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers, getEnglishText, getEnglishNumbers }) => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -40,14 +41,14 @@ const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers, getEngl
     if (!container) return;
 
     // Find the visible content element
-    const contentElement = container.querySelector(".tree, .events-calendar, .connection-map");
+    const contentElement = container.querySelector(".tree, .events-calendar, .connection-map, .geographic-map");
     if (!contentElement) {
       console.warn("No exportable content found");
       return;
     }
 
     const village = state.village || "family";
-    const viewLabels = { tree: "Family Tree", calendar: "Events Calendar", connectionMap: "Connection Map" };
+    const viewLabels = { tree: "Family Tree", calendar: "Events Calendar", connectionMap: "Connection Map", geographicMap: "Geographic Map" };
     const title = isEnglish ? `${village.charAt(0).toUpperCase() + village.slice(1)} - ${viewLabels[activeView] || activeView}` : "";
 
     try {
@@ -87,6 +88,11 @@ const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers, getEngl
             <ConnectionMap state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} />
           </Suspense>
         )}
+        {isActive && viewName === "geographicMap" && (
+          <Suspense fallback={<CalendarSkeleton />}>
+            <GeographicMap state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} />
+          </Suspense>
+        )}
       </div>
     );
   };
@@ -94,11 +100,12 @@ const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers, getEngl
   return (
     <div className={`home ${isModalOpen ? "modal-open" : ""}`}>
       <Header state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} onConfirmChange={setIsConfirmOpen} activeView={activeView} setActiveView={setActiveView} onExportPDF={handleExportPDF} exportStatus={exportStatus} />
-      <Filter state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} isCalendarOpen={activeView === "calendar"} isConnectionOpen={activeView === "connectionMap"} />
+      <Filter state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} isCalendarOpen={activeView === "calendar"} isConnectionOpen={activeView === "connectionMap"} isGeographicOpen={activeView === "geographicMap"} />
       <div className="view-content" ref={viewContentRef}>
         {renderViewPanel("tree", 0)}
         {renderViewPanel("calendar", 1)}
         {renderViewPanel("connectionMap", 2)}
+        {renderViewPanel("geographicMap", 3)}
       </div>
       <Footer state={state} />
       <Suspense fallback={null}>

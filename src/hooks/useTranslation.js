@@ -119,6 +119,17 @@ const KEY_MAP = {
   searchPlaceholder: "search members",
   searchMembers: "search members",
   noResults: "no results found",
+  geographicMap: "geographic map",
+  allLocations: "all locations",
+  ancestral: "ancestral",
+  wifeVillages: "wife villages",
+  daughterSettlements: "daughter settlements",
+  migration: "migration",
+  ancestralVillage: "ancestral village",
+  wifeVillage: "wife village",
+  daughterSettlement: "daughter settlement",
+  connection: "Connection",
+  more: "more",
 };
 
 const ENGLISH_TEXT = {
@@ -205,6 +216,18 @@ const ENGLISH_TEXT = {
   searchPlaceholder: "Search members...",
   searchMembers: "Search Members",
   noResults: "No members found",
+  geographicMap: "Geographic Map",
+  allLocations: "All Locations",
+  ancestral: "Ancestral",
+  wifeVillages: "Wife's Villages",
+  daughterSettlements: "Daughters' Settlements",
+  migration: "Migration",
+  ancestralVillage: "Ancestral Village",
+  wifeVillage: "Wife's Village",
+  daughterSettlement: "Daughter's Settlement",
+
+  daughterSettlement: "Daughter's Settlement",
+  more: "more",
 };
 
 export const useTranslation = (isEnglish) => {
