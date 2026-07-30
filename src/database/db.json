@@ -2366,7 +2366,12 @@
                           "children": [],
                           "isAlive": true,
                           "gender": "M",
-                          "isCollapsed": true
+                          "isCollapsed": true,
+                          "dob": "",
+                          "dod": "",
+                          "village": "",
+                          "gotra": "",
+                          "email": []
                         },
                         {
                           "id": 111115,
