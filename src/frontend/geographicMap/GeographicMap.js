@@ -186,8 +186,8 @@ function GeographicMap(props) {
   var typeLabels = {
     all: "All Locations",
     ancestral: "Ancestral",
-    wife: "Wife's Village",
-    daughter: "Daughters Village",
+    wife: "Wives Villages",
+    daughter: "Daughters Villages",
     migration: "Migration",
   };
   var typeCounts = {
@@ -416,7 +416,7 @@ function GeographicMap(props) {
     })(node, isHLnode, markerOpacity, memberItems, villageName);
   }
 
-  return React.createElement("div", { className: "geographic-map" + slideClass }, React.createElement("div", { className: "geo-filter-bar" }, filterButtons), React.createElement("div", { className: "geo-map-wrapper" }, React.createElement(MapContainer, { center: [28.7, 76.5], zoom: 8, className: "geo-map", zoomControl: false }, React.createElement(TileLayer, { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>', url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" }), connectionLines, React.createElement(FitBounds, { nodes: filteredNodes }), markers)), React.createElement("div", { className: "geo-legend" }, React.createElement("div", { className: "geo-legend-title" }, t("legend") || "Legend"), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("ancestral") } }), React.createElement("span", null, t("ancestralVillage") || "Ancestral Village")), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("wife") } }), React.createElement("span", null, t("wifeVillage") || "Wife Village")), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("daughter") } }), React.createElement("span", null, t("daughtersvillage") || "Daughters Village"))));
+  return React.createElement("div", { className: "geographic-map" + slideClass }, React.createElement("div", { className: "geo-filter-bar" }, filterButtons), React.createElement("div", { className: "geo-map-wrapper" }, React.createElement(MapContainer, { center: [28.7, 76.5], zoom: 8, className: "geo-map", zoomControl: false }, React.createElement(TileLayer, { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>', url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" }), connectionLines, React.createElement(FitBounds, { nodes: filteredNodes }), markers)), React.createElement("div", { className: "geo-legend" }, React.createElement("div", { className: "geo-legend-title" }, t("legend") || "Legend"), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("ancestral") } }), React.createElement("span", null, t("ancestralVillage") || "Ancestral Village")), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("wife") } }), React.createElement("span", null, t("wivesvillages") || "Wives Villages")), React.createElement("div", { className: "geo-legend-item" }, React.createElement("span", { className: "geo-legend-dot", style: { backgroundColor: getMarkerColor("daughter") } }), React.createElement("span", null, t("daughtersvillages") || "Daughters Villages"))));
 }
 
 export default GeographicMap;

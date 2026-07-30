@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { SignOutIcon, UserEditIcon } from "../../utils/imageConstants";
 import useTranslation from "../../hooks/useTranslation";
 import useConfirm from "../../hooks/useConfirm";
@@ -8,6 +8,7 @@ import "./Header.css";
 const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, onConfirmChange, activeView, setActiveView, onExportPDF, exportStatus }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [showNavIcons, setShowNavIcons] = useState(false);
+  const breadcrumbRef = useRef(null);
   const isEnglish = state.user.language;
   const { t } = useTranslation(isEnglish);
   const { isOpen: confirmOpen, message: confirmMessage, showConfirm, handleConfirm, handleCancel } = useConfirm();
@@ -22,7 +23,13 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
   const handleExportClick = async () => {
     if (exportStatus === "loading" || exportStatus === "capturing" || exportStatus === "generating") return;
     onConfirmChange(true);
-    const confirmKey = activeView === "calendar" ? "confirmExportCalendar" : "confirmExportTree";
+    const confirmKeys = {
+      tree: "confirmExportTree",
+      calendar: "confirmExportCalendar",
+      connectionMap: "confirmExportConnectionMap",
+      geographicMap: "confirmExportGeographicMap",
+    };
+    const confirmKey = confirmKeys[activeView] || "confirmExportTree";
     const consent = await showConfirm(confirmKey);
     onConfirmChange(false);
     if (consent && onExportPDF) onExportPDF();
@@ -32,6 +39,17 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
     setActiveView(view);
     setShowNavIcons(false);
   };
+
+  // Close breadcrumb dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (breadcrumbRef.current && !breadcrumbRef.current.contains(e.target)) {
+        setShowNavIcons(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const shouldSlideOut = isModalOpen || confirmOpen;
   const isExporting = exportStatus === "loading" || exportStatus === "capturing" || exportStatus === "generating";
@@ -61,7 +79,7 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
             {isExporting ? "⏳" : "📄"}
           </span>
 
-          <div className="breadcrumb-wrapper">
+          <div className="breadcrumb-wrapper" ref={breadcrumbRef}>
             <span className={"view-toggle-icon icons breadcrumb-icon" + (showNavIcons ? " active" : "")} onClick={() => setShowNavIcons(!showNavIcons)}>
               {"\uD83C\uDFE0"}
             </span>
@@ -87,7 +105,7 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
                   <>
                     <span className={"breadcrumb-item" + (activeView === "tree" ? " active" : "")} onClick={() => handleNavClick("tree")}>
                       <span>{"🌳"}</span>
-                      <span>{t("family") || "Family"}</span>
+                      <span>{t("familytree") || "Family Tree"}</span>
                     </span>
                     <span className={"breadcrumb-item" + (activeView === "connectionMap" ? " active" : "")} onClick={() => handleNavClick("connectionMap")}>
                       <span>{"🗺️"}</span>
@@ -102,7 +120,7 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
                   <>
                     <span className={"breadcrumb-item" + (activeView === "tree" ? " active" : "")} onClick={() => handleNavClick("tree")}>
                       <span>{"🌳"}</span>
-                      <span>{t("family") || "Family"}</span>
+                      <span>{t("familytree") || "Family Tree"}</span>
                     </span>
                     <span className={"breadcrumb-item" + (activeView === "calendar" ? " active" : "")} onClick={() => handleNavClick("calendar")}>
                       <span>{"📅"}</span>
@@ -117,7 +135,7 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
                   <>
                     <span className={"breadcrumb-item" + (activeView === "tree" ? " active" : "")} onClick={() => handleNavClick("tree")}>
                       <span>{"🌳"}</span>
-                      <span>{t("family") || "Family"}</span>
+                      <span>{t("familytree") || "Family Tree"}</span>
                     </span>
                     <span className={"breadcrumb-item" + (activeView === "calendar" ? " active" : "")} onClick={() => handleNavClick("calendar")}>
                       <span>{"📅"}</span>

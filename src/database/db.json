@@ -3116,7 +3116,15 @@
                                   "children": [],
                                   "isAlive": true,
                                   "gender": "M",
-                                  "isCollapsed": true
+                                  "isCollapsed": true,
+                                  "dob": "23 November 2010",
+                                  "dod": "",
+                                  "village": "",
+                                  "gotra": "",
+                                  "email": [],
+                                  "mobile": [
+                                    9784830230
+                                  ]
                                 }
                               ],
                               "isAlive": true,

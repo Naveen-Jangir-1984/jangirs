@@ -58,6 +58,54 @@ const prepareCloneForCapture = (element) => {
     const mh = child.style.maxHeight;
     if (mh && mh !== "none" && mh !== "") child.style.maxHeight = "none";
   }
+  // Convert all <canvas> elements in the clone to static <img> elements
+  // This captures the current rendered state for canvas-based visualizations
+  // (e.g. ConnectionMap's force-directed graph rendered on canvas)
+  const originalCanvases = element.querySelectorAll("canvas");
+  const cloneCanvases = clone.querySelectorAll("canvas");
+  for (let i = 0; i < originalCanvases.length; i++) {
+    const originalCanvas = originalCanvases[i];
+    const cloneCanvas = cloneCanvases[i];
+    if (originalCanvas && cloneCanvas) {
+      try {
+        const dataUrl = originalCanvas.toDataURL("image/png");
+        const img = document.createElement("img");
+        img.src = dataUrl;
+        img.style.cssText = cloneCanvas.style.cssText;
+        img.style.width = cloneCanvas.style.width || originalCanvas.style.width || originalCanvas.width + "px";
+        img.style.height = cloneCanvas.style.height || originalCanvas.style.height || originalCanvas.height + "px";
+        // Copy class names, id, and other relevant attributes
+        img.className = cloneCanvas.className;
+        if (cloneCanvas.id) img.id = cloneCanvas.id;
+        if (cloneCanvas.title) img.title = cloneCanvas.title;
+        cloneCanvas.parentNode?.replaceChild(img, cloneCanvas);
+      } catch (e) {
+        console.warn("Failed to convert canvas to image for PDF export:", e);
+      }
+    }
+  }
+  // Convert Leaflet map tile <img> elements to data URLs
+  // Leaflet renders map tiles as <img> tags with cross-origin URLs (e.g. tile.openstreetmap.org)
+  // html2canvas cannot capture these cross-origin images, so we convert them from the original DOM
+  const originalImgs = element.querySelectorAll("img");
+  const cloneImgs = clone.querySelectorAll("img");
+  for (let i = 0; i < originalImgs.length && i < cloneImgs.length; i++) {
+    const originalImg = originalImgs[i];
+    const cloneImg = cloneImgs[i];
+    if (originalImg && cloneImg && originalImg.src && originalImg.complete && originalImg.naturalWidth > 0) {
+      try {
+        const tempCanvas = document.createElement("canvas");
+        tempCanvas.width = originalImg.naturalWidth || originalImg.width || 256;
+        tempCanvas.height = originalImg.naturalHeight || originalImg.height || 256;
+        const tempCtx = tempCanvas.getContext("2d");
+        tempCtx.drawImage(originalImg, 0, 0);
+        const dataUrl = tempCanvas.toDataURL("image/png");
+        cloneImg.src = dataUrl;
+      } catch (e) {
+        // Cross-origin images will throw - skip silently
+      }
+    }
+  }
   const container = document.createElement("div");
   container.style.position = "absolute";
   container.style.left = "-9999px";

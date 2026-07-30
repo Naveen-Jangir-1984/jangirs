@@ -528,7 +528,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
         {renderToggle}
         <div className="cmap-canvas-wrapper" ref={containerRef}>
           <div className="calendar-loading">{t("loading") || "Loading..."}</div>
-          {renderZoomControls}
+          {/* {renderZoomControls} */}
         </div>
       </div>
     );
@@ -541,7 +541,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
         <canvas ref={canvasRef} />
       </div>
       {renderTooltip}
-      {renderZoomControls}
+      {/* {renderZoomControls} */}
     </div>
   );
 };
