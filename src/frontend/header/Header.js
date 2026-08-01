@@ -155,7 +155,7 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
 
           <img className="signout" src={SignOutIcon} alt="signout" onClick={() => handleSignOut()} loading="lazy" />
 
-          {activeView === "tree" && (
+          {/* {activeView === "tree" && (
             <button
               onClick={() => {
                 setCollapsed(!collapsed);
@@ -165,7 +165,7 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
             >
               {collapsed ? t("Close") : t("Open")}
             </button>
-          )}
+          )} */}
         </div>
       </div>
       <ConfirmModal isOpen={confirmOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={t(confirmMessage)} confirmText={t("yes")} cancelText={t("no")} />
