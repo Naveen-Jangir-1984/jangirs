@@ -69,13 +69,14 @@
   top: calc(100% + 4px);
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.85);
   border: 1px solid #ddd;
   border-radius: 5px;
   max-height: 350px;
   overflow-y: auto;
   z-index: 9999;
   animation: dropdownSlideIn 0.15s ease-out;
+  backdrop-filter: blur(2px);
 }
 
 @keyframes dropdownSlideIn {

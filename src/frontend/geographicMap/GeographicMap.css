@@ -25,7 +25,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5px;
   gap: 10px;
   z-index: 10;
 }
@@ -118,15 +117,14 @@
 
 /* Override Leaflet popup wrapper to dark theme */
 .geo-map .leaflet-popup-content-wrapper {
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(0, 0, 0, 0.8);
   color: #fff;
   border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
 }
 
 .geo-map .leaflet-popup-tip {
   background: rgba(0, 0, 0, 0.95);
-  box-shadow: none;
 }
 
 .geo-map .leaflet-popup-content {
@@ -155,9 +153,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  margin-bottom: 2px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  padding-bottom: 3px;
+  padding-bottom: 5px;
 }
 
 .geo-popup-dot {
@@ -209,7 +205,7 @@
   font-size: 9px;
   padding: 2px 0;
   line-height: 1.5;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
   transition: background 0.15s;
 }
@@ -245,12 +241,8 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
-  /* padding: 4px 0; */
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.geo-popup-pair:first-child {
-  border-top: none;
+  padding: 2px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .geo-popup-pair .geo-popup-member {
@@ -262,8 +254,8 @@
 }
 
 .geo-popup-pair .geo-popup-member-photo {
-  width: 25px;
-  height: 25px;
+  width: 22px;
+  height: 22px;
 }
 
 .geo-popup-pair .geo-popup-member-name {

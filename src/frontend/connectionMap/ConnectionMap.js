@@ -409,7 +409,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
   }, [tooltipNode, tooltipPos]);
 
   const renderTooltip = tooltipNode ? (
-    <div ref={tooltipRef} className={"cmap-tooltip" + (selectedNode ? " cmap-tooltip-selected" : "")} style={{ left: tooltipPos.x + 12, top: tooltipPos.y - 10 }}>
+    <div ref={tooltipRef} className="cmap-tooltip" style={{ left: tooltipPos.x + 12, top: tooltipPos.y - 10 }}>
       <div className="cmap-tooltip-header">
         <span className="cmap-tooltip-name">{isEnglish ? tooltipNode.label : getHindiText(tooltipNode.label, subView === "gotra" ? "gotra" : "village")}</span>
         <span className="cmap-tooltip-type">({isEnglish ? tooltipNode.count : getHindiNumbers(tooltipNode.count.toString())})</span>

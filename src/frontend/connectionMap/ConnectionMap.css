@@ -103,7 +103,7 @@
 /* Tooltip on hover */
 .cmap-tooltip {
   position: absolute;
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(0, 0, 0, 0.8);
   color: #fff;
   padding: 5px 10px;
   border-radius: 5px;
@@ -112,13 +112,7 @@
   z-index: 20;
   line-height: 1.5;
   white-space: normal;
-  max-height: 500px;
-}
-
-.cmap-tooltip-selected {
-  background: rgba(0, 0, 0, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  max-height: 500px;
+  backdrop-filter: blur(2px);
 }
 
 .cmap-tooltip-header {
@@ -142,15 +136,12 @@
 
 .cmap-tooltip-detail {
   font-size: 10px;
-  opacity: 0.85;
   margin-top: 1px;
 }
 
 /* Member list section in tooltip */
 .cmap-tooltip-members {
   margin-top: 5px;
-  max-height: inherit;
-  overflow: hidden;
 }
 
 .cmap-tooltip-members-title {
@@ -161,11 +152,10 @@
 }
 
 .cmap-tooltip-members-list {
-  max-height: 300px;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  /* gap: 2px; */
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .cmap-tooltip-members-list::-webkit-scrollbar {
@@ -181,9 +171,9 @@
 .cmap-tooltip-pair-item {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   font-size: 9px;
-  padding: 2px 0;
+  padding: 2px 10px 2px 0;
   line-height: 1.5;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
 }

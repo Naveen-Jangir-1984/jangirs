@@ -10,11 +10,12 @@
   justify-content: center;
   gap: 10px;
   box-sizing: border-box;
-  border-radius: 10px 10px 0 0;
+  border-radius: 15px 15px 0 0;
   color: #fff;
   animation: bannerSlideUp 1s ease-out;
   background-color: rgba(0, 0, 0, 0.75);
-  padding: 20px 0;
+  backdrop-filter: blur(2px);
+  padding: 5vh 0;
 }
 
 /* Member profile images */
