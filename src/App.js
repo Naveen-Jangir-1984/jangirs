@@ -6,7 +6,7 @@ import BirthdayBanner from "./components/BirthdayBanner";
 import { BGDImage } from "./utils/imageConstants";
 import { fetchMemberImages } from "./utils/getImages";
 import { INITIAL_NEW_MEMBER, INITIAL_NEW_USER, INITIAL_EDIT_INPUT, INITIAL_FILTERS, INITIAL_INPUT } from "./utils/constants";
-import { addMemberToTree, editMemberInTree, deleteMemberFromTree, toggleMemberCollapse, toggleAllMembers, getMalesByVillage, getMalesByGotra, getFemalesByVillage, getFemalesByGotra, extractInitialCollapseStates, restoreCollapseStates, calculateGenerationRange, getTodaysBirthdays } from "./utils/treeUtils";
+import { addMemberToTree, editMemberInTree, deleteMemberFromTree, toggleMemberCollapse, toggleAllMembers, getMalesByVillage, getMalesByGotra, getFemalesByVillage, getFemalesByGotra, extractInitialCollapseStates, restoreCollapseStates, calculateGenerationRange, getTodaysEvents } from "./utils/treeUtils";
 import { transliterateToHindi as transliterateHindi } from "./utils/transliterate";
 import { api } from "./utils/api";
 import "./App.css";
@@ -639,18 +639,18 @@ const App = () => {
     }
   }, [fetchData]);
 
-  // Compute today's birthdays across all villages (deduplicated by member id)
-  const todayBirthdays = useMemo(() => {
+  // Compute today's events (birthdays + death anniversaries) across all villages (deduplicated by member id)
+  const todayEvents = useMemo(() => {
     const villageLists = [state.dulania, state.moruwa, state.tatija].filter(Array.isArray);
     const seen = new Set();
     const result = [];
     villageLists.forEach((villageMembers) => {
-      getTodaysBirthdays(villageMembers, now).forEach((member) => {
-        if (member.id != null) {
-          if (seen.has(member.id)) return;
-          seen.add(member.id);
+      getTodaysEvents(villageMembers, now).forEach((evt) => {
+        if (evt.member.id != null) {
+          if (seen.has(evt.member.id)) return;
+          seen.add(evt.member.id);
         }
-        result.push(member);
+        result.push(evt);
       });
     });
     return result;
@@ -663,7 +663,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <BirthdayBanner members={todayBirthdays} images={state.images} isEnglish={!!state.user?.language} getHindiText={getHindiText} />
+      <BirthdayBanner events={todayEvents} images={state.images} isEnglish={!!state.user?.language} getHindiText={getHindiText} />
       <Loader loading={isServerDown === "Connecting..."} error={isServerDown !== "" && isServerDown !== "Connecting..." ? isServerDown : null} onRetry={handleRetry} loadingMessage="Connecting to server..." skeleton={initialSkeleton}>
         <Suspense fallback={initialSkeleton}>{state.user ? <Home state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} getEnglishText={getEnglishText} getEnglishNumbers={getEnglishNumbers} /> : <SignIn state={state} dispatch={dispatch} />}</Suspense>
       </Loader>

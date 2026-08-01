@@ -421,6 +421,29 @@ export const collectBirthdays = (members) => {
 };
 
 /**
+ * Get all events (birthdays + death anniversaries) that fall on a given date
+ * @param {Array} members - Array of member nodes (can be a single village tree)
+ * @param {Date} [date] - The date to check (defaults to now)
+ * @returns {Array} - Array of { member, eventType } objects for today
+ */
+export const getTodaysEvents = (members, date = new Date()) => {
+  if (!members?.length) return [];
+
+  const todayDay = date.getDate();
+  const todayMonth = date.getMonth();
+
+  const birthdays = collectBirthdays(members)
+    .filter((event) => event.day === todayDay && event.month === todayMonth && event.member.isAlive !== false && event.member.name)
+    .map((event) => ({ member: event.member, eventType: "birthday" }));
+
+  const anniversaries = collectDeathAnniversaries(members)
+    .filter((event) => event.day === todayDay && event.month === todayMonth && event.member.name)
+    .map((event) => ({ member: event.member, eventType: "anniversary" }));
+
+  return [...birthdays, ...anniversaries];
+};
+
+/**
  * Get all living members whose birthday is today
  * @param {Array} members - Array of member nodes (can be a single village tree)
  * @param {Date} [date] - The date to check (defaults to now)

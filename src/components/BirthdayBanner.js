@@ -6,49 +6,63 @@ import "./BirthdayBanner.css";
 
 /**
  * BirthdayBanner - A slim, dismissible rectangular banner shown when a member
- * has a birthday today. The banner stays fixed at the top (low opacity) until
- * the user closes it.
+ * has a birthday or death anniversary today. The banner stays fixed at the
+ * bottom (low opacity) until the user closes it.
  *
  * Props:
- * @param {Array} members - Array of member objects celebrating birthdays today
+ * @param {Array} events - Array of { member, eventType } objects celebrating today
  * @param {Array} images - Array of { id, src } member profile images
  * @param {boolean} isEnglish - Whether to render in English (true) or Hindi (false)
  * @param {Function} getHindiText - Helper to translate member names to Hindi
  * @param {Function} onClose - Callback when the banner is closed
  */
-const BirthdayBanner = ({ members, images = [], isEnglish, getHindiText, onClose }) => {
+const BirthdayBanner = ({ events = [], images = [], isEnglish, getHindiText, onClose }) => {
   const { t } = useTranslation(isEnglish);
   const [dismissed, setDismissed] = useState(false);
 
-  if (!members?.length || dismissed) return null;
-
-  // Determine gender for theming: male -> blue, female -> lightpink, mixed -> gradient
-  const hasMale = members.some((m) => m.gender === "M");
-  const hasFemale = members.some((m) => m.gender === "F");
-  const genderClass = hasMale && hasFemale ? "mixed" : hasMale ? "male" : "female";
-
-  const names = members
-    .map((m) => (isEnglish ? m.name : getHindiText?.(m.name) || m.name))
-    .filter(Boolean)
-    .join(", ");
-
-  if (!names) return null;
-
-  const message = `${t("happyBirthday")}, ${names} !!`;
+  if (!events?.length || dismissed) return null;
 
   const getMemberPic = (member) => {
     const memberDP = images?.find((img) => img.id === member.id);
     return memberDP?.src || (member.gender === "M" ? MaleProfileIcon : FemaleProfileIcon);
   };
 
+  // Build message lines – birthdays first, then anniversaries
+  const birthdayMembers = events.filter((evt) => evt.eventType === "birthday").map((evt) => evt.member);
+  const anniversaryMembers = events.filter((evt) => evt.eventType === "anniversary").map((evt) => evt.member);
+
+  let messages = [];
+  if (birthdayMembers.length > 0) {
+    const names = birthdayMembers
+      .map((m) => (isEnglish ? m.name : getHindiText?.(m.name) || m.name))
+      .filter(Boolean)
+      .join(", ");
+    if (names) {
+      messages.push(`${t("happyBirthday")}, ${names} !!`);
+    }
+  }
+  if (anniversaryMembers.length > 0) {
+    const names = anniversaryMembers
+      .map((m) => (isEnglish ? m.name : getHindiText?.(m.name) || m.name))
+      .filter(Boolean)
+      .join(", ");
+    if (names) {
+      messages.push(`${t("deathAnniversary")}: ${names} !!`);
+    }
+  }
+
+  if (messages.length === 0) return null;
+
   return (
-    <div className={`birthday-banner ${genderClass}`} role="status" aria-live="polite">
+    <div className="birthday-banner" role="status" aria-live="polite">
       <div className="birthday-banner-avatars">
-        {members.map((m, i) => (
-          <img key={i} className={`birthday-banner-avatar ${m.gender === "M" ? "male" : "female"}`} src={getMemberPic(m)} alt={m.name} title={m.name} loading="lazy" style={{ transform: m.gender === "F" && !images?.find((img) => img.id === m.id)?.src ? "scaleX(-1)" : "none" }} />
+        {events.map((evt, i) => (
+          <div key={i} className={`birthday-banner-avatar`}>
+            <img src={getMemberPic(evt.member)} alt={evt.member.name} title={evt.member.name} loading="lazy" style={{ transform: evt.member.gender === "F" && !images?.find((img) => img.id === evt.member.id)?.src ? "scaleX(-1)" : "none" }} />
+            <span className="birthday-banner-text">{messages[i]}</span>
+          </div>
         ))}
       </div>
-      <span className="birthday-banner-text">{message}</span>
       <img
         className="birthday-banner-close"
         src={CloseIcon}
