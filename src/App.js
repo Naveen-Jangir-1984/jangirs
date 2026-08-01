@@ -1,11 +1,12 @@
-import { lazy, Suspense, useReducer, useState, useEffect, useCallback } from "react";
+import { lazy, Suspense, useReducer, useState, useEffect, useCallback, useMemo } from "react";
 import Loader from "./components/Loader";
 import AppSkeleton from "./components/skeleton/AppSkeleton";
 import SignInSkeleton from "./components/skeleton/SignInSkeleton";
+import BirthdayBanner from "./components/BirthdayBanner";
 import { BGDImage } from "./utils/imageConstants";
 import { fetchMemberImages } from "./utils/getImages";
 import { INITIAL_NEW_MEMBER, INITIAL_NEW_USER, INITIAL_EDIT_INPUT, INITIAL_FILTERS, INITIAL_INPUT } from "./utils/constants";
-import { addMemberToTree, editMemberInTree, deleteMemberFromTree, toggleMemberCollapse, toggleAllMembers, getMalesByVillage, getMalesByGotra, getFemalesByVillage, getFemalesByGotra, extractInitialCollapseStates, restoreCollapseStates, calculateGenerationRange } from "./utils/treeUtils";
+import { addMemberToTree, editMemberInTree, deleteMemberFromTree, toggleMemberCollapse, toggleAllMembers, getMalesByVillage, getMalesByGotra, getFemalesByVillage, getFemalesByGotra, extractInitialCollapseStates, restoreCollapseStates, calculateGenerationRange, getTodaysBirthdays } from "./utils/treeUtils";
 import { transliterateToHindi as transliterateHindi } from "./utils/transliterate";
 import { api } from "./utils/api";
 import "./App.css";
@@ -18,6 +19,14 @@ const App = () => {
   const [members, setMembers] = useState([]);
   const [englishToHindi, setEnglishToHindi] = useState();
   const [hindiToEnglish, setHindiToEnglish] = useState();
+
+  // Track current date/time, refreshed each minute so the birthday banner
+  // stays accurate throughout the day (including after midnight).
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const interval = setInterval(() => setNow(new Date()), 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   const initialState = {
     user: undefined,
@@ -630,6 +639,23 @@ const App = () => {
     }
   }, [fetchData]);
 
+  // Compute today's birthdays across all villages (deduplicated by member id)
+  const todayBirthdays = useMemo(() => {
+    const villageLists = [state.dulania, state.moruwa, state.tatija].filter(Array.isArray);
+    const seen = new Set();
+    const result = [];
+    villageLists.forEach((villageMembers) => {
+      getTodaysBirthdays(villageMembers, now).forEach((member) => {
+        if (member.id != null) {
+          if (seen.has(member.id)) return;
+          seen.add(member.id);
+        }
+        result.push(member);
+      });
+    });
+    return result;
+  }, [state.dulania, state.moruwa, state.tatija, now]);
+
   // Determine which skeleton to show based on whether user is signed in
   const storedState = sessionStorage.getItem("appState");
   const hasUser = state.user || (storedState && JSON.parse(storedState).user);
@@ -637,6 +663,7 @@ const App = () => {
 
   return (
     <div className="app">
+      <BirthdayBanner members={todayBirthdays} images={state.images} isEnglish={!!state.user?.language} getHindiText={getHindiText} />
       <Loader loading={isServerDown === "Connecting..."} error={isServerDown !== "" && isServerDown !== "Connecting..." ? isServerDown : null} onRetry={handleRetry} loadingMessage="Connecting to server..." skeleton={initialSkeleton}>
         <Suspense fallback={initialSkeleton}>{state.user ? <Home state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} getEnglishText={getEnglishText} getEnglishNumbers={getEnglishNumbers} /> : <SignIn state={state} dispatch={dispatch} />}</Suspense>
       </Loader>

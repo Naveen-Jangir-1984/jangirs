@@ -273,6 +273,7 @@ const PHRASES = {
 
   // Calendar events
   birthday: "जन्मदिन",
+  "happy birthday": "जन्मदिन की शुभकामनाएं",
   "death anniversary": "पुण्यतिथि",
   anniversary: "पुण्यतिथि",
   "upcoming events": "आगामी कार्यक्रम",

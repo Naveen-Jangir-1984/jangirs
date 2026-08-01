@@ -1,0 +1,75 @@
+/* Birthday banner - rectangular, low opacity, stays fixed at top until closed */
+.birthday-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-sizing: border-box;
+  border-radius: 10px 10px 0 0;
+  color: #fff;
+  animation: bannerSlideUp 1s ease-out;
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 20px 0;
+}
+
+/* Member profile images */
+.birthday-banner-avatars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.birthday-banner-avatar {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  background: #fff;
+}
+
+.birthday-banner-text {
+  text-align: center;
+  line-height: 1.4;
+  font-size: 12px;
+}
+
+.birthday-banner-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.birthday-banner-close:hover {
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+}
+
+@keyframes bannerSlideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+}

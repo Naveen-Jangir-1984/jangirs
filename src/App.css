@@ -80,6 +80,19 @@ label {
   box-sizing: border-box;
 }
 
+/* Background for days with a birthday: male -> sky blue, female -> lightpink, mixed -> gradient */
+.app.bg-male {
+  background: linear-gradient(135deg, #87ceeb, #b5dff5);
+}
+
+.app.bg-female {
+  background: linear-gradient(135deg, #ffb6c1, #ffd9df);
+}
+
+.app.bg-mixed {
+  background: linear-gradient(135deg, #87ceeb, #b5dff5, #ffb6c1, #ffd9df);
+}
+
 .bgd-image {
   position: absolute;
   border-radius: 0;
