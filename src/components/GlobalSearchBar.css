@@ -63,6 +63,59 @@
   background: #eee;
 }
 
+/* Mic / voice search button */
+.global-search-mic {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  padding: 2px 4px;
+  width: auto;
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color 0.2s,
+    transform 0.2s;
+  margin-left: 2px;
+}
+
+.global-search-mic:hover:not(:disabled) {
+  color: #c0392b;
+  background: #f5f5f5;
+  transform: scale(1.1);
+}
+
+/* Active listening state: pulsing red glow */
+.global-search-mic.listening {
+  color: #fff;
+  background: #e74c3c;
+  animation: micPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes micPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.6);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(231, 76, 60, 0);
+    transform: scale(1.1);
+  }
+}
+
+/* Disabled / unsupported state */
+.global-search-mic.disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  color: #999;
+}
+
 /* Dropdown */
 .global-search-dropdown {
   position: absolute;
@@ -191,6 +244,18 @@
   font-weight: 700;
   border-radius: 2px;
   padding: 0 1px;
+}
+
+/* Voice search error banner */
+.global-search-voice-error {
+  margin-top: 4px;
+  padding: 6px 10px;
+  background: #fdecea;
+  color: #a94442;
+  font-size: 11px;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  animation: dropdownSlideIn 0.15s ease-out;
 }
 
 /* No results */

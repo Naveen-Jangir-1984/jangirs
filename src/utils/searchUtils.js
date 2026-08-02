@@ -1,7 +1,10 @@
 /**
  * Search utility functions for Global Search Bar
  * Provides fuzzy search across all members by name, mobile, email, village, gotra
+ * Supports both English and Hindi (Devanagari) queries via reverse transliteration.
  */
+
+import { transliterateToEnglish, isDevanagari } from "./transliterate";
 
 /**
  * Recursively flatten the nested member tree into a flat array
@@ -102,14 +105,29 @@ const getFuzzyScore = (text, query) => {
 /**
  * Get the field(s) that matched the query for display purposes
  * Returns an array of { field, value } objects
+ * @param {Object} member - Member node
+ * @param {string} query - Original query (may be Hindi/English)
+ * @param {Function} [getHindiText] - Optional English→Hindi translator
  */
-const getMatchedFields = (member, query) => {
+const getMatchedFields = (member, query, getHindiText) => {
   const matched = [];
   const lowerQuery = query.toLowerCase();
 
   // Check name
   if (member.name && getFuzzyScore(member.name, query) > 0) {
     matched.push({ field: "name", value: member.name });
+  }
+
+  // Check Hindi name (if query is Devanagari and translator provided)
+  if (getHindiText && isDevanagari(query) && member.name) {
+    try {
+      const hindiName = getHindiText(member.name);
+      if (hindiName && hindiName !== member.name && getFuzzyScore(hindiName, query) > 0) {
+        matched.push({ field: "name", value: member.name });
+      }
+    } catch (e) {
+      // Ignore translation errors
+    }
   }
 
   // Check mobile numbers
@@ -133,14 +151,36 @@ const getMatchedFields = (member, query) => {
     }
   }
 
-  // Check village
-  if (member.village && getFuzzyScore(member.village, query) > 0) {
-    matched.push({ field: "village", value: member.village });
+  // Check village (English + Hindi)
+  if (member.village) {
+    if (getFuzzyScore(member.village, query) > 0) {
+      matched.push({ field: "village", value: member.village });
+    } else if (getHindiText && isDevanagari(query)) {
+      try {
+        const hindiVillage = getHindiText(member.village, "village");
+        if (hindiVillage && getFuzzyScore(hindiVillage, query) > 0) {
+          matched.push({ field: "village", value: member.village });
+        }
+      } catch (e) {
+        // Ignore
+      }
+    }
   }
 
-  // Check gotra
-  if (member.gotra && getFuzzyScore(member.gotra, query) > 0) {
-    matched.push({ field: "gotra", value: member.gotra });
+  // Check gotra (English + Hindi)
+  if (member.gotra) {
+    if (getFuzzyScore(member.gotra, query) > 0) {
+      matched.push({ field: "gotra", value: member.gotra });
+    } else if (getHindiText && isDevanagari(query)) {
+      try {
+        const hindiGotra = getHindiText(member.gotra, "gotra");
+        if (hindiGotra && getFuzzyScore(hindiGotra, query) > 0) {
+          matched.push({ field: "gotra", value: member.gotra });
+        }
+      } catch (e) {
+        // Ignore
+      }
+    }
   }
 
   return matched;
@@ -148,15 +188,23 @@ const getMatchedFields = (member, query) => {
 
 /**
  * Perform fuzzy search across all flat members
- * @param {string} query - Search query string
+ * Supports Hindi (Devanagari) queries:
+ *  - Matches query directly against Hindi name/village/gotra via getHindiText
+ *  - Reverse-transliterates Devanagari to English and matches English fields
+ * @param {string} query - Search query string (English or Hindi)
  * @param {Array} flatMembers - Flat array of { member, sourceVillage } objects
  * @param {number} maxResults - Maximum number of results to return
+ * @param {Function} [getHindiText] - Optional English→Hindi translator (used for Devanagari queries)
  * @returns {Array} - Sorted array of { member, sourceVillage, score, matchedFields } objects
  */
-export const fuzzySearch = (query, flatMembers, maxResults = 20) => {
+export const fuzzySearch = (query, flatMembers, maxResults = 20, getHindiText) => {
   if (!query || query.trim().length < 1) return [];
 
   const trimmedQuery = query.trim();
+  const isHindiQuery = isDevanagari(trimmedQuery);
+
+  // Pre-compute English query once for Devanagari queries (reverse transliteration)
+  const englishQuery = isHindiQuery ? transliterateToEnglish(trimmedQuery).toLowerCase() : trimmedQuery.toLowerCase();
 
   // Score each member
   const scored = [];
@@ -167,21 +215,49 @@ export const fuzzySearch = (query, flatMembers, maxResults = 20) => {
     // Skip members with no name (anonymous/unlabeled)
     if (!member.name) continue;
 
-    // Calculate scores for different fields
-    const nameScore = getFuzzyScore(member.name, trimmedQuery);
-    const mobileScore = member.mobile?.length ? Math.max(...member.mobile.map((m) => getFuzzyScore(m.toString(), trimmedQuery))) : 0;
-    const emailScore = member.email?.length ? Math.max(...member.email.map((e) => getFuzzyScore(e, trimmedQuery))) : 0;
-    const villageScore = getFuzzyScore(member.village, trimmedQuery);
-    const gotraScore = getFuzzyScore(member.gotra, trimmedQuery);
+    // Calculate scores for different fields (English)
+    const nameScore = getFuzzyScore(member.name, englishQuery);
+    const mobileScore = member.mobile?.length ? Math.max(...member.mobile.map((m) => getFuzzyScore(m.toString(), englishQuery))) : 0;
+    const emailScore = member.email?.length ? Math.max(...member.email.map((e) => getFuzzyScore(e, englishQuery))) : 0;
+    const villageScore = getFuzzyScore(member.village, englishQuery);
+    const gotraScore = getFuzzyScore(member.gotra, englishQuery);
 
-    const maxScore = Math.max(nameScore, mobileScore, emailScore, villageScore, gotraScore);
+    let maxScore = Math.max(nameScore, mobileScore, emailScore, villageScore, gotraScore);
+
+    // Hindi matching: score query against translated (Devanagari) fields
+    if (isHindiQuery && getHindiText) {
+      try {
+        // Name
+        const hindiName = getHindiText(member.name);
+        if (hindiName && hindiName !== member.name) {
+          const hindiNameScore = getFuzzyScore(hindiName, trimmedQuery);
+          if (hindiNameScore > maxScore) maxScore = hindiNameScore;
+        }
+
+        // Village
+        const hindiVillage = member.village ? getHindiText(member.village, "village") : "";
+        if (hindiVillage) {
+          const hindiVillageScore = getFuzzyScore(hindiVillage, trimmedQuery);
+          if (hindiVillageScore > maxScore) maxScore = hindiVillageScore;
+        }
+
+        // Gotra
+        const hindiGotra = member.gotra ? getHindiText(member.gotra, "gotra") : "";
+        if (hindiGotra) {
+          const hindiGotraScore = getFuzzyScore(hindiGotra, trimmedQuery);
+          if (hindiGotraScore > maxScore) maxScore = hindiGotraScore;
+        }
+      } catch (e) {
+        // Ignore translation errors
+      }
+    }
 
     if (maxScore > 0) {
       scored.push({
         member,
         sourceVillage: item.sourceVillage,
         score: maxScore,
-        matchedFields: getMatchedFields(member, trimmedQuery),
+        matchedFields: getMatchedFields(member, trimmedQuery, getHindiText),
       });
     }
   }

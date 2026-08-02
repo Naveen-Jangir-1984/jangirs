@@ -4,6 +4,10 @@ import { MaleProfileIcon, FemaleProfileIcon } from "../utils/imageConstants";
 import useTranslation from "../hooks/useTranslation";
 import "./GlobalSearchBar.css";
 
+// Feature-detect the Web Speech API (Chrome, Edge, Safari support it)
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const isSpeechSupported = !!SpeechRecognition;
+
 /**
  * GlobalSearchBar - Fuzzy search across all members with auto-suggest dropdown
  * Dispatches openMemberDisplay to navigate to the selected member
@@ -14,10 +18,14 @@ const GlobalSearchBar = ({ members, village, dispatch, getHindiText, isEnglish, 
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [allFlatMembers, setAllFlatMembers] = useState([]);
+  const [isListening, setIsListening] = useState(false);
+  const [voiceError, setVoiceError] = useState("");
 
   const inputRef = useRef(null);
   const dropdownRef = useRef(null);
   const debounceTimer = useRef(null);
+  const recognitionRef = useRef(null);
+  const voiceErrorTimer = useRef(null);
   const { t } = useTranslation(isEnglish);
 
   // Flatten members for the selected village once when data changes
@@ -35,13 +43,108 @@ const GlobalSearchBar = ({ members, village, dispatch, getHindiText, isEnglish, 
         return;
       }
 
-      const searchResults = fuzzySearch(searchQuery, allFlatMembers, 15);
+      const searchResults = fuzzySearch(searchQuery, allFlatMembers, 15, getHindiText);
       setResults(searchResults);
       setSelectedIndex(-1);
       setShowDropdown(searchResults.length > 0);
     },
-    [allFlatMembers],
+    [allFlatMembers, getHindiText],
   );
+
+  // Voice search using the Web Speech API (Hindi locale hi-IN)
+  const toggleVoiceSearch = useCallback(() => {
+    if (!isSpeechSupported) return;
+
+    if (isListening) {
+      recognitionRef.current?.stop();
+      setIsListening(false);
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognitionRef.current = recognition;
+    recognition.lang = "hi-IN"; // Hindi (falls back to en-IN on browsers without Hindi models)
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 1;
+    recognition.continuous = false;
+
+    recognition.onstart = () => {
+      setIsListening(true);
+      setQuery("");
+      setResults([]);
+      setShowDropdown(false);
+    };
+
+    recognition.onresult = (event) => {
+      let interim = "";
+      let final = "";
+
+      for (let i = 0; i < event.results.length; i++) {
+        const transcript = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+          final += transcript;
+        } else {
+          interim += transcript;
+        }
+      }
+
+      // Combine final + interim transcript as the live query
+      const spoken = (final || interim).trim();
+      setQuery(spoken);
+
+      // Trigger the debounced search immediately for live feedback
+      if (debounceTimer.current) clearTimeout(debounceTimer.current);
+      debounceTimer.current = setTimeout(() => performSearch(spoken), 100);
+    };
+
+    recognition.onerror = (event) => {
+      console.warn("Speech recognition error:", event.error);
+      setIsListening(false);
+
+      // Show a clear, user-friendly message for the most common failures
+      let messageKey = "";
+      if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+        messageKey = "voiceMicDenied";
+      } else if (event.error === "no-speech") {
+        messageKey = "voiceNoSpeech";
+      } else if (event.error === "audio-capture") {
+        messageKey = "voiceNoMic";
+      } else if (event.error === "network") {
+        messageKey = "voiceNetwork";
+      } else {
+        messageKey = "voiceSearchFailed";
+      }
+
+      const message = t(messageKey) || messageKey;
+      setVoiceError(message);
+
+      if (voiceErrorTimer.current) clearTimeout(voiceErrorTimer.current);
+      voiceErrorTimer.current = setTimeout(() => setVoiceError(""), 6000);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    try {
+      recognition.start();
+    } catch (e) {
+      console.warn("Could not start speech recognition:", e);
+      setIsListening(false);
+      const message = t("voiceSearchFailed") || "Voice search failed";
+      setVoiceError(message);
+      if (voiceErrorTimer.current) clearTimeout(voiceErrorTimer.current);
+      voiceErrorTimer.current = setTimeout(() => setVoiceError(""), 6000);
+    }
+  }, [isListening, performSearch, t]);
+
+  // Cleanup recognition on unmount
+  useEffect(() => {
+    return () => {
+      recognitionRef.current?.abort?.();
+      if (voiceErrorTimer.current) clearTimeout(voiceErrorTimer.current);
+    };
+  }, []);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -204,6 +307,9 @@ const GlobalSearchBar = ({ members, village, dispatch, getHindiText, isEnglish, 
       <div className="global-search-input-wrapper">
         <span className="global-search-icon">🔍</span>
         <input ref={inputRef} type="text" className="global-search-input" placeholder={t("searchPlaceholder") || "Search members..."} value={query} onChange={handleInputChange} onFocus={handleInputFocus} onKeyDown={handleKeyDown} aria-label="Search members" autoComplete="off" />
+        <button className={`global-search-mic ${isListening ? "listening" : ""} ${!isSpeechSupported ? "disabled" : ""}`} onClick={toggleVoiceSearch} disabled={!isSpeechSupported} title={isListening ? t("listening") || "Listening..." : !isSpeechSupported ? t("voiceSearchUnsupported") || "Voice search not supported in this browser" : t("voiceSearch") || "Search by voice"} aria-label={isListening ? t("listening") || "Stop listening" : t("voiceSearch") || "Voice search"}>
+          {isListening ? "🔴" : "🎤"}
+        </button>
         {query && (
           <button
             className="global-search-clear"
@@ -218,6 +324,8 @@ const GlobalSearchBar = ({ members, village, dispatch, getHindiText, isEnglish, 
           </button>
         )}
       </div>
+
+      {voiceError && <div className="global-search-voice-error">⚠️ {voiceError}</div>}
 
       {showDropdown ? (
         <div className="global-search-dropdown" ref={dropdownRef}>
