@@ -1,0 +1,33 @@
+ASTRO VERIFICATION
+
+SUN TROPICAL LONGITUDE
+Mar Equinox 2025: computed=0.007 expect=0 diff=0.007deg
+Jun Solstice 2025: computed=90.005 expect=90 diff=0.005deg
+Sep Equinox 2025: computed=179.997 expect=180 diff=-0.003deg
+Dec Solstice 2025: computed=270.001 expect=270 diff=0.001deg
+
+MOON ELONGATION (lunar - solar)
+New Moon Mar 29 2025: elong=-0.223 expect=new(0) absErr=0.223deg
+Full Moon Apr 12 2025: elong=169.052 expect=full(180) absErr=10.948deg
+New Moon Apr 27 2025: elong=-0.115 expect=new(0) absErr=0.115deg
+Full Moon May 12 2025: elong=179.804 expect=full(180) absErr=0.196deg
+New Moon Nov 20 2025: elong=-0.154 expect=new(0) absErr=0.154deg
+Full Moon Nov 5 2025: elong=179.850 expect=full(180) absErr=0.150deg
+
+NOV 5 2025 FULL MOON DETAIL
+tropical=43.225 ayanamsa=23.8500
+sidereal=19.375 nakshatra=Bharani (index 1)
+=> month index by NAKSHATRA_TO_MONTH = 6
+
+2025 FULL MOON NAKSHATRAS (each new/full)
+1/13: tithi=Purnima naks=Ardra (5) month=Pausha
+2/12: tithi=Purnima naks=Ashlesha (8) month=Magha
+3/14: tithi=Purnima naks=Uttara Phalguni (11) month=Phalguna
+4/12: tithi=Purnima naks=Hasta (12) month=Chaitra
+5/12: tithi=Purnima naks=Vishakha (15) month=Vaishakha
+6/11: tithi=Purnima naks=Jyeshtha (17) month=Jyeshtha
+7/10: tithi=Purnima naks=Purva Ashadha (19) month=Ashadha
+8/9: tithi=Purnima naks=Shravana (21) month=Shravana
+9/7: tithi=Purnima naks=Shatabhisha (23) month=Bhadrapada
+10/7: tithi=Purnima naks=Revati (26) month=Ashwina
+11/5: tithi=Purnima naks=Ashwini (0) month=Kartika

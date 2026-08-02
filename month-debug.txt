@@ -1,0 +1,28 @@
+VERIFY 2025 (known festival dates)
+Diwali 10/20 (Kartika Amavasya): tithi=Krishna Chaturdashi (28) month=Kartika naks=Hasta fest=Narak Chaturdashi / Choti Diwali,Diwali / Lakshmi Puja
+Dhanteras 10/18 (Kartika Trayodashi): tithi=Krishna Dwadashi (26) month=Kartika naks=Purva Phalguni fest=Dhanteras
+Bhai Dooj 10/23 (Kartika Shukla Dwitiya): tithi=Shukla Dwitiya (1) month=Kartika naks=Vishakha fest=Bhai Dooj
+Raksha Bandhan 8/9 (Shravana Purnima): tithi=Purnima (14) month=Shravana naks=Shravana fest=Raksha Bandhan
+Janmashtami 8/16 (Bhadrapada Ashtami): tithi=Krishna Ashtami (22) month=Bhadrapada naks=Krittika fest=Krishna Janmashtami
+Ganesh Chaturthi 8/27 (Bhadrapada Shukla Chaturthi): tithi=Shukla Chaturthi (3) month=Bhadrapada naks=Chitra fest=Ganesh Chaturthi
+Maha Shivaratri 2/26 (Phalguna Chaturdashi): tithi=Krishna Trayodashi (27) month=Phalguna naks=Shravana fest=Maha Shivaratri
+Holi 3/14 (Phalguna Purnima): tithi=Purnima (14) month=Phalguna naks=Uttara Phalguni fest=Holika Dahan
+Ram Navami 4/6 (Chaitra Navami): tithi=Shukla Navami (8) month=Chaitra naks=Pushya fest=Ram Navami
+Makar Sankranti ~1/14: tithi=Krishna Pratipada (15) month=Magha naks=Punarvasu fest=Makar Sankranti
+Vaisakhi ~4/14: tithi=Krishna Pratipada (15) month=Vaishakha naks=Svati fest=Vaisakhi / Mesha Sankranti
+Karva Chauth ~10/10: tithi=Krishna Chaturthi (18) month=Kartika naks=Krittika fest=Karva Chauth
+
+VERIFY 2024
+Diwali 11/1 (Kartika Amavasya): tithi=Amavasya (29) month=Kartika naks=Svati fest=Diwali / Lakshmi Puja,Govardhan Puja
+Raksha Bandhan 8/19 (Shravana Purnima): tithi=Purnima (14) month=Shravana naks=Shravana fest=Raksha Bandhan
+Janmashtami 8/26 (Bhadrapada Ashtami): tithi=Krishna Ashtami (22) month=Bhadrapada naks=Krittika fest=Krishna Janmashtami
+Ganesh Chaturthi 9/7 (Bhadrapada Shukla Chaturthi): tithi=Shukla Chaturthi (3) month=Bhadrapada naks=Chitra fest=Ganesh Chaturthi
+Maha Shivaratri 3/8 (Phalguna Chaturdashi): tithi=Krishna Trayodashi (27) month=Phalguna naks=Shravana fest=Maha Shivaratri
+Holi 3/25 (Phalguna Purnima): tithi=Purnima (14) month=Phalguna naks=Uttara Phalguni fest=Holika Dahan
+
+DOB checks
+3 November 1984 => Aquarius / Purva Bhadrapada pada 1
+12 March 1982 => Libra / Chitra pada 3
+5 September 1979 => Aquarius / Dhanishtha pada 4
+14 January 1986 => Aquarius / Purva Bhadrapada pada 1
+30 November 2017 => Aries / Ashwini pada 1

@@ -25,6 +25,44 @@
   box-sizing: border-box;
 }
 
+/* Panchang Strip (today's lunar month, tithi, nakshatra, moon rashi) */
+.panchang-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  margin: 4px 0 2px;
+  background: linear-gradient(135deg, #fff7e6, #ffe9c7);
+  border: 1px solid #e6c98a;
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.panchang-item {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.panchang-item-month {
+  font-weight: bold;
+}
+
+.panchang-label {
+  color: #8a6420;
+  font-weight: 600;
+}
+
+.panchang-value {
+  color: #5a3e10;
+  font-weight: 700;
+}
+
 .nav-btn {
   width: 50px;
   height: 24px;
@@ -135,6 +173,33 @@
 .calendar-cell.today .cell-day {
   color: #4a90a4;
   font-size: 11px;
+}
+
+/* Panchang text inside each calendar cell (tithi shorthand) */
+.cell-panchang {
+  font-size: 7px;
+  line-height: 1.2;
+  color: #8a6420;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.calendar-cell.is-festival {
+  background-color: #fff4e6;
+  border-color: #e6a23c;
+}
+
+.calendar-cell.is-festival .cell-day {
+  color: #b74a1e;
+}
+
+.festival-dot {
+  font-size: 8px;
+  line-height: 1;
 }
 
 /* Event Indicators */
@@ -276,4 +341,44 @@
   flex-direction: column;
   gap: 3px;
   padding: 4px 0;
+}
+
+/* Rashi/Nakshatra line inside birthday event cards */
+.event-card-astro {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 8px;
+  color: #b74a1e;
+  font-weight: 600;
+}
+
+.event-card-astro .pada {
+  color: #999;
+  font-weight: 500;
+}
+
+.sep {
+  opacity: 0.5;
+}
+
+/* Selected-day panchang summary shown above the upcoming list */
+.selected-day-panchang {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px 6px;
+  margin: 2px 0 4px;
+  font-size: 9px;
+  font-weight: 600;
+  color: #5a3e10;
+  background-color: #fff7e6;
+  border: 1px solid #e6c98a;
+  border-radius: 5px;
+}
+
+.selected-day-festivals {
+  color: #b74a1e;
 }

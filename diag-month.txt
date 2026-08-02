@@ -1,0 +1,71 @@
+# Per-date: find next Purnima from that date and report moon nakshatra + sun rashi at exact instant
+
+2025 Pausha Purnima expects Pausha
+  next purnima 0 days ahead, interpolated 0.92d from given date
+  moon nakshatra=Punarvasu(6) -> nak-month Pausha
+  sun rashi=Capricorn(9) -> sun-month Magha
+2025 Magha Purnima expects Magha
+  next purnima 0 days ahead, interpolated 0.56d from given date
+  moon nakshatra=Magha(9) -> nak-month Magha
+  sun rashi=Aquarius(10) -> sun-month Phalguna
+2025 Phalguna Purnima (Holika) expects Phalguna
+  next purnima 0 days ahead, interpolated 0.27d from given date
+  moon nakshatra=Uttara Phalguni(11) -> nak-month Phalguna
+  sun rashi=Pisces(11) -> sun-month Chaitra
+2025 Chaitra Purnima expects Chaitra
+  next purnima 0 days ahead, interpolated 1.00d from given date
+  moon nakshatra=Chitra(13) -> nak-month Chaitra
+  sun rashi=Pisces(11) -> sun-month Chaitra
+2025 Vaishakha Purnima expects Vaishakha
+  next purnima 0 days ahead, interpolated 0.69d from given date
+  moon nakshatra=Vishakha(15) -> nak-month Vaishakha
+  sun rashi=Aries(0) -> sun-month Vaishakha
+2025 Jyeshtha Purnima expects Jyeshtha
+  next purnima 0 days ahead, interpolated 0.30d from given date
+  moon nakshatra=Jyeshtha(17) -> nak-month Jyeshtha
+  sun rashi=Taurus(1) -> sun-month Jyeshtha
+2025 Ashadha Purnima expects Ashadha
+  next purnima 0 days ahead, interpolated 0.84d from given date
+  moon nakshatra=Purva Ashadha(19) -> nak-month Ashadha
+  sun rashi=Gemini(2) -> sun-month Ashadha
+2025 Shravana Purnima expects Shravana
+  next purnima 0 days ahead, interpolated 0.31d from given date
+  moon nakshatra=Shravana(21) -> nak-month Shravana
+  sun rashi=Cancer(3) -> sun-month Shravana
+2025 Bhadrapada Purnima expects Bhadrapada
+  next purnima 0 days ahead, interpolated 0.74d from given date
+  moon nakshatra=Purva Bhadrapada(24) -> nak-month Bhadrapada
+  sun rashi=Leo(4) -> sun-month Bhadrapada
+2025 Ashwina Purnima expects Ashwina
+  next purnima 0 days ahead, interpolated 0.14d from given date
+  moon nakshatra=Revati(26) -> nak-month Ashwina
+  sun rashi=Virgo(5) -> sun-month Ashwina
+2025 Kartika Purnima expects Kartika
+  next purnima 0 days ahead, interpolated 0.54d from given date
+  moon nakshatra=Bharani(1) -> nak-month Kartika
+  sun rashi=Libra(6) -> sun-month Kartika
+2024 Phalguna Purnima (Holi) expects Phalguna
+  next purnima 0 days ahead, interpolated 0.27d from given date
+  moon nakshatra=Hasta(12) -> nak-month Chaitra
+  sun rashi=Pisces(11) -> sun-month Chaitra
+2024 Chaitra Purnima expects Chaitra
+  next purnima 0 days ahead, interpolated 0.97d from given date
+  moon nakshatra=Svati(14) -> nak-month Vaishakha
+  sun rashi=Aries(0) -> sun-month Vaishakha
+2024 Shravana Purnima (Rakhi) expects Shravana
+  next purnima 0 days ahead, interpolated 0.75d from given date
+  moon nakshatra=Dhanishtha(22) -> nak-month Bhadrapada
+  sun rashi=Leo(4) -> sun-month Bhadrapada
+2024 Kartika Purnima expects Kartika
+  next purnima 29 days ahead, interpolated 30.39d from given date
+  moon nakshatra=Mrigashira(4) -> nak-month Margashirsha
+  sun rashi=Sagittarius(8) -> sun-month Pausha
+2024 Diwali (Kartika Amavasya): NO PURNIMA FOUND
+2024 Maha Shivaratri (Phalguna Chaturdashi) expects Phalguna
+  next purnima 16 days ahead, interpolated 17.24d from given date
+  moon nakshatra=Hasta(12) -> nak-month Chaitra
+  sun rashi=Pisces(11) -> sun-month Chaitra
+
+Note: For a date already in a month, the +1 shift in naskshatra/sun-month mapping means:
+  Nak table: month ending at a purnima where MOON is in namesake nakshatra.
+  Sun table: month ending at a purnima where SUN is in sign (namesake+1).

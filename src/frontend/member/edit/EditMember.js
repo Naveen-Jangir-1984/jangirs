@@ -1,8 +1,10 @@
+import { useMemo } from "react";
 import DatePicker from "../../../components/DatePicker";
 import { ConfirmModal } from "../../../components/modals";
 import api from "../../../utils/api";
 import useTranslation from "../../../hooks/useTranslation";
 import useConfirm from "../../../hooks/useConfirm";
+import { getRashiNakshatraFromDob } from "../../../utils/panchang";
 import "./EditMember.css";
 
 const EditMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishText, getEnglishNumbers, onConfirmChange }) => {
@@ -74,6 +76,12 @@ const EditMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglish
     dispatch({ type: "editInput", attribute: e.target.name, value: e.target.value });
   };
 
+  // Live Rashi/Nakshatra preview from entered DOB
+  const memberAstro = useMemo(() => {
+    const dob = formatDate(state.editInput.date, state.editInput.month, state.editInput.year);
+    return dob ? getRashiNakshatraFromDob(dob) : null;
+  }, [state.editInput.date, state.editInput.month, state.editInput.year]);
+
   return (
     <div className="edit-member" style={{ display: state.isMemberEditOpen ? "flex" : "none" }} onClick={handleClose}>
       <div className="view" onClick={(e) => e.stopPropagation()}>
@@ -82,6 +90,19 @@ const EditMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglish
         <input type="text" name="mobile" value={state.editInput.mobile} onChange={handleInputChange} placeholder={t("Mobile")} />
 
         <DatePicker dateValue={state.editInput.date} monthValue={state.editInput.month} yearValue={state.editInput.year} onDateChange={handleInputChange} onMonthChange={handleInputChange} onYearChange={handleInputChange} isEnglish={isEnglish} getHindiNumbers={getHindiNumbers} className="dob" />
+
+        {memberAstro && (
+          <div className="astro-preview">
+            <span>{isEnglish ? "Rashi" : "राशि"}:</span>
+            <span>{isEnglish ? memberAstro.rashiEn : memberAstro.rashiHi}</span>
+            <span className="sep">|</span>
+            <span>{isEnglish ? "Nakshatra" : "नक्षत्र"}:</span>
+            <span>{isEnglish ? memberAstro.nakshatraEn : memberAstro.nakshatraHi}</span>
+            <span className="sep">|</span>
+            <span>{isEnglish ? "Pada" : "पदा"}:</span>
+            <span>{isEnglish ? memberAstro.pada + 1 : getHindiNumbers?.((memberAstro.pada + 1).toString()) || memberAstro.pada + 1}</span>
+          </div>
+        )}
 
         <select name="gender" value={state.editInput.gender} onChange={handleInputChange}>
           <option value="M">{t("Male")}</option>

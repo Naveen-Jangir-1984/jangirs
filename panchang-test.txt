@@ -1,0 +1,10 @@
+JD 2000-01-01: 2451545 (expect 2451545)
+Moon lon 1992-04-12.0: 130.042047 (expect ~133.162655)
+Sun lon 1992-04-12.0: 22.339578
+2000-01-01: sun=280.37 moon=224.79 elong=304.42 tithi=Krishna Ekadashi naks=Vishakha month=Margashirsha fest=|none
+2025-10-20: sun=207.35 moon=190.53 elong=343.18 tithi=Krishna Chaturdashi naks=Hasta month=Ashwina fest=|none
+2025-08-09: sun=137.16 moon=322.45 elong=185.29 tithi=Krishna Pratipada naks=Dhanishtha month=Bhadrapada fest=|none
+2025-08-16: sun=143.88 moon=63.25 elong=279.37 tithi=Krishna Navami naks=Krittika month=Bhadrapada fest=|none
+2025-02-26: sun=338.14 moon=319.49 elong=341.35 tithi=Krishna Chaturdashi naks=Dhanishtha month=Phalguna fest=Maha Shivaratri|none
+2025-11-05: sun=223.33 moon=47.76 elong=184.44 tithi=Krishna Pratipada naks=Bharani month=Kartika fest=|none
+DOB: Aquarius Shatabhisha

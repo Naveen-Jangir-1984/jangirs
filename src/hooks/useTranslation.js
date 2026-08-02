@@ -133,6 +133,13 @@ const KEY_MAP = {
   connection: "connection",
   more: "more",
   familytree: "family tree",
+  tithi: "tithi",
+  nakshatra: "nakshatra",
+  Rashi: "rashi",
+  Nakshatra: "nakshatra",
+  lunarMonth: "lunar month",
+  panchangMonth: "panchang month",
+  moonRashi: "moon rashi",
 };
 
 const ENGLISH_TEXT = {
@@ -224,6 +231,13 @@ const ENGLISH_TEXT = {
   noResults: "No members found",
   family: "Family",
   geographicMap: "Geographic Map",
+  tithi: "Tithi",
+  nakshatra: "Nakshatra",
+  Rashi: "Rashi",
+  Nakshatra: "Nakshatra",
+  lunarMonth: "Lunar Month",
+  panchangMonth: "Month",
+  moonRashi: "Moon Rashi",
 };
 
 export const useTranslation = (isEnglish) => {

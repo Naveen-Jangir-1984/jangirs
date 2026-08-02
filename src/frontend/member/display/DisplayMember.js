@@ -1,6 +1,7 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useMemo } from "react";
 import { MaleProfileIcon as MaleProfileImage, FemaleProfileIcon as FemaleProfileImage, MobileIcon, EmailIcon, UploadIcon, DeleteIcon } from "../../../utils/imageConstants";
 import { MONTHS } from "../../../utils/constants";
+import { getRashiNakshatraFromDob } from "../../../utils/panchang";
 import api from "../../../utils/api";
 import { fetchMemberImages } from "../../../utils/getImages";
 import useTranslation from "../../../hooks/useTranslation";
@@ -117,6 +118,9 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
   const memberDOD = state.memberToBeDisplayed.dod || "";
   const memberMobiles = state.memberToBeDisplayed.mobile || [];
   const memberEmails = state.memberToBeDisplayed.email || [];
+
+  // Compute janma rashi/nakshatra from DOB
+  const memberAstro = useMemo(() => (memberDOB ? getRashiNakshatraFromDob(memberDOB) : null), [memberDOB]);
 
   const getAge = (dobString, dodString) => {
     if (!dobString || dobString.length === 0) return { years: 0, months: 0, days: 0 };
@@ -442,6 +446,17 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
             <div className="gotra">
               <span style={{ fontWeight: "bolder" }}>{t("Gotra")}</span>
               <span>{isEnglish ? state.memberToBeDisplayed.gotra : getHindiText(state.memberToBeDisplayed.gotra, "gotra")}</span>
+            </div>
+          )}
+          {memberAstro && (
+            <div className="astro-info">
+              <span style={{ fontWeight: "bolder" }}>{t("Rashi")}</span>
+              <span>{isEnglish ? memberAstro.rashiEn : memberAstro.rashiHi}</span>
+              <span className="sep">|</span>
+              <span style={{ fontWeight: "bolder" }}>{t("Nakshatra")}</span>
+              <span>{isEnglish ? memberAstro.nakshatraEn : memberAstro.nakshatraHi}</span>
+              <span className="sep">|</span>
+              <span>{isEnglish ? `Pada ${memberAstro.pada + 1}` : `पदा ${getHindiNumbers(memberAstro.pada + 1)}`}</span>
             </div>
           )}
           {memberMobiles.length ? (

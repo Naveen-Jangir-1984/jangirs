@@ -188,6 +188,15 @@ const TIME_TERMS = {
   evening: "शाम",
   night: "रात",
 
+  // Panchang
+  tithi: "तिथि",
+  nakshatra: "नक्षत्र",
+  rashi: "राशि",
+  "lunar month": "हिन्दू मास",
+  "moon rashi": "चंद्र राशि",
+  "panchang month": "मास",
+  pada: "पदा",
+
   // Days
   sunday: "रविवार",
   monday: "सोमवार",

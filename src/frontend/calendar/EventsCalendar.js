@@ -1,12 +1,16 @@
 import { useState, useMemo, useCallback } from "react";
 import { MaleProfileIcon, FemaleProfileIcon } from "../../utils/imageConstants";
 import { getEventsForMonth, getUpcomingEvents } from "../../utils/treeUtils";
+import { getPanchangForDate, getPanchangForMonth, getRashiNakshatraFromDob } from "../../utils/panchang";
 import useTranslation from "../../hooks/useTranslation";
 import "./EventsCalendar.css";
 
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 const MONTH_NAMES_HINDI = ["जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितम्बर", "अक्टूबर", "नवम्बर", "दिसम्बर"];
+
+/** Compact English tithi label for small calendar cells. */
+const getTithiShort = (tithiEn) => tithiEn.replace(/^Shukla /, "").replace(/^Krishna /, "");
 
 const EventsCalendar = ({ state, dispatch, members, getHindiText, getHindiNumbers, isModalOpen }) => {
   const isEnglish = state.user?.language;
@@ -37,6 +41,23 @@ const EventsCalendar = ({ state, dispatch, members, getHindiText, getHindiNumber
   const upcomingEvents = useMemo(() => {
     return getUpcomingEvents(members, 30);
   }, [members]);
+
+  // Panchang for the currently viewed month (indexed by day-1) and for today
+  const panchangDays = useMemo(() => {
+    return getPanchangForMonth(viewYear, viewMonth);
+  }, [viewYear, viewMonth]);
+
+  const todayPanchang = useMemo(() => getPanchangForDate(new Date()), []);
+
+  const panchangForSelected = useMemo(() => {
+    if (selectedDay === null) return null;
+    return panchangDays[selectedDay - 1] || null;
+  }, [selectedDay, panchangDays]);
+
+  const getPanchangText = (p) => {
+    if (!p) return "";
+    return isEnglish ? getTithiShort(p.tithiEn) : p.tithiHi;
+  };
 
   const goToPrevMonth = useCallback(() => {
     setViewMonth((prev) => {
@@ -91,10 +112,11 @@ const EventsCalendar = ({ state, dispatch, members, getHindiText, getHindiNumber
     for (let d = 1; d <= daysInMonth; d++) {
       const isToday = d === today.day && viewMonth === today.month && viewYear === today.year;
       const dayEvents = eventsByDay[d] || [];
-      days.push({ day: d, isEmpty: false, isToday, events: dayEvents });
+      const panchang = panchangDays[d - 1] || null;
+      days.push({ day: d, isEmpty: false, isToday, events: dayEvents, panchang });
     }
     return days;
-  }, [firstDayOfMonth, daysInMonth, eventsByDay, today, viewMonth, viewYear]);
+  }, [firstDayOfMonth, daysInMonth, eventsByDay, panchangDays, today, viewMonth, viewYear]);
 
   const getEventIcon = (eventType) => (eventType === "birthday" ? "🎂" : "🕊️");
 
@@ -136,6 +158,26 @@ const EventsCalendar = ({ state, dispatch, members, getHindiText, getHindiNumber
         </button>
       </div>
 
+      {/* Panchang strip: today's lunar month, tithi, nakshatra and moon rashi */}
+      <div className="panchang-bar">
+        <div className="panchang-item panchang-item-month" title={t("lunarMonth")}>
+          <span className="panchang-label">{t("panchangMonth")}</span>
+          <span className="panchang-value">{isEnglish ? todayPanchang.monthEn : todayPanchang.monthHi}</span>
+        </div>
+        <div className="panchang-item" title={t("tithi")}>
+          <span className="panchang-label">{t("tithi")}</span>
+          <span className="panchang-value">{isEnglish ? todayPanchang.tithiEn : todayPanchang.tithiHi}</span>
+        </div>
+        <div className="panchang-item" title={t("nakshatra")}>
+          <span className="panchang-label">{t("nakshatra")}</span>
+          <span className="panchang-value">{isEnglish ? todayPanchang.nakshatraEn : todayPanchang.nakshatraHi}</span>
+        </div>
+        <div className="panchang-item" title={t("moonRashi")}>
+          <span className="panchang-label">{t("moonRashi")}</span>
+          <span className="panchang-value">{isEnglish ? todayPanchang.rashiEn : todayPanchang.rashiHi}</span>
+        </div>
+      </div>
+
       <div className="calendar-day-headers">
         {(isEnglish ? ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] : ["रवि", "सोम", "मंगल", "बुध", "गुरु", "शुक्र", "शनि"]).map((dayName, i) => (
           <div key={i} className="day-header">
@@ -148,9 +190,9 @@ const EventsCalendar = ({ state, dispatch, members, getHindiText, getHindiNumber
         {calendarDays.map((cell, i) => (
           <div
             key={i}
-            className={`calendar-cell ${cell.isEmpty ? "empty" : ""} ${cell.isToday ? "today" : ""} ${cell.events?.length ? "has-events" : ""} ${selectedDay === cell.day && cell.events?.length ? "selected" : ""}`}
+            className={`calendar-cell ${cell.isEmpty ? "empty" : ""} ${cell.isToday ? "today" : ""} ${cell.events?.length ? "has-events" : ""} ${cell.panchang?.isFestival ? "is-festival" : ""} ${selectedDay === cell.day && !cell.isEmpty ? "selected" : ""}`}
             onClick={() => {
-              if (!cell.isEmpty && cell.events?.length > 0) {
+              if (!cell.isEmpty) {
                 setSelectedDay(selectedDay === cell.day ? null : cell.day);
               }
             }}
@@ -158,6 +200,16 @@ const EventsCalendar = ({ state, dispatch, members, getHindiText, getHindiNumber
             {!cell.isEmpty && (
               <>
                 <span className="cell-day">{formatDay(cell.day)}</span>
+                {cell.panchang && (
+                  <span className="cell-panchang" title={`${isEnglish ? cell.panchang.tithiEn : cell.panchang.tithiHi} • ${isEnglish ? cell.panchang.nakshatraEn : cell.panchang.nakshatraHi}`}>
+                    {getPanchangText(cell.panchang)}
+                  </span>
+                )}
+                {cell.panchang?.isFestival && (
+                  <span className="festival-dot" title={(isEnglish ? cell.panchang.festivals.map((f) => f.en) : cell.panchang.festivals.map((f) => f.hi)).join(", ")}>
+                    {isEnglish ? "🪔" : "🪔"}
+                  </span>
+                )}
                 {cell.events?.length > 0 && (
                   <div className="cell-event-indicators">
                     {cell.events.slice(0, 3).map((evt, ei) => (
@@ -178,6 +230,23 @@ const EventsCalendar = ({ state, dispatch, members, getHindiText, getHindiNumber
         <div className="upcoming-header">
           <span>{isListForSelectedDay ? `${getMonthName(viewMonth)} ${formatDay(selectedDay)} — ${isEnglish ? displayedEvents.length : getHindiNumbers?.(displayedEvents.length.toString())} ${t("events")}` : `${t("upcomingEvents")} (${isEnglish ? Math.min(upcomingEvents.length, 5) : getHindiNumbers?.(Math.min(upcomingEvents.length, 5).toString())}${upcomingEvents.length > 5 ? "+" : ""})`}</span>
         </div>
+
+        {selectedDay !== null && panchangForSelected && (
+          <div className="selected-day-panchang">
+            <span>{isEnglish ? panchangForSelected.tithiEn : panchangForSelected.tithiHi}</span>
+            <span className="sep">•</span>
+            <span>{isEnglish ? panchangForSelected.nakshatraEn : panchangForSelected.nakshatraHi}</span>
+            <span className="sep">•</span>
+            <span>{isEnglish ? panchangForSelected.monthEn : panchangForSelected.monthHi}</span>
+            {panchangForSelected.festivals?.length > 0 && (
+              <>
+                <span className="sep">•</span>
+                <span className="selected-day-festivals">{isEnglish ? panchangForSelected.festivals.map((f) => f.en).join(", ") : panchangForSelected.festivals.map((f) => f.hi).join(", ")}</span>
+              </>
+            )}
+          </div>
+        )}
+
         {displayedEvents.length === 0 ? (
           <div className="no-upcoming">{t("noEvents")}</div>
         ) : (
@@ -187,6 +256,7 @@ const EventsCalendar = ({ state, dispatch, members, getHindiText, getHindiNumber
               const displayPic = memberDP?.src || (evt.member.gender === "M" ? MaleProfileIcon : FemaleProfileIcon);
               const isAlive = evt.member.isAlive !== false;
               const daysUntil = getDaysUntil(evt);
+              const astro = evt.eventType === "birthday" && evt.member.dob ? getRashiNakshatraFromDob(evt.member.dob) : null;
               return (
                 <div key={i} className={`upcoming-event-card ${getEventClass(evt.eventType)} ${isListForSelectedDay ? "highlighted" : ""}`} onClick={() => handleMemberClick(evt.member)}>
                   <img className={`event-member-pic ${isAlive ? "alive" : "deceased"}`} src={displayPic} alt={evt.member.name} style={{ transform: !memberDP && evt.member.gender === "F" ? "scaleX(-1)" : "none" }} />
@@ -198,6 +268,14 @@ const EventsCalendar = ({ state, dispatch, members, getHindiText, getHindiNumber
                         {getMonthName(evt.month)} {formatDay(evt.day)}
                       </span>
                     </div>
+                    {astro && (
+                      <div className="event-card-astro">
+                        <span>{isEnglish ? astro.rashiEn : astro.rashiHi}</span>
+                        <span className="sep">/</span>
+                        <span>{isEnglish ? astro.nakshatraEn : astro.nakshatraHi}</span>
+                        {astro.pada !== undefined && <span className="pada">{isEnglish ? `(Pada ${astro.pada + 1})` : `(पदा ${getHindiNumbers?.(astro.pada + 1) || astro.pada + 1})`}</span>}
+                      </div>
+                    )}
                     {evt.member.village && (
                       <div className="event-card-detail">
                         {isEnglish ? evt.member.village : getHindiText(evt.member.village, "village")}

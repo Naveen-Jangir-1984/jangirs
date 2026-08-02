@@ -1,8 +1,10 @@
+import { useMemo } from "react";
 import DatePicker from "../../../components/DatePicker";
 import { ConfirmModal } from "../../../components/modals";
 import api from "../../../utils/api";
 import useTranslation from "../../../hooks/useTranslation";
 import useConfirm from "../../../hooks/useConfirm";
+import { getRashiNakshatraFromDob } from "../../../utils/panchang";
 import "./AddMember.css";
 
 const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishText, getEnglishNumbers, onConfirmChange }) => {
@@ -97,6 +99,13 @@ const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishT
   const isFormDisabled = state.newMember.type === "";
   const isAddDisabled = state.newMember.type === "";
 
+  // Live Rashi/Nakshatra preview from entered DOB
+  const memberAstro = useMemo(() => {
+    if (isFormDisabled) return null;
+    const dob = formatDate(state.newMember.date, state.newMember.month, state.newMember.year);
+    return dob ? getRashiNakshatraFromDob(dob) : null;
+  }, [state.newMember.date, state.newMember.month, state.newMember.year, isFormDisabled]);
+
   return (
     <div className="add-member" style={{ display: state.isMemberAddOpen ? "flex" : "none" }} onClick={handleClose}>
       <div className="view" onClick={(e) => e.stopPropagation()}>
@@ -111,6 +120,19 @@ const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishT
         <input disabled={isFormDisabled} type="text" name="mobile" value={state.newMember.mobile} onChange={handleInputChange} placeholder={t("Mobile")} />
 
         <DatePicker dateValue={state.newMember.date} monthValue={state.newMember.month} yearValue={state.newMember.year} onDateChange={handleInputChange} onMonthChange={handleInputChange} onYearChange={handleInputChange} disabled={isFormDisabled} isEnglish={isEnglish} getHindiNumbers={getHindiNumbers} className="dob" />
+
+        {memberAstro && (
+          <div className="astro-preview">
+            <span>{isEnglish ? "Rashi" : "राशि"}:</span>
+            <span>{isEnglish ? memberAstro.rashiEn : memberAstro.rashiHi}</span>
+            <span className="sep">|</span>
+            <span>{isEnglish ? "Nakshatra" : "नक्षत्र"}:</span>
+            <span>{isEnglish ? memberAstro.nakshatraEn : memberAstro.nakshatraHi}</span>
+            <span className="sep">|</span>
+            <span>{isEnglish ? "Pada" : "पदा"}:</span>
+            <span>{isEnglish ? memberAstro.pada + 1 : getHindiNumbers?.((memberAstro.pada + 1).toString()) || memberAstro.pada + 1}</span>
+          </div>
+        )}
 
         <select disabled={isFormDisabled || state.newMember.type === "wife"} name="gender" value={state.newMember.type === "wife" ? "F" : state.newMember.gender} onChange={handleInputChange}>
           <option value="M">{t("Male")}</option>
