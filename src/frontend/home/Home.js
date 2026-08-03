@@ -7,6 +7,7 @@ import useTranslation from "../../hooks/useTranslation";
 import { exportElementAsPDF } from "../../utils/exportPDF";
 import TreeSkeleton from "../../components/skeleton/TreeSkeleton";
 import CalendarSkeleton from "../../components/skeleton/CalendarSkeleton";
+import MosaicSkeleton from "../../components/skeleton/MosaicSkeleton";
 import "./Home.css";
 
 const DisplayMember = lazy(() => import("../member/display/DisplayMember"));
@@ -16,6 +17,7 @@ const DisplayUsers = lazy(() => import("../user/DisplayUsers"));
 const EventsCalendar = lazy(() => import("../calendar/EventsCalendar"));
 const ConnectionMap = lazy(() => import("../connectionMap/ConnectionMap"));
 const GeographicMap = lazy(() => import("../geographicMap/GeographicMap"));
+const GenerationMosaic = lazy(() => import("../generationMosaic/GenerationMosaic"));
 
 const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers, getEnglishText, getEnglishNumbers }) => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -41,14 +43,14 @@ const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers, getEngl
     if (!container) return;
 
     // Find the visible content element
-    const contentElement = container.querySelector(".tree, .events-calendar, .connection-map, .geographic-map");
+    const contentElement = container.querySelector(".tree, .events-calendar, .connection-map, .geographic-map, .generation-mosaic");
     if (!contentElement) {
       console.warn("No exportable content found");
       return;
     }
 
     const village = state.village || "family";
-    const viewLabels = { tree: "Family Tree", calendar: "Events Calendar", connectionMap: "Connection Map", geographicMap: "Geographic Map" };
+    const viewLabels = { tree: "Family Tree", calendar: "Events Calendar", connectionMap: "Connection Map", geographicMap: "Geographic Map", mosaic: "Generation Mosaic" };
     const title = isEnglish ? `${village.charAt(0).toUpperCase() + village.slice(1)} - ${viewLabels[activeView] || activeView}` : "";
 
     try {
@@ -93,6 +95,11 @@ const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers, getEngl
             <GeographicMap state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} />
           </Suspense>
         )}
+        {isActive && viewName === "mosaic" && (
+          <Suspense fallback={<MosaicSkeleton />}>
+            <GenerationMosaic state={state} dispatch={dispatch} dulania={state.dulania} moruwa={state.moruwa} tatija={state.tatija} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} />
+          </Suspense>
+        )}
       </div>
     );
   };
@@ -100,12 +107,13 @@ const Home = ({ state, dispatch, members, getHindiText, getHindiNumbers, getEngl
   return (
     <div className={`home ${isModalOpen ? "modal-open" : ""}`}>
       <Header state={state} dispatch={dispatch} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} onConfirmChange={setIsConfirmOpen} activeView={activeView} setActiveView={setActiveView} onExportPDF={handleExportPDF} exportStatus={exportStatus} />
-      <Filter state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} isCalendarOpen={activeView === "calendar"} isConnectionOpen={activeView === "connectionMap"} isGeographicOpen={activeView === "geographicMap"} />
+      <Filter state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} isModalOpen={isModalOpen} isCalendarOpen={activeView === "calendar"} isConnectionOpen={activeView === "connectionMap"} isGeographicOpen={activeView === "geographicMap"} isMosaicOpen={activeView === "mosaic"} />
       <div className="view-content" ref={viewContentRef}>
         {renderViewPanel("tree", 0)}
         {renderViewPanel("calendar", 1)}
         {renderViewPanel("connectionMap", 2)}
         {renderViewPanel("geographicMap", 3)}
+        {renderViewPanel("mosaic", 4)}
       </div>
       <Footer state={state} />
       <Suspense fallback={null}>

@@ -132,6 +132,7 @@ const FAMILY_TERMS = {
   gotra: "गोत्र",
   village: "गाँव",
   birthplace: "जन्मस्थान",
+  generations: "पीढ़ियाँ",
 
   // Life events
   birth: "जन्म",

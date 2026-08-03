@@ -148,6 +148,7 @@ const KEY_MAP = {
   lunarMonth: "lunar month",
   panchangMonth: "panchang month",
   moonRashi: "moon rashi",
+  generations: "generations",
 };
 
 const ENGLISH_TEXT = {
@@ -254,6 +255,7 @@ const ENGLISH_TEXT = {
   lunarMonth: "Lunar Month",
   panchangMonth: "Month",
   moonRashi: "Moon Rashi",
+  generations: "Generations",
 };
 
 export const useTranslation = (isEnglish) => {
