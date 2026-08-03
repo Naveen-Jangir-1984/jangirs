@@ -4082,10 +4082,11 @@
                       "mobile": [],
                       "email": [],
                       "dob": "",
-                      "isAlive": true,
+                      "isAlive": false,
                       "dod": "",
                       "gender": "F",
-                      "village": ""
+                      "village": "",
+                      "gotra": ""
                     },
                     {
                       "id": 211211111423,

@@ -97,27 +97,47 @@ const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiTe
     const groups = {};
     const seen = new Set();
 
-    const addMember = (member, gen) => {
+    // Add a single member (no spouse) to the generation.
+    const addSingle = (member, gen) => {
       if (!member || !member.name) return;
       if (member.id != null && seen.has(member.id)) return;
       if (member.id != null) seen.add(member.id);
-      // Use the computed generation passed in (descendants), fall back to the
-      // member's own generation field (roots) or 1 as a last resort.
       const g = gen != null ? gen : member.generation != null ? member.generation : 1;
       if (!groups[g]) groups[g] = [];
-      groups[g].push(member);
+      groups[g].push({ type: "single", member });
+    };
+
+    // Add a couple (husband + his wives) as one paired tile.
+    const addCouple = (husband, wives, gen) => {
+      if (!husband || !husband.name) return;
+      if (husband.id != null && seen.has(husband.id)) return;
+      if (husband.id != null) seen.add(husband.id);
+      const validWives = (wives || []).filter((w) => w && w.name);
+      // If there are no valid wives, render the husband as a single tile.
+      if (validWives.length === 0) {
+        addSingle(husband, gen);
+        return;
+      }
+      // Mark wives as added so they are not rendered separately.
+      validWives.forEach((w) => {
+        if (w.id != null) seen.add(w.id);
+      });
+      const g = gen != null ? gen : husband.generation != null ? husband.generation : 1;
+      if (!groups[g]) groups[g] = [];
+      groups[g].push({ type: "couple", husband, wives: validWives });
     };
 
     const traverse = (node, gen) => {
       if (!node) return;
-      addMember(node, gen);
+      // Male with wives → couple tile; otherwise single tile.
+      if (node.gender === "M" && node.wives?.length) {
+        addCouple(node, node.wives, gen);
+      } else {
+        addSingle(node, gen);
+      }
       // Children (male lineage) get gen+1
       if (node.gender === "M" && node.children?.length) {
         node.children.forEach((child) => traverse(child, gen + 1));
-      }
-      // Wives share husband's generation
-      if (node.wives?.length) {
-        node.wives.forEach((wife) => addMember(wife, gen));
       }
     };
 
@@ -132,10 +152,11 @@ const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiTe
 
     // Sort generations ascending
     const sorted = Object.entries(groups)
-      .map(([gen, genMembers]) => ({
+      .map(([gen, items]) => ({
         generation: parseInt(gen, 10),
-        members: genMembers,
-        count: genMembers.length,
+        items,
+        // Count total individuals (couples count as husband + wives)
+        count: items.reduce((sum, item) => sum + (item.type === "couple" ? 1 + item.wives.length : 1), 0),
       }))
       .sort((a, b) => a.generation - b.generation);
 
@@ -247,8 +268,10 @@ const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiTe
 
   /**
    * Get the default icon for a member based on gender.
+   * Falls back to a female icon when no member is provided.
    */
   const getDefaultIcon = useCallback((member) => {
+    if (!member) return FemaleProfileIcon;
     return member.gender === "M" ? MaleProfileIcon : FemaleProfileIcon;
   }, []);
 
@@ -306,7 +329,66 @@ const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiTe
 
             {/* Member tiles */}
             <div className="generation-tiles">
-              {group.members.map((member) => {
+              {group.items.map((item, itemIdx) => {
+                if (item.type === "couple") {
+                  const h = item.husband;
+                  const w = item.wives[0]; // show first wife in pair
+                  const hPhoto = getMemberPhoto(h);
+                  const hIcon = hPhoto || getDefaultIcon(h);
+                  const wPhoto = w ? getMemberPhoto(w) : null;
+                  const wIcon = wPhoto || getDefaultIcon(w);
+                  const hAlive = h.isAlive !== false;
+                  const wAlive = w ? w.isAlive !== false : true;
+                  const hName = getDisplayName(h);
+                  const wName = w ? getDisplayName(w) : "";
+                  const hKey = `couple-${h.id ?? h.name}`;
+
+                  return (
+                    <div key={hKey} className="member-tile couple-tile" title={`${hName} & ${wName || "(wife)"}`}>
+                      {/* Husband (left) */}
+                      <div
+                        className="couple-member couple-husband"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleMemberClick(h, e);
+                        }}
+                      >
+                        <div className="member-tile-photo-wrapper male">
+                          <img className={`member-tile-photo ${!hAlive ? "deceased" : ""}`} src={hIcon} alt={hName} loading="lazy" />
+                          <span className={`member-tile-status-dot ${hAlive ? "alive" : "deceased"}`} />
+                        </div>
+                        <span className={`member-tile-name ${!hAlive ? "deceased" : ""}`}>{hName}</span>
+                      </div>
+                      {/* Connector */}
+                      {/* <span className="couple-connector">💍</span> */}
+                      {/* Wife (right) */}
+                      <div
+                        className="couple-member couple-wife"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (w) handleMemberClick(w, e);
+                        }}
+                      >
+                        <div className="member-tile-photo-wrapper female">
+                          <img
+                            className={`member-tile-photo ${!wAlive ? "deceased" : ""}`}
+                            src={wIcon}
+                            alt={wName}
+                            loading="lazy"
+                            style={{
+                              transform: !wPhoto && w && w.village ? "scaleX(-1)" : "none",
+                            }}
+                          />
+                          <span className={`member-tile-status-dot ${wAlive ? "alive" : "deceased"}`} />
+                        </div>
+                        <span className={`member-tile-name ${!wAlive ? "deceased" : ""}`}>{wName}</span>
+                      </div>
+                    </div>
+                  );
+                }
+
+                // Single member tile
+                const member = item.member;
                 const photoSrc = getMemberPhoto(member);
                 const defaultIcon = getDefaultIcon(member);
                 const isAlive = member.isAlive !== false;
