@@ -62,7 +62,7 @@
   padding: 2px 10px;
   border-radius: 5px;
   background-color: #eee;
-  /* border-left: 3px solid #4a90a4; */
+  border: 1px solid #ddd;
   position: sticky;
   top: 0;
   z-index: 2;

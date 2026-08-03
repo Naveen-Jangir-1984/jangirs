@@ -99,7 +99,7 @@ const EditMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglish
             <span>{isEnglish ? "Nakshatra" : "नक्षत्र"}:</span>
             <span>{isEnglish ? memberAstro.nakshatraEn : memberAstro.nakshatraHi}</span>
             <span className="sep">|</span>
-            <span>{isEnglish ? "Pada" : "पदा"}:</span>
+            <span>{isEnglish ? "Pada" : "पद"}:</span>
             <span>{isEnglish ? memberAstro.pada + 1 : getHindiNumbers?.((memberAstro.pada + 1).toString()) || memberAstro.pada + 1}</span>
           </div>
         )}

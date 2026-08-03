@@ -456,7 +456,7 @@ const DisplayMember = ({ state, dispatch, getHindiText, getHindiNumbers, onConfi
               <span style={{ fontWeight: "bolder" }}>{t("Nakshatra")}</span>
               <span>{isEnglish ? memberAstro.nakshatraEn : memberAstro.nakshatraHi}</span>
               <span className="sep">|</span>
-              <span>{isEnglish ? `Pada ${memberAstro.pada + 1}` : `पदा ${getHindiNumbers(memberAstro.pada + 1)}`}</span>
+              <span>{isEnglish ? `Pada ${memberAstro.pada + 1}` : `पद ${getHindiNumbers((memberAstro.pada + 1).toString())}`}</span>
             </div>
           )}
           {memberMobiles.length ? (

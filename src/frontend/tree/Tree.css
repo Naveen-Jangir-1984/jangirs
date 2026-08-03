@@ -23,7 +23,7 @@
   padding-left: 10px;
   box-sizing: border-box;
   margin: 2px 1px;
-  border: none;
+  border: 1px solid #ddd;
   border-radius: 5px;
   column-gap: 5px;
   width: 320px;
