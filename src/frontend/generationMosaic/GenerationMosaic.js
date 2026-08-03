@@ -355,7 +355,7 @@ const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiTe
                       >
                         <div className="member-tile-photo-wrapper male">
                           <img className={`member-tile-photo ${!hAlive ? "deceased" : ""}`} src={hIcon} alt={hName} loading="lazy" />
-                          <span className={`member-tile-status-dot ${hAlive ? "alive" : "deceased"}`} />
+                          {/* <span className={`member-tile-status-dot ${hAlive ? "alive" : "deceased"}`} /> */}
                         </div>
                         <span className={`member-tile-name ${!hAlive ? "deceased" : ""}`}>{hName}</span>
                       </div>
@@ -379,7 +379,7 @@ const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiTe
                               transform: !wPhoto && w && w.village ? "scaleX(-1)" : "none",
                             }}
                           />
-                          <span className={`member-tile-status-dot ${wAlive ? "alive" : "deceased"}`} />
+                          {/* <span className={`member-tile-status-dot ${wAlive ? "alive" : "deceased"}`} /> */}
                         </div>
                         <span className={`member-tile-name ${!wAlive ? "deceased" : ""}`}>{wName}</span>
                       </div>
@@ -408,7 +408,7 @@ const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiTe
                           transform: !photoSrc && member.gender === "F" && member.village ? "scaleX(-1)" : "none",
                         }}
                       />
-                      <span className={`member-tile-status-dot ${isAlive ? "alive" : "deceased"}`} />
+                      {/* <span className={`member-tile-status-dot ${isAlive ? "alive" : "deceased"}`} /> */}
                     </div>
                     <span className={`member-tile-name ${!isAlive ? "deceased" : ""}`}>{displayName}</span>
                     {ageStr && <span className="member-tile-age">{ageStr}</span>}
