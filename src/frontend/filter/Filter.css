@@ -17,10 +17,6 @@
   pointer-events: none;
 }
 
-.filter select {
-  width: 100px;
-}
-
 .filter-label {
   font-size: 8px;
   font-weight: bolder;

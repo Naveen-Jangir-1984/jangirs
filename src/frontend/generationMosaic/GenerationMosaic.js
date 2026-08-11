@@ -111,13 +111,15 @@ const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiTe
     const addCouple = (husband, wives, gen) => {
       if (!husband || !husband.name) return;
       if (husband.id != null && seen.has(husband.id)) return;
-      if (husband.id != null) seen.add(husband.id);
       const validWives = (wives || []).filter((w) => w && w.name);
       // If there are no valid wives, render the husband as a single tile.
+      // Only mark the husband as seen AFTER confirming there are valid wives,
+      // so he can still be added as a single tile when all wives are unnamed.
       if (validWives.length === 0) {
         addSingle(husband, gen);
         return;
       }
+      if (husband.id != null) seen.add(husband.id);
       // Mark wives as added so they are not rendered separately.
       validWives.forEach((w) => {
         if (w.id != null) seen.add(w.id);
