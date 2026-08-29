@@ -7,7 +7,7 @@
       "wives": [
         {
           "id": 10,
-          "name": "",
+          "name": "Laalii",
           "isAlive": false,
           "gender": "F",
           "dob": "",
@@ -43,11 +43,15 @@
               "wives": [
                 {
                   "id": 1120,
-                  "name": "",
+                  "name": "Shilii",
                   "isAlive": false,
                   "gender": "F",
                   "village": "Nuniya-Gothda",
-                  "gotra": "Bhiraniya"
+                  "gotra": "Bhiraniya",
+                  "dob": "",
+                  "dod": "",
+                  "email": [],
+                  "mobile": []
                 }
               ],
               "children": [
@@ -1619,7 +1623,7 @@
                   "wives": [
                     {
                       "id": 11110,
-                      "name": "",
+                      "name": "Devii",
                       "mobile": [],
                       "email": [],
                       "dob": "",
@@ -3464,7 +3468,14 @@
                   ],
                   "isAlive": false,
                   "gender": "M",
-                  "isCollapsed": true
+                  "isCollapsed": true,
+                  "dob": "",
+                  "dod": "",
+                  "village": "",
+                  "gotra": "",
+                  "email": [],
+                  "mobile": [],
+                  "thamba": ""
                 },
                 {
                   "id": 1113,
@@ -4440,6 +4451,7 @@
     "villages": {
       "khaatiya-ki-dhani": "खातियाँ-की-ढाणी",
       "moruwa": "मोरुवा",
+      "tatija": "तातिजा",
       "bangothdi": "बनगोठड़ी",
       "ghardana": "घरड़ाना",
       "rasoolpur": "रसूलपुर",
@@ -4938,7 +4950,11 @@
       "adopted": "गोद",
       "kanak": "कनक",
       "darsh": "दर्श",
-      "chhayansh": "छ्यन्श"
+      "chhayansh": "छ्यन्श",
+      "devi": "देवि",
+      "devii": "देवी",
+      "laalii": "लाली",
+      "shilii": "शिली"
     },
     "numbers": {
       "0": "०",
