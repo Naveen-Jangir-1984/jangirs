@@ -149,7 +149,7 @@ const addMember = (tree, id, member, type) => {
 };
 
 const updateMemberFields = (target, source) => {
-  const fields = ["name", "gender", "isAlive", "dob", "dod", "village", "gotra", "email", "mobile"];
+  const fields = ["name", "gender", "isAlive", "dob", "dod", "village", "gotra", "email", "mobile", "thamba"];
   fields.forEach((field) => (target[field] = source[field]));
 };
 

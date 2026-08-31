@@ -23,6 +23,7 @@ export const INITIAL_NEW_MEMBER = {
   gender: "M",
   village: "",
   gotra: "",
+  thamba: "",
 };
 
 export const INITIAL_NEW_USER = {
@@ -47,6 +48,7 @@ export const INITIAL_EDIT_INPUT = {
   gotra: "",
   email: "",
   isAlive: "",
+  thamba: "",
 };
 
 export const INITIAL_FILTERS = {

@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef, useCallback, useEffect } from "react";
 import { MaleProfileIcon, FemaleProfileIcon } from "../../utils/imageConstants";
 import { MONTHS } from "../../utils/constants";
-import useTranslation from "../../hooks/useTranslation";
+import MemberPortrait from "../../components/MemberPortrait";
 import "./GenerationMosaic.css";
 
 /**
@@ -19,7 +19,6 @@ import "./GenerationMosaic.css";
  */
 const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiText, getHindiNumbers, isModalOpen }) => {
   const isEnglish = state.user?.language;
-  const { t } = useTranslation(isEnglish);
   const containerRef = useRef(null);
   const [activeGen, setActiveGen] = useState(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -230,21 +229,6 @@ const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiTe
   }, []);
 
   /**
-   * Compute intro text for a generation.
-   */
-  const getGenerationIntro = useCallback(
-    (gen, count) => {
-      if (isEnglish) {
-        return `Meet Generation ${gen} — ${count} member${count !== 1 ? "s" : ""} of the Jangir family tree.`;
-      }
-      const genText = getHindiText?.(`Generation ${gen}`) || `पीढ़ी ${gen}`;
-      const countText = getHindiNumbers?.(count.toString()) || count;
-      return `${genText} — जांगिर वंश वृक्ष के ${countText} सदस्य।`;
-    },
-    [isEnglish, getHindiText, getHindiNumbers],
-  );
-
-  /**
    * Get the display name for a member.
    */
   const getDisplayName = useCallback(
@@ -289,9 +273,6 @@ const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiTe
     );
   }
 
-  // Determine the overall generation range for the nav bar
-  const genRange = generationGroups.length > 0 ? { min: generationGroups[0].generation, max: generationGroups[generationGroups.length - 1].generation } : { min: 1, max: 1 };
-
   return (
     <div className={`generation-mosaic ${isModalOpen ? "slide-out" : ""}`} ref={containerRef}>
       {/* Navigation bar for quick generation jumping */}
@@ -309,7 +290,6 @@ const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiTe
       {generationGroups.map((group, groupIndex) => {
         const genLabel = isEnglish ? `Generation ${group.generation}` : `पीढ़ी ${getHindiNumbers?.(group.generation.toString()) || group.generation}`;
         const countLabel = isEnglish ? `${group.count} member${group.count !== 1 ? "s" : ""}` : `${getHindiNumbers?.(group.count.toString()) || group.count} सदस्य`;
-        const intro = groupIndex === 0 || groupIndex === generationGroups.length - 1 ? getGenerationIntro(group.generation, group.count) : null;
 
         return (
           <div
@@ -331,7 +311,7 @@ const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiTe
 
             {/* Member tiles */}
             <div className="generation-tiles">
-              {group.items.map((item, itemIdx) => {
+              {group.items.map((item) => {
                 if (item.type === "couple") {
                   const h = item.husband;
                   const w = item.wives[0]; // show first wife in pair
@@ -356,7 +336,7 @@ const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiTe
                         }}
                       >
                         <div className="member-tile-photo-wrapper male">
-                          <img className={`member-tile-photo ${!hAlive ? "deceased" : ""}`} src={hIcon} alt={hName} loading="lazy" />
+                          <MemberPortrait imgClassName={`member-tile-photo ${!hAlive ? "deceased" : ""}`} src={hIcon} alt={hName} thamba={h.thamba} />
                           {/* <span className={`member-tile-status-dot ${hAlive ? "alive" : "deceased"}`} /> */}
                         </div>
                         <span className={`member-tile-name ${!hAlive ? "deceased" : ""}`}>{hName}</span>
@@ -372,12 +352,12 @@ const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiTe
                         }}
                       >
                         <div className="member-tile-photo-wrapper female">
-                          <img
-                            className={`member-tile-photo ${!wAlive ? "deceased" : ""}`}
+                          <MemberPortrait
+                            imgClassName={`member-tile-photo ${!wAlive ? "deceased" : ""}`}
                             src={wIcon}
                             alt={wName}
-                            loading="lazy"
-                            style={{
+                            thamba={w?.thamba}
+                            imgStyle={{
                               transform: !wPhoto && w && w.village ? "scaleX(-1)" : "none",
                             }}
                           />
@@ -401,12 +381,12 @@ const GenerationMosaic = ({ state, dispatch, dulania, moruwa, tatija, getHindiTe
                 return (
                   <div key={member.id ?? member.name} className={`member-tile ${!isAlive ? "deceased" : ""}`} onClick={(e) => handleMemberClick(member, e)} title={displayName}>
                     <div className={`member-tile-photo-wrapper ${member.gender === "M" ? "male" : "female"}`}>
-                      <img
-                        className={`member-tile-photo ${!isAlive ? "deceased" : ""}`}
+                      <MemberPortrait
+                        imgClassName={`member-tile-photo ${!isAlive ? "deceased" : ""}`}
                         src={photoSrc || defaultIcon}
                         alt={displayName}
-                        loading="lazy"
-                        style={{
+                        thamba={member.thamba}
+                        imgStyle={{
                           transform: !photoSrc && member.gender === "F" && member.village ? "scaleX(-1)" : "none",
                         }}
                       />

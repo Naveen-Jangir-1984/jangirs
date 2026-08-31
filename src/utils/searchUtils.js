@@ -111,7 +111,6 @@ const getFuzzyScore = (text, query) => {
  */
 const getMatchedFields = (member, query, getHindiText) => {
   const matched = [];
-  const lowerQuery = query.toLowerCase();
 
   // Check name
   if (member.name && getFuzzyScore(member.name, query) > 0) {
@@ -271,4 +270,6 @@ export const fuzzySearch = (query, flatMembers, maxResults = 20, getHindiText) =
   return scored.slice(0, maxResults);
 };
 
-export default { flattenAllMembers, fuzzySearch };
+const searchUtils = { flattenAllMembers, fuzzySearch };
+
+export default searchUtils;

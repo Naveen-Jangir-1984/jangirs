@@ -2,6 +2,7 @@ import { useState } from "react";
 import useTranslation from "../hooks/useTranslation";
 import { MaleProfileIcon, FemaleProfileIcon } from "../utils/imageConstants";
 import { CloseIcon } from "../utils/imageConstants";
+import MemberPortrait from "./MemberPortrait";
 import "./BirthdayBanner.css";
 
 /**
@@ -14,9 +15,10 @@ import "./BirthdayBanner.css";
  * @param {Array} images - Array of { id, src } member profile images
  * @param {boolean} isEnglish - Whether to render in English (true) or Hindi (false)
  * @param {Function} getHindiText - Helper to translate member names to Hindi
+ * @param {Function} onMemberClick - Callback when a member avatar is clicked
  * @param {Function} onClose - Callback when the banner is closed
  */
-const BirthdayBanner = ({ events = [], images = [], isEnglish, getHindiText, onClose }) => {
+const BirthdayBanner = ({ events = [], images = [], isEnglish, getHindiText, onMemberClick, onClose }) => {
   const { t } = useTranslation(isEnglish);
   const [dismissed, setDismissed] = useState(false);
 
@@ -57,8 +59,8 @@ const BirthdayBanner = ({ events = [], images = [], isEnglish, getHindiText, onC
     <div className="birthday-banner" role="status" aria-live="polite">
       <div className="birthday-banner-avatars">
         {events.map((evt, i) => (
-          <div key={i} className={`birthday-banner-avatar`}>
-            <img src={getMemberPic(evt.member)} alt={evt.member.name} title={evt.member.name} loading="lazy" style={{ transform: evt.member.gender === "F" && !images?.find((img) => img.id === evt.member.id)?.src ? "scaleX(-1)" : "none" }} />
+          <div key={i} className={`birthday-banner-avatar ${onMemberClick ? "clickable" : ""}`}>
+            <MemberPortrait src={getMemberPic(evt.member)} alt={evt.member.name} thamba={evt.member.thamba} imgStyle={{ transform: evt.member.gender === "F" && !images?.find((img) => img.id === evt.member.id)?.src ? "scaleX(-1)" : "none" }} onClick={onMemberClick ? () => onMemberClick(evt.member) : undefined} />
             <span className="birthday-banner-text">{messages[i]}</span>
           </div>
         ))}

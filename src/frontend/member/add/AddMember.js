@@ -5,9 +5,10 @@ import api from "../../../utils/api";
 import useTranslation from "../../../hooks/useTranslation";
 import useConfirm from "../../../hooks/useConfirm";
 import { getRashiNakshatraFromDob } from "../../../utils/panchang";
+import { THAMBA_OPTIONS } from "../../../utils/thamba";
 import "./AddMember.css";
 
-const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishText, getEnglishNumbers, onConfirmChange }) => {
+const AddMember = ({ state, dispatch, getHindiNumbers, onConfirmChange }) => {
   const isEnglish = state.user.language;
   const { t } = useTranslation(isEnglish);
   const { isOpen: confirmOpen, message: confirmMessage, showConfirm, handleConfirm, handleCancel } = useConfirm();
@@ -63,6 +64,7 @@ const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishT
         isAlive,
         gender: newMember.gender,
         village: newMember.village,
+        thamba: newMember.thamba,
         ...(newMember.gender === "M" && { children: [], wives: [], isCollapsed: false }),
       };
     } else if (newMember.type === "wife") {
@@ -77,6 +79,7 @@ const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishT
         gender: "F",
         village: newMember.village,
         gotra: newMember.gotra,
+        thamba: newMember.thamba,
       };
     }
 
@@ -151,6 +154,18 @@ const AddMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishT
         {state.newMember.type === "wife" && <input type="text" name="gotra" value={state.newMember.gotra} onChange={handleInputChange} placeholder={t("Gotra")} />}
 
         <input disabled={isFormDisabled} type="email" name="email" value={state.newMember.email} onChange={handleInputChange} placeholder={t("Email")} />
+
+        <div className="thamba-field">
+          <label htmlFor="thamba">{t("Thamba")}</label>
+          <select disabled={isFormDisabled} id="thamba" name="thamba" value={state.newMember.thamba || ""} onChange={handleInputChange}>
+            <option value="">{t("Select Thamba")}</option>
+            {THAMBA_OPTIONS.filter((option) => option.value !== "").map((option) => (
+              <option key={option.value} value={option.value}>
+                {t(option.label)}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <div className="add-member-buttons">
           <button className="add-member-button cancel" onClick={handleClose}>

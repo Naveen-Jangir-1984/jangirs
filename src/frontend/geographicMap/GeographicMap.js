@@ -79,8 +79,9 @@ function GeographicMap(props) {
   var geoData = useMemo(
     function () {
       var currentVillage = state.village || "dulania";
+      var villageData = currentVillage === "moruwa" ? state.moruwa || [] : currentVillage === "tatija" ? state.tatija || [] : state.dulania || [];
       var db = {};
-      db[currentVillage] = state[currentVillage] || [];
+      db[currentVillage] = villageData;
       return buildGeoData(db);
     },
     [state.village, state.dulania, state.moruwa, state.tatija],
@@ -91,7 +92,7 @@ function GeographicMap(props) {
       setSelectedNode(null);
       setHoveredNode(null);
     },
-    [state.village],
+    [state.village, setSelectedNode, setHoveredNode],
   );
 
   var filteredNodes = useMemo(
@@ -145,12 +146,15 @@ function GeographicMap(props) {
     [geoData.nodes],
   );
 
-  var handleNodeClick = useCallback(function (node) {
-    setSelectedNode(function (prev) {
-      if (prev && prev.id === node.id) return null;
-      return node;
-    });
-  }, []);
+  var handleNodeClick = useCallback(
+    function (node) {
+      setSelectedNode(function (prev) {
+        if (prev && prev.id === node.id) return null;
+        return node;
+      });
+    },
+    [setSelectedNode],
+  );
 
   var handleMemberClick = useCallback(
     function (member) {
@@ -284,7 +288,6 @@ function GeographicMap(props) {
     // - When filtering "daughter": show individual members (daughters who settled there)
     // - When "all" or other: show pairs when node is a wife source, else individuals
     var hasWifeRole = node.types && node.types.indexOf("wife") !== -1;
-    var hasDaughterRole = node.types && node.types.indexOf("daughter") !== -1;
     var showAsPairs = false;
     if (activeFilter === "wife") {
       showAsPairs = true;
@@ -296,95 +299,94 @@ function GeographicMap(props) {
     }
 
     if (showAsPairs && node.memberPairs && node.memberPairs.length > 0) {
-      for (var pi = 0; pi < node.memberPairs.length; pi++) {
-        var pair = node.memberPairs[pi];
-        var w = pair.wife;
-        var h = pair.husband;
+      for (let pi = 0; pi < node.memberPairs.length; pi++) {
+        const pair = node.memberPairs[pi];
+        const w = pair.wife;
+        const h = pair.husband;
         if (w && w.name) {
-          var wPhotoSrc = null;
-          var hPhotoSrc = null;
+          let wPhotoSrc = null;
+          let hPhotoSrc = null;
           if (state.images) {
-            for (var wii = 0; wii < state.images.length; wii++) {
+            for (let wii = 0; wii < state.images.length; wii++) {
               if (state.images[wii].id === w.id) {
                 wPhotoSrc = state.images[wii].src;
                 break;
               }
             }
-            for (var hii = 0; hii < state.images.length; hii++) {
+            for (let hii = 0; hii < state.images.length; hii++) {
               if (state.images[hii].id === h.id) {
                 hPhotoSrc = state.images[hii].src;
                 break;
               }
             }
           }
-          var wName = isEnglish ? w.name : getHindiText ? getHindiText(w.name, "name") : w.name;
-          var hName = h && h.name ? (isEnglish ? h.name : getHindiText ? getHindiText(h.name, "name") : h.name) : "";
-          (function (wife, hus, wifeSrc, husSrc) {
-            memberItems.push(
+          const wifeMember = w;
+          const husbandMember = h;
+          const wName = isEnglish ? wifeMember.name : getHindiText ? getHindiText(wifeMember.name, "name") : wifeMember.name;
+          const hName = husbandMember && husbandMember.name ? (isEnglish ? husbandMember.name : getHindiText ? getHindiText(husbandMember.name, "name") : husbandMember.name) : "";
+          memberItems.push(
+            React.createElement(
+              "div",
+              { key: "pair-" + (wifeMember.id || pi), className: "geo-popup-pair" },
               React.createElement(
                 "div",
-                { key: "pair-" + pi, className: "geo-popup-pair" },
-                React.createElement(
-                  "div",
-                  {
-                    className: "geo-popup-member",
-                    onClick: function () {
-                      handleMemberClick(wife);
-                    },
-                    title: wife.name,
+                {
+                  className: "geo-popup-member",
+                  onClick: function () {
+                    handleMemberClick(wifeMember);
                   },
-                  React.createElement("img", { className: "geo-popup-member-photo", src: wifeSrc || FemaleProfileIcon, alt: wife.name, style: { borderColor: wife.isAlive !== false ? "#4caf50" : "#f44336" } }),
-                  React.createElement("span", { className: "geo-popup-member-name" }, wName),
-                ),
-                hus && hus.name
-                  ? React.createElement(
-                      "div",
-                      {
-                        className: "geo-popup-member",
-                        onClick: function () {
-                          handleMemberClick(hus);
-                        },
-                        title: hus.name,
-                      },
-                      React.createElement("img", { className: "geo-popup-member-photo", src: husSrc || MaleProfileIcon, alt: hus.name, style: { borderColor: hus.isAlive !== false ? "#4caf50" : "#f44336" } }),
-                      React.createElement("span", { className: "geo-popup-member-name" }, hName),
-                    )
-                  : null,
+                  title: wifeMember.name,
+                },
+                React.createElement("img", { className: "geo-popup-member-photo", src: wPhotoSrc || FemaleProfileIcon, alt: wifeMember.name, style: { borderColor: wifeMember.isAlive !== false ? "#4caf50" : "#f44336" } }),
+                React.createElement("span", { className: "geo-popup-member-name" }, wName),
               ),
-            );
-          })(w, h, wPhotoSrc, hPhotoSrc);
+              husbandMember && husbandMember.name
+                ? React.createElement(
+                    "div",
+                    {
+                      className: "geo-popup-member",
+                      onClick: function () {
+                        handleMemberClick(husbandMember);
+                      },
+                      title: husbandMember.name,
+                    },
+                    React.createElement("img", { className: "geo-popup-member-photo", src: hPhotoSrc || MaleProfileIcon, alt: husbandMember.name, style: { borderColor: husbandMember.isAlive !== false ? "#4caf50" : "#f44336" } }),
+                    React.createElement("span", { className: "geo-popup-member-name" }, hName),
+                  )
+                : null,
+            ),
+          );
         }
       }
     } else if (node.members && node.members.length > 0) {
-      for (var memi = 0; memi < node.members.length; memi++) {
-        var m = node.members[memi];
-        var photoSrc = null;
+      for (let memi = 0; memi < node.members.length; memi++) {
+        const m = node.members[memi];
+        let photoSrc = null;
         if (state.images) {
-          for (var ii = 0; ii < state.images.length; ii++) {
+          for (let ii = 0; ii < state.images.length; ii++) {
             if (state.images[ii].id === m.id) {
               photoSrc = state.images[ii].src;
               break;
             }
           }
         }
-        var memIcon = m.gender === "M" ? MaleProfileIcon : FemaleProfileIcon;
-        (function (mem, src, icon) {
-          memberItems.push(
-            React.createElement(
-              "div",
-              {
-                key: mem.id,
-                className: "geo-popup-member",
-                onClick: function () {
-                  handleMemberClick(mem);
-                },
-                title: mem.name,
+        const member = m;
+        const memIcon = member.gender === "M" ? MaleProfileIcon : FemaleProfileIcon;
+        memberItems.push(
+          React.createElement(
+            "div",
+            {
+              key: member.id,
+              className: "geo-popup-member",
+              onClick: function () {
+                handleMemberClick(member);
               },
-              React.createElement("img", { className: "geo-popup-member-photo", src: src || icon, alt: mem.name, style: { borderColor: mem.isAlive !== false ? "#4caf50" : "#f44336" } }),
-              React.createElement("span", { className: "geo-popup-member-name" }, isEnglish ? mem.name : getHindiText ? getHindiText(mem.name, "name") : mem.name),
-            ),
-          );
-        })(m, photoSrc, memIcon);
+              title: member.name,
+            },
+            React.createElement("img", { className: "geo-popup-member-photo", src: photoSrc || memIcon, alt: member.name, style: { borderColor: member.isAlive !== false ? "#4caf50" : "#f44336" } }),
+            React.createElement("span", { className: "geo-popup-member-name" }, isEnglish ? member.name : getHindiText ? getHindiText(member.name, "name") : member.name),
+          ),
+        );
       }
     }
 

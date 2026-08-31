@@ -1,13 +1,8 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
-import { buildConnectionGraph, buildVillageConnections, buildInLawNetwork, getConnectionStats } from "../../utils/connectionMapUtils";
+import { buildConnectionGraph, buildVillageConnections, buildInLawNetwork } from "../../utils/connectionMapUtils";
+import MemberPortrait from "../../components/MemberPortrait";
 import useTranslation from "../../hooks/useTranslation";
 import "./ConnectionMap.css";
-
-const VILLAGE_COLORS = {
-  dulania: "#4a90a4",
-  moruwa: "#e67e22",
-  tatija: "#2ecc71",
-};
 
 const COLORS = ["#4a90a4", "#e67e22", "#2ecc71", "#e74c3c", "#9b59b6", "#f39c12", "#1abc9c", "#3498db", "#e91e63", "#00bcd4", "#ff9800", "#8bc34a", "#795548", "#607d8b", "#ffc107", "#3f51b5", "#ff4081", "#7c4dff", "#00e676", "#ff6d00"];
 
@@ -42,14 +37,12 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
 
   const graphData = useMemo(() => {
     const currentVillage = state.village || "dulania";
-    const villageData = state[currentVillage] || [];
+    const villageData = currentVillage === "moruwa" ? state.moruwa || [] : currentVillage === "tatija" ? state.tatija || [] : state.dulania || [];
     const db = { [currentVillage]: villageData };
     if (subView === "gotra") return buildConnectionGraph(db);
     if (subView === "inlaw") return buildInLawNetwork(db);
     return buildVillageConnections(db);
   }, [state.village, state.dulania, state.moruwa, state.tatija, subView]);
-
-  const stats = useMemo(() => getConnectionStats(graphData.nodes, graphData.edges), [graphData]);
 
   useEffect(() => {
     if (!graphData.nodes.length) return;
@@ -352,19 +345,6 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
     zoomRef.current = nz;
   }, []);
 
-  const zoomToFit = useCallback(() => {
-    zoomRef.current = 1;
-    offsetRef.current = { x: 0, y: 0 };
-  }, []);
-
-  const zoomIn = useCallback(() => {
-    zoomRef.current = Math.min(4, zoomRef.current * 1.3);
-  }, []);
-
-  const zoomOut = useCallback(() => {
-    zoomRef.current = Math.max(0.3, zoomRef.current * 0.7);
-  }, []);
-
   const isModalOpen = state.isMemberDisplayOpen || state.isUserEditOpen || state.isMemberAddOpen || state.isMemberEditOpen;
   const slideClass = isModalOpen ? " slide-out" : "";
 
@@ -459,7 +439,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
                       }}
                       title={wife.name}
                     >
-                      <img className="cmap-tooltip-member-photo" src={wifePhoto || wifeIcon} alt={wife.name} style={{ borderColor: wife.isAlive !== false ? "#4caf50" : "#f44336" }} />
+                      <MemberPortrait imgClassName="cmap-tooltip-member-photo" src={wifePhoto || wifeIcon} alt={wife.name} thamba={wife.thamba} imgStyle={{ borderColor: wife.isAlive !== false ? "#4caf50" : "#f44336" }} />
                       <span className="cmap-tooltip-member-name">{isEnglish ? wife.name : getHindiText(wife.name)}</span>
                     </div>
                     {/* Husband */}
@@ -471,7 +451,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
                       }}
                       title={husband.name}
                     >
-                      <img className="cmap-tooltip-member-photo" src={husbandPhoto || husbandIcon} alt={husband.name} style={{ borderColor: husband.isAlive !== false ? "#4caf50" : "#f44336" }} />
+                      <MemberPortrait imgClassName="cmap-tooltip-member-photo" src={husbandPhoto || husbandIcon} alt={husband.name} thamba={husband.thamba} imgStyle={{ borderColor: husband.isAlive !== false ? "#4caf50" : "#f44336" }} />
                       <span className="cmap-tooltip-member-name">{isEnglish ? husband.name : getHindiText(husband.name)}</span>
                     </div>
                   </div>
@@ -496,7 +476,7 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
                     }}
                     title={m.name}
                   >
-                    <img className="cmap-tooltip-member-photo" src={photoSrc || defaultIcon} alt={m.name} style={{ borderColor: m.isAlive !== false ? "#4caf50" : "#f44336" }} />
+                    <MemberPortrait imgClassName="cmap-tooltip-member-photo" src={photoSrc || defaultIcon} alt={m.name} thamba={m.thamba} imgStyle={{ borderColor: m.isAlive !== false ? "#4caf50" : "#f44336" }} />
                     <span className="cmap-tooltip-member-name">{isEnglish ? m.name : getHindiText(m.name)}</span>
                   </div>
                 );
@@ -507,20 +487,6 @@ const ConnectionMap = ({ state, dispatch, getHindiText, getHindiNumbers }) => {
       ) : null}
     </div>
   ) : null;
-
-  const renderZoomControls = (
-    <div className="cmap-zoom-controls">
-      <button className="cmap-zoom-btn" onClick={zoomIn} title="Zoom in">
-        +
-      </button>
-      <button className="cmap-zoom-btn" onClick={zoomOut} title="Zoom out">
-        -
-      </button>
-      <button className="cmap-zoom-btn" onClick={zoomToFit} title={t("zoomToFit")} style={{ fontSize: "10px" }}>
-        ⊞
-      </button>
-    </div>
-  );
 
   if (!graphData.nodes.length) {
     return (

@@ -202,7 +202,6 @@ export const buildVillageConnections = (db) => {
     const village = villages[0];
     const members = db[village];
     const connectionVillages = new Map();
-    const villageCount = members.length;
 
     const villageMembers = new Map();
     const addedIdsPerVillage = new Map();

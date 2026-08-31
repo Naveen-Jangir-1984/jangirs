@@ -293,6 +293,7 @@ const App = () => {
             gotra: action.member.gotra ? action.member.gotra : "",
             isAlive: action.member.isAlive ? "alive" : "dead",
             email: action.member.email && action.member.email.length ? action.member.email.toString().replaceAll(",", ", ") : "",
+            thamba: action.member.thamba ? action.member.thamba : "",
           },
           memberToBeEdited: action.member,
           isMemberEditOpen: true,
@@ -578,6 +579,7 @@ const App = () => {
             gender: "M",
             village: "",
             gotra: "",
+            thamba: "",
           },
           editInput: {
             id: "",
@@ -594,6 +596,7 @@ const App = () => {
             gotra: "",
             email: "",
             isAlive: "",
+            thamba: "",
           },
           memberToBeDisplayed: "",
           memberToBeAdded: "",
@@ -663,7 +666,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <BirthdayBanner events={todayEvents} images={state.images} isEnglish={!!state.user?.language} getHindiText={getHindiText} />
+      <BirthdayBanner events={todayEvents} images={state.images} isEnglish={!!state.user?.language} getHindiText={getHindiText} onMemberClick={state.user ? (member) => dispatch({ type: "openMemberDisplay", member }) : undefined} />
       <Loader loading={isServerDown === "Connecting..."} error={isServerDown !== "" && isServerDown !== "Connecting..." ? isServerDown : null} onRetry={handleRetry} loadingMessage="Connecting to server..." skeleton={initialSkeleton}>
         <Suspense fallback={initialSkeleton}>{state.user ? <Home state={state} dispatch={dispatch} members={members} getHindiText={getHindiText} getHindiNumbers={getHindiNumbers} getEnglishText={getEnglishText} getEnglishNumbers={getEnglishNumbers} /> : <SignIn state={state} dispatch={dispatch} />}</Suspense>
       </Loader>

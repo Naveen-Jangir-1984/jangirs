@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback } from "react";
 import { MaleProfileIcon, FemaleProfileIcon } from "../../utils/imageConstants";
+import MemberPortrait from "../../components/MemberPortrait";
 import { getEventsForMonth, getUpcomingEvents } from "../../utils/treeUtils";
 import { getPanchangForDate, getPanchangForMonth, getRashiNakshatraFromDob } from "../../utils/panchang";
 import useTranslation from "../../hooks/useTranslation";
@@ -259,7 +260,7 @@ const EventsCalendar = ({ state, dispatch, members, getHindiText, getHindiNumber
               const astro = evt.eventType === "birthday" && evt.member.dob ? getRashiNakshatraFromDob(evt.member.dob) : null;
               return (
                 <div key={i} className={`upcoming-event-card ${getEventClass(evt.eventType)} ${isListForSelectedDay ? "highlighted" : ""}`} onClick={() => handleMemberClick(evt.member)}>
-                  <img className={`event-member-pic ${isAlive ? "alive" : "deceased"}`} src={displayPic} alt={evt.member.name} style={{ transform: !memberDP && evt.member.gender === "F" ? "scaleX(-1)" : "none" }} />
+                  <MemberPortrait imgClassName={`event-member-pic ${isAlive ? "alive" : "deceased"}`} src={displayPic} alt={evt.member.name} thamba={evt.member.thamba} imgStyle={{ transform: !memberDP && evt.member.gender === "F" ? "scaleX(-1)" : "none" }} />
                   <div className="event-card-info">
                     <div className="event-card-name">{isEnglish ? evt.member.name : getHindiText(evt.member.name)}</div>
                     <div className="event-card-type">

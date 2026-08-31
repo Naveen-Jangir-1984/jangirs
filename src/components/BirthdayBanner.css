@@ -45,6 +45,11 @@
   border: 2px solid #fff;
   background: #fff;
   object-fit: cover;
+  cursor: default;
+}
+
+.birthday-banner-avatar.clickable img {
+  cursor: pointer;
 }
 
 .birthday-banner-text {

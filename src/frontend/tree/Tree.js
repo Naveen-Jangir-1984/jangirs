@@ -4,6 +4,7 @@ import { useMemberCounts, useImageMap } from "../../hooks/useMemberStats";
 import { collectMobileNumbers } from "../../utils/treeUtils";
 import useTranslation from "../../hooks/useTranslation";
 import GlobalSearchBar from "../../components/GlobalSearchBar";
+import MemberPortrait from "../../components/MemberPortrait";
 import "./Tree.css";
 
 const Tree = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, dulania, moruwa, tatija }) => {
@@ -59,7 +60,7 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, dul
         {isFirstInGeneration && <span style={{ position: "absolute", top: "-7px", left: "45px", fontSize: "8px", color: "black", zIndex: 1 }}>{isEnglish ? generation : getHindiNumbers(generation.toString())}</span>}
         <div className="member-card" style={{ backgroundColor: member.gender === "M" ? "#eee" : "#fdd" }} onClick={() => dispatch({ type: "toggle", id: member.id })}>
           <img className="toggle-icons" src={member.children?.length && member.isCollapsed ? PlusIcon : MinusIcon} alt={member.isCollapsed ? "+" : ""} loading="lazy" />
-          <img className="display-pic" style={{ borderColor: member.isAlive ? "green" : "#f55" }} src={memberDP || (member.gender === "M" ? MaleProfileIcon : FemaleProfileIcon)} alt={member.id} onClick={(e) => handleDisplayMember(e, member)} loading="lazy" />
+          <MemberPortrait imgClassName="display-pic" imgStyle={{ borderColor: member.isAlive ? "green" : "#f55" }} src={memberDP || (member.gender === "M" ? MaleProfileIcon : FemaleProfileIcon)} alt={member.id} thamba={member.thamba} onClick={(e) => handleDisplayMember(e, member)} />
           {member.name !== "" ? <div style={{ color: member.isAlive ? "black" : "red" }}>{isEnglish ? member.name : getHindiText(member.name)}</div> : ""}
           {state.user.role === "admin" && member.mobile?.length ? (
             <a className="mobile-icons" href={`tel: ${member.mobile[0]}`}>
@@ -76,16 +77,16 @@ const Tree = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, dul
                 const wifeDP = imageMap.get(wife.id);
                 return (
                   <div className="member-wife-card" key={wife.id}>
-                    <img
-                      className="display-pic"
-                      style={{ borderColor: wife.isAlive ? "green" : "#f55", transform: !wifeDP ? "scaleX(-1)" : "none" }}
+                    <MemberPortrait
+                      imgClassName="display-pic"
+                      imgStyle={{ borderColor: wife.isAlive ? "green" : "#f55", transform: !wifeDP ? "scaleX(-1)" : "none" }}
                       src={wifeDP || FemaleProfileIcon}
                       alt={wife.id}
+                      thamba={wife.thamba}
                       onClick={(e) => {
                         e.stopPropagation();
                         dispatch({ type: "openMemberDisplay", member: wife });
                       }}
-                      loading="lazy"
                     />
                     {wife.name !== "" ? <div style={{ color: wife.isAlive ? "black" : "red" }}>{isEnglish ? wife.name : getHindiText(wife.name)}</div> : ""}
                     {wife.village !== "" ? <div style={{ marginBottom: "5px", fontSize: "8px" }}>{isEnglish ? wife.village : getHindiText(wife.village, "village")}</div> : ""}

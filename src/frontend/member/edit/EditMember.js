@@ -5,9 +5,10 @@ import api from "../../../utils/api";
 import useTranslation from "../../../hooks/useTranslation";
 import useConfirm from "../../../hooks/useConfirm";
 import { getRashiNakshatraFromDob } from "../../../utils/panchang";
+import { THAMBA_OPTIONS } from "../../../utils/thamba";
 import "./EditMember.css";
 
-const EditMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglishText, getEnglishNumbers, onConfirmChange }) => {
+const EditMember = ({ state, dispatch, getHindiNumbers, onConfirmChange }) => {
   const isEnglish = state.user.language;
   const { t } = useTranslation(isEnglish);
   const { isOpen: confirmOpen, message: confirmMessage, showConfirm, handleConfirm, handleCancel } = useConfirm();
@@ -60,6 +61,7 @@ const EditMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglish
       gotra: editInput.gotra,
       mobile: mobileNumbers,
       email: emails,
+      thamba: editInput.thamba,
     };
 
     const data = await api.editMember(person, village);
@@ -121,6 +123,18 @@ const EditMember = ({ state, dispatch, getHindiText, getHindiNumbers, getEnglish
         {state.editInput.gender === "F" && <input type="text" name="gotra" value={state.editInput.gotra} onChange={handleInputChange} placeholder={t("Gotra")} />}
 
         <input type="email" name="email" value={state.editInput.email} onChange={handleInputChange} placeholder={t("Email")} />
+
+        <div className="thamba-field">
+          {/* <label htmlFor="thamba">Thamba</label> */}
+          <select id="thamba" name="thamba" value={state.editInput.thamba} onChange={handleInputChange}>
+            <option value="">{t("Select Thamba")}</option>
+            {THAMBA_OPTIONS.filter((option) => option.value !== "").map((option) => (
+              <option key={option.value} value={option.value}>
+                {t(option.label)}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <div className="edit-member-buttons">
           <button className="edit-member-button cancel" onClick={handleClose}>

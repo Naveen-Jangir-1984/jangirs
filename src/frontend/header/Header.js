@@ -6,7 +6,6 @@ import { ConfirmModal } from "../../components/modals";
 import "./Header.css";
 
 const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, onConfirmChange, activeView, setActiveView, onExportPDF, exportStatus }) => {
-  const [collapsed, setCollapsed] = useState(false);
   const [showNavIcons, setShowNavIcons] = useState(false);
   const breadcrumbRef = useRef(null);
   const isEnglish = state.user.language;
@@ -190,18 +189,6 @@ const Header = ({ state, dispatch, getHindiText, getHindiNumbers, isModalOpen, o
           {state.user.role === "admin" ? <img className="icons" src={UserEditIcon} alt="editUser" onClick={() => dispatch({ type: "openUserEdit" })} loading="lazy" /> : ""}
 
           <img className="signout" src={SignOutIcon} alt="signout" onClick={() => handleSignOut()} loading="lazy" />
-
-          {/* {activeView === "tree" && (
-            <button
-              onClick={() => {
-                setCollapsed(!collapsed);
-                if (collapsed) dispatch({ type: "reset-collapse" });
-                else dispatch({ type: "toggle-all", flag: false });
-              }}
-            >
-              {collapsed ? t("Close") : t("Open")}
-            </button>
-          )} */}
         </div>
       </div>
       <ConfirmModal isOpen={confirmOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={t(confirmMessage)} confirmText={t("yes")} cancelText={t("no")} />

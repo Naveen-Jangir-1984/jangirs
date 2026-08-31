@@ -14,6 +14,8 @@ const KEY_MAP = {
   Email: "email",
   Village: "village",
   Gotra: "gotra",
+  Thamba: "thamba",
+  "Select Thamba": "select thamba",
   Password: "password",
   Username: "username",
   ADD: "add",

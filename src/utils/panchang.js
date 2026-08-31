@@ -507,7 +507,6 @@ export const getPanchangForDate = (date) => {
 export const getPanchangForMonth = (year, monthIndex) => {
   const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
   const result = [];
-  const seenLunar = new Set();
   let prevSunRashi = null;
   for (let d = 1; d <= daysInMonth; d++) {
     const panchang = getPanchangForDate({ year, month: monthIndex + 1, day: d });
@@ -589,4 +588,6 @@ const monthName = (m) => ["January", "February", "March", "April", "May", "June"
 // Convenience date object builder (avoids timezone pitfalls of new Date(y, m, d))
 export const makeDate = (year, monthIndex, day) => ({ year, month: monthIndex + 1, day });
 
-export default { getPanchangForDate, getPanchangForMonth, getRashiNakshatraFromDob, parseDob, FESTIVALS };
+const panchangUtils = { getPanchangForDate, getPanchangForMonth, getRashiNakshatraFromDob, parseDob, FESTIVALS };
+
+export default panchangUtils;

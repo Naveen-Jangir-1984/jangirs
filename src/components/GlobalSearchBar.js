@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { flattenTree, fuzzySearch } from "../utils/searchUtils";
 import { MaleProfileIcon, FemaleProfileIcon } from "../utils/imageConstants";
+import MemberPortrait from "./MemberPortrait";
 import useTranslation from "../hooks/useTranslation";
 import "./GlobalSearchBar.css";
 
@@ -293,15 +294,6 @@ const GlobalSearchBar = ({ members, village, dispatch, getHindiText, isEnglish, 
     );
   };
 
-  const getVillageBadge = (sourceVillage) => {
-    const names = {
-      dulania: "Dulania",
-      moruwa: "Moruwa",
-      tatija: "Tatija",
-    };
-    return <span className={`global-search-village-badge ${sourceVillage}`}>{isEnglish ? names[sourceVillage] : getHindiText?.(names[sourceVillage], "village")}</span>;
-  };
-
   return (
     <div className="global-search-container">
       <div className="global-search-input-wrapper">
@@ -340,7 +332,7 @@ const GlobalSearchBar = ({ members, village, dispatch, getHindiText, isEnglish, 
               <div key={member.id} className={`global-search-result-item ${index === selectedIndex ? "selected" : ""}`} onClick={() => handleMemberClick(item)} onMouseEnter={() => setSelectedIndex(index)}>
                 <div className="global-search-result-main">
                   <span className="global-search-result-name" style={{ color: member.isAlive ? "inherit" : "#f55" }}>
-                    <img src={memberImg?.src || defaultIcon} alt="" style={{ width: "22px", height: "22px", borderRadius: "50%", objectFit: "cover", border: `2px solid ${borderColor}`, flexShrink: 0 }} loading="lazy" />
+                    <MemberPortrait src={memberImg?.src || defaultIcon} alt="" thamba={member.thamba} wrapperStyle={{ width: "22px", height: "22px", flexShrink: 0 }} imgStyle={{ width: "22px", height: "22px", borderRadius: "50%", objectFit: "cover", border: `2px solid ${borderColor}` }} />
                     <span>{highlightMatch(displayName, query)}</span>
                     {/* <span>{getVillageBadge(item.sourceVillage)}</span> */}
                     <span>{getFieldPreview(item.matchedFields)}</span>

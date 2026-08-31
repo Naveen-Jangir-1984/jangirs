@@ -207,6 +207,7 @@ export const editMemberInTree = (tree, updatedMember) => {
       gotra: updatedMember.gotra,
       email: updatedMember.email,
       mobile: updatedMember.mobile,
+      thamba: updatedMember.thamba,
     };
   }
 
